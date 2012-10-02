@@ -1,0 +1,56 @@
+\documentclass[a4paper, 11pt]{report}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx} % support graphics
+\usepackage{hyperref} % links in the document
+% \usepackage{fullpage} % smaller margins
+\usepackage{float} % position of figures
+\usepackage{color}
+
+% Use a new command to wrap std functionality
+\newcommand{\insertplot}[3][h]{
+	\begin{figure}[#1]
+	    \begin{center}
+	        \includegraphics[width=0.7\textwidth]{./figures/#2}
+	    \end{center}
+	    \caption{#3}
+	    \label{fig:#2}
+	\end{figure}
+}
+
+% Configure different colors
+\definecolor{darkred}{rgb}{0.5,0,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{darkblue}{rgb}{0,0,0.5}
+
+% Set hyperlink settings
+\hypersetup{ 
+	colorlinks = true, 
+	linkcolor=darkblue, 
+	filecolor=darkgreen, 
+	urlcolor=darkred , 
+	citecolor=darkblue 
+}
+
+\title{The best title in the world}
+\author{Øyvind Selmer \& Mikael Brevik}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\listoffigures
+
+
+
+\chapter{Introduction}
+% \input{introduction}
+
+
+\bibliographystyle{plainnat}
+\bibliography{bibliography}
+
+\end{document}
