@@ -1,3 +1,4 @@
+# Latex files
 *.aux
 *.bbl
 *.blg
@@ -25,3 +26,7 @@
 *.maf
 *.mtc
 *.mtc0
+
+
+# Node.js 
+node_modules/
