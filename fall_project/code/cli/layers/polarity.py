@@ -2,12 +2,12 @@
     The first layer of classifing. Check the polarity of a tweet.
 """
 
-from BaseLayer import *
+from base import *
 
-class Sentiment(BaseLayer):
+class Polarity(BaseLayer):
 
     def __init__(self, training_set_filename, filters, feature_extraction):
-        super(Sentiment, self).__init__(training_set_filename, filters, feature_extraction)
+        super(Polarity, self).__init__(training_set_filename, filters, feature_extraction)
 
     def classify(self, json_obj):
         pass
