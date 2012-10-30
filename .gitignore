@@ -27,11 +27,15 @@
 *.mtc
 *.mtc0
 
+# Mac OS X
+.DS_Store
 
 # Node.js 
 node_modules/
 
 
 
-# Python
+# Python - CLI
+fall_project/code/cli/build/
+fall_project/code/cli/dist/
 *.pyc
