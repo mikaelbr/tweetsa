@@ -1,3 +1,6 @@
+#!/usr/bin/python
+
+
 """
     Running a sentimental analysis on a tweet JSON Object.
 
