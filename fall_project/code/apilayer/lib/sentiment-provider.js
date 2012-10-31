@@ -30,7 +30,7 @@ SentimentAnalysis.prototype.get = function (tweet) {
   // Get sentiment
   var spawn = require('child_process').spawn;
   return spawn('python', [CONFIG.Sentiment.cliPath, tweet]).stdout;
-}
+};
 
 
 module.exports = new SentimentAnalysis();
