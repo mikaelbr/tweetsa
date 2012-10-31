@@ -13,15 +13,13 @@ var TwitterHandler = function () {
   }
 
   // Use emitter or not? Maybe emitting isn't the best solution for this.
-  events.EventEmitter.call(this);
+  // events.EventEmitter.call(this);
   this.init();
 };
 
-util.inherits(TwitterHandler, events.EventEmitter);
+// util.inherits(TwitterHandler, events.EventEmitter);
 
-
-// Private functions? 
-
+// Private functions
 var constructErrorJSON = function (msg, code) {
   code = code || 400;
   msg = msg || "Unknown error";
@@ -127,6 +125,37 @@ TwitterHandler.prototype.search = function (req, cb) {
   }
 
   return this;
+};
+
+
+TwitterHandler.prototype.filter = function (req, cb) {
+  var paramList = {
+    follow: false,
+    track: false,
+    locations: false,
+    delimited: false,
+    stall_warnings: false
+  };
+
+  var eventEmitter = new events.EventEmitter();
+
+  try {
+    var requestParams = generateParamList(req, paramList);
+
+    this.twit.stream('statuses/filter', requestParams, function(stream) {
+      stream.on('data', function (data) {
+        sentiment.get(data).on("data", function (classification) {
+          data.sentiment = constructSentimentJSON(classification);
+          eventEmitter.emit('data', data);
+        });
+      });
+    });
+  } catch (e) {
+    eventEmitter.emit('error', e);
+  }
+
+  return eventEmitter;
+
 };
 
 
