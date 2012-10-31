@@ -30,6 +30,9 @@
 # Mac OS X
 .DS_Store
 
+# Sublime 
+*.sublime-workspace
+
 # Node.js 
 node_modules/
 fall_project/code/apilayer/config/runtime.json
