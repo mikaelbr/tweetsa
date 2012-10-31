@@ -128,7 +128,7 @@ TwitterHandler.prototype.search = function (req, cb) {
 };
 
 
-TwitterHandler.prototype.filter = function (req, cb) {
+TwitterHandler.prototype.statusesFilter = function (req, cb) {
   var paramList = {
     follow: false,
     track: false,
@@ -139,20 +139,27 @@ TwitterHandler.prototype.filter = function (req, cb) {
 
   var eventEmitter = new events.EventEmitter();
 
-  try {
-    var requestParams = generateParamList(req, paramList);
+  var rp = generateParamList(req, paramList);
 
-    this.twit.stream('statuses/filter', requestParams, function(stream) {
-      stream.on('data', function (data) {
-        sentiment.get(data).on("data", function (classification) {
-          data.sentiment = constructSentimentJSON(classification);
-          eventEmitter.emit('data', data);
-        });
+  if (!rp.track && !rp.locations && !rp.follow) {
+    throw constructErrorJSON("No filter parameters found. Expect at least one parameter: follow track locations", 406);
+  } 
+
+  this.twit.stream('statuses/filter', rp, function(stream) {
+    stream.on('data', function (data) {
+      sentiment.get(data).on("data", function (classification) {
+        data.sentiment = constructSentimentJSON(classification);
+        eventEmitter.emit('data', data);
       });
     });
-  } catch (e) {
-    eventEmitter.emit('error', e);
-  }
+    stream.on('error', function (err, errorCode) {
+      eventEmitter.emit('error', constructErrorJSON(err, errorCode));
+    });
+    stream.on('end', function (response) {
+      // Handle a disconnection
+      eventEmitter.emit('end', response);
+    });
+  });
 
   return eventEmitter;
 

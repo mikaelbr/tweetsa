@@ -31,10 +31,24 @@ exports.search = function (req, res) {
 };
 
 exports.filterStream = function (req, res) {
-  var stream = twitter.filter(req);
   res.contentType('application/json');
+
+  
+  var stream;
+  try {
+    stream = twitter.statusesFilter(req);
+  } catch(e) {
+    responseHandle(e, null, res);
+    return;
+  }
 
   stream.on('data', function (item) {
     res.write(JSON.stringify(item) + '\n');
+  })
+  .on('error', function (error) {
+    responseHandle(error, null, res);
+  })
+  .on('end', function (response) {
+    res.end();
   });
 };
