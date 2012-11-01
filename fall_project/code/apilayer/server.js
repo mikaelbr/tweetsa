@@ -29,7 +29,7 @@ app.configure('production', function(){
 
 
 // Routes
-app.get('/search.json', routes.search);
+app.get('/search/tweets.json', routes.search);
 
 app.get('/statuses/filter.json', routes.filterStream);
 

@@ -107,14 +107,14 @@ TwitterHandler.prototype.search = function (req, cb) {
     var requestParams = generateParamList(req, paramList);
 
     var ostart = +new Date();
-    this.twit.search(requestParams.q, requestParams, function(err, data) {
+    this.twit.get("/search/tweets.json", requestParams, function(err, data) {
       if (err) throw err;
       var oend = +new Date();
 
       console.log("Twitter search done in " + (oend-ostart)/1000 + " seconds");
 
       var start = +new Date();
-      async.map(data.results, iterator, function (err, results) {
+      async.map(data.statuses, iterator, function (err, results) {
         var end = +new Date();
         console.log("Entire classification done in " + (end-start)/1000 + " seconds");
         cb(null, data);
