@@ -104,10 +104,10 @@ TwitterHandler.prototype.search = function (req, cb) {
   };
 
   try {
-    var requestParams = generateParamList(req, paramList);
+    var rp = generateParamList(req, paramList);
 
     var ostart = +new Date();
-    this.twit.get("/search/tweets.json", requestParams, function(err, data) {
+    this.twit.get("/search/tweets.json", rp, function(err, data) {
       if (err) throw err;
       var oend = +new Date();
 
