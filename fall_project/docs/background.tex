@@ -9,7 +9,7 @@ The NBC is based on an assumption that all the attribute values are conditionall
 v_{NB} = P(v_j) \amalg p(a_i|c_j)
 \end{equation}
 
-To classify an instance, the classifier needs to calculate the probability estimate $P$ for each attribute $a_i$, given the target value. It then assigns the target value as the one that gives the highest product of $P$ from the training data.
+To classify an instance, the classifier's using the Maximum Likelihood Estimation(MLE) method to find the ratio of an attribute value and a given target value in the same instance in the training corpus. This means that it has to calculate the probability estimate $P$ for each attribute $a_i$, given the target value. It then assigns the target value as the one that gives the highest product from multiplying all the probabilities $P$ from the training data.
 	\subsection{Twitter API}
 	\subsection{Nodejs}
 	\subsection{Natural Language Toolkit for Python}
