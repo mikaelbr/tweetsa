@@ -19,6 +19,13 @@
 	\end{figure}
 }
 
+% Author
+% Fill in here, and use commands in the text. 
+\newcommand{\thesisAuthor}{Øyvind Selmer \& Mikael Brevik}
+\newcommand{\thesisTitle}{The best title in the world}
+\newcommand{\thesisType}{Specialization project}
+\newcommand{\thesisDate}{fall 2012}
+
 % Configure different colors
 \definecolor{darkred}{rgb}{0.5,0,0}
 \definecolor{darkgreen}{rgb}{0,0.5,0}
@@ -38,19 +45,63 @@
 \date{\today}
 
 \begin{document}
-\maketitle
+\begin{titlepage}
+\noindent {\large \textbf{\thesisAuthor}}
+\vspace{2cm}
+
+\noindent {\Huge \thesisTitle}
+\vspace{2cm}
+
+\noindent \thesisType, \thesisDate 
+\vspace{2cm}
+
+\noindent Artificial Intelligence Group\\ Department of Computer and Information Science\\ Faculty of Information Technology, Mathematics and Electrical Engineering\\
+
+\vfill
+\begin{center}
+\includegraphics[width=3cm]{figs/NTNUlogo.pdf}
+\end{center}
+\end{titlepage}
+
+\thispagestyle{empty}
+
+\cleardoublepage
+
+\frontmatter
+
+\section*{Abstract}
+
+\clearpage
+
+\section*{Preface}
+\vfill
+
+\hfill Øyvind Selmer \& Mikael Brevik
+
+\hfill Trondheim, \today
+
+\clearpage
 
 \tableofcontents
 
 \listoffigures
 
+\listoftables
 
-
+\mainmatter
 \chapter{Introduction}
 \input{introduction}
 
 \chapter{Background Theory and Motivation}
 \input{background}
+
+\chapter{Results}
+
+\chapter{Evaluation and Conclusion}
+\section{Evaluation}
+\section{Discussion}
+\section{Contributions}
+\section{Future Work}
 
 \backmatter
 
