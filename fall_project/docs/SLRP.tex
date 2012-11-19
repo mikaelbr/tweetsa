@@ -24,41 +24,24 @@ The focus for this SLR is to search for papers with existing solutions for senti
 
 \subsection{Search Strategy}
 
-\begin{table}[htdp]
-\begin{center}
-\begin{tabular}{|c|c|}\hline
-
-ACM digital library & Mikael \\\hline
-IEEE Xplore & Mikael\\\hline
-ScienceDirect & Mikael\\\hline
-CiteSeer & Both\\\hline
-SpringerLink & Øyvind\\\hline
-ISI web of knowledge & Øyvind\\\hline
-Wiley Inter Science & Øyvind\\\hline
-
-\end{tabular}
-\caption{Domains used for search}
-\end{center}
-\label{tab:domains}
-\end{table}
-
-The different search domains used for the SLR, can be found in \autoref{tab:domains}. The source list is compiled based on the most common digital computer science archives. 
+The domain used for the search will be Google Scholar. Google Scholar aggregates results from different domains, and have some built in functions for searching over synonyms and sorting by citations. 
 
 A set of terms is defined closely based on the first research questions (\textbf{RQ1}). The terms are split into groups where one group consists of words that are synonyms or have similar semantic meaning.
 
 All search terms is placed in a table with the groups as columns and search term as a row. The entire search string will be constructed by using Boolean notation. All terms in a group are concatenated by the keyword $OR$, and the groups themselves are concatenated by the keyword $AND$. This search string is represented by the following formula: 
 
 \begin{verbatim}
-([G1, T1]) AND ([G2, T1] OR [G2, T2]) AND ([G3, T1] OR [G3, T2]) 
+([G1, T1] OR ([G1, T2] OR [G1, T3]) AND ([G2, T1] OR [G2, T2]) 
 \end{verbatim}
 
 \begin{table}[htdp]
 \begin{center}
-\begin{tabular}{|c|c|c|c|}\hline
+\begin{tabular}{|l|l|l|}\hline
 
-& Group 1 & Group 2 & Group 3 \\\hline
-Term 1 & Sentiment 1 & Analysis & Twitter \\\hline
-Term 2 &  & Classifier & Microblog \\\hline
+& Group 1 & Group 2  \\\hline
+Term 1 & Sentiment Analysis & Twitter \\\hline
+Term 2 & Sentiment Classification & Microblog \\\hline
+Term 3 & Opinion Mining &  \\\hline
 
 \end{tabular}
 \caption{Search terms and groupings}
