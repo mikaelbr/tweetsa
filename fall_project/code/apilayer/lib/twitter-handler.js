@@ -75,6 +75,13 @@ var iterator = function (item, callback) {
   });
 };
 
+var handleResponse = function(err, data, cb) {
+  if (err) return cb(err);
+  async.map(data, iterator, function (err, results) {
+    cb(null, data);
+  });
+};
+
 // Prototype methods
 TwitterHandler.prototype.init = function () {
   // Do some initialization.
@@ -106,19 +113,52 @@ TwitterHandler.prototype.search = function (req, cb) {
   try {
     var rp = generateParamList(req, paramList);
 
-    var ostart = +new Date();
     this.twit.get("/search/tweets.json", rp, function(err, data) {
-      if (err) throw err;
-      var oend = +new Date();
+      handleResponse(err, data.statuses, cb);
+    });
+  } catch (e) {
+    cb(e);
+  }
 
-      console.log("Twitter search done in " + (oend-ostart)/1000 + " seconds");
+  return this;
+};
 
-      var start = +new Date();
-      async.map(data.statuses, iterator, function (err, results) {
-        var end = +new Date();
-        console.log("Entire classification done in " + (end-start)/1000 + " seconds");
-        cb(null, data);
-      });
+
+TwitterHandler.prototype.retweets = function (req, cb) {
+  var paramList = {
+    id: true,
+    count: false,
+    trim_user: false
+  };
+
+  try {
+    var rp = generateParamList(req, paramList);
+
+    this.twit.get("/statuses/retweets/" + rp.id + ".json", rp, function(err, data) {
+      handleResponse(err, data, cb);
+    });
+  } catch (e) {
+    cb(e);
+  }
+
+  return this;
+};
+
+
+// etc...
+TwitterHandler.prototype.show = function (req, cb) {
+  var paramList = {
+    id: true,
+    include_my_retweet: false,
+    include_entities: false,
+    trim_user: false
+  };
+
+  try {
+    var rp = generateParamList(req, paramList);
+
+    this.twit.get("/statuses/show.json", rp, function(err, data) {
+      iterator(data, cb);
     });
   } catch (e) {
     cb(e);
