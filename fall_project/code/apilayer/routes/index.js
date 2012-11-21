@@ -21,52 +21,54 @@ exports.init = function (app) {
   app.get('/search/tweets.json', ct.search);
   app.get('/statuses/retweets/:id.json', ct.retweets);
   app.get('/statuses/show.json', ct.show);
+  app.get('/favorites/list.json', ct.favorites);
+
+
   app.get('/statuses/filter.json', ct.filterStream);
+  app.get('/statuses/sample.json', ct.sample);
+  app.get('/statuses/firehose.json', ct.firehose);
+
+
+  app.get('/lists/statuses.json', ct.lists);
+  app.get('/lists/show.json', ct.listsShow);
 };
 
 
 var responseHandle = function (err, data, res) {
-  res.contentType('application/json');
   if (err) {
     var errorCode = 200;
     if ( err.errors ) {
       errorCode = err.errors[0].code || 200;
     }
 
+    res.contentType('application/json');
     res.send(err, errorCode);
     return false;
   } 
 
-  res.send(data);
+  res.json(data);
 };
 
-APIController.prototype.search = function (req, res) {
-  var start = +new Date();
-  twitter.search(req, function (err, data) {
-    responseHandle(err, data, res);
-    var end = +new Date();
-    console.log("Done in " + (end-start)/1000 + " seconds");
-  });
-};
+var routesHelper = function (method) {
+  return function (req, res) {
+    var start = +new Date();
+    twitter[method](req, function (err, data) {
+      responseHandle(err, data, res);
+      var end = +new Date();
+      console.log("Done in " + (end-start)/1000 + " seconds");
+    });
+  }
+}
 
+APIController.prototype.search = routesHelper("search");
+APIController.prototype.retweets = routesHelper("retweets");
+APIController.prototype.show = routesHelper("show");
 
-APIController.prototype.retweets = function (req, res) {
-  var start = +new Date();
-  twitter.retweets(req, function (err, data) {
-    responseHandle(err, data, res);
-    var end = +new Date();
-    console.log("Done in " + (end-start)/1000 + " seconds");
-  });
-};
+APIController.prototype.favorites = routesHelper("favorites");
 
-APIController.prototype.show = function (req, res) {
-  var start = +new Date();
-  twitter.show(req, function (err, data) {
-    responseHandle(err, data, res);
-    var end = +new Date();
-    console.log("Done in " + (end-start)/1000 + " seconds");
-  });
-};
+APIController.prototype.lists = routesHelper("lists");
+APIController.prototype.listsShow = routesHelper("listsShow");
+
 
 APIController.prototype.filterStream = function (req, res) {
   res.contentType('application/json');
@@ -78,6 +80,39 @@ APIController.prototype.filterStream = function (req, res) {
     responseHandle(e, null, res);
     return;
   }
+
+  stream.on('data', function (item) {
+    res.write(JSON.stringify(item) + '\n');
+  })
+  .on('error', function (error) {
+    responseHandle(error, null, res);
+  })
+  .on('end', function (response) {
+    res.end();
+  });
+};
+
+APIController.prototype.sample = function (req, res) {
+  res.contentType('application/json');
+  
+  var stream = twitter.sample(req);
+
+  stream.on('data', function (item) {
+    res.write(JSON.stringify(item) + '\n');
+  })
+  .on('error', function (error) {
+    responseHandle(error, null, res);
+  })
+  .on('end', function (response) {
+    res.end();
+  });
+};
+
+
+APIController.prototype.firehose = function (req, res) {
+  res.contentType('application/json');
+  
+  var stream = twitter.firehose(req);
 
   stream.on('data', function (item) {
     res.write(JSON.stringify(item) + '\n');

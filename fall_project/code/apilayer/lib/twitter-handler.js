@@ -46,6 +46,7 @@ var generateParamList = function (req, params) {
     if ( typeof paramValue === "undefined") {
 
       if (isRequired) {
+        console.log(item);
         throw constructErrorJSON("Required field not given", 400);
       }
 
@@ -168,24 +169,107 @@ TwitterHandler.prototype.show = function (req, cb) {
 };
 
 
-TwitterHandler.prototype.statusesFilter = function (req, cb) {
+TwitterHandler.prototype.lists = function (req, cb) {
+
   var paramList = {
-    follow: false,
-    track: false,
-    locations: false,
-    delimited: false,
-    stall_warnings: false
+    list_id: false,
+    slug: false,
+    owner_screen_name: false,
+    owner_id: false,
+    since_id: false,
+    max_id: false,
+    count: false,
+    include_entities: false,
+    include_rts: false
   };
 
-  var eventEmitter = new events.EventEmitter();
+  try {
+    var rp = generateParamList(req, paramList);
 
-  var rp = generateParamList(req, paramList);
+    if (!rp.list_id && !rp.slug) {
+      cb(constructErrorJSON("No list parameter found. Expect at least one parameter: list_id slug", 406));
+    }
 
-  if (!rp.track && !rp.locations && !rp.follow) {
-    throw constructErrorJSON("No filter parameters found. Expect at least one parameter: follow track locations", 406);
-  } 
+    if (rp.slug && !rp.owner_screen_name && !rp.owner_id) {
+      cb(constructErrorJSON("No list owner parameter found. Expect at least one parameter: owner_screen_name owner_id", 406));
+    }
 
-  this.twit.stream('statuses/filter', rp, function(stream) {
+    this.twit.get("/lists/statuses.json", rp, function(err, data) {
+      handleResponse(err, data, cb);
+    });
+  } catch (e) {
+    cb(e);
+  }
+
+  return this;
+
+};
+
+TwitterHandler.prototype.listsShow = function (req, cb) {
+
+  var paramList = {
+    list_id: false,
+    slug: false,
+    owner_screen_name: false,
+    owner_id: false
+  };
+
+  try {
+    var rp = generateParamList(req, paramList);
+
+    if (!rp.list_id && !rp.slug) {
+      cb(constructErrorJSON("No list parameter found. Expect at least one parameter: list_id slug", 406));
+    }
+
+    if (rp.slug && !rp.owner_screen_name && !rp.owner_id) {
+      cb(constructErrorJSON("No list owner parameter found. Expect at least one parameter: owner_screen_name owner_id", 406));
+    }
+
+    this.twit.get("/lists/show.json", rp, function(err, data) {
+      handleResponse(err, data, cb);
+    });
+  } catch (e) {
+    cb(e);
+  }
+
+  return this;
+
+};
+
+
+
+TwitterHandler.prototype.favorites = function (req, cb) {
+
+  var paramList = {
+    user_id: false,
+    screen_name: false,
+    count: false,
+    since_id: false,
+    max_id: false,
+    include_entities: false
+  };
+
+  try {
+    var rp = generateParamList(req, paramList);
+
+    if (!rp.user_id && !rp.screen_name) {
+      cb(constructErrorJSON("No user parameter found. Expect at least one parameter: user_id. screen_name", 406));
+    } 
+
+    this.twit.get("/favorites/list.json", rp, function(err, data) {
+      handleResponse(err, data, cb);
+    });
+  } catch (e) {
+    cb(e);
+  }
+
+  return this;
+
+};
+
+
+var streamHelper = function (streamMethod, rp, eventEmitter) {
+  this.twit.stream(streamMethod, rp, function(stream) {
     stream.on('data', function (data) {
       sentiment.get(data).on("data", function (classification) {
         data.sentiment = constructSentimentJSON(classification);
@@ -200,9 +284,52 @@ TwitterHandler.prototype.statusesFilter = function (req, cb) {
       eventEmitter.emit('end', response);
     });
   });
+};
 
+TwitterHandler.prototype.statusesFilter = function (req) {
+  var paramList = {
+    follow: false,
+    track: false,
+    locations: false,
+    delimited: false,
+    stall_warnings: false
+  };
+
+  var rp = generateParamList(req, paramList);
+  if (!rp.track && !rp.locations && !rp.follow) {
+    throw constructErrorJSON("No filter parameters found. Expect at least one parameter: follow track locations", 406);
+  } 
+
+  var eventEmitter = new events.EventEmitter();
+  streamHelper.apply(this, ["statuses/filter", rp, eventEmitter]);
   return eventEmitter;
+};
 
+TwitterHandler.prototype.sample = function (req) {
+  var paramList = {
+    delimited: false,
+    stall_warnings: false
+  };
+
+  var eventEmitter = new events.EventEmitter()
+    , rp = generateParamList(req, paramList);
+
+  streamHelper.apply(this, ["statuses/sample", rp, eventEmitter]);
+  return eventEmitter;
+};
+
+TwitterHandler.prototype.firehose = function (req) {
+  var paramList = {
+    count: false,
+    delimited: false,
+    stall_warnings: false
+  };
+
+  var eventEmitter = new events.EventEmitter()
+    , rp = generateParamList(req, paramList);
+
+  streamHelper.apply(this, ["statuses/firehose", rp, eventEmitter]);
+  return eventEmitter;
 };
 
 
