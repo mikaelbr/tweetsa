@@ -28,10 +28,7 @@ app.configure('production', function(){
 });
 
 
-// Routes
-app.get('/search/tweets.json', routes.search);
-
-app.get('/statuses/filter.json', routes.filterStream);
+routes.init(app);
 
 app.listen(process.env.PORT || 3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
