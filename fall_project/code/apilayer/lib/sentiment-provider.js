@@ -36,11 +36,6 @@ SentimentAnalysis.prototype.get = function (tweet) {
       host: config.Sentiment.server_host,
       port: config.Sentiment.server_port,
       method: 'POST'
-      // ,
-      // headers: {
-      //     'Content-Type': 'text/plain',
-      //     'Content-Length': tweet.length
-      // }
   };
 
   // Set up the request
