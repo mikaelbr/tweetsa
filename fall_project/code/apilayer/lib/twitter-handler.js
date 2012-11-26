@@ -78,7 +78,11 @@ var iterator = function (item, callback) {
 
 var handleResponse = function(err, data, cb) {
   if (err) return cb(err);
+  var start = +new Date();
+
   async.map(data, iterator, function (err, results) {
+    var end = +new Date();
+    console.log("Entire classification took " + (end-start)/1000 + " seconds");
     cb(null, data);
   });
 };
@@ -114,7 +118,10 @@ TwitterHandler.prototype.search = function (req, cb) {
   try {
     var rp = generateParamList(req, paramList);
 
+    var start = +new Date();
     this.twit.get("/search/tweets.json", rp, function(err, data) {
+      var end = +new Date();
+      console.log("Twitter search/lookup took " + (end-start)/1000 + " seconds");
       handleResponse(err, data.statuses, cb);
     });
   } catch (e) {
@@ -267,9 +274,17 @@ TwitterHandler.prototype.favorites = function (req, cb) {
 
 };
 
+/****************************************************
+ *                     STREAMING                    *
+ ****************************************************/
 
 var streamHelper = function (streamMethod, rp, eventEmitter) {
   this.twit.stream(streamMethod, rp, function(stream) {
+
+    eventEmitter.destroy = function () {
+      stream.destroy();
+    };
+
     stream.on('data', function (data) {
       sentiment.get(data).on("data", function (classification) {
         data.sentiment = constructSentimentJSON(classification);
@@ -283,6 +298,7 @@ var streamHelper = function (streamMethod, rp, eventEmitter) {
       // Handle a disconnection
       eventEmitter.emit('end', response);
     });
+
   });
 };
 

@@ -1,6 +1,8 @@
 // Common configuration parameters
 module.exports = {
   Sentiment: {
+    server_host: "localhost",
+    server_port: "7000",
     cliPath:"/Users/mikaelbrevik/Dropbox/NTNU/Masters/repo/tweetsa/fall_project/code/cli/main.py"
   },
   Twitter: {

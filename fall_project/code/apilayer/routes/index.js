@@ -55,7 +55,7 @@ var routesHelper = function (method) {
     twitter[method](req, function (err, data) {
       responseHandle(err, data, res);
       var end = +new Date();
-      console.log("Done in " + (end-start)/1000 + " seconds");
+      console.log("Entire lookup, done in " + (end-start)/1000 + " seconds");
     });
   }
 }
@@ -72,7 +72,7 @@ APIController.prototype.listsShow = routesHelper("listsShow");
 
 APIController.prototype.filterStream = function (req, res) {
   res.contentType('application/json');
-  
+
   var stream;
   try {
     stream = twitter.statusesFilter(req);
@@ -80,6 +80,11 @@ APIController.prototype.filterStream = function (req, res) {
     responseHandle(e, null, res);
     return;
   }
+
+  // When the client stoppes listening, stop fetching data.
+  req.connection.addListener('close', function () {
+    stream.destroy();
+  });
 
   stream.on('data', function (item) {
     res.write(JSON.stringify(item) + '\n');
@@ -97,6 +102,11 @@ APIController.prototype.sample = function (req, res) {
   
   var stream = twitter.sample(req);
 
+  // When the client stoppes listening, stop fetching data.
+  req.connection.addListener('close', function () {
+    stream.destroy();
+  });
+
   stream.on('data', function (item) {
     res.write(JSON.stringify(item) + '\n');
   })
@@ -113,6 +123,11 @@ APIController.prototype.firehose = function (req, res) {
   res.contentType('application/json');
   
   var stream = twitter.firehose(req);
+
+  // When the client stoppes listening, stop fetching data.
+  req.connection.addListener('close', function () {
+    stream.destroy();
+  });
 
   stream.on('data', function (item) {
     res.write(JSON.stringify(item) + '\n');
