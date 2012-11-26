@@ -286,11 +286,15 @@ var streamHelper = function (streamMethod, rp, eventEmitter) {
     };
 
     stream.on('data', function (data) {
+      var start = +new Date(); 
       sentiment.get(data).on("data", function (classification) {
+        var end = +new Date();
+        console.log("Classification of stream item took " + (end-start)/1000 + " seconds");
         data.sentiment = constructSentimentJSON(classification);
         eventEmitter.emit('data', data);
       });
     });
+    
     stream.on('error', function (err, errorCode) {
       eventEmitter.emit('error', constructErrorJSON(err, errorCode));
     });
