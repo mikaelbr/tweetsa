@@ -7,12 +7,15 @@
 % \usepackage{fullpage} % smaller margins
 \usepackage{float} % position of figures
 \usepackage{color}
+\usepackage{calc}
+\usepackage{xargs}
+
 
 % Use a new command to wrap std functionality
-\newcommand{\insertplot}[3][h]{
-	\begin{figure}[#1]
+\newcommand{\insertfig}[3][0.7]{
+	\begin{figure}[h]
 	    \begin{center}
-	        \includegraphics[width=0.7\textwidth]{./figures/#2}
+	        \includegraphics[width=#1\textwidth]{./figs/#2}
 	    \end{center}
 	    \caption{#3}
 	    \label{fig:#2}
@@ -96,6 +99,8 @@
 \input{background}
 
 \chapter{Architecture}
+\input{architecture}
+
 
 \chapter{Conclusion}
 \section{Discussion}
