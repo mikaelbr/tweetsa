@@ -1,0 +1,2 @@
+simplejson>=2.6.2
+eventlet>=0.9.17
