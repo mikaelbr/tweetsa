@@ -1,0 +1,35 @@
+In this section we will describe the overall architecture and how the system works. First the general system will be described, and then the API Layer and Classification Server in turn.  
+
+To make the system as modularized and responsive as possible, the API layer was written in Node.js while the sentiment classification in the Python programming language. Both systems are continuously running servers. This allows us to have multiple services running, both for the API layer and the classifier, if needed for horizontal scalability. 
+
+\insertfig[0.8]{NetworkDiagram.pdf}{Architectural overview of the system. Client retrieves data from the Twitter API and uses the classification server to classify for sentiments.}
+
+A client makes a request to the API Layer, with the same interface as the Twitter API service. From there the API Layer will retrieve information from the Twitter API with HTTP requests, and iterate over all tweets received and send them in parallel to the classification server. When the classification server is done processing and classifying the tweet, it is sent back to the API Layer. When the API layer has received all the tweets, it responds the client with the same JSON structure as the Twitter API sends out, only with an additional attribute noting the tweets sentiment. This architecture and application flow can be seen in~\autoref{fig:NetworkDiagram.pdf}. 
+
+\section{API Layer Extension}
+
+
+\insertfig[1]{APILayerArcitechture.pdf}{Architectural overview of the API Layer. A request is handled by the server, sending it to routing where it is processed and sent to service look-up. If a service is found a request is sent to the Twitter API and the received data is extended to contain a sentiment by the Twitter Data Handler module. When all of the Twitter data is extended, the data is given as a response to the requesting client.}
+
+
+To be able to have a scalable and responsive solution, the API Layer was written using the Node.js platform. Since Node.js uses JavaScript as programming language, the JSON data retrieved from the Twitter REST and Streaming API is easily manipulated and passed around. 
+
+The API layer works a thin layer extending the Twitter API. This means that the interface used by Twitter, with all defined options and appropriate methods, is reflected the same through the API Layer. This way all documentation for the Twitter API also documents our API Layer. 
+
+
+
+When a request from a client is made, the request gets processed by the server and the routing module determines what the client is looking for. When the proper service is found the client specified parameters is sent directly to the Twitter API, using the Twitter Data Handler module (TDH). The TDH module then iterates over all found tweets, and sends them in parallel to the classification server. When a tweet is processed by the classification server the classified sentiment is sent back to the TBH module and the original tweet object is extended to contain a property with the sentiment. When all tweets are classified, the TBH module passes the extended twitter data to the render module. The render module renders the JSON data and sends it to the client with appropriate HTTP headers set. This application flow can be seen in \autoref{fig:APILayerArcitechture.pdf}.
+
+If there is an error during any part process the error is caught by the routing module, and the error is rendered as a JSON object, in the same manner as it would be by the Twitter API. 
+
+
+
+When using both the Twitter REST API and Streaming API, there is a high level of asynchronism. Especially when streaming, it is impossible to predict when the next tweet is received. Due to this the system designed needs to be able to handle this dynamic data flow. Node.js is an event-driven platform, and has a natural support for asynchronous data. 
+
+Every internal and external message passing in the API Layer is asynchronous. When requesting Twitter for data, an event is triggered when that data is ready. In this event all tweets are separately sent to the classifier. By sending all tweets separately in parallel, classification of the entire set of tweets does not take much longer than classifying only one tweet. 
+
+When streaming the TBH module opens a connection to the Twitter APi, but never close it. There is a continuously open connection to the Twitter server, which is feeding the TBH module with single tweets as they get stored in the Twitter system. From the first received tweet, a connection to the requesting client is opened by the render response module. This connection is also never closed. This way there is an open connection between the client and the API Layer and between the API Layer and the Twitter API. The API Layer works as a middleman, taking in tweets, classifying them, and streaming them to the client. By having this entire process asynchronous, the system can process data independently of when it is published.
+
+
+\section{Sentiment Analysis Classifier}
+
