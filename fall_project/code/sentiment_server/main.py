@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
-""" 
-    A POST Server running a sentimental analysis on a tweet 
+"""
+    A POST Server running a sentimental analysis on a tweet
     stringified JSON Object.
 
     Takes POST requests and returns a string with the classification.
@@ -9,8 +9,9 @@
 """
 import logging
 import sys
-import types
 import argparse
+import simplejson as json
+
 
 # Server used..
 import eventlet
@@ -26,19 +27,17 @@ pool = eventlet.GreenPool(size=10000)
 
 def init_app(classifier_class):
     """
-        Initialize the POST server functions. 
+        Initialize the POST server functions.
     """
-    # Using closure to provide classifier 
-    
+    # Using closure to provide classifier
     def get_sentiment(tweet):
-        return classifier_class.run(tweet)
+        return classifier_class.run(json.loads(tweet))
 
     def app(environ, start_response):
 
         if environ['REQUEST_METHOD'] != 'POST':
             start_response('403 Forbidden', [])
             return []
-        
         # the pile collects the result of a concurrent operation -- in this case,
         # the collection of feed titles
         pile = eventlet.GreenPile(pool)
@@ -47,14 +46,14 @@ def init_app(classifier_class):
             tweet = line.strip()
             if tweet:
                 pile.spawn(get_sentiment, tweet)
-
-        # since the pile is an iterator over the results, 
+        # since the pile is an iterator over the results,
         # you can use it in all sorts of great Pythonic ways
         tweets = '\n'.join(pile)
         start_response('200 OK', [('Content-type', 'text/plain')])
         return [tweets + "\r\n"]
 
     return app
+
 
 def str_to_class(field):
     """
@@ -73,20 +72,20 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(version='0.1', description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
 
-    parser.add_argument('-d', '--debug', 
-                dest='debug', 
+    parser.add_argument('-d', '--debug',
+                dest='debug',
                 action='store_true',
                 default=False,
                 help='Show debug data.')
 
-    parser.add_argument('-m', '--method', 
-                dest='method_name', 
+    parser.add_argument('-m', '--method',
+                dest='method_name',
                 action='store',
-                default='BasicBigram',
-                help='Show debug data. Default value "BasicBigram"')
+                default='AFINN',
+                help='Show debug data. Default value "AFINN"')
 
-    parser.add_argument('-p', '--port', 
-                dest='port', 
+    parser.add_argument('-p', '--port',
+                dest='port',
                 type=int,
                 action='store',
                 default=7000,

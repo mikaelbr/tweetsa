@@ -5,7 +5,7 @@
 import logging
 import random
 
-from BaseMethod import BaseMethod
+from base import BaseMethod
 
 class BasicBigram(BaseMethod):
     

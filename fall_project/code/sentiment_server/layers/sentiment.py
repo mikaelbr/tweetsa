@@ -10,4 +10,6 @@ class Sentiment(BaseLayer):
         super(Sentiment, self).__init__(training_set_filename, filters, feature_extraction)
 
     def classify(self, json_obj):
-        pass
+        tweet = self.filters(json_obj)
+        features = self.feature_extraction(tweet);
+        
