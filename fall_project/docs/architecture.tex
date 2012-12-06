@@ -16,13 +16,9 @@ To be able to have a scalable and responsive solution, the API Layer was written
 
 The API layer works a thin layer extending the Twitter API. This means that the interface used by Twitter, with all defined options and appropriate methods, is reflected the same through the API Layer. This way all documentation for the Twitter API also documents our API Layer. 
 
-
-
 When a request from a client is made, the request gets processed by the server and the routing module determines what the client is looking for. When the proper service is found the client specified parameters is sent directly to the Twitter API, using the Twitter Data Handler module (TDH). The TDH module then iterates over all found tweets, and sends them in parallel to the classification server. When a tweet is processed by the classification server the classified sentiment is sent back to the TBH module and the original tweet object is extended to contain a property with the sentiment. When all tweets are classified, the TBH module passes the extended twitter data to the render module. The render module renders the JSON data and sends it to the client with appropriate HTTP headers set. This application flow can be seen in \autoref{fig:APILayerArcitechture.pdf}.
 
 If there is an error during any part process the error is caught by the routing module, and the error is rendered as a JSON object, in the same manner as it would be by the Twitter API. 
-
-
 
 When using both the Twitter REST API and Streaming API, there is a high level of asynchronism. Especially when streaming, it is impossible to predict when the next tweet is received. Due to this the system designed needs to be able to handle this dynamic data flow. Node.js is an event-driven platform, and has a natural support for asynchronous data. 
 
@@ -33,3 +29,4 @@ When streaming the TBH module opens a connection to the Twitter APi, but never c
 
 \section{Sentiment Analysis Classifier}
 
+\insertfig[1]{ClassifierArcitechture}{Architectural overview of the classification server.}
