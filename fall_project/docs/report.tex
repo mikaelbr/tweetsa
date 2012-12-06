@@ -9,11 +9,13 @@
 \usepackage{color}
 \usepackage{calc}
 \usepackage{xargs}
+\usepackage{appendix}
+\usepackage{natbib}								% Correct citations
 
 
 % Use a new command to wrap std functionality
 \newcommand{\insertfig}[3][0.7]{
-	\begin{figure}[h]
+	\begin{figure}[ht]
 	    \begin{center}
 	        \includegraphics[width=#1\textwidth]{./figs/#2}
 	    \end{center}
@@ -42,6 +44,10 @@
 	urlcolor=darkred , 
 	citecolor=darkblue 
 }
+
+
+\bibliographystyle{apalike}
+\bibpunct{[}{]}{;}{a}{,}{,}
 
 \title{The best title in the world}
 \author{Mikael Brevik \& Øyvind Selmer}
@@ -109,6 +115,7 @@
 
 \backmatter
 
+\addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{plainnat}
 \bibliography{bibliography}
 
@@ -116,5 +123,6 @@
 \chapter{Appendices}
 
 \input{SLRP}
+
 
 \end{document}
