@@ -27,6 +27,9 @@
 *.mtc
 *.mtc0
 
+# Report pdf
+fall_project/docs/report.pdf
+
 # Mac OS X
 .DS_Store
 
