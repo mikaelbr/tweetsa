@@ -1,6 +1,125 @@
+In this section it is described how the structured literature review was conducted and the result of the review. The first section, \autoref{sec:slrintro}, covers the introduction and defines our research questions. The review method is described in \autoref{sec:slrmethod} and the result in \autoref{sec:slrresults}.
+
+
+\section{Introduction}
+\label{sec:slrintro}
+
+SLRs are still new in the field of computer science. There are few examples of a SLR in practise. The method we used is heavily inspired from the documentation paper by~\cite{paper:slrdesc} and the Master's thesis by~\cite{master:slr}. \\
+
+\noindent We defined our research questions as the following:
+
+\begin{description}
+
+\item[RQ1] What are some of the existing solutions for SA (sentiment analysis) in the Twitter Corpus.
+\item[RQ2] How does the different solutions found by addressing RQ1 compare to each other with respect to micro-blogs like Twitter.
+\item[RQ3] What is the strength of the evidence in support of the different solutions?
+\item[RQ4] What implications will these findings have when creating the application/system?
+
+\end{description}
+
+\section{Review method}
+\label{sec:slrmethod}
+
+In this section we will describe our process step by step according to the structured literature review. 
+
+\subsection{Planning}
+
+\begin{description}
+
+	\item[1. Identification of the need for a review] \hfill \\
+		Assumed that a review is needed for this project. 
+		
+	\item[2. Commissioning a review] \hfill \\
+		Assumed to be commissioned for this project, so no commission report was produced. 
+
+	\item[3. Specifying the research question(s)] \hfill \\
+		We defined the RQs based on what we felt needed to be researched when finding the state-of-the-art for sentiment analysis systems on Twitter. The RQs can be seen in \autoref{sec:slrintro}. 
+
+	\item[4. Developing a review protocol] \hfill \\
+		The review protocol was developed in the early stages of the project. After first revision it was evaluated by the project supervisor. The protocol was revised several times during the execution of the review.
+	
+
+	\item[5. Evaluating the review protocol] \hfill \\
+		The protocol was evaluated by the project supervisor. 
+
+\end{description}
+
+
+\subsection{Conducting}
+
+\begin{description}
+
+	\item[1. Identification of research] \hfill \\
+		We defined a series of keywords and synonyms to construct a search string to use. The search string was defined to find papers relevant to our research questions. Development of this search string is documented by~\autoref{apx:slrp}. The search string we used was:
+		
+		\begin{verbatim}
+		("Sentiment Analysis" OR "Sentiment Classification" 
+		OR "Opinion Mining") AND (Twitter OR Microblog)
+		\end{verbatim}
+		
+		For the search domain, we used Google Scholar. Google Scholar accumulates results from several different sources and gave many results for our search. Many of the results given corresponded with the studies handed out by our supervisor. 
+		
+		We limited the search to only give papers released after 2008. This is due to Twitter being as new as it is.
+		
+		The search resulted in 1060 papers, but after the first 8 pages of results (with 10 papers per page), we found that the papers got mostly irrelevant and we had limited resources and time for handling all 1060 papers. This resulted in a set of 80 papers, ready to go through the selection process.
+		
+		
+
+	\item[2. Selection of primary studies] \hfill \\
+		Firstly we defined a set of primary inclusion criteria. These criteria were applied to the title and abstract of the study. If a paper did not pass the criteria, it was dropped from the set. Secondly we defined secondary inclusion criteria. These criteria were checked up against the full text of the study. These inclusion criteria was documented in the protocol in~\autoref{apx:slrp}. 
+		
+		After both selection processes, we had a set of 23 papers. 
+
+	\item[3. Study quality assessment] \hfill \\
+		With the help of \cite{paper:slrdesc} we defined a set of 10 quality criteria. All of the criteria was documented in the protocol in~\autoref{apx:slrp}. Each of the papers in our set was assessed with all of these criteria. If the paper met the criteria, it would get 1 point, if met partly it would get 0,5 points, and if it did not meet the criteria it would get 0 points. 
+		
+		The papers with the lowest score did not get taken as much into consideration when defining the state-of-the-art. 
+		
+	\item[4. Data extraction and monitoring] \hfill \\
+		We defined a set of fields and information categories we thought were important in order to answer our research questions. These data features were used to generate a table of information. The information was retrieved by reading the papers and manually extracting the data we needed.
+	
+
+	\item[5. Data synthesis] \hfill \\
+		This step was included in the data extraction step.
+\end{description}
+
+% This probably shouldn't be here but in the SLR chapter..
+% For this report, the data synthesis is included as a part of the data extraction. 
+
+\subsection{Reporting}
+
+
+\begin{description}
+
+	\item[1. Specifying dissemination strategy] \hfill \\
+		As this is for a specialisation project, the result of the SLR is presented in this report.  
+
+	\item[2. Formatting the main report] \hfill \\
+		The SLR was written as a section in this specialisation project report. 
+
+	\item[3. Evaluating the report] \hfill \\
+		It is mandatory for an expert to review this report as well as a project supervisor, as it is a report for the specialization project.
+
+\end{description}
+
+\section{Results}
+\label{sec:slrresults}
+
+In this section the result of the systematic literature review is presented. In \autoref{sec:selected} all of the extracted data from the selected studies are presented. The assessed quality is also presented. 
+
+In \autoref{sec:stateofart} the result to our research questions are defined. 
+
+\subsection{Selected studies}
+\label{sec:selected}
+
+In this section all of the selected studies are presented in table form as a part of the data extraction step in the SLR. The results are split into four different tables. In addition to the data features defined in the review protocol, the total quality is added to be a part of the extraction table.
 
 \input{slr/extractiontable}
 
-
+In \autoref{tab:quality} all the individual points for the quality criteria is presented. The criteria is defined as a part of the review protocol.
 
 \input{slr/qualitytable}
+
+\subsection{State-of-the-art}
+\label{sec:stateofart}
+
