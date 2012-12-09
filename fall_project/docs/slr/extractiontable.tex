@@ -1,0 +1,107 @@
+
+\begin{sidewaystable}
+    \centering
+    \caption{Data extraction step, table 1/4. Showing data as per defined in the SLRP in attachment \autoref{SLRP}}
+    \scriptsize
+    \label{tab:extraction}
+    \begin{longtable}{|c|p{3cm}|p{4cm}|p{0.6cm}|p{1cm}|p{1.3cm}|p{4cm}|p{3cm}|p{0.3cm}|} 
+    
+    \hline
+    \textbf{\#ID} & \textbf{Authors} & \textbf{Title} & \textbf{Pub. Year} & \textbf{System name} & \textbf{ML Algorithm} & \textbf{Dataset} & \textbf{Findings} \& \textbf{Conclusions} & \textbf{QA} \\ 
+    \hline
+    
+    S1 & Hassan Saif, Yulan He \& Harith Alani & Semantic Smoothing for Twitter Sentiment Analysis & 2012 & - & NB & http://twittersentiment.appspot.com/ & Slight improvement by .3\% & 7,5 \\ \hline  
+    
+    S2 & Subhabrata Mukherjee, Akshat Malu, A.R. Balamurali, Pushpak Bhattacharyya & TwiSent: A Multistage System for Analyzing Sentiment in Twitter & 2012 & TwiSent & NB & C-Feel-IT dataset.  & Improvements with filtering/ normalization. Best: 66,69\% with manually annotated dataset  & 8,5 \\ \hline  
+    
+    S3 & Adam Bermingham \& Alan Smeaton & Classifying Sentiment in Microblogs:Is Brevity an Advantage? & 2010 & - & NB, SVM & "CLARITY dataset (removed due to Twitter terms), Pang \& Lee's movie corpus,TREC Blogs06 corpus and a collection of microreviews from Blippr" & Accuracy of 74.85\% using NBC and unigrams. Easier to classify microblogs than long texts  & 9,0 \\ \hline  
+    
+    S4 & Wilas Chamlertwat, Pattarasinee Bhattarakosol, Tippakorn Rungkasiri, Choochart Haruechaiyasak & Discovering Consumer Insight from Twitter via Sentiment Analysis & 2012 & MSAS & SVM, Lexical (non ML) & Self compiled, manually annotated 600 tweets & Sentiment Analysis can be useful for consumer research. No accuracy for classification.  & 8,0 \\ \hline  
+    
+    S5 & Dmitry Davidov, Oren Tsur \& Ari Rappoport & Enhanced Sentiment Learning Using Twitter Hashtags and Smileys & 2010 & - & HFW/CW & Dataset by Brendan O?Connor. Hashtags and smileys as training labels. & Hashtags and smilies works good for SA  & 6,5 \\ \hline  
+    
+    S6 & Murphy Choy, Michelle L.F. Cheong, Ma Nang Laik \& Koo Ping Shung & "A sentiment analysis of Singapore Presidential Election 2011 using Twitter data with census correction" & 2011 &  &  &  & "Given proper recalibration using census information, the twitter information can translate into pretty accurate information about the political landscape."  & 5,5 \\ \hline  
+    
+    S7 & Hassan Saif, Yulan He \& Harith Alani & Semantic Sentiment Analysis of Twitter & 2012 & Tweentor & NB & Stanford Twitter Sentiment Corpus, Health Care Reform, Obama-McCain Debate & Improvements by using semantic features on wide range topics. Acc: 83.9\%  & 9,0 \\ \hline  
+    
+    
+    \end{longtable}
+\end{sidewaystable}
+
+\begin{sidewaystable}
+    \centering
+	\caption{Data extraction step, table 2/4. Showing data as per defined in the SLRP in attachment \autoref{SLRP}}
+    \scriptsize
+    \begin{longtable}{|c|p{3cm}|p{4cm}|p{0.6cm}|p{1cm}|p{1.3cm}|p{4cm}|p{3cm}|p{0.3cm}|} 
+    
+    \hline
+    \textbf{\#ID} & \textbf{Authors} & \textbf{Title} & \textbf{Pub. Year} & \textbf{System name} & \textbf{ML Algorithm} & \textbf{Dataset} & \textbf{Findings} \& \textbf{Conclusions} & \textbf{QA} \\ 
+    \hline
+    
+    S9 & Lei Zhang, Riddhiman Ghosh, Mohamed Dekhil, Meichun Hsu \& Bing Liu & "Combining Lexicon-based and Learning-based Methods for Twitter Sentiment Analysis" & 2011 &  & SVM, Lexical &  & Outperforms approaches that use lexical or supervised methods alone  & 8,5 \\ \hline  
+    
+    
+    S11 & Alec Go, Lei Huang, Richa Bhayani & Twitter Sentiment Analysis & 2009 & Sentiment140 & NB, SVM & http://www.stanford.edu/~alecmgo/cs224n/ twitterdata.2009.05.25.c.zip & ~85\% - bias accuracy.  & 9,0  \\ \hline  
+    
+    S12 & James Spencer \& Gulden Uchyigit & Sentimentor: Sentiment Analysis of Twitter Data & 2012 & Sentimentor & NB &  & 52\% for three classes(pos,neg and objective) using bigrams without POS tagging  & 7,5 \\ \hline  
+    
+    S13 & Amir Asiaee T, Arindam Banerjee, Mariano Tepper \& Guillermo Sapiro  & If You are Happy and You Know It... Tweet & 2012 &  & NB,SVM,k-NN, DL &  & 82.95\% accuracy with NB on tweets about the weather  & 8,5 \\ \hline  
+    
+    S14 & Finn Arup Nielsen & "A new ANEW: Evaluation of a word list for sentiment analysis in microblogs" & 2011 &  & Lexical & Labeled language data created with Amazon Mechanical Turk(AMT) & The AFINN word list performs slightly better than ANEW in Twitter sentiment analysis  & 7,5 \\ \hline  
+    
+    S15 & Luciano Barbosa \& Junlan Feng & Robust sentiment detection on Twitter from biased and noisy data & 2010 & TwitterSA & SVM & Used Twendz, Twitter Sentiment and TweetFeel to collect data & By using data with noisy labels as input, they achieved a more abstract representation of Twitter messages than raw words.  & 8,5 \\ \hline  
+    
+    \end{longtable}
+\end{sidewaystable}
+
+\begin{sidewaystable}
+    \centering
+	\caption{Data extraction step, table 3/4. Showing data as per defined in the SLRP in attachment \autoref{SLRP}}
+    \scriptsize
+    \begin{longtable}{|c|p{2.5cm}|p{4cm}|p{0.6cm}|p{1cm}|p{1.3cm}|p{4cm}|p{3cm}|p{0.3cm}|} 
+        
+    \hline
+    \textbf{\#ID} & \textbf{Authors} & \textbf{Title} & \textbf{Pub. Year} & \textbf{System name} & \textbf{ML Algorithm} & \textbf{Dataset} & \textbf{Findings} \& \textbf{Conclusions} & \textbf{QA} \\ 
+    \hline
+
+    
+    S16 & Younggue Bae \& Hongchul Lee & "A Sentiment Analysis of Audiences on Twitter: Who Is the Positive or Negative Audience of Popular Twitterers? " & 2011 &  & Used LIWC2007 dictionary to extract sentiment & Collected tweets from celebrities and their mentions & & 5,5  \\ \hline  
+    
+    S17 & Mauro Cohen, Pablo Damiani, Sebastian Durandeu, Renzo Navas, Hern\'{a}n Merlino, Enrique Fern\'{a}ndez & Sentiment Analysis in Microblogging: A Practical Implementation & 2011 & - & NB & Manually gathered and annotated. 1500 tweets & Not as good accuracy as previous systems & 4,0 \\ \hline  
+    
+    S18 & Roberto Gonz\'{a}lez-Ib\'{a}\~{n}ez, Smaranda Muresan, Nina Wacholder & Identifying Sarcasm in Twitter: A Closer Look & 2011 & - & SMO, LogR & Data collected by using hashtag search. 900 tweets & Best result (75.89\%) was achieved in the polarity- based classification P-N. Automatic classification can be as good as human classification; however, the accuracy is still low & 9,5 \\ \hline  
+    
+    S19 & Akshi Kuma, Teeja Mary Sebastian & Sentiment Analysis on Twitter & 2012 & - & None. POS and own alg. &  & "The initial results show that it is a motivating technique." No stated accuracy & 7,5 \\ \hline  
+    
+    S20 & Alexander Pak, Patrick Paroubek & Twitter as a Corpus for Sentiment Analysis and Opinion Mining & 2010 & - & NB & http://www.stanford.edu/ ~alecmgo/cs224n/ twitterdata.2009.05.25.c.zip & ~63\% accuracy using bigrams and POS tagging & 10 \\ \hline  
+    
+
+    
+    
+    \end{longtable}
+\end{sidewaystable}
+
+\begin{sidewaystable}
+    \centering
+	\caption{Data extraction step, table 4/4. Showing data as per defined in the SLRP in attachment \autoref{SLRP}}
+    \scriptsize
+    \begin{longtable}{|c|p{3cm}|p{4cm}|p{0.6cm}|p{1cm}|p{1.3cm}|p{4cm}|p{3cm}|p{0.3cm}|} 
+    
+    \hline
+    \textbf{\#ID} & \textbf{Authors} & \textbf{Title} & \textbf{Pub. Year} & \textbf{System name} & \textbf{ML Algorithm} & \textbf{Dataset} & \textbf{Findings} \& \textbf{Conclusions} & \textbf{QA} \\ 
+    \hline
+    
+    S21 & Long Jiang, Mo Yu, Ming Zhou, Xiaohua Liu, Tiejun Zhao & Target-dependent Twitter Sentiment Classification & 2011 & - & SVM & "Subjectivity: Manually annotated 727 tweets for each class. Polarity: Manually annotated 268 tweets for each (pos, neg)" & "Subjectivity: 85.6\%. Polarity: 68.2\%" & 8,5 \\ \hline  
+    
+    S22 & Kun-Lin Liu, Wu-Jun Li \& Minyi Guo & Emoticon Smoothed Language Models for Twitter Sentiment Analysis & 2012 & ESLAM & Unigram, MLE & Sanders Corpus (5513 manually labeled tweets with one of the four different topics: Apple, Google, Microsoft, and Twitter) & ESLAM performs better than both emoteicons(distant supervised) and manually annotated tweets(fully supervised) alone & 10 \\ \hline  
+    
+
+    
+    S23 & Efthymios Kouloumpis, Theresa Wilson, Johanna Moore & Twitter Sentiment Analysis: The Good the Bad and the OMG! & 2011 & - & AdaBoost.MH & Gathered by hash, http://twittersentiment.blogspot.com and iSieve Corporation for evaluating data & Hash + Emoticons result in 75\% accuracy & 8,0 \\ \hline  
+    
+    S25 & Apoorv Agarwal, Boyi Xie, Ilia Vovsha, Owen Rambow, Rebecca Passonneau & Sentiment Analysis of Twitter Data & 2011 & - & SVM & "Data by NextGen Invent (NGI). Manually annotated 11,875 tweets, non-bias tweets" & A gain of 4\% on unigram 3-way classification. Acc: 60.83\% & 10 \\ \hline  
+    
+    S26 & Asli Celikyilmaz, Dilek Hakkani-T\"{u}r \& Junlan Feng  & Probabilistic Model-based Sentiment Analysis Of Twitter Messages & 2010 &  & Used LDA to extract a polarity lexicon & Collected 2 million tweets using Twitter search API from September 2009 to June 2010. Keywords related to mobile operation. Made two manually annotated subsets from this collection. & Relatively 10\% better F-measure with unigrams than baseline for classification with text normalization and all word unigram, bigram and trigrams as features. & 7,5 \\ \hline  
+    
+    \end{longtable}
+\end{sidewaystable}
