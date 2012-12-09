@@ -1,0 +1,33 @@
+
+For this project we introduced three main goals:
+\begin{itemize}
+\item Establish the state-of-the-art for sentiment analysis systems on Twitter
+\item Developed a way to distribute sentiment classifications.
+\item Develop an architecture for a sentiment analysis system by implementing a basic system.
+\end{itemize}
+
+In the first section of this chapter we will discuss whether we reached our first goal. In the second section we will discuss more about the second and third goals. 
+
+In the last section we will discuss our experiences with conducting a systematic literature review. 
+
+
+\subsection{Establishing the state-of-the-art}
+
+\subsection{Distributing sentiments and system architecture}
+
+When developing a way of distributing the sentiment data, we wanted a way that was natural for developers. For the developers to easily be able to understand our API and start using it straight away. API development is a demanding process, and many teams devote a lot of time finding the best way of doing it. Instead of trying to define our own interface from scratch, we decided that reflecting the existing Twitter API was the best way to go. By doing this, we also have all of the documentation of the API predefined and would not have to use time and resources of doing this our self. 
+
+The one problem we had with extending the Twitter API was the OAuth protocol. This protocol has a lot of documentation and it can be quite advanced. We first tried to make our API Layer just pass on the authentication data (API key and secret) to Twitter API, without us meddling with it. We found out that we would have to implement a OAuth server our self and send the key and secret onto Twitter through that server. This was a task we did not have the time to execute. 
+
+The API Layer is designed to work asynchronously and be very scalable. And in theory it should be. We have not done as much testing as we would like to do. If we had more time we would have stress tested the system with more simultaneously requesting clients. Both for the API Layer and the classification server. 
+
+By using only asynchronously requests and message sending, all communication between the API Layer and the Sentiment classification server happens in parallel. This means that even though there are 20 tweets lined up for classification, the total time will seem be only somewhat higher than the time for classifying one. The CPU will not be able to handle more parallel operations then it has cores. So while it seems like it is in parallel it is not entirely so. Given enough tasks the CPU will queue up the processes. This is still a lot better than doing all classifications sequentially. 
+
+We designed an architecture for doing sentiment classification based on other existing system. We feel that the architecture is robust and as modular as we want it to be. How ever, since we have not implemented an advanced sentiment classifier yet, we are unsure of whether or not the architecture will hold up if scaling the system. There might be, if done further work on the sentiment analysis system, some changes should be made to the overall architecture. 
+
+
+\subsection{Structured Literature Review}
+
+By performing a SLR we found that it was a good process for documenting our literature search and had some very good techniques for deciding what papers to include and build our work on. We also found that doing SLR is a very time consuming process. There are few examples of how to do a structured literature review in the computer science field, which, at first, made it hard to get a working knowledge of how to perform one. In a perfect situation we would re-do some of our processes after gaining more knowledge of how to conduct a review. This is something we did not have the time to do. 
+
+We feel we have used the SLR process to such a degree that we have gained sufficient knowledge to define the state-of-the-art for a sentiment analysis system on Twitter data. 
