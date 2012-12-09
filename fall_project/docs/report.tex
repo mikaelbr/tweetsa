@@ -29,9 +29,15 @@
 % Author
 % Fill in here, and use commands in the text. 
 \newcommand{\thesisAuthor}{Mikael Brevik \& Øyvind Selmer}
-\newcommand{\thesisTitle}{The best title in the world}
+\newcommand{\thesisTitle}{Twitter Sentiment Analysis: State-of-the-Art and an Architectural Implementation}
 \newcommand{\thesisType}{Specialization project}
 \newcommand{\thesisDate}{fall 2012}
+
+
+% PDF info
+\hypersetup{pdfauthor={\thesisAuthor}}
+\hypersetup{pdftitle={\thesisTitle}}
+\hypersetup{pdfsubject={\thesisType}}
 
 % Configure different colors
 \definecolor{darkred}{rgb}{0.5,0,0}
@@ -51,8 +57,8 @@
 
 % \bibpunct{[}{]}{;}{a}{,}{,}
 
-\title{The best title in the world}
-\author{Mikael Brevik \& Øyvind Selmer}
+\title{\thesisTitle}
+\author{\thesisAuthor}
 \date{\today}
 
 \begin{document}
@@ -82,9 +88,25 @@
 
 \section*{Abstract}
 
+Sentiment Analysis (or opinion mining) on Twitter has become very popular in later years. Sentiment and opinion data has a wide area of use, in such fields as marketing research, end-user product research, reviews and more. This wide area of use has made it a very appealing topic for research.
+
+For this report we conduct a literature search review to define the current state-of-the-art for sentiment analysis systems on Twitter data, and we propose architecture for building such a system. Our proposed system works as a layer on top of the Twitter API, and as such is very well documented for use and a lot of developers are already familiar with it. The API layer and the sentiment classification system works in a very asynchronous manner which allows for a very horizontally scalable system and parallel operations. 
+
+In this project we implement a very basic form for sentiment analysis, to work as a proof of concept for our architecture. The classification system is implemented with the use of the AFINN lexicon specifically designed for sentiment analysis on Twitter.
+
 \clearpage
 
 \section*{Preface}
+
+This specialization project is conducted as a part of a Master's thesis at the Norwegian University of Technology (NTNU) in Trondheim. We have used this project as a mean of gaining sufficient knowledge about and defining the state-of-the-art for sentiment analysis systems. This state-of-the-art are to be used as a basis for our Master's thesis in our last semester of NTNU. 
+
+
+We used a systematic literature review to gain knowledge and finding research papers. This was a new process for us, and we found it useful and educational, but a very demanding process. 
+
+
+We would like to thank our supervisor Björn Gambäck, and assisting supervisors Amitava Das and Lars Bungum for interesting feedback and for always being engaged in our project. Björn Gambäck always had educational papers on hand and helped us grasp the topic at hand.
+
+
 \vfill
 
 \hfill \thesisAuthor
@@ -116,8 +138,12 @@
 
 
 \chapter{Conclusion}
+
 \section{Discussion}
+
 \section{Contributions}
+\input{contributions}
+
 \section{Future Work}
 \input{futurework}
 
