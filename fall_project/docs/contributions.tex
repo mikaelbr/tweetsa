@@ -1,0 +1,5 @@
+For this project the main goal was to uncover the state-of-the-art for Sentiment Analysis systems by doing a systematic literature review, implementing a way to distribute sentiment data for tweets, and define an architecture for doing sentiment analysis. 
+
+We conducted a SLR and defined the state-of-the-art for SA systems. We also implemented a system for extending the existing Twitter API to contain information about the sentiment of a tweet. All communication in the API Layer is asynchronous and works good for both Twitter data streaming and the REST API. 
+
+The architecture for a sentiment analysis system was defined and a basic form for sentiment classification was implemented. The systems runs as a server, waiting for requests by the API Layer. The API Layer sends a request with an attached serialized tweet JSON object, and expects a string with the classification in return. Each request is handled in its own sub process, allowing for parallel calculation and support the API Layers asynchronous operations. 
