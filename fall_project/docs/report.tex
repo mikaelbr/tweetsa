@@ -9,7 +9,7 @@
 \usepackage{color}
 \usepackage{calc}
 \usepackage{xargs}
-\usepackage{appendix}
+\usepackage[titletoc]{appendix}
 \usepackage{natbib}								% Correct citations
 
 
@@ -113,16 +113,18 @@
 \section{Contributions}
 \section{Future Work}
 
-\backmatter
 
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{plainnat}
 \bibliography{bibliography}
 
 
-\chapter{Appendices}
+\begin{appendices}
+  
+  \input{SLRP}
+  
+\end{appendices}
 
-\input{SLRP}
 
 
 \end{document}
