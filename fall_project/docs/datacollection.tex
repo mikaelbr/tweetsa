@@ -22,10 +22,3 @@ Some approaches has also experimented with normalizing the tweets, and removing 
 
 \subsubsection*{Part-of-speech tagging}
 Part-Of-Speech (POS) tagging is a well-known process for marking the words of a sentence. Adjectives, adverbs and personal pronouns has shown good indicators for subjectivity, which has made POS tagging a good technique for filtering out objective tweets before the polarity classification. Early research on TSA showed that the challenging vocabulary made it harder to tag the tweets with a good accuracy. But in 2010 \cite{article:gimpel} made a POS tagger that aimed at marking tweets. It performed very well in their experiments (almost 90\% accuracy).
-
-\subsubsection*{Subjectivity Classification}
-The most used strategy for TSA is a two-step strategy where the first step is the subjectivity classification and the second step is the polarity classification. The goal for the subjectivity classification is to separate subjective and objective tweets.
-
-One of the most used techniques for this task is POS tagging. \cite{article:pak} found several indicators on subjectivity by counting word frequencies in a subjective set vs an objective set. They found that utterances and personal pronouns were the strongest indicators on subjectivity in their set. \cite{article:jiang} used normalization, POS tagging, word stemming and syntactic parsing for the subjectivity classification task. The idea was that normalization of features would give better recall.
-
-Previous research have also explored the use of noisy data and distant supervised methods such as emoticons and hashtags for the subjectivity classification, where any match from a given lexicon will classify the tweet as subjective.
