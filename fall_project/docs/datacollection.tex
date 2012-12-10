@@ -1,6 +1,6 @@
 Most of the data used in TSA research is collected through the Twitter API, either by searching for a certain topic/keyword or by streaming real-time data. Some datasets from related research on the Twitter platform has also been made available for other research projects, as an alternative to collecting a complete data set from scratch. Some approaches specialize on certain domains, while others query for tweets containing emoticons (\emph{':)', ':)'}) to train a cross-domain classifier~\citep{article:go}. The idea behind the emoticon approach is to make sure that the collected tweets contain subjectivity, but these training sets alone are limited to binary classification only (positive/negative classification).
 
-After the data has been collected it should go through a filtering process. First, all non-english tweets are removed, then the Twitter specific symbols and functions described in Table~\ref{tab:features} would normally be filtered out. As mentioned, a study by \cite{article:go} used ':)' and ':(' as a label for the polarity in their training data, and thus they did not remove these emoticons, but the URLs and usernames were replaced by a nomial ('URL' or 'USERNAME'). They also removed the query term from the text so it would not affect the classification.
+After the data has been collected it should go through a filtering process. First, all non-english tweets are removed, then the Twitter specific symbols and functions described in \autoref{tab:features} would normally be filtered out. As mentioned, a study by \cite{article:go} used ':)' and ':(' as a label for the polarity in their training data, and thus they did not remove these emoticons, but the URLs and usernames were replaced by a nomial ('URL' or 'USERNAME'). They also removed the query term from the text so it would not affect the classification.
 
 \cite{article:omg} used a hashtagged data set (HASH) in addition to an emoticon data set (EMOT) from http://sentiment140.com. The hashtagged set is a subset of the Edinburgh Twitter corpus which consists of 97 million tweets~\citep{article:edinburgh}.
 
@@ -14,8 +14,8 @@ RT & Retweet & Reposting another user’s tweet \\ \hline
 :),:-),$\wedge\wedge$ & Emoticon & Hashtags are used to tag a tweet to a certain topic. Have become popular recently, and is also used on other platforms \\ \hline
 URL & URL & Typically a link to an external resource, e.g a new article or a photo \\ \hline
 \end{tabular}
-\label{tab:features}
 \caption{Features that are usually removed from the tweets.}
+\label{tab:features}
 \end{table}
 
 Some approaches has also experimented with normalizing the tweets, and removing redundant letters, e.g “loooove” and “crazyyy”, that are often used in tweets. Redundant letters like this are sometimes used to express a stronger sentiment, and it has therefore been experimented with trimming down to one additional redundant letter(‘loooove’ = ‘loove’ instead of love), so the stronger sentiment can be taken into consideration by a score/weight adjustment for that feature.
