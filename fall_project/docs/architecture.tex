@@ -39,7 +39,7 @@ The classifier server can be initiated with different settings for classificatio
 
 The classification server uses a pool of child processes. For each receiving tweet, it spawns a new child from this pool and in this process the tweet is classified. This way the classification server can process several tweets in parallel, which helps the correlation with the API Layer.
 
-\insertfig[1]{ClassifierArcitechture}{Architectural overview of the classification server. The API Layer makes a request to the POST Server. Child processes are spawned per received tweet. Different Strategy Modules can be implemented and used. The strategies can use several text filters, normalization and feature extractions. The strategies use both the subjectivity and polarity module to classify the tweet. After retrieving the sentiment it is provided to the API Layer}
+\insertfig[1]{ClassifierArcitechture}{Architectural overview of the classification server. The API Layer makes a request to the POST Server. Child processes are spawned per received tweet. Different Strategy Modules can be implemented and used. The strategies can use several text filters, normalization and feature extractions. The strategies use both the subjectivity and polarity module to classify the tweet. If the tweet is classified as subjective, the classification is handed to the strategy module, if not, it is sent to the polarity classifier. After retrieving the sentiment it is provided to the API Layer}
 
 \subsection{Architectural Flow}
 
@@ -56,6 +56,6 @@ The polarity classifier works in a similar manner as with subjectivity. It uses 
 
 \subsection{Current Implementation}
 
-The current implementation uses a simpler form than the architecture described in this section. The classification is a simple, basic, approach. It does not use any machine learning. It uses the AFINN~\cite{article:afinn} lexicon to calculate sentiment strength. The sentiment is then returned directly to the API Layer's Sentiment Provider, without using the subjectivity or polarity classifier.
+The current implementation uses a simpler form than the architecture described in this section. The classification is a simple, basic, approach. It does not use any machine learning. It uses the AFINN lexicon by~\cite{article:afinn} to calculate sentiment strength. The sentiment is then returned directly to the API Layer's Sentiment Provider, without using the subjectivity or polarity classifier.
 
 The strategy modules has most of the responsibilities of the system. To explore different techniques for doing sentiment analysis, a new strategy module can be developed using existing code for filtering and feature extraction. 

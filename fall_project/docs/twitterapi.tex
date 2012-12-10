@@ -4,7 +4,7 @@ Twitter uses OAuth for authentication. OAuth provides a way for clients to acces
 
 After migrating to version 1.1 of their API, Twitter now has a limit on the number of requests an end user can do. As end users authenticate using OAuth, Twitter can identify them and limit their access if overused. The limitations are divided into 15 minute intervals. Some services on the API are limited to 15 requests per time window, other services are limited by 180 requests. E.g. the search service is limited by 180 requests, but the service for retrieving tweets from a Twitter list is limited by 15.~\citep{site:twitterlimit}
 
-Almost any aspect of Twitter is covered by the REST API. The most interesting parts are the ones to retrieve tweets in various ways. There are methods for retrieving entire user time-lines, mentions of a user, favourite tweets for a user, tweets based on geographical annotated locations, and so on.~\citep{site:twitterapi}
+Almost every aspect of Twitter is covered by the REST API. The most interesting parts are the ones to retrieve tweets in various ways. There are methods for retrieving entire user time-lines, mentions of a user, favourite tweets for a user, tweets based on geographical annotated locations, and so on.~\citep{site:twitterapi}
 
 There are also real time streaming services in the API. Streams are not based on the Twitter REST API. For streaming a persistent HTTP connection is opened to the API. This way a client would not have to continuously poll the REST API to register changes or new data. A client would be provided by real time data from Twitter, but only have one single connection opened.~\citep{site:twitterstream}
 
