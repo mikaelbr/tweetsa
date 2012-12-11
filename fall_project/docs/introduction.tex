@@ -19,4 +19,12 @@ In this section the main goals for this project are described. As this assignmen
 	\subsection{API layer with Twitter API integration}
 	Twitter offers a well documented Representational State Transfer (REST) Application Programming Interface (API) to obtain data from their corpus. To make our system easy to use for developers already using the Twitter platform, an API that is compatible with the Twitter API should be implemented. As an extension to the output of the already existing API, a \emph{sentiment} attribute will be added to the returned tweet. This attribute should hold the result of the sentiment classification.
 	
-	
+
+\section{Twitter}
+
+Twitter has become a popular social media service often referred to as a micro-blogging site. On Twitter users can post messages of 140 characters, called tweets, on their own \emph{timeline}. A timeline is a collection of all user submitted tweets and all tweets from the other users a that user is connected to (following). Tweets can be categorized by using hashtags. A hashtag for instance look like \emph{\#happy} or \emph{\#obama2012}. By annotating the tweets with this tag, users can find similar tweets across Twitter.
+
+Twitter has grown very rapidly and the usage statistics is ever changing. In June 2012, there were posted over 400 million tweets every day~\citep{site:twitterusage}. With over 500 million users, where about 170 million of these are active ones~\citep{site:users}, it is safe to say that Twitter offers a lot of data.
+
+
+The informal nature of Twitter leads to a lot of sentiments being posted and this has led Twitter to being a gold mine for SA. Many systems have used Twitter as corpus for sentiment analysis. The first one to really use Twitter as a corpus was Sentiment140 (previously known as TwitterSentiment) by Stanford students~\citep{article:go}. After this paper, and as Twitter grew in popularity, many other systems have been developed. Some of the later ones are TwiSent and C-Feel-IT~\citep{mukherjee2012twisent}, Tweenator~\citep{saif2012semantic} and MSAS~\citep{chamlertwat2012discovering}.
