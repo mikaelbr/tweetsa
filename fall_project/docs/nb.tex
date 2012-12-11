@@ -1,5 +1,4 @@
-\subsubsection{Naive Bayes Classifier}
-		The naive Bayes classifier (NB) is a practical Bayesian learning model that are easy to understand and implement. For some classification tasks it has proven to be equally performing to more complex machine learning algorithms like artificial neural networks (ANN) and decision trees(DT)[!ref]. NB is used for learning cases where an instance $x$ consists of a number of attribute-value pairs, and the target function $f(x)$ consists of a finite number of values from a set $V$.
+The naive Bayes (NB) classifier is a practical Bayesian learning model that are easy to understand and implement. For some classification tasks it has proven to be equally performing to more complex machine learning algorithms like artificial neural networks (ANN) and decision trees (DT). NB is used for learning tasks where an instance $x$ consists of a number of attribute-value pairs, and the target function $f(x)$ consists of a finite number of values from a set $V$.
 
 The NB classifier is based on an assumption that all the attribute values are conditionally independent given the target value of the instance.
 \begin{equation}
@@ -8,3 +7,5 @@ v_{NB} = P(v_j) \amalg p(a_i|v_j)
 \end{equation}
 
 To classify an instance, the classifier use the Maximum Likelihood Estimation (MLE) method to find the ratio of an attribute value and a given target value in the same instance in the training corpus. This means that it has to calculate the probability estimate $P$ for each attribute $a_i$, given the target value. It then assigns the target value as the one that gives the highest product from multiplying all the probabilities $P$ from the training data.
+
+The assumption of conditionally independent attributes makes this classifier best suited for handling bag-of-words models, which is a collection of unigrams.
