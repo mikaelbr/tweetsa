@@ -13,8 +13,11 @@
 \usepackage{natbib}								% Correct citations
 \usepackage{rotating}
 \usepackage{longtable}
+\usepackage{supertabular}
 \usepackage{cleveref}
+\usepackage{lscape}
 
+\usepackage{array}
 
 % Use a new command to wrap std functionality
 \newcommand{\insertfig}[3][0.7]{
@@ -26,6 +29,20 @@
 	    \label{fig:#2}
 	\end{figure}
 }
+
+
+\makeatletter
+\let\mcnewpage\newpage
+\newcommand{\changenewpage}{%
+  \renewcommand\newpage{%
+    \if@firstcolumn
+      \hrule width\linewidth height0pt
+      \columnbreak
+    \else
+      \mcnewpage
+    \fi
+}}
+\makeatother
 
 % Author
 % Fill in here, and use commands in the text. 
