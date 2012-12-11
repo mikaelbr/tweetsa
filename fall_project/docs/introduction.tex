@@ -1,12 +1,11 @@
-\section{Background and Motivation}
-	\subsection{Task Description}
+\section{Task Description}
 
 \begin{center} \Large Sentiment Analysis using the Twitter Corpus \end{center}
-\begin{normalsize}
+\begin{quotation}
 In recent years, micro-blogging has become prevalent, and the Twitter API allows users to collect a corpus from their micro-blogosphere. The posts, named tweets are limited to 140 characters, and are often used to express positive or negative emotions to a person or product.
 
 In this project, the goal is to use the Twitter corpus to do sentiment analysis. Pak and Paroubek (2010) have shown how to do this using frameworks like Support Vector Machines (SVMs) and Conditional Random Fields (CRFs), benchmarked with a Naive Bayes Classifier baseline. They were unable to beat the baseline, and the goal of this project will be to experiment with these and other machine learning frameworks as Maximum Entropy learners to try to beat the baseline.
-\end{normalsize}
+\end{quotation}
 
 \section{Project goals}
 In this section the main goals for this project are described. As this assignment was intended for a master thesis, we had to scope down the goals to fit the time schedule for a specialization project.
@@ -15,9 +14,9 @@ In this section the main goals for this project are described. As this assignmen
 	A lot of work has already been done in the field of sentiment analysis, also when using the Twitter corpus. To be able to make a contribution to this work, we have to do research to gather knowledge about existing solutions and their performance.
 
 	\subsection{Server for sentiment classification}
-	Design and implement a highly modular python server with a basic form of classification. This system will work as a foundation for implementing the complete classification system in the proceeding master thesis. For that reason it should be as modular as possible, to make it easy to replace different parts of the system when necessary.
+	Design and implement a highly modular python server with a basic form of classification. This system will work as a foundation for implementing the complete classification system in the up-coming master thesis. For that reason it should be as modular as possible, to make it easy to replace different parts of the system when necessary.
 
-	\subsection{API layer with twitter API integration}
-	Twitter offers a well documented REST API to obtain data from their corpus. To make our system easy to use for developers already using the Twitter platform, an API that is compatible with the Twitter API should be implemented. And as an extension to the already existing API, a \emph{sentiment} attribute will be added to the returned tweet. This attribute should hold the result of the sentiment classification.
+	\subsection{API layer with Twitter API integration}
+	Twitter offers a well documented Representational State Transfer (REST) Application Programming Interface (API) to obtain data from their corpus. To make our system easy to use for developers already using the Twitter platform, an API that is compatible with the Twitter API should be implemented. As an extension to the output of the already existing API, a \emph{sentiment} attribute will be added to the returned tweet. This attribute should hold the result of the sentiment classification.
 	
 	
