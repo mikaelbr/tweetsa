@@ -18,7 +18,7 @@ To be able to have a scalable and responsive solution, the API Layer was written
 
 The API Layer works as a thin layer extending the Twitter API. This means that the interface used by Twitter, with all defined options and appropriate methods, is reflected through the API Layer. The main benefit is that all documentation for the Twitter API also documents most of this extended API Layer.
 
-For authentication, an application is registered with a developer account at the Twitter Developer site. This creates a set of OAuth token and secret, which is used to identify the application, and to gain access to the Twitter data. All data are retrieved using the OAuth access for the application, not at user level. 
+For authentication, an application is registered with a developer account at the Twitter Developer site. This creates OAuth credentials, which is used to identify the application, and to gain access to the Twitter data. For this implementation, the data is retrieved using the OAuth access for the application, not at user level. 
 
 \subsection{Architectural Flow}
 
@@ -37,7 +37,7 @@ If there is an error during any part of the process, the error is caught by the 
 
 When using both the Twitter REST API and Streaming API, there is a high level of asynchronism. Especially when streaming, it is impossible to predict when the next tweet is received. Due to this the system designed needs to be able to handle this dynamic data flow. Node.js is an event-driven platform and has a natural support for asynchronous data. 
 
-All internal and external message passing in the API Layer is asynchronous. When requesting Twitter for data, an event is triggered when that data is ready. In this event all tweets are separately sent to the classifier. By sending all tweets separately in parallel, classification of the entire set of tweets does not take much longer than classifying only one tweet. 
+All internal and external message passing in the API Layer is asynchronous. When requesting Twitter for data, an event is triggered when that data is ready and all tweets are separately sent to the classifier. By sending all tweets separately in parallel, classification of the entire set of tweets does not take much longer than classifying only one tweet. 
 
 When streaming, the TBH module opens a connection to the Twitter API, but never closes it. There is a continuously open connection to the Twitter server, which is feeding the TBH module with single tweets as they get stored in the Twitter system. From the first received tweet, a connection to the requesting client is opened by the render response module. This connection will also remain open. In this way there is an open connection between the client and the API Layer as well as between the API Layer and the Twitter API. The API Layer works as a middleman, taking in tweets, classifying them, and streaming them to the client. By running this entire process asynchronously, the system can process data independently of when it is published.
 
@@ -46,11 +46,11 @@ When streaming, the TBH module opens a connection to the Twitter API, but never 
 
 Python is computationally stronger than Node.js in many ways. Additionally, it is much more mature. There are a lot of stable, well documented, packages for handling various tasks. Natural Language Toolkit (NLTK) is one of these packages. NLTK is a widely used package for natural language processing and has integrated modules to handle well-known techniques such as lexica and n-gram feature selection. Thus it is a good choice for the process of sentiment analysis. As a dynamic typed language, Python also allows for rapid development and prototyping. These attributes are some of the reasons Python is a good fit for the present system. 
 
-The Sentiment Analysis Classifier system runs as a server waiting for requests. The HTTP method POST is used for a client to send a \textit{stringified} tweet object to the server. A stringified tweet object is a serialized JSON object represented by a string. The classification server converts this string to a Python dictionary. The response will be a string with the sentiment classification, that is, either \textit{positive}, \textit{neutral} or \textit{negative}. The classification scheme can be extended if necessary. 
+The Sentiment Analysis Classifier system runs as a server waiting for requests. The HTTP method POST is used for a client to send a \textit{stringified} tweet object to the server. Stringify is a JSON method for returning a serialized object represented by a string. The classification server converts this string to a Python dictionary. The response will be a string with the sentiment classification, that is, either \textit{positive}, \textit{neutral} or \textit{negative}. The classification scheme can be extended if necessary. 
 
 The classifier server can be initialized with different settings for classification strategy, what port to run at, what training data to use, and whether or not to show debug data. This allows for multiple servers running at the same time, with different settings. Running multiple server instances makes it easier to compare different classification strategies. Two servers could run side by side, and a test framework could use the two servers to classify the same tweets for a comparison.
 
-The classification server uses a pool of child processes. For each receiving tweet, it spawns a new child from this pool and in this process the tweet is classified. This way the classification server can process several tweets in parallel, which helps the correlation with the API Layer.
+The classification server uses a pool of child processes. For each receiving tweet, it spawns a new child from this pool and in this process the tweet is classified. This way the classification server can process several tweets in parallel, which helps the one-to-one relationship between a tweet on the classification server and the same tweet on the API Layer.
 
 \subsection{Architectural Flow}
 
@@ -58,7 +58,7 @@ The classification server uses a pool of child processes. For each receiving twe
  \begin{center}
      \includegraphics[width=0.8\textwidth]{./figs/ClassifierArcitechture.pdf}
  \end{center}
- \caption[Architectural overview of the classification server.]{Architectural overview of the classification server. The API Layer makes a request to the POST Server. Child processes are spawned per received tweet. Different Strategy Modules can be implemented and used. The strategies can use several text filters, normalization and feature extractions. The strategies use both the subjectivity and polarity module to classify the tweet. If the tweet is classified as subjective, the classification is handed to the strategy module, if not, it is sent to the polarity classifier. After retrieving the sentiment it is provided to the API Layer.}
+ \caption[Architectural overview of the classification server.]{Architectural overview of the classification server. The API Layer makes a request to the POST Server. Child processes are spawned per received tweet. Different Strategy Modules can be implemented and used. The strategies can use several text filters, normalization and feature extractions. The strategies use both the subjectivity and polarity module to classify the tweet. If the tweet is classified as subjective, the classification is handed to the strategy module, if not, the tweet is sent to the polarity classifier. After classifying the tweet, the polarity classifier returns the classification to the strategy module.}
  \label{fig:ClassifierArcitechture}
 \end{figure}
 
