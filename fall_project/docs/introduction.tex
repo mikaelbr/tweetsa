@@ -1,5 +1,6 @@
 \section{Task Description}
-The task was given by Björn Gambäck at IDI, NTNU:
+\label{sec:task}
+The task was given by Björn Gambäck and Lars Bungum at IDI, NTNU:
 \begin{center} \Large Sentiment Analysis using the Twitter Corpus \end{center}
 \begin{quotation}
 In recent years, micro-blogging has become prevalent, and the Twitter API allows users to collect a corpus from their micro-blogosphere. The posts, named tweets are limited to 140 characters, and are often used to express positive or negative emotions to a person or product.
@@ -8,14 +9,14 @@ In this project, the goal is to use the Twitter corpus to do sentiment analysis.
 \end{quotation}
 
 \section{Motivation}
-The growth in Twitter users and status updates (tweets) over the last years has made Twitter an attractive platform for companies, marketeers, politicians an others who are looking for feedback. Manually collecting information like this is a tedious if not impossible task.
+The growth in Twitter users and status updates (tweets) over the last years has made Twitter an attractive platform for companies, marketeers, politicians and others who are looking for feedback. Manually collecting information like this is a tedious if not impossible task.
 
-The informal text on social media represents challenges for traditional natural language processing systems. These texts are short, and  often contain misspellings, slang and abbreviations. The challenge of handling such a vocabulary has only been researched over the last few years.
+The informal texts on social media represent challenges for traditional natural language processing systems. These texts are short, and  often contain misspellings, slang and abbreviations. The challenge of handling such a vocabulary has only been researched over the last few years.
 
-Another interesting feature is that Twitter messages offers a lot of meta data and information about its origin, such as location, language and a lot more. These data could for example be used to filter out and classify tweets from a certain event, like a festival or a conference.
+Another interesting feature is that Twitter messages offer a lot of meta data and information about their origin, such as location, language, and more. These data could for example be used to filter out and classify tweets from a certain event, like a festival or a conference.
 
 \section{Project goals}
-In this section the main goals for this project are described. As this assignment was intended for a Master's thesis, this specialization project is used as a pre-study.
+In this section the main goals for this project are described. As the assignment~\autoref{sec:task} was intended for a Master's thesis, this specialization project is used as a pre-study.
 
 	\subsection{Research on state-of-the-art sentiment analysis}
 	A lot of work has already been done in the field of sentiment analysis, also when using the Twitter corpus. To be able to make a contribution to this work, we have to do research to gather knowledge about existing solutions and their performance.
@@ -33,9 +34,9 @@ In this section the main goals for this project are described. As this assignmen
 
 \section{Twitter}
 
-Twitter has become a popular social media service often referred to as a micro-blogging site. On Twitter users can post messages of 140 characters, called tweets, on their own \emph{timeline}. A timeline is a collection of all user submitted tweets and all tweets from the other users that a user is connected to (following). Tweets can be categorized by using hashtags. A hashtag can for instance look like \emph{\#happy} or \emph{\#obama2012}. By annotating the tweets with this tag, users can find similar tweets across Twitter.
+Twitter has become a popular social media service often referred to as a micro-blogging site. On Twitter users can post messages of maximum 140 characters, called tweets, on their own \emph{timeline}. A timeline is a collection of all user submitted tweets and all tweets from the other users that a user is connected to (following). Tweets can be categorized by using hashtags. A hashtag can, for instance, look like \emph{\#happy} or \emph{\#obama2012}. By annotating the tweets with this tag, users can find similar tweets across Twitter.
 
 Twitter has grown very rapidly and the usage statistics is ever changing. In June 2012, there were posted over 400 million tweets every day~\citep{site:twitterusage}. With over 500 million users, where about 170 million of these are active ones~\citep{site:users}, it is safe to say that Twitter offers a lot of data.
 
 
-The informal nature of Twitter leads to a lot of sentiments being posted and this has led Twitter to being a gold mine for SA. Many systems have used Twitter as corpus for sentiment analysis. The first one to really use Twitter as a corpus was Sentiment140 (previously known as TwitterSentiment) by Stanford students~\citep{article:go}. After this paper, and as Twitter grew in popularity, many other systems have been developed. Some of the later ones are TwiSent and C-Feel-IT~\citep{mukherjee2012twisent}, Tweenator~\citep{saif2012semantic} and MSAS~\citep{chamlertwat2012discovering}.
+The informal nature of Twitter leads to a lot of sentiments being posted and this has led Twitter to being a gold mine for SA. Many systems have used Twitter as corpus for sentiment analysis. The first one to really use Twitter as a corpus was Sentiment140 (previously known as TwitterSentiment) by a group of Stanford students~\citep{article:go}. After this paper, and as Twitter grew in popularity, many other systems have been developed. Some of the later ones are TwiSent and C-Feel-IT~\citep{mukherjee2012twisent}, Tweenator~\citep{saif2012semantic} and MSAS~\citep{chamlertwat2012discovering}.
