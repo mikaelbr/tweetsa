@@ -1,12 +1,12 @@
-\subsection{API Layer}
-
-\subsubsection{Authentication}
-For now the system described in this report uses its own application key for OAuth. In the future this should be reprogrammed to take in values for application key and secret, and pass them on to the Twitter OAuth service. This way clients can use their own API key and only be limited by their own requests. By sharing the API key, every client shares the request quota enforced by Twitter.
-
 
 \subsection{Sentiment Classifier}
-For this project a basic form of a sentiment analysis system was implemented. The main focus for this project was the architecture and defining the state-of-the-art of Twitter Sentiment Analysis systems by doing a structured literature review (SLR). The SA system was implemented to show a proof of concept for the architecture. In future work this sentiment analysis system should be re-implemented with a more sophisticated approach, using more of the techniques discussed in the SLR. 
+For this project a basic form of a sentiment analysis system was implemented. The main focus for this project was the architecture and defining the state-of-the-art of Twitter Sentiment Analysis systems by doing a systematic literature review (SLR). The SA system was implemented to show a proof of concept for the architecture. In future work this sentiment analysis system should be re-implemented with a more sophisticated approach, using more of the techniques discussed in the SLR. 
 
 \subsection{Visualisation and Summary}
 
 At this time no visualisation or use of the sentiment data is implemented. In future work, several applications using this API layer extension and the sentiment data should be implemented. The proposed API Layer as an extension of the Twitter API should make it easy to use and develop applications using this data. There are no platform dependencies for using this API, so both mobile and desktop applications can be developed. 
+
+\subsection{API Layer}
+
+For now the system described in this report uses its own application key for OAuth. In the future this should be reprogrammed to take in values for application credentials, and pass them on to the Twitter OAuth service. This way clients can use their own API key and only be limited by their own requests. By sharing the API key, every client shares the request quota enforced by Twitter.
+
