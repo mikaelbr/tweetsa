@@ -29,6 +29,8 @@
 
 # Report pdf
 fall_project/docs/report.pdf
+master/docs/src/document.pdf
+
 
 # Mac OS X
 .DS_Store
