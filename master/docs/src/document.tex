@@ -1,0 +1,84 @@
+
+\input{docsetup.tex}
+
+
+\def\thesisTitle{Your Thesis Title} 
+% Defines the title of the thesis.
+
+\def\thesisAuthor{Mikael Brevik \&  {\O}yvind Selmer} 
+% Defines the name of the author (that is your name).
+
+
+
+\begin{document}
+
+% Information pages about your thesis
+\input{0-title.tex}
+
+
+\pagestyle{plain}
+% Includes page number at the bottom of the page.
+\pagenumbering{roman} 				
+% Uses small roman numbers for page numbering.
+\setcounter{page}{1}
+% Resets the page counter to 1.
+
+% The start of the actual thesis.
+\input{0-abstract.tex}
+\input{0-preface.tex}
+\input{0-acknowledgements.tex}
+
+\tableofcontents
+% Prints the table of contents							
+\addcontentsline{toc}{chapter}{Contents}
+\clearpage
+
+\listoftables					
+% Prints a list of your tables. Remember to use caption on the tables.
+\addcontentsline{toc}{chapter}{List of Tables}
+\clearpage
+
+\listoffigures									
+% Prints a list of your figures. Remember to use caption on the figures.
+\addcontentsline{toc}{chapter}{List of Figures}
+\cleardoublepage
+
+
+% Prints a list of abbreviations
+\addcontentsline{toc}{chapter}{Abbreviation}
+% \printabbr
+
+
+\cleardoublepage
+
+
+\pagenumbering{arabic} 				
+% Uses arabic numbers (normal numbers) for page numbering.
+\setcounter{page}{1}
+% Resets the page counter to 1.
+
+
+% The chapters
+\input{1-introduction.tex}
+\input{2-state_of_the_art.tex}
+\input{3-context_and_research.tex}
+\input{4-results.tex}
+\input{5-eval_discussion.tex}
+\input{6-conclusion.tex}
+
+
+\addcontentsline{toc}{chapter}{Glossary}
+%\printglossary
+% Prints the glossary
+
+\addcontentsline{toc}{chapter}{References}
+\bibliography{example}
+\bibliographystyle{apa}	
+
+\appendix
+% To start appendices with different chapter numbering
+
+\input{7-appendix.tex}
+
+
+\end{document}
