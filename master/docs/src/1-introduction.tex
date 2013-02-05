@@ -1,23 +1,45 @@
 \chapter{Introduction}
 
-\textcolor{blue}{(6-10 pages) This chapter should contain: Motivation. Context e.g. a R\&D project. Problem definition. 
-Research questions. Summary of main results/contributions. Clarification of possible contributions from co-authors. 
-Outline of rest of thesis. We suggest the following subchapters:}
+In this chapter an introduction of this Master's thesis is given. First the task description is stated. The motivation for this task is given in~\autoref{sec:motivation}, followed by an overview of the project goals in~\autoref{sec:projectgoals}. In~\autoref{sec:design} the research design is outlined and in~\autoref{sec:contribution} the project contribution is summarized. In the last section of the introduction, an overview of this report is described. 
 
-\section{Problem Outline}
-\textcolor{blue}{Motivate the thesis, why is your topic an interesting one?}
+This report is the result of a Master thesis at Department of Computer and Information Science, NTNU, 2011. 
 
-\section{Research Context}
+\section{Task Description}
+\label{sec:task}
+
+The task was given by Bj\"{o}rn Gamb\"{a}ck at IDI, NTNU
+
+\begin{center} \Large Sentiment Analysis using the Twitter Corpus \end{center}
+\begin{quotation}
+In recent years, micro-blogging has become prevalent, and the Twitter API allows users to collect a corpus from their micro-blogosphere. The posts, named tweets are limited to 140 characters, and are often used to express positive or negative emotions to a person or product.
+
+In this project, the goal is to use the Twitter corpus to do sentiment analysis and develop tools for visualizing the results. Pak and Paroubek (2010) have shown how to do this using frameworks like Support Vector Machines (SVMs) and Conditional Random Fields (CRFs), benchmarked with a Naive Bayes Classifier baseline. They were unable to beat the baseline, and the goal of this project will be to experiment with these and other machine learning frameworks as Maximum Entropy learners to try to beat the baseline.
+\end{quotation}
+
+
+\section{Motivation}
+\label{sec:motivation}
 \textcolor{blue}{In what context have you been working? Was it an externally financed project, did that put restrictions or directions on your research directions?}
 
-\section{Research Questions}
-\textcolor{blue}{Name your research questions, outline briefly why these are interesting. Do not go too in depth here, remember it is only an introductory chapter they will be covered more thorough in later chapters.}
+\section{Project Goals}
+\label{sec:projectgoals}
 
-\textcolor{blue}{RQ1:\ldots}
+In this section, the main goals of for this project are described.
 
-\textcolor{blue}{RQN:\ldots}
+\begin{description}
+
+\item[G1] \textbf{Experiment with different methods for doing sentiment analysis} \\
+	Design and implement different methods for doing sentiment analysis. Experiment with these methods and find the method with highest accuracy and beating the baseline the most. 
+	
+\item[G2] \textbf{Develop tools for visualizing sentiment classified tweets} \\
+    Data is wasted if it is not used for anything. Data needs proper, usable, summarizing and visualization tools to be of use. One of the goals of this project is to come up with, plan and develop tools that are useful for showing the real value of sentiment classified tweets. 
+
+\end{description}
+
 
 \section{Research Design}
+\label{sec:design}
+
 \textcolor{blue}{Outline how your research has been happening, figures, timelines and tables that connect papers, 
 research questions and studies are a nice help here to create an overview of the work - see Figure
 \ref{fig:1-studies_contributions_papers}.}
@@ -33,6 +55,9 @@ vs. papers]{Example studies vs. contributions vs. papers [Bj{\o}rnson�s PhD th
 
 
 \section{Papers}
+
+\textbf{Note: Should specialization project report be included here?}
+
 \textcolor{blue}{If your thesis is an article thesis, provide a list of your included papers here with full 
 bibliography. If you want to go more in depth here you could include abstracts, identify their relevance to the thesis 
 and your contributions towards them. Keep in mind you are still in the introduction chapter and you should keep it as 
@@ -63,6 +88,7 @@ leading author of this paper.} \\
 	
 
 \section{Contributions}
+\label{sec:contribution}
 \textcolor{blue}{Identify and list your contributions in the thesis, provide a short description of each contribution.}
 
 \textcolor{blue}{C1: \ldots}
@@ -88,25 +114,9 @@ leading author of this paper.} \\
 
 
 \section{Thesis Structure}
-\textcolor{blue}{Briefly outline the rest of your thesis:}
+\label{sec:structure}
 
-Chapter 2: State of the Art
-
-Chapter 3: Context and Research Design
-
-Chapter 4: Results
-
-Chapter 5: Evaluation and Discussion of Results
-
-Chapter 6: Conclusion
-
-Appendix A: (enclosed, selected papers)
-
-Appendix B: (basic info incl. abstracts of secondary papers)
-
-\ldots
-
-Appendix N: lab results and other data, empirical tools like questionnaires, enclosures. 
+In Chapter 2, the existing solutions and current state of the art is described. The system architecture and model is presented and documented in Chapter 3. In Chapter 4 experiments and results regarding different approaches for doing Sentiment Analysis is described. Chapter 4 also describes the results for the developed visualisation applications. Chapter 5 includes evaluation and discussions of the results. In Chapter 6 the report is concluded and future work is described. 
 
 
 
