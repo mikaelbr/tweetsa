@@ -71,11 +71,5 @@ def no_url(tweet_text):
 def url_placeholder(tweet_text):
     return re.sub(url, "||URL||", tweet_text).lower()
 
-
 def reduce_letter_duplicates(tweet_text):
     return re.sub(r'(.)\1{3,}', r'\1\1\1', tweet_text, flags=re.IGNORECASE).lower()
-
-
-
-# ooooh myyy gooooooood, @username!!!!   this is #amazing: http/someurl.com/fdhsiufds?dsadssa
-# ooooh myyy gooooooood, @username!!!!   this is #amazing: http://someurl.com/fdhsiufds?dsads=dsa
