@@ -15,13 +15,20 @@ def lower(tweet_text):
 
 
 
-def _nagation_repl(matchobj):
+def _negation_repl(matchobj):
   """
     Internal helper method for #negation_attachment.
   """
   if matchobj.group(2):
-    return matchobj.group(1) + "-not not-" + matchobj.group(2)
-   
+
+    if matchobj.group(1):
+      return matchobj.group(1) + "-not not-" + matchobj.group(2)
+    else:
+      return "not-" + matchobj.group(2)
+
+  if not matchobj.group(1) and not matchobj.group(2):
+    return "not"
+
   return  matchobj.group(1) + "-not"
 
 def negation_attachment(tweet_text):
@@ -34,7 +41,7 @@ def negation_attachment(tweet_text):
     I'm not!! => I'm-not!!
     I am not short => I am-not not-short.
   """
-  return re.sub(r'([\S]+)?(?:\s+)?(?:not)(?:\s+)?([a-zA-Z][\S]+)?', _nagation_repl, tweet_text, flags=re.IGNORECASE)
+  return re.sub(r'([\S]+)?(?:\s+)?(?:not)(?:\s+)?([a-zA-Z][\S]+)?', _negation_repl, tweet_text, flags=re.IGNORECASE)
   
 
 def remove_stopwords(tweet_text, exceptionList=[]):

@@ -44,5 +44,7 @@ class TestSequenceFunctions(unittest.TestCase):
         tmp = f.reduce_letter_duplicates(self.text)
         self.assertEqual(tmp, "Oooh myyy goood, @username!!! :D :) This is #amazing: http://someurl.com/fdhsiufds?dsads=dsa".lower())
 
+        t1 = f.reduce_letter_duplicates('My gooooooooooooooooooooood')
+        self.assertEqual(t1, 'My goood'.lower())
 if __name__ == '__main__':
     unittest.main()
