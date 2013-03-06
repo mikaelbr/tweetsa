@@ -23,8 +23,6 @@ pattern_split = re.compile(r"\W+")
 
 class AFINN(BaseMethod):
 
-
-    @staticmethod
     def filter(tweet):
         tweet = filt.no_url(tweet)
         tweet = filt.no_rt_tag(tweet)
@@ -36,7 +34,6 @@ class AFINN(BaseMethod):
 
         return tweet
 
-    @staticmethod
     def sentiment(tweet_text):
         """
         Returns a float for sentiment strength based on the input text.
@@ -53,8 +50,7 @@ class AFINN(BaseMethod):
         return sentiment
 
 
-    @staticmethod
-    def run(tweet):
+    def predict(tweet):
         logging.debug("Doing AFINN classification")
         filtered_tweet = AFINN.filter(tweet['text'])
         sentiment = AFINN.sentiment(filtered_tweet)
