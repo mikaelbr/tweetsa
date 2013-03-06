@@ -57,16 +57,24 @@ class BaseMethod(object):
           )
 
     cached = cache.get(self.grid)
+
     if cached: 
         logging.debug("# Fetched cached version of %s " % self.clf.__class__.__name__)
-        self.grid = cached
-        return self.grid
+        self.grid.best_estimator_ = cached
+        self.grid.best_estimator_ = cached['est']
+        self.grid.best_score_ = cached['scr']
+        self.grid.best_params_ = cached['parm']
 
-    logging.debug("# Training new instance of %s " % self.clf.__class__.__name__)
-    self.grid.fit(docs_train, y_train)
+    else:
+        logging.debug("# Training new instance of %s " % self.clf.__class__.__name__)
+        self.grid.fit(docs_train, y_train)
 
-    logging.debug("Saving to cache for %s " % self.clf.__class__.__name__)
-    cache.save(self.grid, self.grid)
+        logging.debug("Saving to cache for %s " % self.clf.__class__.__name__)
+        cache.save(self.grid, {
+            "est": self.grid.best_estimator_,
+            "scr": self.grid.best_score_,
+            "parm": self.grid.best_params_
+          })
 
     logging.debug("# Best params for  %s :" % self.clf.__class__.__name__)
     logging.debug(self.grid.best_params_)
