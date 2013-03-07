@@ -30,14 +30,14 @@ test = u.normalize_test_set_classification_scheme(test)
 docs_test, y_test = test[:,4], test[:,3]
 
 
-# docs_train_subjectivity, y_train_subjectivity, docs_train_polarity, y_train_polarity = u.generate_two_part_dataset(train)
-# c1 = SVM(docs_train_subjectivity, y_train_subjectivity)
-# c2 = NB(docs_train_polarity, y_train_polarity)
-# clf = Combined(c1, c2)
+docs_train_subjectivity, y_train_subjectivity, docs_train_polarity, y_train_polarity = u.generate_two_part_dataset(train)
+c1 = SVM(docs_train_subjectivity, y_train_subjectivity)
+c2 = NB(docs_train_polarity, y_train_polarity)
+clf = Combined(c1, c2)
 
-train = u.normalize_test_set_classification_scheme(train)
-docs_train, y_train = train[:,3], train[:,2]
-clf = MaxEnt(docs_train, y_train, useCrossValidation=True)
+# train = u.normalize_test_set_classification_scheme(train)
+# docs_train, y_train = train[:,3], train[:,2]
+# clf = NB(docs_train, y_train, useCrossValidation=True)
 
 
 # Example for boosting:

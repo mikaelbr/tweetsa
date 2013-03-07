@@ -36,6 +36,7 @@ class BaseMethod(object):
 
 
   def train(self, docs_train, y_train, extra = {}, useCrossValidation = False):
+
     options = dict(self.options.items() + extra.items())
     cv = StratifiedKFold(y_train, n_folds=10) if useCrossValidation else None
 
@@ -55,12 +56,13 @@ class BaseMethod(object):
             n_jobs=-1,
             verbose=1
           )
+    cache_key = str(self.grid) + str(docs_train)
 
-    cached = cache.get(self.grid)
+
+    cached = cache.get(cache_key)
 
     if cached: 
         logging.debug("# Fetched cached version of %s " % self.clf.__class__.__name__)
-        self.grid.best_estimator_ = cached
         self.grid.best_estimator_ = cached['est']
         self.grid.best_score_ = cached['scr']
         self.grid.best_params_ = cached['parm']
@@ -70,7 +72,7 @@ class BaseMethod(object):
         self.grid.fit(docs_train, y_train)
 
         logging.debug("Saving to cache for %s " % self.clf.__class__.__name__)
-        cache.save(self.grid, {
+        cache.save(cache_key, {
             "est": self.grid.best_estimator_,
             "scr": self.grid.best_score_,
             "parm": self.grid.best_params_
@@ -79,6 +81,8 @@ class BaseMethod(object):
     logging.debug("# Best params for  %s :" % self.clf.__class__.__name__)
     logging.debug(self.grid.best_params_)
 
+
+    self.best_score = self.grid.best_score_
     logging.debug("# Best score for  %s :" % self.clf.__class__.__name__)
     logging.debug(self.grid.best_score_)
 

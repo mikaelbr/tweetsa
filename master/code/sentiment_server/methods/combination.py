@@ -11,11 +11,15 @@ class Combined(BaseMethod):
     self.subjectivity_clf = m1
     self.polarity_clf = m2
 
+    self.best_score = (self.subjectivity_clf.best_score + self.polarity_clf.best_score) / 2
+
   def train(self, docs_train_subjectivity, y_train_subjectivity, docs_train_polarity, y_train_polarity):
     print docs_train_subjectivity[:3]
     print y_train_subjectivity[:3]
     self.subjectivity_clf.train(docs_train_subjectivity, y_train_subjectivity)
     self.polarity_clf.train(docs_train_polarity, y_train_polarity)
+
+    self.best_score = (self.subjectivity_clf.best_score + self.polarity_clf.best_score) / 2
 
   def predict_list(self, li):
     y_predicted = []

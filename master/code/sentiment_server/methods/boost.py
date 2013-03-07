@@ -40,10 +40,12 @@ class Boosting(BaseMethod):
 
   def pick_majoraty(self, y_pred):
     clfs = {}
-    for i in y_pred:
-      clfs[i] = clfs[i] + 1  if i in clfs else 1
+    for i, m in zip(y_pred, self.methods):
+      # mavg = m.best_score / len(self.methods)
+      mavg = m.best_score
+      clfs[i] = clfs[i] + mavg  if i in clfs else mavg
 
-    print "CLFS: %s"%clfs
+    logging.debug("CLFS: %s" % clfs)
     highest_val = max(clfs.values())
     highest = filter(lambda t: t[1] == highest_val, clfs.items())
     return choice(highest)[0]
@@ -66,6 +68,6 @@ class Boosting(BaseMethod):
       y_pred.append(m.predict(arg_input))
 
     pred = self.pick_majoraty(y_pred)
-    print "Pred: %s"% pred
+    logging.debug("Pred: %s" % pred)
     return pred
 
