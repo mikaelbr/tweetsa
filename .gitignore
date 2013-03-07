@@ -47,3 +47,5 @@ development.js
 fall_project/code/cli/build/
 fall_project/code/cli/dist/
 *.pyc
+
+master/code/sentiment_server/pickles/
