@@ -45,7 +45,6 @@ class Boosting(BaseMethod):
       mavg = m.best_score
       clfs[i] = clfs[i] + mavg  if i in clfs else mavg
 
-    logging.debug("CLFS: %s" % clfs)
     highest_val = max(clfs.values())
     highest = filter(lambda t: t[1] == highest_val, clfs.items())
     return choice(highest)[0]
@@ -68,6 +67,5 @@ class Boosting(BaseMethod):
       y_pred.append(m.predict(arg_input))
 
     pred = self.pick_majoraty(y_pred)
-    logging.debug("Pred: %s" % pred)
     return pred
 

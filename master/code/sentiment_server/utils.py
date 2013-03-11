@@ -93,3 +93,24 @@ def print_stats(best_params, best_score, report=False, confusion=False):
     print "## Confusion Matrix: "
     print confusion
 
+
+
+def reduce_dataset(dataset, num):
+  num_n, num_o, num_p = 0,0,0
+  new_dataset = []
+  for i in dataset:
+    if i[2] == '"negative"' and num_n < num:
+      num_n += 1
+      new_dataset.append(i)
+    if i[2] == '"positive"' and num_p < num:
+      num_p += 1
+      new_dataset.append(i)
+    if i[2] == '"neutral"' and num_o < num:
+      num_o += 1
+      new_dataset.append(i)
+
+  return np.array(new_dataset)
+
+
+
+
