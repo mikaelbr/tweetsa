@@ -7,6 +7,7 @@ from models import *
 
 import utils as u
 import stats as s
+import tokenizer as t
 
 from storage import data as d
 import preprocessor_methods as pr
@@ -40,17 +41,15 @@ default_options = {
 #   'vect__use_idf': False, 
 #   'clf__C': 0.5
 # }
-# 
+ 
+
 
 clf = SVM(docs_train, y_train, default_options=default_options, vect_options=vect_options)
-
-
-
-if len(sys.argv) > 1:
-  y_predicted = clf.predict(docs_test)
-  sys.stdout.write("\n".join(y_predicted) + "\n")
-else:
-  s.test_clf(clf, docs_test, y_test)
+# if len(sys.argv) > 1:
+#   y_predicted = clf.predict(docs_test)
+#   sys.stdout.write("\n".join(y_predicted) + "\n")
+# else:
+s.test_clf(clf, docs_test, y_test)
 
 
 # Expected result: 0.646916565901

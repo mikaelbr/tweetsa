@@ -15,8 +15,8 @@ from sklearn.cross_validation import train_test_split, StratifiedKFold
 from sklearn.grid_search import GridSearchCV
 
 import preprocessor_methods as pr
-
-from trainer import cache
+import tokenizer as t
+from storage import cache
 
 
 class BaseMethod(object):
@@ -44,8 +44,10 @@ class BaseMethod(object):
     options = dict(self.options.items() + extra.items())
     cv = StratifiedKFold(y_train, n_folds=10) if useCrossValidation else None
 
+    print "Tokenizer func:"
+    print t.tokenize
     pipeline = Pipeline([
-        ('vect', TfidfVectorizer(charset_error='ignore', **vect_options)),
+        ('vect', TfidfVectorizer(charset_error='ignore', tokenizer=t.tokenize, **vect_options)),
         ('clf', self.clf),
     ])
 
@@ -77,8 +79,6 @@ class BaseMethod(object):
         logging.debug("# Training new instance of %s " % self.clf.__class__.__name__)
 
         self.grid.fit(docs_train, y_train)
-
-        
 
         if useGrid:
             self.best_estimator = self.grid.best_estimator_
