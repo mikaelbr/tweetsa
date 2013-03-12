@@ -19,7 +19,7 @@ import eventlet
 
 # Do import of all different methods here:
 # Remember: When adding a new method, add it to the methods/__init__.py
-from methods import *
+from models import *
 
 # the pool provides a safety limit on our concurrency
 pool = eventlet.GreenPool(size=10000)

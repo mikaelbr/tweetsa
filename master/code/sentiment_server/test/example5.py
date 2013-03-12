@@ -22,15 +22,15 @@ from itertools import permutations
 
 import filters as f
 import preprocess as p
-import preprocessor as pr
+import preprocessor_methods as pr
 
 conv = {
-  '"negative"': 0,
-  '"objective"': 1,
-  '"positive"': 2
+  'negative': 0,
+  'neutral': 1,
+  'positive': 2
 }
 
-headers = ['"negative"', '"objective"', '"positive"']
+headers = ['negative', 'neutral', 'positive']
 
 best_algorithm = None
 total_best = 0
@@ -40,39 +40,49 @@ def translate_to_numbers(li):
 
 # logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s')
 
-train_set_filename = (sys.argv[1] if len(sys.argv) > 1 else False) or 'data/output2'
-test_set_filename = (sys.argv[0] if len(sys.argv) > 1 else False) or 'data/test/test_output_tweets.tsv'
+train_set_filename = (sys.argv[1] if len(sys.argv) > 1 else False) or 'data/tweeti-b.dist.output.tsv'
+test_set_filename = (sys.argv[0] if len(sys.argv) > 1 else False) or 'data/test/twitter-dev-gold-B.tsv'
 
 if not path.exists(train_set_filename) or not path.exists(test_set_filename): # or not path.exists(test_set_filename):
   raise Exception("File not found")
  
 
 def generate_subjective_set(dataset):
+  label_i = 3 if len(dataset[0]) > 4 else 2 
+  
   new_set = []
   for i in np.array(dataset, copy=True):
-    if i[2] != '"objective"':
-      i[2] = '"subjective"'
+    if i[label_i] == 'objective' or i[label_i] == 'objective-OR-neutral':
+      i[label_i] = 'neutral'
+    if i[label_i] != 'neutral':
+      i[label_i] = 'subjective'
     new_set.append(i)
   return new_set
 
 
 def generate_polarity_set(dataset):
+  label_i = 3 if len(dataset[0]) > 4 else 2 
+
   new_set = []
   for i in np.array(dataset, copy=True):
-    if i[2] != '"objective"':
+    if i[label_i] != 'objective' and i[label_i] != 'neutral' and i[label_i] != 'objective-OR-neutral':
       new_set.append(i)
   return new_set
 
 
 def normalize_test_set_classification_scheme(dataset):
+  label_i = 3 if len(dataset[0]) > 4 else 2 
+
   for i in dataset:
-    if i[3] == '"neutral"':
-      i[3] = '"objective"' 
+    i[label_i] = i[label_i].replace('"', '')
+    if i[label_i] == 'objective' or i[label_i] == 'objective-OR-neutral':
+      i[label_i] = 'neutral' 
   return dataset
 
 
 train = np.loadtxt(train_set_filename, delimiter='\t', dtype='S', comments=None)
 test = np.loadtxt(test_set_filename, delimiter='\t', dtype='S', comments=None)
+train = normalize_test_set_classification_scheme(train)
 
 subjectivity = np.array(generate_subjective_set(train))
 polarity = np.array(generate_polarity_set(train))
@@ -84,8 +94,8 @@ docs_train_polarity = polarity[:,3]
 y_train_polarity = polarity[:,2]
 
 test = normalize_test_set_classification_scheme(test)
-docs_test = test[:,4]
-y_test = test[:,3]
+docs_test = test[:,3]
+y_test = test[:,2]
 
 cache1 = {};
 cache2 = {};
@@ -100,11 +110,11 @@ def run_gridsearch(clf, docs_train, y_train, extra = {}, useCrossValidation = Tr
   ])
 
   options = {
-              'vect__ngram_range': ((1, 1), (2, 2), (3,3)),
-              'vect__stop_words': ('english', None),
-              'vect__preprocessor': (None, pr.no_prep, pr.no_usernames, pr.remove_noise, pr.placeholders, pr.all, pr.remove_all, pr.method1, pr.method2),
-              'tfidf__use_idf': (True, False),
-              'tfidf__smooth_idf': (True, False),
+              # 'vect__ngram_range': ((1, 1), (2, 2), (3,3)),
+              # 'vect__stop_words': ('english', None),
+              # 'vect__preprocessor': (None, pr.no_prep, pr.no_usernames, pr.remove_noise, pr.placeholders, pr.all, pr.remove_all, pr.method1, pr.method2),
+              # 'tfidf__use_idf': (True, False),
+              # 'tfidf__smooth_idf': (True, False),
               'tfidf__sublinear_tf': (True, False)
             }
 
@@ -143,8 +153,8 @@ def predict(g1, g2, test_set):
   for i in test_set:
 
     p1 = g1.best_estimator_.predict([i])[0];
-    if p1 == '"objective"':
-      y_predicted.append('"objective"')
+    if p1 == 'neutral':
+      y_predicted.append('neutral')
       continue
 
     y_predicted.append(g2.best_estimator_.predict([i])[0])
