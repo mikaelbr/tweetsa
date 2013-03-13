@@ -18,19 +18,25 @@ Naïve Bayes, Support Vector Machine, ...-.
 Supervised.
 
 - 5.3 Critical features used
-
+See section 5.5:
+- Words
+- Hashtags
+- Emoticons
+- Puctuations
+- 
 
 - 5.4 Critical tools used
 Used the learn package from scikit [1] 
 
 - 5.5 Significant data pre/post-processing
-Pre-processing used:
 
-1. Removing all URLs
-2. Removed RT-tag
-3. Removed all usernames
-4. Using hashtags as words (removing #)
-5. Reduced letter duplicates: 
+Pre-processing used:
+1. Lowering case of all letters 
+2. Removed all URLs
+3. Removed RT-tag
+4. Removed all usernames
+5. Using hashtags as words (removing #)
+6. Reduced letter duplicates: 
     Reduced all overuse of letters/characters. 
     Examples:
       "Gooooooooood" -> "Goood"

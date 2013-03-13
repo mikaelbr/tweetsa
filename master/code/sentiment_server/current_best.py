@@ -19,8 +19,6 @@ pe.set_base_from_dataset(d.get_full_test_set())
 
 vect_options = {
   'ngram_range': (1,1),
-  'smooth_idf': True,
-  'max_df': 0.5,
   'sublinear_tf': True,
   'preprocessor': pr.remove_noise,
   'use_idf': False,
