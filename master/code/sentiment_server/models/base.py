@@ -14,8 +14,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cross_validation import train_test_split, StratifiedKFold
 from sklearn.grid_search import GridSearchCV
 
-import preprocessor_methods as pr
-import tokenizer as t
+import utils.preprocessor_methods as pr
+import utils.tokenizer as t
 from storage import cache
 
 

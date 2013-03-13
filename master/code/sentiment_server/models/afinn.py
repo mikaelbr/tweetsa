@@ -10,7 +10,7 @@ sys.setdefaultencoding('utf-8')
 import logging
 
 from base import BaseMethod
-import filters as filt
+import utils.filters as filt
 
 
 # AFINN-111 is as of June 2011 the most recent version of AFINN

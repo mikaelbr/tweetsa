@@ -5,7 +5,7 @@ import logging
 
 from base import BaseMethod
 from numpy import mean
-from utils import translate_to_numbers, translate_from_number
+from utils.utils import translate_to_numbers, translate_from_number
 from models import *
 from itertools import permutations
 from random import choice

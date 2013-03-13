@@ -5,10 +5,10 @@ import logging
 
 from models import *
 
-import utils as u
-import stats as s
+import utils.utils as u
+import utils.stats as s
 
-from storage import data as d
+import storage.data as d
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s')
 

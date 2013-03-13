@@ -5,7 +5,7 @@ from os import path
 import cache
 from models import *
 
-import utils as u
+import utils.utils as u
 
 """
     Get data sets. Both train set and test set.
