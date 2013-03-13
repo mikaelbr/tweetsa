@@ -44,8 +44,6 @@ class BaseMethod(object):
     options = dict(self.options.items() + extra.items())
     cv = StratifiedKFold(y_train, n_folds=10) if useCrossValidation else None
 
-    print "Tokenizer func:"
-    print t.tokenize
     pipeline = Pipeline([
         ('vect', TfidfVectorizer(charset_error='ignore', tokenizer=t.tokenize, **vect_options)),
         ('clf', self.clf),
@@ -65,11 +63,10 @@ class BaseMethod(object):
     else:
         self.grid = pipeline
 
-    cache_key = str(self.grid) + str(docs_train)
-
+    cache_key = self.clf.__class__.__name__ + str(options) + str(docs_train)
     cached = cache.get(cache_key)
     
-    if cached and not(sys.flags.debug): 
+    if cached and sys.flags.debug == 0: 
         logging.debug("# Fetched cached version of %s " % self.clf.__class__.__name__)
         self.best_estimator = cached['est']
         self.best_score = cached['scr']

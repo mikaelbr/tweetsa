@@ -158,25 +158,6 @@ def tokenize(s):
         words = map((lambda x : x if emoticon_re.search(x) else x.lower()), words)
     return words
 
-def tokenize_random_tweet():
-    """
-    If the twitter library is installed and a twitter connection
-    can be established, then tokenize a random tweet.
-    """
-    try:
-        import twitter
-    except ImportError:
-        print "Apologies. The random tweet functionality requires the Python twitter library: http://code.google.com/p/python-twitter/"
-    from random import shuffle
-    api = twitter.Api()
-    tweets = api.GetPublicTimeline()
-    if tweets:
-        for tweet in tweets:
-            if tweet.user.lang == 'en':            
-                return tokenize(tweet.text)
-    else:
-        raise Exception("Apologies. I couldn't get Twitter to give me a public English-language tweet. Perhaps try again")
-
 def __html2unicode(s):
     """
     Internal metod that seeks to replace all the HTML entities in

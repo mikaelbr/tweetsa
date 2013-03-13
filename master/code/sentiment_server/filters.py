@@ -30,6 +30,7 @@ usernames = r'(@[a-zA-Z0-9_]{1,15})'
 
 # Hashtag definitions
 hashtags = r'(#[a-zA-Z]+[a-zA-Z0-9_]*)'
+hashtags_filter = r'(#([a-zA-Z]+[a-zA-Z0-9_]*))'
 
 
 # RT definitions
@@ -59,6 +60,9 @@ def no_hash(tweet_text):
 
 def hash_placeholder(tweet_text):
     return re.sub(hashtags, "||H||", tweet_text).lower()
+
+def hash_as_normal(tweet_text):
+    return re.sub(r'#([a-zA-Z]+[a-zA-Z0-9_]*)', "\\1", tweet_text)
 
 def no_rt_tag(tweet_text):
     tweet = re.sub(rt_tag, "", tweet_text)

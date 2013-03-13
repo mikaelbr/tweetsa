@@ -13,18 +13,23 @@ import utils as u
 
     E.g. on a set of 2000 entries, 1500 is used for training and 500 for testing. 
 """
+train_set_filename = (sys.argv[2] if len(sys.argv) > 2 else False) or 'data/tweeti-b.dist.output.tsv'
+test_set_filename = (sys.argv[1] if len(sys.argv) > 1 else False) or 'data/test/twitter-dev-gold-B.tsv'
+
+if not path.exists(train_set_filename) or not path.exists(test_set_filename): # or not path.exists(test_set_filename):
+  raise Exception("File not found")
+
+train = np.loadtxt(train_set_filename, delimiter='\t', dtype='S', comments=None)
+test = np.loadtxt(test_set_filename, delimiter='\t', dtype='S', comments=None)
+
+def get_full_test_set():
+  global train, test
+  return test
 
 def get_data():
-  train_set_filename = (sys.argv[2] if len(sys.argv) > 2 else False) or 'data/tweeti-b.dist.output.tsv'
-  test_set_filename = (sys.argv[1] if len(sys.argv) > 1 else False) or 'data/test/twitter-dev-gold-B.tsv'
-
-  if not path.exists(train_set_filename) or not path.exists(test_set_filename): # or not path.exists(test_set_filename):
-    raise Exception("File not found")
+  global train, test
 
   cache.set_training_file(train_set_filename)
-
-  train = np.loadtxt(train_set_filename, delimiter='\t', dtype='S', comments=None)
-  test = np.loadtxt(test_set_filename, delimiter='\t', dtype='S', comments=None)
 
   test = u.normalize_test_set_classification_scheme(test)
   train = u.normalize_test_set_classification_scheme(train)

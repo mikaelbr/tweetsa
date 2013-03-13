@@ -49,7 +49,7 @@ def show_most_informative_features(model, num=15):
 
   if not hasattr(model, 'steps'):
     return 
-    
+
   steps = model.steps
   clf = steps['clf']
 

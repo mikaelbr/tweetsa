@@ -11,23 +11,41 @@ import tokenizer as t
 
 from storage import data as d
 import preprocessor_methods as pr
+from storage import prediction_exporter as pe
+
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s')
 
 docs_test, y_test, docs_train, y_train, docs_train_subjectivity, y_train_subjectivity, docs_train_polarity, y_train_polarity = d.get_data()
+
+pe.set_base_from_dataset(d.get_full_test_set())
+
 
 vect_options = {
   'ngram_range': (1,1),
   'smooth_idf': True,
   'max_df': 0.5,
   'sublinear_tf': True,
-  'preprocessor': pr.no_usernames,
+  'preprocessor': pr.remove_noise,
   'use_idf': False,
   'stop_words': None
 }
 
+# Best CLF: <models.svm.SVM object at 0xb74b9cec>
+# Best params: {
+#   'vect__ngram_range': (1, 1), 
+#   'vect__smooth_idf': True, 
+#   'vect__max_df': 0.5, 
+#   'vect__sublinear_tf': True, 
+#   'vect__preprocessor': <function remove_noise at 0x9caf4fc>, 
+#   'vect__stop_words': None, 
+#   'vect__use_idf': False, 
+#   'clf__C': 1.0
+# }
+# Score of best CLF: 0.657799274486
+
 default_options = {
-  'C': 0.5
+  'C': 1.0
 }
 
 # Best CLF: <methods.svm.SVM object at 0x9e49fcc>
@@ -41,15 +59,12 @@ default_options = {
 #   'vect__use_idf': False, 
 #   'clf__C': 0.5
 # }
- 
+# Expected result: 0.646916565901
 
 
 clf = SVM(docs_train, y_train, default_options=default_options, vect_options=vect_options)
 # if len(sys.argv) > 1:
 #   y_predicted = clf.predict(docs_test)
-#   sys.stdout.write("\n".join(y_predicted) + "\n")
+#   sys.stdout.write(pe.predictions_as_str(y_predicted))
 # else:
 s.test_clf(clf, docs_test, y_test)
-
-
-# Expected result: 0.646916565901
