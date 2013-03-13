@@ -1,0 +1,43 @@
+1. Site ID
+
+2. Site affiliation
+
+3. Contact information
+
+4. Submission, i.e., ZIP file name
+
+5. System specs
+
+- 5.1 Core approach
+For development, combination of 5 core approaches were used:
+Naïve Bayes, Support Vector Machine, ...-.
+
+- 5.2 Supervised or unsupervised
+Supervised.
+
+- 5.3 Critical features used
+
+
+- 5.4 Critical tools used
+Used the learn package from scikit [1] 
+
+- 5.5 Significant data pre/post-processing
+Pre-processing used:
+
+1. Removing all URLs
+2. Removed RT-tag
+3. Removed all usernames
+4. Using hashtags as words (removing #)
+5. Reduced letter duplicates: 
+    Reduced all overuse of letters/characters. 
+    Examples:
+      "Gooooooooood" -> "Goood"
+      "Goooooooooooooooooooood" -> "Goood"
+      "Happyyyyyyyy!!!!!!!!" -> "Happyyy!!!"
+  This to reduce the vocabulary, but still distinguish between "Happyyyyyy" and "Happy".
+
+- 5.6 Other data used (outside of the provided)
+None. 
+
+6 References (if applicable)
+[1]: http://scikit-learn.org/
