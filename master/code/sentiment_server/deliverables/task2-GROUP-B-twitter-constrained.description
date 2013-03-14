@@ -9,7 +9,7 @@
 5. System specs
 
 - 5.1 Core approach
-Our sentiment classifier is based on a Support Vector Machines(SVM) classification model that are trained with the provided data (learning and development sets). This approach was chosen based on multiple grid searches with different preprocessors and machine learning algorithms, including boosting and two-step classifications(step1: polarized/neutral, step2: negative/positive).
+The sentiment classifier is based on a Support Vector Machines(SVM) classification model that are trained with the provided data (learning and development sets). This approach was chosen based on multiple grid searches with different preprocessors and machine learning algorithms, including boosting and two-step classifications(step1: polarized/neutral, step2: negative/positive).
 
 For development, combination of 5 core approaches were used:
 Naïve Bayes, Support Vector Machine, ...-.
@@ -22,7 +22,7 @@ See section 5.5:
 - Words
 - Hashtags
 - Emoticons
-- Puctuations
+- Punctuations
 - 
 
 - 5.4 Critical tools used
