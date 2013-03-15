@@ -7,7 +7,7 @@ from base import BaseMethod
 from numpy import mean
 from utils.utils import translate_to_numbers, translate_from_number
 from models import *
-from itertools import permutations
+from itertools import product
 from random import choice
 import numpy as np
 
@@ -33,7 +33,7 @@ class Boosting(BaseMethod):
 
 
   def combination_permutation(self, docs_train_subjectivity, y_train_subjectivity, docs_train_polarity, y_train_polarity):
-    perms = permutations(self.baseModels, 2)
+    perms = product(self.baseModels, repeat=2)
     for cmb in perms:
       c1 = cmb[0](docs_train_subjectivity, y_train_subjectivity)
       c2 = cmb[1](docs_train_polarity, y_train_polarity)

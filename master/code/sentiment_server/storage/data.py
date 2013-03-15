@@ -20,10 +20,13 @@ if not path.exists(train_set_filename) or not path.exists(test_set_filename): # 
   raise Exception("File not found")
 
 train = np.loadtxt(train_set_filename, delimiter='\t', dtype='S', comments=None)
+# train2 = np.loadtxt('data/output_2013-03-07.tsv', delimiter='\t', dtype='S', comments=None)
+# train = np.concatenate((train, train2), axis=0)
+
 test = np.loadtxt(test_set_filename, delimiter='\t', dtype='S', comments=None)
 
 def get_full_test_set():
-  global train, test
+  global test
   return test
 
 def get_data():
