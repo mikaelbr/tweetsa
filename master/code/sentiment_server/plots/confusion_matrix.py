@@ -4,6 +4,11 @@ import logging
 
 from models import *
 
+
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
 import storage.data as d
 import storage.prediction_exporter as pe
 
@@ -11,7 +16,6 @@ import utils.stats as s
 import utils.preprocessor_methods as pr
 
 from numpy import *
-import matplotlib.pyplot as plt
 from pylab import *
 
 
@@ -56,4 +60,4 @@ for i, cas in enumerate(conf_arr):
         if c>0:
             plt.text(j-.2, i+.2, c, fontsize=14)
 cb = fig.colorbar(res)
-savefig("plots/confusion_matrix.png", format="png")
+savefig("plots/confusion_matrix1.png", format="png")

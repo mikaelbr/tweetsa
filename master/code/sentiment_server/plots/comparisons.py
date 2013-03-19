@@ -6,12 +6,17 @@ import logging
 
 from models import *
 
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+
+
+
 import utils.utils as u
 import utils.stats as s
 
 import storage.data as d
 from pylab import arange, savefig
-import matplotlib.pyplot as plt
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s')
 
@@ -60,4 +65,4 @@ plt.title('Comparison of the different ?')
 plt.grid(True)
 fig.autofmt_xdate()
 
-savefig("plots/comparison.png", format="png")
+savefig("plots/comparison1.png", format="png")

@@ -22,7 +22,6 @@ def set_file_names(train_set = None, test_set = None):
   test_set_filename = (test_set if test_set != None else False) or 'data/test/twitter-dev-gold-B.tsv'
   cache.set_training_file(train_set_filename)
 
-  print train_set_filename
   if not path.exists(train_set_filename) or not path.exists(test_set_filename): # or not path.exists(test_set_filename):
     raise Exception("File not found")
 
@@ -41,7 +40,6 @@ def get_data():
 
   # Normalize data?
   # train = u.reduce_dataset(train, 3000)
-  # test = u.reduce_dataset(test, 300)
 
   # To compansate for poor TSV data structure
   i_d = 4 if len(test[0]) > 4 else 3

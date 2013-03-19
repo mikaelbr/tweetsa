@@ -42,14 +42,14 @@ class BaseMethod(object):
   def train(self, docs_train, y_train, extra = {}, useCrossValidation = False, vect_options={}):
 
     options = dict(self.options.items() + extra.items())
-    cv = StratifiedKFold(y_train, n_folds=5) # if useCrossValidation else None
+    cv = StratifiedKFold(y_train, n_folds=5) if useCrossValidation else None
 
     pipeline = Pipeline([
         ('vect', TfidfVectorizer(charset_error='ignore', tokenizer=t.tokenize, **vect_options)),
         ('clf', self.clf),
     ])
 
-    useGrid = True # sys.flags.optimize
+    useGrid = sys.flags.optimize
 
     if useGrid:
         self.grid = GridSearchCV(
@@ -63,36 +63,35 @@ class BaseMethod(object):
     else:
         self.grid = pipeline
 
-    # cache_key = self.clf.__class__.__name__ + str(options) + str(docs_train)
-    # cached = cache.get(cache_key)
+    cache_key = self.clf.__class__.__name__ + str(options) + str(docs_train)
+    cached = cache.get(cache_key)
     
-    # if cached and sys.flags.debug == 0: 
-    #     logging.debug("# Fetched cached version of %s " % self.clf.__class__.__name__)
-    #     self.best_estimator = cached['est']
-    #     self.best_score = cached['scr']
-    #     self.best_params = cached['parm']
+    if cached and sys.flags.debug == 0: 
+        logging.debug("# Fetched cached version of %s " % self.clf.__class__.__name__)
+        self.best_estimator = cached['est']
+        self.best_score = cached['scr']
+        self.best_params = cached['parm']
 
-    # else:
-    logging.debug("# Training new instance of %s " % self.clf.__class__.__name__)
-
-    self.grid.fit(docs_train, y_train)
-
-    if useGrid:
-        self.best_estimator = self.grid.best_estimator_
-        self.best_params = self.grid.best_params_
-        self.best_score = self.grid.best_score_
     else:
-        self.best_estimator = self.grid
-        self.best_params = self.grid.get_params(False)
-        self.best_score = 1
+      logging.debug("# Training new instance of %s " % self.clf.__class__.__name__)
 
+      self.grid.fit(docs_train, y_train)
 
-    # logging.debug("Saving to cache for %s " % self.clf.__class__.__name__)
-    # cache.save(cache_key, {
-    #     "est": self.best_estimator,
-    #     "scr": self.best_score,
-    #     "parm": self.best_params
-    #   })
+      if useGrid:
+          self.best_estimator = self.grid.best_estimator_
+          self.best_params = self.grid.best_params_
+          self.best_score = self.grid.best_score_
+      else:
+          self.best_estimator = self.grid
+          self.best_params = self.grid.get_params(False)
+          self.best_score = 1
+
+          logging.debug("Saving to cache for %s " % self.clf.__class__.__name__)
+          cache.save(cache_key, {
+              "est": self.best_estimator,
+              "scr": self.best_score,
+              "parm": self.best_params
+            })
 
     self.steps = self.best_estimator.named_steps
 
