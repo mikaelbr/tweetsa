@@ -13,14 +13,21 @@ import utils.utils as u
 
     E.g. on a set of 2000 entries, 1500 is used for training and 500 for testing. 
 """
-train_set_filename = (sys.argv[2] if len(sys.argv) > 2 else False) or 'data/tweeti-b.dist.output.tsv'
-test_set_filename = (sys.argv[1] if len(sys.argv) > 1 else False) or 'data/test/twitter-dev-gold-B.tsv'
+train = None
+test = None
 
-if not path.exists(train_set_filename) or not path.exists(test_set_filename): # or not path.exists(test_set_filename):
-  raise Exception("File not found")
+def set_file_names(train_set = None, test_set = None):
+  global train, test
+  train_set_filename = (train_set if train_set != None else False) or 'data/tweeti-b.dist.output.tsv'
+  test_set_filename = (test_set if test_set != None else False) or 'data/test/twitter-dev-gold-B.tsv'
+  cache.set_training_file(train_set_filename)
 
-train = np.loadtxt(train_set_filename, delimiter='\t', dtype='S', comments=None)
-test = np.loadtxt(test_set_filename, delimiter='\t', dtype='S', comments=None)
+  print train_set_filename
+  if not path.exists(train_set_filename) or not path.exists(test_set_filename): # or not path.exists(test_set_filename):
+    raise Exception("File not found")
+
+  train = np.loadtxt(train_set_filename, delimiter='\t', dtype='S', comments=None)
+  test = np.loadtxt(test_set_filename, delimiter='\t', dtype='S', comments=None)
 
 def get_full_test_set():
   global train, test
@@ -28,8 +35,6 @@ def get_full_test_set():
 
 def get_data():
   global train, test
-
-  cache.set_training_file(train_set_filename)
 
   test = u.normalize_test_set_classification_scheme(test)
   train = u.normalize_test_set_classification_scheme(train)

@@ -42,10 +42,12 @@ master/docs/src/document.pdf
 node_modules/
 fall_project/code/apilayer/config/runtime.json
 development.js
+runtime.json
 
 # Python - CLI
 fall_project/code/cli/build/
 fall_project/code/cli/dist/
 *.pyc
+*.pyo
 
 master/code/sentiment_server/pickles/

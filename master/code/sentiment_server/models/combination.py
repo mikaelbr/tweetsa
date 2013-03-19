@@ -31,3 +31,7 @@ class Combined(BaseMethod):
       return 'neutral'
 
     return self.polarity_clf.predict(arg_input)
+
+
+  def __str__(self):
+    return "Comb. (%s->%s)" % (str(self.subjectivity_clf), str(self.polarity_clf))
