@@ -122,6 +122,7 @@ TwitterHandler.prototype.search = function (req, cb) {
     this.twit.get("/search/tweets.json", rp, function(err, data) {
       var end = +new Date();
       console.log("Twitter search/lookup took " + (end-start)/1000 + " seconds");
+      if (err) return handleResponse(err, null, cb);
       handleResponse(err, data.statuses, cb);
     });
   } catch (e) {

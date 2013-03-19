@@ -8,7 +8,7 @@ module.exports = {
   Twitter: {
     consumer_key: 'L6Vdp22RgNQMw657GFDGBg',
     consumer_secret: 'wBL9TWKQQWTyh0IO9V4D6PN4DNFsbEozY9n7pekSnmY',
-    access_token_key: '',
-    access_token_secret: ''
+    access_token_key: '40382389-Nu5fNXgfwbrl88PBcFZBEyk5YUwHW2oDDmZWWNc6H',
+    access_token_secret: 'obTtha4PhxQ80sQaoNNnZbXZuYO1LYkjSRWKGyN2Q'
   }
 };
