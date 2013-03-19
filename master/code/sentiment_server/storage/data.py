@@ -13,17 +13,23 @@ import utils.utils as u
 
     E.g. on a set of 2000 entries, 1500 is used for training and 500 for testing. 
 """
-train_set_filename = (sys.argv[2] if len(sys.argv) > 2 else False) or 'data/tweeti-b.dist.output.tsv'
-test_set_filename = (sys.argv[1] if len(sys.argv) > 1 else False) or 'data/test/twitter-dev-gold-B.tsv'
+train = None
+test = None
 
-if not path.exists(train_set_filename) or not path.exists(test_set_filename): # or not path.exists(test_set_filename):
-  raise Exception("File not found")
+def set_file_names(train_set = None, test_set = None):
+  global train, test
+  train_set_filename = (train_set if train_set != None else False) or 'data/tweeti-b.dist.output.tsv'
+  test_set_filename = (test_set if test_set != None else False) or 'data/test/twitter-dev-gold-B.tsv'
+  cache.set_training_file(train_set_filename)
 
-train = np.loadtxt(train_set_filename, delimiter='\t', dtype='S', comments=None)
-# train2 = np.loadtxt('data/output_2013-03-07.tsv', delimiter='\t', dtype='S', comments=None)
-# train = np.concatenate((train, train2), axis=0)
+  if not path.exists(train_set_filename) or not path.exists(test_set_filename): # or not path.exists(test_set_filename):
+    raise Exception("File not found")
 
-test = np.loadtxt(test_set_filename, delimiter='\t', dtype='S', comments=None)
+  train = np.loadtxt(train_set_filename, delimiter='\t', dtype='S', comments=None)
+  # train2 = np.loadtxt('data/output_2013-03-07.tsv', delimiter='\t', dtype='S', comments=None)
+  # train = np.concatenate((train, train2), axis=0)
+
+  test = np.loadtxt(test_set_filename, delimiter='\t', dtype='S', comments=None)
 
 def get_full_test_set():
   global test
@@ -32,14 +38,11 @@ def get_full_test_set():
 def get_data():
   global train, test
 
-  cache.set_training_file(train_set_filename)
-
   test = u.normalize_test_set_classification_scheme(test)
   train = u.normalize_test_set_classification_scheme(train)
 
   # Normalize data?
   # train = u.reduce_dataset(train, 3000)
-  # test = u.reduce_dataset(test, 300)
 
   # To compansate for poor TSV data structure
   i_d = 4 if len(test[0]) > 4 else 3

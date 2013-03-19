@@ -16,6 +16,9 @@ import simplejson as json
 # Server used..
 import eventlet
 
+# System spesific
+import storage.data as d
+import utils.preprocessor_methods as pr
 
 # Do import of all different methods here:
 # Remember: When adding a new method, add it to the methods/__init__.py
@@ -25,13 +28,19 @@ from models import *
 pool = eventlet.GreenPool(size=10000)
 
 
+d.set_file_names()
+docs_test, y_test, docs_train, y_train, docs_train_subjectivity, y_train_subjectivity, docs_train_polarity, y_train_polarity = d.get_data()
+
+
+
 def init_app(classifier_class):
     """
         Initialize the POST server functions.
     """
     # Using closure to provide classifier
     def get_sentiment(tweet):
-        return classifier_class.run(json.loads(tweet))
+        data = json.loads(tweet)
+        return classifier_class.predict(data['text'])
 
     def app(environ, start_response):
 
@@ -78,11 +87,11 @@ if __name__ == "__main__":
                 default=False,
                 help='Show debug data.')
 
-    parser.add_argument('-m', '--method',
-                dest='method_name',
-                action='store',
-                default='AFINN',
-                help='Show debug data. Default value "AFINN"')
+    # parser.add_argument('-m', '--method',
+    #             dest='method_name',
+    #             action='store',
+    #             default='AFINN',
+    #             help='Show debug data. Default value "AFINN"')
 
     parser.add_argument('-p', '--port',
                 dest='port',
@@ -97,7 +106,22 @@ if __name__ == "__main__":
     level = logging.DEBUG if args.debug else logging.WARNING
     logging.basicConfig(level=level, format='%(asctime)s - %(levelname)s - %(message)s')
 
+    vect_options = {
+      'ngram_range': (1,1),
+      'sublinear_tf': True,
+      'preprocessor': pr.remove_noise,
+      'use_idf': False,
+      'stop_words': None
+    }
+
+    default_options = {
+      'C': 1.0
+    }
+
+    clf = SVM(docs_train, y_train, default_options=default_options, vect_options=vect_options)
+
     # Start server
     from eventlet import wsgi
-    wsgi.server(eventlet.listen(('localhost', args.port)), init_app(str_to_class(args.method_name)))
+    # wsgi.server(eventlet.listen(('localhost', args.port)), init_app(str_to_class(args.method_name)))
+    wsgi.server(eventlet.listen(('localhost', args.port)), init_app(clf))
 
