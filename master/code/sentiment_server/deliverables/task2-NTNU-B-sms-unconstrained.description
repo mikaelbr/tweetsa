@@ -1,0 +1,54 @@
+1. Site ID
+NTNU
+
+2. Site affiliation
+Norwegian University of Science and Technology
+
+3. Contact information
+Øyvind Selmer <oyvinsel@stud.ntnu.no>
+Mikael Brevik <mikaelbr@stud.ntnu.no>
+Björn Gambäck <gamback@idi.ntnu.no>
+Lars Bungum <lars.bungum@idi.ntnu.no>
+
+4. Submission, i.e., ZIP file name
+task2-NTNU-B-sms-unconstrained.zip
+
+5. System specs
+
+- 5.1 Core approach
+The sentiment classifier is based on a Support Vector Machines (SVM) and Maximum Entropy (MaxEnt) classification model that are trained with the provided data (learning and development sets) and own manually labeled data. 
+
+The classification model is a two step system, where as we first classify subjectivity or neutral, if classified as subjective, we classify polarity: negative or positive. 
+
+This approach was chosen based on multiple grid searches with different preprocessors and machine learning algorithms.
+
+- 5.2 Supervised or unsupervised
+Supervised.
+
+- 5.3 Critical features used
+
+- Words
+- Hashtags
+- Emoticons
+- URLs
+- Usernames
+
+- 5.4 Critical tools used
+Used the learn package from scikit [1] 
+
+- 5.5 Significant data pre/post-processing
+
+Pre-processing used:
+
+For subjectivity/neutral:
+No notable pre-processing
+
+For polarity:
+1. Removing all usernames.
+
+
+- 5.6 Other data used (outside of the provided)
+A small manually labeled dataset. 
+
+6 References (if applicable)
+[1]: http://scikit-learn.org/

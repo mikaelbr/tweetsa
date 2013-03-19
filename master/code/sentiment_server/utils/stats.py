@@ -35,6 +35,8 @@ def print_stats(best_params, best_score, report=False, confusion=False):
 
 def show_most_informative_features(model, num=15):
 
+  if isinstance(model, NB):
+    return
 
   if isinstance(model, Boosting) and hasattr(model, 'models'):
     # Is Boosting, contains alot of models:
@@ -74,6 +76,9 @@ def show_most_informative_features(model, num=15):
 
 def show_most_informative_features_binary(model, n=20, binary=False):
 
+  if isinstance(model, NB):
+    return
+  
   if isinstance(model, Boosting) and hasattr(model, 'models'):
     # Is Boosting, contains alot of models:
     for m in model.models:
@@ -101,7 +106,7 @@ def show_most_informative_features_binary(model, n=20, binary=False):
     print "density: {}".format(density(coef))
     co = coef if len(coef) > 1 else coef[0]
     print "top %s keywords per class:" % n
-    c_f = sorted(zip(co, vectorizer.get_feature_names()))
+    c_f = sorted(zip(coef[0], vectorizer.get_feature_names()))
     top = zip(c_f[:n], c_f[:-(n+1):-1])
     for (c1,f1),(c2,f2) in top:
         print "\t%.4f\t%-15s\t\t%.4f\t%-15s" % (c1,f1,c2,f2)

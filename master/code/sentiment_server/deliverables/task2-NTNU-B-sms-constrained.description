@@ -1,18 +1,22 @@
 1. Site ID
+NTNU
 
 2. Site affiliation
+Norwegian University of Science and Technology
 
 3. Contact information
+Øyvind Selmer <oyvinsel@stud.ntnu.no>
+Mikael Brevik <mikaelbr@stud.ntnu.no>
+Björn Gambäck <gamback@idi.ntnu.no>
+Lars Bungum <lars.bungum@idi.ntnu.no>
 
 4. Submission, i.e., ZIP file name
+task2-NTNU-B-sms-constrained.zip
 
 5. System specs
 
 - 5.1 Core approach
-The sentiment classifier is based on a Support Vector Machines(SVM) classification model that are trained with the provided data (learning and development sets). This approach was chosen based on multiple grid searches with different preprocessors and machine learning algorithms, including boosting and two-step classifications(step1: polarized/neutral, step2: negative/positive).
-
-For development, combination of 5 core approaches were used:
-Naïve Bayes, Support Vector Machine, ...-.
+The sentiment classifier is based on a Support Vector Machines (SVM) classification model that are trained with the provided data (learning and development sets). This approach was chosen based on multiple grid searches with different preprocessors and machine learning algorithms, including boosting and two-step classifications (step 1: polarized/neutral, step 2: negative/positive).
 
 - 5.2 Supervised or unsupervised
 Supervised.
@@ -22,8 +26,6 @@ See section 5.5:
 - Words
 - Hashtags
 - Emoticons
-- Punctuations
-- 
 
 - 5.4 Critical tools used
 Used the learn package from scikit [1] 
