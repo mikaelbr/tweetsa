@@ -65,4 +65,4 @@ plt.title('Comparison of the different ?')
 plt.grid(True)
 fig.autofmt_xdate()
 
-savefig("plots/comparison1.png", format="png")
+savefig("plots/comparison_different_testset_reduce_3000.png", format="png")

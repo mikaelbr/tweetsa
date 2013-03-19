@@ -60,4 +60,4 @@ for i, cas in enumerate(conf_arr):
         if c>0:
             plt.text(j-.2, i+.2, c, fontsize=14)
 cb = fig.colorbar(res)
-savefig("plots/confusion_matrix1.png", format="png")
+savefig("plots/confusion_matrix.png", format="png")

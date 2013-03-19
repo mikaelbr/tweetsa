@@ -19,7 +19,7 @@ test = None
 def set_file_names(train_set = None, test_set = None):
   global train, test
   train_set_filename = (train_set if train_set != None else False) or 'data/tweeti-b.dist.output.tsv'
-  test_set_filename = (test_set if test_set != None else False) or 'data/test/twitter-dev-gold-B.tsv'
+  test_set_filename = (test_set if test_set != None else False) or 'data/output_2013-03-07.tsv'
   cache.set_training_file(train_set_filename)
 
   if not path.exists(train_set_filename) or not path.exists(test_set_filename): # or not path.exists(test_set_filename):
@@ -39,7 +39,7 @@ def get_data():
   train = u.normalize_test_set_classification_scheme(train)
 
   # Normalize data?
-  # train = u.reduce_dataset(train, 3000)
+  train = u.reduce_dataset(train, 3000)
 
   # To compansate for poor TSV data structure
   i_d = 4 if len(test[0]) > 4 else 3
