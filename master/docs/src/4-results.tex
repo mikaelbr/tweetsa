@@ -85,32 +85,45 @@ Attach negation to surrounding words & &   &   &   & x &   & x & x \\ \hline
 \section{Experiment Results}
 \textcolor{blue}{Show plots, significant features and so on and describe the results from the experiment}
 
+Notes:
+\begin{enumerate}
+\item Grid search across params result in MaxEnt being the best. With following params:
+	\begin{itemize}
+		\item 'ngram\_range': (1,1),
+		\item  'sublinear\_tf': True,
+		\item  'preprocessor': pr.placeholders,
+		\item  'use\_idf': True,
+		\item  'smooth\_idf': True,
+		\item  'max\_df': 0.5,
+		\item  'stop\_words': None
+	\end{itemize}
+	\begin{itemize}
+		\item 'C': 1.0,
+		\item 'penalty': 'l1'
+	\end{itemize}
 
-\begin{figure}
-\centering
-\begin{minipage}{.5\textwidth}
-  \centering
-  \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_NB.png}
-  \caption{A subfigure}
-  \label{fig:sub1}
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-  \centering
-  \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_SVM.png}
-  \caption{A subfigure}
-  \label{fig:sub2}
-\end{minipage}
-\begin{minipage}{.5\textwidth}
-  \centering
-  \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_SVM.png}
-  \caption{A subfigure}
-  \label{fig:sub2}
-\end{minipage}
-\begin{minipage}{.5\textwidth}
-  \centering
-  \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_SVM.png}
-  \caption{A subfigure}
-  \label{fig:sub2}
-\end{minipage}
-\end{figure}
+\item Best impl has a accuracy of 0.645, but a bad confusion matrix.
 
+\item Overall stats for feature filters:
+	\begin{description}
+		\item[remove\_noise] 10
+		\item[no\_url\_usernames\_reduced\_attached] 4
+		\item[placeholders] 1
+		\item[reduced\_attached] 3
+		\item[no\_usernames] 3
+	\end{description}
+
+\item SVM uses remove\_noise and MaxEnt is the only one using placeholders. 
+
+\item Can see that even though maxent scored better, it has a worse confusion matrix, than SVM. Not much difference in accuracy really. 
+
+\item SVM and MaxEnt is performs much better than the rest. 
+\end{enumerate}
+
+
+TODO:
+\begin{enumerate}
+\item Check reduced dataset against both MaxEnt and SVM. (1000, 2000, 3000)
+\item Check most informative features on MaxEnt and SVM
+\item Check both up against a different test set. 
+\end{enumerate}

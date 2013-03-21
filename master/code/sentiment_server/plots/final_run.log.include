@@ -1,0 +1,107 @@
+mikaelb@Tweetit:~/sentiment_server$ python -O -m plots.full_grid_search
+2013-03-21 08:05:32,150 # Training new instance of MultinomialNB
+2013-03-21 08:13:27,037 # Best params for  MultinomialNB :
+2013-03-21 08:13:27,037 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function no_url_usernames_reduced_attached at 0x9be3224>, 'vect__use_idf': False, 'clf__alpha': 0.1}
+2013-03-21 08:13:27,037 # Best score for  MultinomialNB :
+2013-03-21 08:13:27,038 0.634316341371
+2013-03-21 08:13:27,039 # Training new instance of LinearSVC
+2013-03-21 08:21:35,183 # Best params for  LinearSVC :
+2013-03-21 08:21:35,183 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function remove_noise at 0x9be3144>, 'vect__use_idf': True, 'clf__C': 0.3}
+2013-03-21 08:21:35,184 # Best score for  LinearSVC :
+2013-03-21 08:21:35,184 0.674673749307
+2013-03-21 08:21:35,185 # Training new instance of LogisticRegression
+2013-03-21 08:38:00,401 # Best params for  LogisticRegression :
+2013-03-21 08:38:00,402 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function placeholders at 0x9be31b4>, 'clf__penalty': 'l1', 'clf__C': 1.0, 'vect__use_idf': True}
+2013-03-21 08:38:00,402 # Best score for  LogisticRegression :
+2013-03-21 08:38:00,402 0.668634920936
+2013-03-21 08:38:00,403 # Training new instance of MultinomialNB
+2013-03-21 08:45:58,947 # Best params for  MultinomialNB :
+2013-03-21 08:45:58,947 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function remove_noise at 0x9be3144>, 'vect__use_idf': False, 'clf__alpha': 0.1}
+2013-03-21 08:45:58,947 # Best score for  MultinomialNB :
+2013-03-21 08:45:58,948 0.718050514909
+2013-03-21 08:45:58,949 # Training new instance of MultinomialNB
+2013-03-21 08:50:38,877 # Best params for  MultinomialNB :
+2013-03-21 08:50:38,877 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function reduced_attached at 0x9be31ec>, 'vect__use_idf': True, 'clf__alpha': 0.1}
+2013-03-21 08:50:38,877 # Best score for  MultinomialNB :
+2013-03-21 08:50:38,878 0.786928300595
+2013-03-21 08:50:38,879 # Training new instance of MultinomialNB
+2013-03-21 08:58:36,478 # Best params for  MultinomialNB :
+2013-03-21 08:58:36,478 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function remove_noise at 0x9be3144>, 'vect__use_idf': False, 'clf__alpha': 0.1}
+2013-03-21 08:58:36,478 # Best score for  MultinomialNB :
+2013-03-21 08:58:36,479 0.718050514909
+2013-03-21 08:58:36,480 # Training new instance of LinearSVC
+2013-03-21 09:03:15,468 # Best params for  LinearSVC :
+2013-03-21 09:03:15,468 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function no_url_usernames_reduced_attached at 0x9be3224>, 'vect__use_idf': True, 'clf__C': 0.7}
+2013-03-21 09:03:15,468 # Best score for  LinearSVC :
+2013-03-21 09:03:15,468 0.815167051192
+2013-03-21 09:03:15,470 # Training new instance of MultinomialNB
+2013-03-21 09:11:14,170 # Best params for  MultinomialNB :
+2013-03-21 09:11:14,170 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function remove_noise at 0x9be3144>, 'vect__use_idf': False, 'clf__alpha': 0.1}
+2013-03-21 09:11:14,170 # Best score for  MultinomialNB :
+2013-03-21 09:11:14,170 0.718050514909
+2013-03-21 09:11:14,172 # Training new instance of LogisticRegression
+2013-03-21 09:20:32,153 # Best params for  LogisticRegression :
+2013-03-21 09:20:32,154 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function no_usernames at 0x9be310c>, 'clf__penalty': 'l1', 'clf__C': 1.0, 'vect__use_idf': True}
+2013-03-21 09:20:32,154 # Best score for  LogisticRegression :
+2013-03-21 09:20:32,154 0.784828603706
+2013-03-21 09:20:32,156 # Training new instance of LinearSVC
+2013-03-21 09:28:31,517 # Best params for  LinearSVC :
+2013-03-21 09:28:31,517 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': False, 'vect__preprocessor': <function remove_noise at 0x9be3144>, 'vect__use_idf': False, 'clf__C': 1.0}
+2013-03-21 09:28:31,518 # Best score for  LinearSVC :
+2013-03-21 09:28:31,518 0.744543497719
+2013-03-21 09:28:31,519 # Training new instance of MultinomialNB
+2013-03-21 09:33:10,095 # Best params for  MultinomialNB :
+2013-03-21 09:33:10,095 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function reduced_attached at 0x9be31ec>, 'vect__use_idf': True, 'clf__alpha': 0.1}
+2013-03-21 09:33:10,095 # Best score for  MultinomialNB :
+2013-03-21 09:33:10,095 0.786928300595
+2013-03-21 09:33:10,097 # Training new instance of LinearSVC
+2013-03-21 09:41:09,242 # Best params for  LinearSVC :
+2013-03-21 09:41:09,242 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': False, 'vect__preprocessor': <function remove_noise at 0x9be3144>, 'vect__use_idf': False, 'clf__C': 1.0}
+2013-03-21 09:41:09,242 # Best score for  LinearSVC :
+2013-03-21 09:41:09,242 0.744543497719
+2013-03-21 09:41:09,244 # Training new instance of LinearSVC
+2013-03-21 09:45:48,262 # Best params for  LinearSVC :
+2013-03-21 09:45:48,262 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function no_url_usernames_reduced_attached at 0x9be3224>, 'vect__use_idf': True, 'clf__C': 0.7}
+2013-03-21 09:45:48,262 # Best score for  LinearSVC :
+2013-03-21 09:45:48,262 0.815167051192
+2013-03-21 09:45:48,264 # Training new instance of LinearSVC
+2013-03-21 09:53:47,693 # Best params for  LinearSVC :
+2013-03-21 09:53:47,694 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': False, 'vect__preprocessor': <function remove_noise at 0x9be3144>, 'vect__use_idf': False, 'clf__C': 1.0}
+2013-03-21 09:53:47,694 # Best score for  LinearSVC :
+2013-03-21 09:53:47,694 0.744543497719
+2013-03-21 09:53:47,695 # Training new instance of LogisticRegression
+2013-03-21 10:03:05,845 # Best params for  LogisticRegression :
+2013-03-21 10:03:05,846 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function no_usernames at 0x9be310c>, 'clf__penalty': 'l1', 'clf__C': 1.0, 'vect__use_idf': True}
+2013-03-21 10:03:05,846 # Best score for  LogisticRegression :
+2013-03-21 10:03:05,846 0.784828603706
+2013-03-21 10:03:05,848 # Training new instance of LogisticRegression
+2013-03-21 10:19:07,753 # Best params for  LogisticRegression :
+2013-03-21 10:19:07,753 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': False, 'vect__max_df': 0.5, 'vect__sublinear_tf': False, 'vect__preprocessor': <function remove_noise at 0x9be3144>, 'clf__penalty': 'l2', 'clf__C': 1.0, 'vect__use_idf': True}
+2013-03-21 10:19:07,753 # Best score for  LogisticRegression :
+2013-03-21 10:19:07,753 0.734934636821
+2013-03-21 10:19:07,754 # Training new instance of MultinomialNB
+2013-03-21 10:23:48,108 # Best params for  MultinomialNB :
+2013-03-21 10:23:48,108 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function reduced_attached at 0x9be31ec>, 'vect__use_idf': True, 'clf__alpha': 0.1}
+2013-03-21 10:23:48,108 # Best score for  MultinomialNB :
+2013-03-21 10:23:48,108 0.786928300595
+2013-03-21 10:23:48,110 # Training new instance of LogisticRegression
+2013-03-21 10:39:50,357 # Best params for  LogisticRegression :
+2013-03-21 10:39:50,357 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': False, 'vect__max_df': 0.5, 'vect__sublinear_tf': False, 'vect__preprocessor': <function remove_noise at 0x9be3144>, 'clf__penalty': 'l2', 'clf__C': 1.0, 'vect__use_idf': True}
+2013-03-21 10:39:50,357 # Best score for  LogisticRegression :
+2013-03-21 10:39:50,357 0.734934636821
+2013-03-21 10:39:50,359 # Training new instance of LinearSVC
+2013-03-21 10:44:32,225 # Best params for  LinearSVC :
+2013-03-21 10:44:32,225 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function no_url_usernames_reduced_attached at 0x9be3224>, 'vect__use_idf': True, 'clf__C': 0.7}
+2013-03-21 10:44:32,225 # Best score for  LinearSVC :
+2013-03-21 10:44:32,225 0.815167051192
+2013-03-21 10:44:32,227 # Training new instance of LogisticRegression
+2013-03-21 11:00:39,878 # Best params for  LogisticRegression :
+2013-03-21 11:00:39,878 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': False, 'vect__max_df': 0.5, 'vect__sublinear_tf': False, 'vect__preprocessor': <function remove_noise at 0x9be3144>, 'clf__penalty': 'l2', 'clf__C': 1.0, 'vect__use_idf': True}
+2013-03-21 11:00:39,878 # Best score for  LogisticRegression :
+2013-03-21 11:00:39,878 0.734934636821
+2013-03-21 11:00:39,880 # Training new instance of LogisticRegression
+[Parallel(n_jobs=-1)]: Done 2592 out of 2592 | elapsed:  9.3min finished
+2013-03-21 11:09:59,177 # Best params for  LogisticRegression :
+2013-03-21 11:09:59,177 {'vect__ngram_range': (1, 1), 'vect__smooth_idf': True, 'vect__max_df': 0.5, 'vect__sublinear_tf': True, 'vect__preprocessor': <function no_usernames at 0x9be310c>, 'clf__penalty': 'l1', 'clf__C': 1.0, 'vect__use_idf': True}
+2013-03-21 11:09:59,177 # Best score for  LogisticRegression :
+2013-03-21 11:09:59,177 0.784828603706
