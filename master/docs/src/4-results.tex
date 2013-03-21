@@ -120,13 +120,18 @@ Notes:
 \item SVM and MaxEnt is performs much better than the rest. 
 \end{enumerate}
 
+What is up with the text on this page? Why does it have this much whitespace?? Trying to get this line to stretch over multiple lines. At least two lines, right? Why does it have this much whitespace?? Trying to get this line to stretch over multiple lines. At least two lines, right? Why does it have this much whitespace?? Trying to get this line to stretch over multiple lines. At least two lines, right?
+
+Why does it have this much whitespace?? Trying to get this line to stretch over multiple lines. At least two lines, right? Why does it have this much whitespace?? Trying to get this line to stretch over multiple lines. At least two lines, right?Why does it have this much whitespace?? Trying to get this line to stretch over multiple lines. At least two lines, right?
 
 TODO:
 \begin{enumerate}
-\item Check reduced dataset against both MaxEnt and SVM. (1000, 2000, 3000)
-\item Check most informative features on MaxEnt and SVM
-\item Check both up against a different test set. 
+	\item Check reduced dataset against both MaxEnt and SVM. (1000, 2000, 3000)
+	\item Check most informative features on MaxEnt and SVM
+	\item Check both up against a different test set. 
 \end{enumerate}
+
+Some other text...
 
 
 \begin{sidewaysfigure}[htb]
@@ -138,26 +143,115 @@ TODO:
 \end{sidewaysfigure}
 
 
-\begin{figure}[ht]
- \begin{center}
-     \includegraphics[width=0.7\linewidth]{../img/plots/grid/confusion_matrix_SVM.png}
- \end{center}
- \caption[Results overview across models]{Caption description over here.}
- \label{fig:confmat_svm}
-\end{figure}
+\begin{minipage}[c]{\linewidth}
+     \centering
+     \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_SVM.png}
+           \caption[Results overview across models]{Caption description over here.}
+           \label{fig:confmat_svm}
+          \end{figure}
+     \end{minipage}
+     \hspace{0.05\linewidth}
+     \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_MaxEnt.png}
+           \caption[Results overview across models]{Caption description over here.}
+           \label{fig:confmat_maxent}
+          \end{figure}
+     \end{minipage} \\
+ 
+     \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_NB.png}
+           \caption[Results overview across models]{Caption description over here.}
+           \label{fig:confmat_nb}
+          \end{figure}
+     \end{minipage}
+     \hspace{0.05\linewidth}
+     \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-NB.png}
+           \caption[Results overview across models]{Caption description over here.}
+           \label{fig:confmat_nb_nb}
+          \end{figure}
+     \end{minipage}   \\
+         
 
-\begin{figure}[ht]
- \begin{center}
-     \includegraphics[width=0.7\linewidth]{../img/plots/grid/confusion_matrix_MaxEnt.png}
- \end{center}
- \caption[Results overview across models]{Caption description over here.}
- \label{fig:confmat_maxent}
-\end{figure}
+     \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-SVM.png}
+           \caption[Results overview across models]{Caption description over here.}
+           \label{fig:confmat_nb_svm}
+          \end{figure}
+     \end{minipage}
+     \hspace{0.05\linewidth}
+     \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-MaxEnt.png}
+           \caption[Results overview across models]{Caption description over here.}
+           \label{fig:confmat_nb_maxent}
+          \end{figure}
+     \end{minipage}
+\end{minipage}
 
-\begin{figure}[ht]
+
+\begin{minipage}[c]{\linewidth}
+     \centering
+     \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-NB.png}
+           \caption[Results overview across models]{Caption description over here.}
+           \label{fig:confmat_svm_nb}
+          \end{figure}
+     \end{minipage}
+     \hspace{0.05\linewidth}
+     \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-SVM.png}
+           \caption[Results overview across models]{Caption description over here.}
+           \label{fig:confmat_svm_svm}
+          \end{figure}
+     \end{minipage} \\
+ 
+     \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-MaxEnt.png}
+           \caption[Results overview across models]{Caption description over here.}
+           \label{fig:confmat_svm_maxent}
+          \end{figure}
+     \end{minipage}
+     \hspace{0.05\linewidth}
+     \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-NB.png}
+           \caption[Results overview across models]{Caption description over here.}
+           \label{fig:confmat_maxent_nb}
+          \end{figure}
+     \end{minipage}   \\
+         
+
+     \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-SVM.png}
+           \caption[Results overview across models]{Caption description over here.}
+           \label{fig:confmat_maxent_svm}
+          \end{figure}
+     \end{minipage}
+     \hspace{0.05\linewidth}
+     \begin{minipage}{0.45\linewidth}
+          \begin{figure}[H]
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-MaxEnt.png}
+           \caption[Results overview across models]{Caption description over here.}
+           \label{fig:confmat_maxent_maxent}
+          \end{figure}
+     \end{minipage}
+\end{minipage}
+
+\begin{figure}[H]
  \begin{center}
-     \includegraphics[width=0.7\linewidth]{../img/plots/grid/confusion_matrix_NB.png}
+     \includegraphics[width=0.7\linewidth]{../img/plots/grid/confusion_matrix_Boosting.png}
  \end{center}
  \caption[Results overview across models]{Caption description over here.}
- \label{fig:confmat_nb}
+ \label{fig:confmat_boosting}
 \end{figure}
