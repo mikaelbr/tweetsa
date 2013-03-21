@@ -27,8 +27,8 @@ class BaseMethod(object):
         self.options = {}
     else: 
         self.options = {
-                'vect__ngram_range': [(1, 1), (2, 2), (3,3)],
-                'vect__stop_words': ('english', None),
+                'vect__ngram_range': [(1, 1)], # (2, 2), (3,3)],
+                # 'vect__stop_words': ('english', None),
                 'vect__preprocessor': (None, pr.no_prep, pr.no_usernames, pr.remove_noise, pr.placeholders, pr.all, pr.remove_all, pr.reduced_attached, pr.no_url_usernames_reduced_attached),
                 'vect__use_idf': (True, False),
                 'vect__max_df': (0.5,),
@@ -63,7 +63,7 @@ class BaseMethod(object):
     else:
         self.grid = pipeline
 
-    cache_key = self.clf.__class__.__name__ + str(options) + str(docs_train)
+    cache_key = str(self.grid) + str(docs_train)
     cached = cache.get(cache_key)
     
     if cached and sys.flags.debug == 0: 

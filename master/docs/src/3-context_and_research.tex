@@ -8,7 +8,7 @@ describe MaxEnt, NB, SVM, Boosting/Bagging
 
 
 \chapter{Experimental Setup}
-
+\label{sec:experimentalsetup}
 
 \section{Architecture}
 
@@ -57,6 +57,7 @@ When streaming, the TBH module opens a connection to the Twitter API, but never 
 
 
 \subsection{Sentiment Analysis Classifier}
+\label{sec:classifier_arch}
 
 Python is computationally stronger than Node.js in many ways. Additionally, it is much more mature. There are a lot of well documented packages for handling various tasks. Scikit-learn (sklearn) is one of these packages. sklearn is package built on top of the Python packages numpy, scipy and matplotlib. sklearn integrates machine learning algorithms as SVM, NB, MaxEnt and more. sklearn implements solutions for doing feature extraction, grid searching, cross validation and a lot more for analysing text. Thus it is a good choice for the process of sentiment analysis. As a dynamic typed language, Python allows for rapid development and prototyping. These attributes are some of the reasons Python is a good fit for the present system. 
 
