@@ -79,6 +79,29 @@ Use Sublinear IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
 \label{tab:gridsearch_params}
 \end{table}
 
+\begin{figure}[htb]
+	\centering
+	\begin{tikzpicture}
+	  \begin{axis}[
+	    ybar,
+	    enlargelimits=0.15,
+	    legend style={at={(0.5,-0.2)},
+	      anchor=north,legend columns=-1},
+	    ylabel={\# times used},
+	    symbolic x coords={P2,P7,P6, P1,P3},
+	    xtick=data,
+	    nodes near coords, 
+		nodes near coords align={vertical},
+	    x tick label style={rotate=45,anchor=east},
+	    ]
+	    \addplot coordinates {(P2,10) (P7,4) 
+			(P6,3) (P1,3) (P3,1)};
+	  \end{axis}
+	\end{tikzpicture}
+	\label{fig:preprocess_usage}
+	\caption[Statistics of pre-processing usage.]{Statistics of pre-processing usage. Removing all usernames, urls hash-tag character, RT-tag and excessive letters as features seem to perform the best.}
+\end{figure}
+
 \section{Experiment Results}
 \textcolor{blue}{Show plots, significant features and so on and describe the results from the experiment}
 
