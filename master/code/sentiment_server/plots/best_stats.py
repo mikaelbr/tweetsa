@@ -85,11 +85,6 @@ SVM:
 # }
 # clf = SVM(docs_train, y_train, default_options=c1_default_options, vect_options=c1_vect_options)
 
-
-
-# c2 = SVM(docs_train_polarity, y_train_polarity, default_options=c2_default_options, vect_options=c2_vect_options)
-# clf = Combined(c1, c2)
-
 labels = []
 res = [
     [],
@@ -142,9 +137,9 @@ width = 1       # the width of the bars
 fig = plt.figure(1)
 ax = plt.subplot(111)
 
-colors = ['#FA6E6E', '#6E9FFA', '#A4FA6E', 'b']
+colors = ['#FA6E6E', '#6E9FFA', '#A4FA6E', '#E0AF1B']
 plt.xticks(ind + width * 2, labels)
-plt.title('Different scores by algorithms')
+plt.title('Details for MaxEnt (Reduced 2000)')
 plt.grid(True)
 
 for i, l in enumerate(labels):
@@ -160,19 +155,22 @@ ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 
 ax.legend( ['Precision', 'Recall', 'F1 Score', 'Accuracy'], loc='center left', bbox_to_anchor=(1, 0.5) )
 
-savefig("plots/maxent_stats_best.png", format="png")
+savefig("plots/maxent_stats_best_reduced_2000.png", format="png")
 
 
 
 plt.clf()
 fig = plt.figure(2)
 ax = fig.add_subplot(111)
+plt.title('Confusion Matrix For MaxEnt (Reduced 2000)')
 res = ax.imshow(array(norm_conf), cmap=cm.jet, interpolation='nearest')
 for i, cas in enumerate(conf_arr):
     for j, c in enumerate(cas):
         if c>0:
             plt.text(j-.2, i+.2, c, fontsize=14)
 cb = fig.colorbar(res)
-savefig("plots/maxent_confusion_matrix_best.png", format="png")
+savefig("plots/maxent_confusion_matrix_best_reduced_2000.png", format="png")
 
 
+
+stat.test_clf(clf, docs_test, y_test)
