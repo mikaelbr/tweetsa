@@ -14,14 +14,34 @@ point.}
 
 
 \section{Description of Experiment}
-\textcolor{blue}{Describe how the experiment was conducted.}
-
 To experiment with different solutions for sentiment analysis, a system testing platform and code base was developed. This testing system generates and trains different models based on input arguments as default values for algorithms and type of algorithm. The architecture and flow of this system is described as a part of section~\ref{sec:classifier_arch}.
 
 The testing system can, take in a set of parameters to use for an algorithm, like pre-processor methods, whether or not to use inverse document frequency (IDF) or stop words and so on, or a grid search flag can be set. If the grid search option is activated, a model is generated with the best possible parameters set for the given algorithm. The grid search is conducted using cross validation, and the set of parameters to search across. The parameter search space is reflected in table~\ref{tab:gridsearch_params}.
 
+\begin{table}[htb]
+\centering
+\begin{tabular}{|r||c|c|c|} 
+\cline{2-4}
+
+\multicolumn{1}{c|}{ } & \textbf{NB} & \textbf{SVM} & \textbf{MaxEnt} \\ \hline
+alpha & <0.1, 0.3, 0.5, 0.7, 0.8, 1.0> & \multicolumn{2}{ c| }{-} \\ \hline
+penalty  &  - &  - & L1 or L2 \\ \hline
+C &  - & \multicolumn{2}{ c| }{<0.1, 0.3, 0.5, 0.7, 0.8, 1.0>} \\ \hline
+ngram &  \multicolumn{3}{ c| }{ Unigram, Bigram or Trigram } \\ \hline
+Use IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
+Use Smooth IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
+Use Sublinear IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
+
+\end{tabular}
+\caption{Overview of parameter search space for the grid searches conducted in the experiments.}
+\label{tab:gridsearch_params}
+\end{table}
 
 \subsection{Pre-processing and Feature Selection}
+
+To find the best features to use and what kind of pre-processing was the best, a set of 8 different combination of pre-processing methods was designed. The different methods include no pre-processing, where all characters are included as features, full remove where all special Twitter features like user names, URLs, hash tags and emoticons are stripped and one where the Twitter features are replaced with place holder texts to reduce vocabulary. A full view of the pre-processing methods can be viewed in~table~\ref{tab:preproc_desc}.
+
+This section describes the different pre-processing implementations used; what place holders, negation attachment and reducing letter duplications is.
 
 \begin{table}[htb]
 	\centering
@@ -53,31 +73,19 @@ The testing system can, take in a set of parameters to use for an algorithm, lik
 \end{table}
 
 \subsubsection{Removing features}
+To reduce the vocabulary and to get more precise classification different features were tried omitted. A user name might be relevant for a text's sentiment. The same goes for a URL, RT-tag and emoticon. Some methods, like P1, P2, P4, P5 and P7 removes user names from the text, as it most likely is just noise for the sentiment. Removing features will remove all notion of the feature, unlike with replacing with a place holder.
 
 \subsubsection{Replacing with place holders}
+There might be a chance that URLs or user names are relevant for the sentiment. Not necessarily the value of the name or URL it self, but the fact that there are references to URLs and user names. To make these features more informative for the machine learning algorithms a pre-processing method (P3) was implemented for replacing them with place holder texts. This means that a user name like $@$$someuser$ is replaced by the text $||U||$. $||U||$ was chosen as it is very unlikely that it would be a part of a original tweet. Hash-tags ($\#hash$) are replaced with $||H||$ and URLs with $||URL||$. 
 
 \subsubsection{Reducing letter duplication}
+By reducing and normalizing excessive letter duplications like "I'm sooooooo happyyyyyyyy!!!!!!", the vocabulary is reduced and the classification can perform better. However, there might be that the word "sooooo" is more sentimentally charged than the proper form of the word "so". The sentence "I'm sooooooo happyyyyyyyy!!!!!!" is more positive polar than the statement "I'm so happy!". 
+
+To reduce the vocabulary but not lose information, all duplicates of more than three consecutive characters are reduced to exactly three duplications. So "I'm sooooooo happyyyyyyyy!!!!!!" would be changed to "I'm sooo happyyy!!!", and the same goes for "I'm sooooooooooooooo happyyyyyyyy!!!!!!".
 
 \subsubsection{Attaching negation}
-
-\begin{table}[htb]
-\centering
-\begin{tabular}{|r||c|c|c|} 
-\cline{2-4}
-
-\multicolumn{1}{c|}{ } & \textbf{NB} & \textbf{SVM} & \textbf{MaxEnt} \\ \hline
-alpha & <0.1, 0.3, 0.5, 0.7, 0.8, 1.0> & \multicolumn{2}{ c| }{-} \\ \hline
-penalty  &  - &  - & L1 or L2 \\ \hline
-C &  - & \multicolumn{2}{ c| }{<0.1, 0.3, 0.5, 0.7, 0.8, 1.0>} \\ \hline
-ngram &  \multicolumn{3}{ c| }{ Unigram, Bigram or Trigram } \\ \hline
-Use IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
-Use Smooth IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
-Use Sublinear IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
-
-\end{tabular}
-\caption{Overview of parameter search space for the grid searches conducted in the experiments.}
-\label{tab:gridsearch_params}
-\end{table}
+The negation word "not" can change the polarity of an entire sentence. The sentence "I am happy" is obviously positive, and "I am not happy" negative. If using unigrams, the features of the second sentence would have been $('I', 'am', 'not', 'happy')$ and for the first one $('I', 'am', 'happy')$. Both having the word "happy" in them, and if that were to be a significant feature for positive classification, the negative sentence could be classified as negative. 
+By attaching the negation word the the preceding and the following the features will also reflect the change in polarity. So the features for the negative sentence would be $('I', 'am-not', 'not-happy')$.
 
 \begin{figure}[htb]
 	\centering
@@ -162,7 +170,7 @@ Some other text...
  \begin{center}
      \includegraphics[width=\linewidth]{../img/plots/grid/full.png}
  \end{center}
- \caption[Results overview across models]{Caption description over here.}
+ \caption[Results overview across models]{A full overview of the performance of the different models after a full grid search. Two models sticks out as having highest accuracies: SVM and MaxEnt. One can also see models using Naive Bayes, especially on it's own or to classify subjectivity, performs poorly.}
  \label{fig:results_full}
 \end{sidewaysfigure}
 
@@ -173,7 +181,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_SVM.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for SVM]{Confusion matrix for the model using SVM. Performs well on both neutral and positive predictions, but somewhat poorer on negative.}
            \label{fig:confmat_svm}
           \end{figure}
      \end{minipage}
@@ -181,7 +189,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_MaxEnt.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for MaxEnt]{Confusion matrix for the model using MaxEnt. Performs especially good on neutral tweets, but seem to be classifying neutral too much.}
            \label{fig:confmat_maxent}
           \end{figure}
      \end{minipage} \\
@@ -189,7 +197,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_NB.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for NB]{Confusion matrix for the model using NB. Performs very well for positive tweets, but seem to favour it too much.}
            \label{fig:confmat_nb}
           \end{figure}
      \end{minipage}
@@ -197,27 +205,10 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-NB.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for two-step NB -> NB]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and NB for polarity. Shows the same trend as when using NB in a one-step model. Model favours positive predictions.}
            \label{fig:confmat_nb_nb}
           \end{figure}
-     \end{minipage}   \\
-         
-
-     \begin{minipage}{0.45\linewidth}
-          \begin{figure}[H]
-               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-SVM.png}
-           \caption[Results overview across models]{Caption description over here.}
-           \label{fig:confmat_nb_svm}
-          \end{figure}
-     \end{minipage}
-     \hspace{0.05\linewidth}
-     \begin{minipage}{0.45\linewidth}
-          \begin{figure}[H]
-               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-MaxEnt.png}
-           \caption[Results overview across models]{Caption description over here.}
-           \label{fig:confmat_nb_maxent}
-          \end{figure}
-     \end{minipage}
+     \end{minipage} 
 \end{minipage}
 
 
@@ -225,24 +216,44 @@ Some other text...
      \centering
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
-               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-NB.png}
-           \caption[Results overview across models]{Caption description over here.}
-           \label{fig:confmat_svm_nb}
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-SVM.png}
+           \caption[Plot showing the confusion matrix for two-step NB -> SVM]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and SVM for polarity. Shows the same trend as when using NB in a one-step model. Model favours positive predictions but performing better for negative tweets.}
+           \label{fig:confmat_nb_svm}
           \end{figure}
      \end{minipage}
      \hspace{0.05\linewidth}
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
-               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-SVM.png}
-           \caption[Results overview across models]{Caption description over here.}
-           \label{fig:confmat_svm_svm}
+               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-MaxEnt.png}
+           \caption[Plot showing the confusion matrix for two-step NB -> MaxEnt]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and SVM for polarity. Shows the same trend as when using the NB -> SVM model. Model favours positive predictions but performing better for negative tweets.}
+           \label{fig:confmat_nb_maxent}
           \end{figure}
      \end{minipage} \\
- 
+     
+     \begin{minipage}{0.45\linewidth}
+           \begin{figure}[H]
+                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-NB.png}
+            \caption[Plot showing the confusion matrix for two-step SVM -> NB]{Confusion matrix for the model using SVM and NB. Performs good for positive tweets, but not as good for neutral and negative.}
+            \label{fig:confmat_svm_nb}
+           \end{figure}
+      \end{minipage}
+      \hspace{0.05\linewidth}
+      \begin{minipage}{0.45\linewidth}
+           \begin{figure}[H]
+                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-SVM.png}
+            \caption[Plot showing the confusion matrix for two-step SVM -> SVM]{Confusion matrix for the model using SVM and SVM. Performs good across the board, and shows a good diagonal colour profile in the plot.}
+            \label{fig:confmat_svm_svm}
+           \end{figure}
+      \end{minipage}
+\end{minipage}
+
+
+\begin{minipage}[s]{\linewidth}
+     \centering 
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-MaxEnt.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for two-step SVM -> MaxEnt]{Confusion matrix for the model using SVM and MaxEnt. Performs good for neutral and positive tweets, but not too well with negative tweets.}
            \label{fig:confmat_svm_maxent}
           \end{figure}
      \end{minipage}
@@ -250,7 +261,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-NB.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for two-step MaxEnt -> NB]{Confusion matrix for the model using MaxEnt and NB. Performs good for positive tweets, but not too well with negative and neutral tweets.}
            \label{fig:confmat_maxent_nb}
           \end{figure}
      \end{minipage}   \\
@@ -259,7 +270,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-SVM.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for two-step MaxEnt -> SVM]{Confusion matrix for the model using MaxEnt and SVM. Performs good but is too heavy on the positive classification.}
            \label{fig:confmat_maxent_svm}
           \end{figure}
      \end{minipage}
@@ -267,22 +278,19 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-MaxEnt.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for two-step MaxEnt -> MaxEnt]{Confusion matrix for the model using MaxEnt and MaxEnt. Performs good but is too heavy on the positive classification.}
            \label{fig:confmat_maxent_maxent}
           \end{figure}
+     \end{minipage} \\
+     
+     \begin{minipage}{0.45\linewidth}
+	     \begin{figure}[H]
+	          \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Boosting.png}
+	      \caption[Plot showing the confusion matrix for Boosting]{Confusion matrix for the model using Boosting. Performs good but is too heavy on the positive classification.}
+	      \label{fig:confmat_boosting}
+	     \end{figure}
      \end{minipage}
 \end{minipage}
-
-\begin{figure}[H]
- \begin{center}
-     \includegraphics[width=0.7\linewidth]{../img/plots/grid/confusion_matrix_Boosting.png}
- \end{center}
- \caption[Results overview across models]{Caption description over here.}
- \label{fig:confmat_boosting}
-\end{figure}
-
-
-
 
 
 
