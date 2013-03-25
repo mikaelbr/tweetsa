@@ -105,66 +105,13 @@ Use Sublinear IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
 \textcolor{blue}{Show plots, significant features and so on and describe the results from the experiment}
 
 \subsection{Grid Search}
-As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F-measure and accuracy for each of the classifiers with test set 1 as evaluation data. We notice that most of the classifiers that includes the NB algorithm has a bad performance, both for accuracy and F-measure. This was observed for other test sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F-measure.
+As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F-measure and accuracy for each of the classifiers with test set 1 as evaluation data. We notice that most of the classifiers that involves the NB algorithm has a bad performance, both for accuracy and F-measure. This was observed for other test sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F-measure.
 
-We can also see that all the classifiers with SVM tends to give a better cofusion matrix than the others. This is showed in Figures (firstconf - lastconf).
+We can also see that all the classifiers with SVM tends to give a better confusion matrix than the others. This is showed in Figures~\ref{fig:confmat_svm} - \ref{fig:confmat_boosting}.
 
 \subsubsection{Parameters and options}
 As a part of the grid search, the system tried to apply all the different preprocessing methods for each classifier. Figure~\ref{fig:preprocess_usage} clearly shows that P2 (removing user names, URLs, hash-tag prefixes, RT-tokens and redundant letters) is the preprocessing method that was used most often, i.e., it gave the best accuracy. Figure~\ref{fig:preprocess_usage} also indicates that URLs are noisy, and does not contain any sentiment, and that hash-tags and emoticons are valuable features.
 
-
-Notes:
-\begin{enumerate}
-\item Grid search across params result in MaxEnt being the best. With following params:
-	\begin{itemize}
-		\item 'ngram\_range': (1,1),
-		\item  'sublinear\_tf': True,
-		\item  'preprocessor': P3,
-		\item  'use\_idf': True,
-		\item  'smooth\_idf': True,
-		\item  'max\_df': 0.5,
-		\item  'stop\_words': None
-	\end{itemize}
-	\begin{itemize}
-		\item 'C': 1.0,
-		\item 'penalty': 'l1'
-	\end{itemize}
-	
-\item Best impl has a accuracy of 0.645, but a bad confusion matrix.
-
-\item SVM also performs well (probably better). Best params:
-	\begin{itemize}
-		\item 'ngram\_range': (1,1),
-		\item  'sublinear\_tf': True,
-		\item  'preprocessor': P2,
-		\item  'use\_idf': True,
-		\item  'smooth\_idf': True,
-		\item  'max\_df': 0.5,
-		\item  'stop\_words': None
-	\end{itemize}
-	\begin{itemize}
-		\item 'C': 0.3
-	\end{itemize}
-
-\item Best impl of SVM has a accuracy of 0.638, better confusion matrix than MaxEnt
-
-\item Overall stats for feature filters:
-	\begin{description}
-		\item[remove\_noise] 10
-		\item[no\_url\_usernames\_reduced\_attached] 4
-		\item[placeholders] 1
-		\item[reduced\_attached] 3
-		\item[no\_usernames] 3
-	\end{description}
-
-\item SVM uses remove\_noise (P2) and MaxEnt is the only one using placeholders (P3). 
- 
-\item Can see that even though maxent scored better, it has a worse confusion matrix, than SVM. Not much difference in accuracy really. 
-
-\item SVM and MaxEnt is performs much better than the rest. 
-\end{enumerate}
-
-Some other text... 
 
 \begin{sidewaysfigure}[htb]
  \begin{center}
