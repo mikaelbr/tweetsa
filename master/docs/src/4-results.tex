@@ -23,6 +23,10 @@ The testing system can take in a set of parameters to use for an algorithm, like
 
 \subsection{Pre-processing and Feature Selection}
 
+To find the best features to use and what kind of pre-processing was the best, a set of 8 different combination of pre-processing methods was designed. The different methods include no pre-processing, where all characters are included as features, full remove where all special Twitter features like user names, URLs, hash tags and emoticons are stripped and one where the Twitter features are replaced with place holder texts to reduce vocabulary. A full view of the pre-processing methods can be viewed in~table~\ref{tab:preproc_desc}.
+
+This section describes the different pre-processing implementations used; what place holders, negation attachment and reducing letter duplications is.
+
 \begin{table}[htb]
 	\centering
 	\begin{tabular}{|r||c|c|c|c|c|c|c|c|}
@@ -53,11 +57,23 @@ The testing system can take in a set of parameters to use for an algorithm, like
 \end{table}
 
 \subsubsection{Removing features}
- {To reduce the vocabulary and to get more precise classification different features were tried omitted. A user name might be relevant for a text's sentiment. The same goes for a URL, RT-tag and emoticon. Some methods, like P1, P2, P4, P5 and P7 removes user names from the text, as it most likely is just noise for the sentiment. Removing features will remove all notion of the feature, unlike with replacing with place holders}
+To reduce the vocabulary and to get more precise classification different features were tried omitted. A user name might be relevant for a text's sentiment. The same goes for a URL, RT-tag and emoticon. Some methods, like P1, P2, P4, P5 and P7 removes user names from the text, as it most likely is just noise for the sentiment. Removing features will remove all notion of the feature, unlike with replacing with a place holder.
+
+\subsubsection{Replacing with place holders}
+There might be a chance that URLs or user names are relevant for the sentiment. Not necessarily the value of the name or URL it self, but the fact that there are references to URLs and user names. To make these features more informative for the machine learning algorithms a pre-processing method (P3) was implemented for replacing them with place holder texts. This means that a user name like $@$$someuser$ is replaced by the text $||U||$. $||U||$ was chosen as it is very unlikely that it would be a part of a original tweet. Hash-tags ($\#hash$) are replaced with $||H||$ and URLs with $||URL||$. 
 
 \subsubsection{Reduplacing letter duplication}
+By reducing and normalizing excessive letter duplications like "I'm sooooooo happyyyyyyyy!!!!!!", the vocabulary is reduced and the classification can perform better. However, there might be that the word "sooooo" is more sentimentally charged than the proper form of the word "so". The sentence "I'm sooooooo happyyyyyyyy!!!!!!" is more positive polar than the statement "I'm so happy!". 
+
+To reduce the vocabulary but not lose information, all duplicates of more than three consecutive characters are reduced to exactly three duplications. So "I'm sooooooo happyyyyyyyy!!!!!!" would be changed to "I'm sooo happyyy!!!", and the same goes for "I'm sooooooooooooooo happyyyyyyyy!!!!!!".
 
 \subsubsection{Attaching negation}
+
+The negation word "not" can change the polarity of an entire sentence. The sentence "I am happy" is obviously positive, and "I am not happy" negative. If using unigrams, the features of the second sentence would have been $('I', 'am', 'not', 'happy')$ and for the first one $('I', 'am', 'happy')$. Both having the word "happy" in them, and if that were to be a significant feature for positive classification, the negative sentence could be classified as negative. 
+
+By attaching the negation word the the preceding and the following the features will also reflect the change in polarity. So the features for the negative sentence would be $('I', 'am-not', 'not-happy')$.
+
+
 
 \begin{table}[htb]
 \centering
