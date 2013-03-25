@@ -333,11 +333,11 @@ penalty & l1 & \\ \hline
 
 
 \subsection{SVM vs MaxEnt}
-A second grid search with the two best classifiers from the first search was performed with test set 2 as evaluation data. The results for both the SVM and MaxEnt classifiers are shown in Figure~\ref{fig:best_result}. With test set 2, SVM's performance is much better than MaxEnt's. Test set 1 contain more neutral tweets than test set 2, which gives us a reason to believe that it favours the MaxEnt classifier. In MaxEnt’s confusion matrix shown in Figure~\ref:{conf_maxent} we can see that it classifies more neutral tweets than the other classifiers.
+A second grid search with the two best classifiers from the first search was performed with test set 2 as evaluation data. The results for both the SVM and MaxEnt classifiers are shown in Figure~\ref{fig:best_result}. With test set 2, SVM's performance is much better than MaxEnt's. Test set 1 contain more neutral tweets than test set 2, which gives us a reason to believe that it favours the MaxEnt classifier. In MaxEnt's confusion matrix from the first search, shown in Figure~\ref{fig:confmat_maxent}, we can see that it classifies more neutral tweets than the other classifiers.
 
-To even out distribution of the different classes, we did a grid search with a reduced training set. Figure~\ref{fig:svm_reduced_1000} and~\ref{fig:svm_reduced_2000} shows SVM's results when reducing the training set to a maximum of 1000 and 2000 tweets per class.
+To even out distribution of the different classes, we did a grid search with a reduced training set. Figure~\ref{fig:svm_reduced_1000} and~\ref{fig:svm_reduced_2000} shows SVM's results when reducing the training set to a maximum of 1000 and 2000 tweets per class. The trend is that the performance are worse with less training data.
 
-The features in Table~\ref{tab:informative_features} is the most informative features from each of the classifiers in the second grid search. Some features are represented among the top 15 for both SVM and MaxEnt, and most of them are correct.
+The features in Table~\ref{tab:informative_features} is the most informative features from each of the classifiers in the second grid search. Some features are represented among the top 15 for both SVM and MaxEnt, and most of these features makes sense. As we didn't normalize the features, we can see that some words appears in different forms and degrees (e.g., "worse", "worst" and "don't", "didn't").
 
 
 \begin{figure}[htb]
@@ -420,6 +420,6 @@ The features in Table~\ref{tab:informative_features} is the most informative fea
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best_reduced_2000.png}
 	\end{minipage}
-	\caption[Performance of SVM when reduced dataset to max 2000 per class]{Performance of SVM when reduced dataset to max 1000 per class}
+	\caption[Performance of SVM when reduced dataset to max 2000 per class]{Performance of SVM when reduced dataset to max 2000 per class}
 	\label{fig:svm_reduced_2000}
 \end{figure}
