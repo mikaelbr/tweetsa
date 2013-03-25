@@ -1,6 +1,26 @@
 \chapter{Material and Methods}
 
 \section{Data sets}
+We have used four different data sets in our experiments. Three of the data sets was given by the Semeval-2013 contest. These corpora consists of a learning set, a development/evaluation set, and a test set. All sets consist of manually annotated tweets on a range of topics, including different products and events. The development set and the test set contain some overlapping tweets, so either one of these had to be used for learning and evaluation. All the data sets had more than three different target classes, e.g., 'objective', 'objective-OR-neutral'. So to make them fit a 3-way classification task, all tweets that wasn't annotated as 'positive' or 'negative' was merged into the target class 'neutral'. The distribution of target classes in the data sets are listed in Table~\ref{tab:data_sets}. None of the tweets has been pre processed or filtered in any way, so they contain hashtags, urls, emoticons etc.
+
+\begin{table}[htb]
+\centering
+\begin{tabular}{|r||c|c|c|} 
+\cline{2-4}
+\multicolumn{1}{c|}{ } & \textbf{Learning} & \textbf{Test set 1} &\textbf{Test set 2} \\ \hline
+Positive & 3270 & 526 & 368 \\ \hline
+Neutral  & 4151 & 673 & 144 \\ \hline
+Negative & 1288 & 313 & 176 \\ \hline
+Total & 8709 & 512 & 688 \\ \hline
+
+\end{tabular}
+\caption{These data sets was used in the experiments.}
+\label{tab:data_sets}
+\end{table}
+
+In addition to the data sets that were given by (the contest), we made a small data set on our own. Before we knew about the Semeval data sets, we made a web application for manually annotation of tweets. This system was tested and used to collect a small data set, but when we got the collection of data sets from the contest we decided to cancel the collection of our own data.
+
+Due to Twitter's privacy policy, the given data sets doesn't contain the tweet text itself, but the tweet ID that can be used to download the actual text. The Twitter API has a limit on number of downloads per hour, so Semeval-2013 provided a python script that uses the tweet ID to scrape the text from Twitter.com. This script was slow, and it didn't download all the tweet texts from the tweet IDs in the data sets. To solve this we made a new download script for node.js that was both faster and more precise. The data files outputted by the script are in the same format as the provided one. The files are tab separated (.tsv formatted) with columns that contain tweet ID, user ID, target class, and tweet text.
 
 \section{Algorithms}
 

@@ -18,7 +18,7 @@ point.}
 
 To experiment with different solutions for sentiment analysis, a system testing platform and code base was developed. This testing system generates and trains different models based on input arguments as default values for algorithms and type of algorithm. The architecture and flow of this system is described as a part of section~\ref{sec:classifier_arch}.
 
-The testing system can, take in a set of parameters to use for an algorithm, like pre-processor methods, whether or not to use inverse document frequency (IDF) or stop words and so on, or a grid search flag can be set. If the grid search option is activated, a model is generated with the best possible parameters set for the given algorithm. The grid search is conducted using cross validation, and the set of parameters to search across. The parameter search space is reflected in table~\ref{tab:gridsearch_params}.
+The testing system can take in a set of parameters to use for an algorithm, like pre-processor methods, whether or not to use inverse document frequency (IDF) or stop words and so on, or a grid search flag can be set. If the grid search option is activated, a model is generated with the best possible parameters set for the given algorithm. The grid search is conducted using cross validation, and the set of parameters to search across. The parameter search space is reflected in table~\ref{tab:gridsearch_params}.
 
 
 \subsection{Pre-processing and Feature Selection}
@@ -48,7 +48,7 @@ The testing system can, take in a set of parameters to use for an algorithm, lik
 		Reduce letter duplicates             & &   & x &   & x &   & x & x \\ \hline
 		Attach negation to surrounding words & &   &   &   & x &   & x & x \\ \hline
 	\end{tabular}
-	\caption[Description of used pre-processing methods]{Description of the pre-processing methods used for the experiments. Some functions remove entities, other replace the with a place holder text. The hash-tag as word transforms a hash-tag to a regular word and uses the hash-tag as a feature. "Reduce letter duplicates", reduces all duplicates of more than three to be three duplicates.}
+	\caption[Description of used pre-processing methods]{Description of the pre-processing methods used for the experiments. Some functions remove entities, other replace them with a place holder text. The hash-tag as word transforms a hash-tag to a regular word and uses the hash-tag as a feature. "Reduce letter duplicates", reduces redundant letters to a maximum of three.}
 	\label{tab:preproc_desc}
 \end{table}
 
@@ -104,6 +104,15 @@ Use Sublinear IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
 
 \section{Experiment Results}
 \textcolor{blue}{Show plots, significant features and so on and describe the results from the experiment}
+
+\subsection{Grid Search}
+As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F-measure and accuracy for each of the classifiers with test set 1 as evaluation data. We notice that most of the classifiers that includes the NB algorithm has a bad performance, both for accuracy and F-measure. This was observed for other test sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F-measure.
+
+We can also see that all the classifiers with SVM tends to give a better cofusion matrix than the others. This is showed in Figures (firstconf - lastconf).
+
+\subsubsection{Parameters and options}
+As a part of the grid search, the system tried to apply all the different preprocessing methods for each classifier. Figure~\ref{fig:preprocess_usage} clearly shows that P2 (removing user names, URLs, hash-tag prefixes, RT-tokens and redundant letters) is the preprocessing method that was used most often, i.e., it gave the best accuracy. Figure~\ref{fig:preprocess_usage} also indicates that URLs are noisy, and does not contain any sentiment, and that hash-tags and emoticons are valuable features.
+
 
 Notes:
 \begin{enumerate}
@@ -282,7 +291,25 @@ Some other text...
 \end{figure}
 
 
+\begin{table}[htb]
+\centering
+\begin{tabular}{|r||c|c|c|} 
+\cline{2-3}
+\multicolumn{1}{c|}{ } & \textbf{SVM} & \textbf{MaxEnt} \\ \hline
+ngram\_range & 1,1 & 1,1 \\ \hline
+sunlinear\_tf  & True & True \\ \hline
+preprocessor & P2 & P3 \\ \hline
+use\_idf & True & True \\ \hline
+smooth\_idf & True & True \\ \hline
+max\_df & 0.5 & 0.5 \\ \hline
+stop\_words & None & None \\ \hline
+C & 1.0 & 0.3 \\ \hline
+penalty & l1 & \\ \hline
 
+\end{tabular}
+\caption{Best parameters for SVM and MaxEnt.}
+\label{tab:svm_maxent_best_params}
+\end{table}
 
 
 
@@ -355,8 +382,8 @@ Some other text...
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_stats_best.png}
 	\end{minipage}
-	\label{fig:best_result}
 	\caption[Best performance plots for SVM and MaxEnt]{Best performance plots for SVM and MaxEnt}
+	\label{fig:best_result}
 \end{figure}
 
 \begin{figure}[htb]
