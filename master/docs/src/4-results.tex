@@ -53,10 +53,9 @@ The testing system can take in a set of parameters to use for an algorithm, like
 \end{table}
 
 \subsubsection{Removing features}
+ {To reduce the vocabulary and to get more precise classification different features were tried omitted. A user name might be relevant for a text's sentiment. The same goes for a URL, RT-tag and emoticon. Some methods, like P1, P2, P4, P5 and P7 removes user names from the text, as it most likely is just noise for the sentiment. Removing features will remove all notion of the feature, unlike with replacing with place holders}
 
-\subsubsection{Replacing with place holders}
-
-\subsubsection{Reducing letter duplication}
+\subsubsection{Reduplacing letter duplication}
 
 \subsubsection{Attaching negation}
 
@@ -171,7 +170,7 @@ Some other text...
  \begin{center}
      \includegraphics[width=\linewidth]{../img/plots/grid/full.png}
  \end{center}
- \caption[Results overview across models]{Caption description over here.}
+ \caption[Results overview across models]{A full overview of the performance of the different models after a full grid search. Two models sticks out as having highest accuracies: SVM and MaxEnt. One can also see models using Naive Bayes, especially on it's own or to classify subjectivity, performs poorly.}
  \label{fig:results_full}
 \end{sidewaysfigure}
 
@@ -182,7 +181,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_SVM.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for SVM]{Confusion matrix for the model using SVM. Performs well on both neutral and positive predictions, but somewhat poorer on negative.}
            \label{fig:confmat_svm}
           \end{figure}
      \end{minipage}
@@ -190,7 +189,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_MaxEnt.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for MaxEnt]{Confusion matrix for the model using MaxEnt. Performs especially good on neutral tweets, but seem to be classifying neutral too much.}
            \label{fig:confmat_maxent}
           \end{figure}
      \end{minipage} \\
@@ -198,7 +197,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_NB.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for NB]{Confusion matrix for the model using NB. Performs very well for positive tweets, but seem to favour it too much.}
            \label{fig:confmat_nb}
           \end{figure}
      \end{minipage}
@@ -206,7 +205,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-NB.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for two-step NB -> NB]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and NB for polarity. Shows the same trend as when using NB in a one-step model. Model favours positive predictions.}
            \label{fig:confmat_nb_nb}
           \end{figure}
      \end{minipage}   \\
@@ -215,7 +214,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-SVM.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for two-step NB -> SVM]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and SVM for polarity. Shows the same trend as when using NB in a one-step model. Model favours positive predictions but performing better for negative tweets.}
            \label{fig:confmat_nb_svm}
           \end{figure}
      \end{minipage}
@@ -223,7 +222,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-MaxEnt.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for two-step NB -> MaxEnt]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and SVM for polarity. Shows the same trend as when using the NB -> SVM model. Model favours positive predictions but performing better for negative tweets.}
            \label{fig:confmat_nb_maxent}
           \end{figure}
      \end{minipage}
@@ -233,25 +232,25 @@ Some other text...
 \begin{minipage}[s]{\linewidth}
      \centering
      \begin{minipage}{0.45\linewidth}
-          \begin{figure}[H]
-               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-NB.png}
-           \caption[Results overview across models]{Caption description over here.}
-           \label{fig:confmat_svm_nb}
-          \end{figure}
-     \end{minipage}
-     \hspace{0.05\linewidth}
-     \begin{minipage}{0.45\linewidth}
-          \begin{figure}[H]
-               \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-SVM.png}
-           \caption[Results overview across models]{Caption description over here.}
-           \label{fig:confmat_svm_svm}
-          \end{figure}
-     \end{minipage} \\
+           \begin{figure}[H]
+                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-NB.png}
+         Plot showing the confusion matrix for two-step SVM -> NB]{Confusion matrix for the model using SVM and NB. Performs good for positive tweets, but not as good for neutral and negativion over here.}
+            \label{fig:confmat_svm_nb}
+           \end{figure}
+      \end{minipage}
+      \hspace{0.05\linewidth}
+      \begin{minipage}{0.45\linewidth}
+           \begin{figure}[H]
+                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-SVM.png}
+         Plot showing the confusion matrix for two-step SVM -> SVM]{Confusion matrix for the model using SVM and SVM. Performs good across the board, and shows a good diagonal colour profile in the ploton over here.}
+            \label{fig:confmat_svm_svm}
+           \end{figure}
+      \end{minipage} \\
  
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-MaxEnt.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for two-step SVM -> MaxEnt]{Confusion matrix for the model using SVM and MaxEnt. Performs good for neutral and positive tweets, but not too well with negative tweets.}
            \label{fig:confmat_svm_maxent}
           \end{figure}
      \end{minipage}
@@ -259,7 +258,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-NB.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for two-step MaxEnt -> NB]{Confusion matrix for the model using MaxEnt and NB. Performs good for positive tweets, but not too well with negative and neutral tweets.}
            \label{fig:confmat_maxent_nb}
           \end{figure}
      \end{minipage}   \\
@@ -268,7 +267,7 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-SVM.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for two-step MaxEnt -> SVM]{Confusion matrix for the model using MaxEnt and SVM. Performs good but is too heavy on the positive classification.}
            \label{fig:confmat_maxent_svm}
           \end{figure}
      \end{minipage}
