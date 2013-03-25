@@ -97,8 +97,8 @@ Use Sublinear IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
 			(P6,3) (P1,3) (P3,1)};
 	  \end{axis}
 	\end{tikzpicture}
-	\label{fig:preprocess_usage}
 	\caption[Statistics of pre-processing usage.]{Statistics of pre-processing usage. Removing all usernames, urls hash-tag character, RT-tag and excessive letters as features seem to perform the best.}
+	\label{fig:preprocess_usage}
 \end{figure}
 
 \section{Experiment Results}
@@ -208,9 +208,11 @@ Some other text...
            \caption[Plot showing the confusion matrix for two-step NB -> NB]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and NB for polarity. Shows the same trend as when using NB in a one-step model. Model favours positive predictions.}
            \label{fig:confmat_nb_nb}
           \end{figure}
-     \end{minipage}   \\
-         
+     \end{minipage}
+\end{minipage}
 
+\begin{minipage}[s]{\linewidth}
+     \centering
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-SVM.png}
@@ -225,12 +227,8 @@ Some other text...
            \caption[Plot showing the confusion matrix for two-step NB -> MaxEnt]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and SVM for polarity. Shows the same trend as when using the NB -> SVM model. Model favours positive predictions but performing better for negative tweets.}
            \label{fig:confmat_nb_maxent}
           \end{figure}
-     \end{minipage}
-\end{minipage}
+     \end{minipage} \\ 
 
-
-\begin{minipage}[s]{\linewidth}
-     \centering
      \begin{minipage}{0.45\linewidth}
            \begin{figure}[H]
                 \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-NB.png}
@@ -246,7 +244,10 @@ Some other text...
             \label{fig:confmat_svm_svm}
            \end{figure}
       \end{minipage} \\
+ \end{minipage}
  
+ \begin{minipage}[s]{\linewidth}
+      \centering
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-MaxEnt.png}
@@ -263,7 +264,6 @@ Some other text...
           \end{figure}
      \end{minipage}   \\
          
-
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-SVM.png}
@@ -275,20 +275,20 @@ Some other text...
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-MaxEnt.png}
-           \caption[Results overview across models]{Caption description over here.}
+           \caption[Plot showing the confusion matrix for two-step MaxEnt -> MaxEnt]{Confusion matrix for the model using MaxEnt and MaxEnt. Performs good but is too heavy on the positive classification.}
            \label{fig:confmat_maxent_maxent}
           \end{figure}
+     \end{minipage} \\
+     
+     \begin{minipage}{0.45\linewidth}
+	     \begin{figure}[H]
+	          \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Boosting.png}
+	      \caption[Plot showing the confusion matrix for Boosting]{Confusion matrix for the model using Boosting. Performs good but is too heavy on the positive classification.}
+	      \label{fig:confmat_boosting}
+	     \end{figure}
      \end{minipage}
+     
 \end{minipage}
-
-\begin{figure}[H]
- \begin{center}
-     \includegraphics[width=0.7\linewidth]{../img/plots/grid/confusion_matrix_Boosting.png}
- \end{center}
- \caption[Results overview across models]{Caption description over here.}
- \label{fig:confmat_boosting}
-\end{figure}
-
 
 \begin{table}[htb]
 \centering
