@@ -120,13 +120,12 @@ Use Sublinear IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
 \section{Experiment Results}
 \textcolor{blue}{Show plots, significant features and so on and describe the results from the experiment}
 
-\subsection{Grid Search}
+\subsection{Full Grid Search}
 As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F-measure and accuracy for each of the classifiers with test set 1 as evaluation data. We notice that most of the classifiers that involves the NB algorithm has a bad performance, both for accuracy and F-measure. This was observed for other test sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F-measure.
 
 We can also see that all the classifiers with SVM tends to give a better confusion matrix than the others. This is showed in Figures~\ref{fig:confmat_svm} - \ref{fig:confmat_boosting}.
 
-\subsubsection{Parameters and options}
-As a part of the grid search, the system tried to apply all the different preprocessing methods for each classifier. Figure~\ref{fig:preprocess_usage} clearly shows that P2 (removing user names, URLs, hash-tag prefixes, RT-tokens and redundant letters) is the preprocessing method that was used most often, i.e., it gave the best accuracy. Figure~\ref{fig:preprocess_usage} also indicates that URLs are noisy, and does not contain any sentiment, and that hash-tags and emoticons are valuable features.
+As a part of the grid search, the system applied all the different preprocessing methods for each classifier. Figure~\ref{fig:preprocess_usage} clearly shows that P2 (removing user names, URLs, hash-tag prefixes, RT-tokens and redundant letters) is the preprocessing method that was most used, i.e., it gave the best accuracy. Figure~\ref{fig:preprocess_usage} also indicates that URLs are noisy, and does not contain any sentiment, and that hash-tags and emoticons are valuable features.
 
 
 \begin{sidewaysfigure}[htb]
@@ -333,7 +332,13 @@ penalty & l1 & \\ \hline
 
 
 
-\section{NOTE: Analysis part: SVM vs MaxEnt}
+\subsection{SVM vs MaxEnt}
+A second grid search with the two best classifiers from the first search was performed with test set 2 as evaluation data. The results for both the SVM and MaxEnt classifiers are shown in Figure~\ref{fig:best_result}. With test set 2, SVM's performance is much better than MaxEnt's. Test set 1 contain more neutral tweets than test set 2, which gives us a reason to believe that it favours the MaxEnt classifier. In MaxEnt's confusion matrix from the first search, shown in Figure~\ref{fig:confmat_maxent}, we can see that it classifies more neutral tweets than the other classifiers.
+
+To even out distribution of the different classes, we did a grid search with a reduced training set. Figure~\ref{fig:svm_reduced_1000} and~\ref{fig:svm_reduced_2000} shows SVM's results when reducing the training set to a maximum of 1000 and 2000 tweets per class. The trend is that the performance are worse with less training data.
+
+The features in Table~\ref{tab:informative_features} is the most informative features from each of the classifiers in the second grid search. Some features are represented among the top 15 for both SVM and MaxEnt, and most of these features makes sense. As we didn't normalize the features, we can see that some words appears in different forms and degrees (e.g., "worse", "worst" and "don't", "didn't").
+
 
 \begin{figure}[htb]
 	\centering
@@ -357,8 +362,8 @@ penalty & l1 & \\ \hline
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best.png}
 	\end{minipage}
-	\label{fig:best_result_confusion}
 	\caption[Confusion Matrix for SVM and MaxEnt]{Confusion Matrix for SVM and MaxEnt]}
+	\label{fig:best_result_confusion}
 \end{figure}
 
 
@@ -374,8 +379,8 @@ penalty & l1 & \\ \hline
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_stats_best_diff_test.png}
 	\end{minipage}
-	\label{fig:best_result_testset2}
 	\caption[Best performance plots for SVM and MaxEnt for test set 2]{Best performance plots for SVM and MaxEnt using test set 2}
+	\label{fig:best_result_testset2}
 \end{figure}
 
 \begin{figure}[htb]
@@ -387,8 +392,8 @@ penalty & l1 & \\ \hline
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best_diff_test.png}
 	\end{minipage}
+	\caption[Confusion Matrix for MaxEnt and SVM using test set 2]{Confusion Matrix for MaxEnt and  using test set 2}
 	\label{fig:best_result_confusion_testset2}
-	\caption[Confusion Matrix for SVM and MaxEnt using test set 2]{Confusion Matrix for SVM and MaxEnt using test set 2}
 \end{figure}
 
 
@@ -402,8 +407,8 @@ penalty & l1 & \\ \hline
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best_reduced_1000.png}
 	\end{minipage}
-	\label{fig:svm_reduced_1000}
 	\caption[Performance of SVM when reduced dataset to max 1000 per class]{Performance of SVM when reduced dataset to max 1000 per class}
+	\label{fig:svm_reduced_1000}
 \end{figure}
 
 \begin{figure}[htb]
@@ -415,6 +420,6 @@ penalty & l1 & \\ \hline
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best_reduced_2000.png}
 	\end{minipage}
+	\caption[Performance of SVM when reduced dataset to max 2000 per class]{Performance of SVM when reduced dataset to max 2000 per class}
 	\label{fig:svm_reduced_2000}
-	\caption[Performance of SVM when reduced dataset to max 2000 per class]{Performance of SVM when reduced dataset to max 1000 per class}
 \end{figure}
