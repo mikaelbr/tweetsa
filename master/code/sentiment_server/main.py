@@ -106,19 +106,19 @@ if __name__ == "__main__":
     level = logging.DEBUG if args.debug else logging.WARNING
     logging.basicConfig(level=level, format='%(asctime)s - %(levelname)s - %(message)s')
 
-    vect_options = {
+    c1_vect_options = {
       'ngram_range': (1,1),
       'sublinear_tf': True,
       'preprocessor': pr.remove_noise,
-      'use_idf': False,
-      'stop_words': None
+      'use_idf': True,
+      'smooth_idf': True,
+      'max_df': 0.5
     }
 
-    default_options = {
-      'C': 1.0
+    c1_default_options = {
+      'C': 0.3
     }
-
-    clf = SVM(docs_train, y_train, default_options=default_options, vect_options=vect_options)
+    clf = SVM(docs_train, y_train, default_options=c1_default_options, vect_options=c1_vect_options)
 
     # Start server
     from eventlet import wsgi
