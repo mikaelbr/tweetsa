@@ -25,6 +25,7 @@ exports.init = function (app) {
 
 
   app.post('/statuses/filter.json', ct.filterStream);
+  app.get('/statuses/filter.json', ct.filterStream);
   app.get('/statuses/sample.json', ct.sample);
   app.get('/statuses/firehose.json', ct.firehose);
 
