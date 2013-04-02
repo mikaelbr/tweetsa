@@ -88,7 +88,7 @@ APIController.prototype.filterStream = function (req, res) {
   });
 
   stream.on('data', function (item) {
-    res.write(JSON.stringify(item) + '\n');
+    res.write(JSON.stringify(item) + '\r\n');
   })
   .on('error', function (error) {
     responseHandle(error, null, res);
