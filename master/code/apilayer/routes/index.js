@@ -24,7 +24,7 @@ exports.init = function (app) {
   app.get('/favorites/list.json', ct.favorites);
 
 
-  app.get('/statuses/filter.json', ct.filterStream);
+  app.post('/statuses/filter.json', ct.filterStream);
   app.get('/statuses/sample.json', ct.sample);
   app.get('/statuses/firehose.json', ct.firehose);
 

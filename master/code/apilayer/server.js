@@ -30,5 +30,5 @@ app.configure('production', function(){
 
 routes.init(app);
 
-app.listen(process.env.PORT || 3000);
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+app.listen(process.env.PORT || 8088);
+console.log("Express server listening on port %d in %s mode", process.env.PORT || 8088, app.settings.env);
