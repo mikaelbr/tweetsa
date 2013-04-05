@@ -47,7 +47,7 @@ var responseHandle = function (err, data, res) {
     return false;
   } 
 
-  res.json(data);
+  res.jsonp(data);
 };
 
 var routesHelper = function (method) {
