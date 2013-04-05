@@ -35,7 +35,7 @@ exports.init = function (app) {
 };
 
 
-var responseHandle = function (err, data, res) {
+var responseHandle = function (err, data, res, req) {
   if (err) {
     var errorCode = 200;
     if ( err.errors ) {
@@ -47,14 +47,18 @@ var responseHandle = function (err, data, res) {
     return false;
   } 
 
-  res.jsonp(data);
+  if (req && req.param('callback')) {
+    res.jsonp(data);
+  } else {
+    res.json(data);
+  }
 };
 
 var routesHelper = function (method) {
   return function (req, res) {
     var start = +new Date();
     twitter[method](req, function (err, data) {
-      responseHandle(err, data, res);
+      responseHandle(err, data, res, req);
       var end = +new Date();
       console.log("Entire lookup, done in " + (end-start)/1000 + " seconds");
     });
