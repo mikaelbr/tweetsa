@@ -119,6 +119,7 @@ TwitterHandler.prototype.search = function (req, cb) {
     var rp = generateParamList(req, paramList);
 
     var start = +new Date();
+    delete rp.callback;
     this.twit.get("/search/tweets.json", rp, function(err, data) {
       var end = +new Date();
       console.log("Twitter search/lookup took " + (end-start)/1000 + " seconds");
