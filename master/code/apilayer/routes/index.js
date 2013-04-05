@@ -47,11 +47,11 @@ var responseHandle = function (err, data, res, req) {
     return false;
   } 
 
-  if (req && req.param('callback')) {
+  // if (req && req.param('callback')) {
     res.jsonp(data);
-  } else {
-    res.json(data);
-  }
+  // } else {
+    // res.json(data);
+  // }
 };
 
 var routesHelper = function (method) {
