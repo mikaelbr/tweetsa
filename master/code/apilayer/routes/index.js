@@ -48,7 +48,6 @@ var responseHandle = function (err, data, res, req) {
   } 
 
   if (req && req.param('callback')) {
-    console.log(data)
     res.jsonp(data);
   } else {
     res.json(data);

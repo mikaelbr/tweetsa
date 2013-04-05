@@ -9,8 +9,7 @@ var express = require('express')
 var app = module.exports = express.createServer();
 
 // Configuration
-
-app.enable("jsonp callback");
+app.set( "jsonp callback", true );
 
 app.configure(function(){
   app.set('views', __dirname + '/views');
