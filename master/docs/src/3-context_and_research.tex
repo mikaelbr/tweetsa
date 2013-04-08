@@ -27,10 +27,13 @@ Due to Twitter's privacy policy, the given data sets doesn't contain the tweet t
 describe MaxEnt, NB, SVM, Boosting/Bagging
 
 
-\chapter{Experimental Setup}
+\chapter{Architecture}
 \label{sec:experimentalsetup}
 
-\section{Architecture}
+This chapter defines the architecture for the generic Twitter Sentiment Analysis system, and the implemented visualization applications. Section~\ref{sec:tsaarchitecture}, describes the architecture for the API layer as well as the sentiment classifier server. Section~\ref{sec:visualization_applications}, documents how the visualization applications are implemented and how the finished product works.
+
+\section{TSA Architecture}
+\label{sec:tsaarchitecture}
 
 This section describes the overall architecture and how the system works. First the general system will be described, and then the API Layer and classification server in turn.  
 
@@ -128,3 +131,42 @@ The base parent model implements methods for training the machine learning algor
  \caption[Classification Model Structure Overview]{Overview of how the models are built and connected. There is a base model class implementing a method for predicing and training. All models extends from this base model. The models for NaiveBayes, SVM and MaxEnt uses the base model's implementation of train and predict, whilst the TwoStep and Boosting models implement their own. The interface for each model is the same.}
  \label{fig:ModelsStructure}
 \end{figure}
+
+
+\section{Visualization Applications}
+\label{sec:visualization_applications}
+To test and give example of how to use the generic system designed in~Section\ref{sec:tsaarchitecture}, different visualization applications were implemented. Each of these applications is described in their own sub section in this section. The sub sections are divided into describing how the applications are implemented and the finished product.
+
+\subsection{SentiMap: Geo-location based streams}
+
+\subsubsection{Implementation}
+
+\subsubsection{Product}
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[width=0.8\textwidth]{../img/sentimap_screenshot.png}
+ \caption{Screen shot of the SentiMap system running.}
+ \label{fig:sentimap_screenshot}
+\end{center}
+\end{figure}
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[width=0.8\textwidth]{../img/sentimap_screenshot_search.png}
+ \caption{Screen shot of the SentiMap when searching for a query.}
+ \label{fig:sentimap_screenshot_search}
+\end{center}
+\end{figure}
+
+\begin{figure}[htb]
+\begin{center}
+ \includegraphics[width=0.6\textwidth]{../img/sentimap_screenshot_timeline.png}
+ \caption[SentiMap timeline screen shot]{Showing the sentiment difference (positive minus negative sentiments) on that exact second from the streamed data.}
+ \label{fig:sentimap_screenshot_timeline}
+\end{center}
+\end{figure}
+
+\subsection{Tweet Searching}
+
+
