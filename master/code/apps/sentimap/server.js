@@ -65,7 +65,7 @@ var streamHandler = function (sockEmitter, stream, query) {
     }
 
     data.state = state;
-    sockEmitter.emit('tweet', data);  
+    sockEmitter.volatile.emit('tweet', data);  
   });
 };
 
@@ -98,10 +98,11 @@ var search = io
   .on('connection', function (socket) {
     var twitStream = null;
 
-    socket.on('search', function (query) {
+    socket.on('search', function (query, fn) {
       twit.stream('statuses/filter', {'locations': CONFIG.US_BoundingBox}, function (stream) {
         twitStream = stream;
         streamHandler(socket, stream, query);
+        fn();
       });
     });
 
