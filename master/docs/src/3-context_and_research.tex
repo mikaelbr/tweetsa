@@ -127,7 +127,7 @@ The base parent model implements methods for training the machine learning algor
  \begin{center}
      \includegraphics[width=0.8\textwidth]{../img/ModelsStructure.pdf}
  \end{center}
- \caption[Classification Model Structure Overview]{Overview of how the models are built and connected. There is a base model class implementing a method for predicing and training. All models extends from this base model. The models for NaiveBayes, SVM and MaxEnt uses the base model's implementation of train and predict, whilst the TwoStep and Boosting models implement their own. The interface for each model is the same.}
+ \caption[Classification Model Structure Overview]{Overview of how the models are built and connected. There is a base model class implementing a method for predicting and training. All models extends from this base model. The models for NaiveBayes, SVM and MaxEnt uses the base model's implementation of train and predict, whilst the TwoStep and Boosting models implement their own. The interface for each model is the same.}
  \label{fig:ModelsStructure}
 \end{figure}
 
@@ -138,9 +138,9 @@ To test and give example of how to use the generic system designed in~Section\re
 
 \subsection{SentiMap: Geo-location based streams}
 
-To show how the streaming API and geo-location can be used to analyse sentiments for a location in real-time, SentiMap was developed. SentiMap is a visualization tool showing the distribution of sentiments across the states of USA with or without a search query. When a new tweet is posted, within the USA, it is used to change the colour of the state it originated from. SentiMap can show the specifics of a state, with the number of positive and negative tweets, and the total of tweets registered.
+To show how the streaming API and geo-location can be used to analyze sentiments for a location in real-time, SentiMap was developed. SentiMap is a visualization tool showing the distribution of sentiments across the states of USA with or without a search query. When a new tweet is posted, within the USA, it is used to change the colour of the state it originated from. SentiMap can show the specifics of a state, with the number of positive and negative tweets, and the total of tweets registered.
 
-SentiMap also tracks changes in sentiment in the entire US per second. If a major event happens, the time line would show a declining sentiment difference. The sentiment difference is calculated by taking the number of positive tweets subtracted by the number of negative tweets in a given second. 
+SentiMap also tracks changes in sentiment in the entire USA per second. If a major event happens, the time line would show a declining sentiment difference. The sentiment difference is calculated by taking the number of positive tweets subtracted by the number of negative tweets in a given second. 
 
 \subsubsection{Implementation}
 
@@ -149,7 +149,7 @@ Most of the application is implemented on the client side, and thus running in t
 
 \textbf{Server side implementation} \\
 
-The client side (browser), can not connect to a Twitter stream by it self. So to be continually fed tweets in real time, a server implementation is necessary. SentiMap's server handles the following:
+The client side (browser), can not connect to a Twitter stream by it self. So to be continually fed tweets in real-time, a server implementation is necessary. SentiMap's server handles the following:
 
 \begin{enumerate}
 \item Connect to the API Layer stream.
@@ -170,7 +170,7 @@ When a client connects to the WebSocket, on either channel, it gets fed tweets i
 
 The client side uses a MV* design pattern to accomplish modularity and structure. A MV* design pattern, resembles a classical MVC pattern, but uses no controllers but instead relies more on views to handle the logic. To help with this design pattern, a JavaScript framework called Backbone.js\footnote{\url{http://backbonejs.org/}} is used. In later years Backbone has become a very popular framework to use on the client side for achieving structure in large scale applications. Backbone is a small framework and works in smaller applications as well as big corporate ones.
 
-Every application function is it's own independent module, and as such is pluggable. To support this modularity, the code is be separated into three different code structures:
+Every application function is its own independent module, and as such is pluggable. To support this modularity, the code is be separated into three different code structures:
 
 \begin{enumerate}
 \item Models
@@ -180,19 +180,19 @@ Every application function is it's own independent module, and as such is plugga
 
 Models holds values and operations to interact with these values. For the SentiMap application, there are three different models; $State$, $TimelineStats$, and $TweetCount$. 
 
-The $TimelineStats$ model holds an two dimensional array with time stamps and sentiment difference as value, and a operation to append attributes to this value. When a set of time stamp and sentiment difference is added to the array, the model announces this change to the rest of the application, to any arbitrary listeners, by using \textit{events}. 
+The $TimelineStats$ model holds a two dimensional array with time stamps and sentiment difference as value, and an operation to append attributes to this value. When a set of time stamp and sentiment difference is added to the array, the model announces this change to the rest of the application, to any arbitrary listeners, by using \textit{events}. 
 
 The $TweetCount$ model operates the same as $TimelineStats$, but instead of having an array as a value, it simply stores an integer. $TweetCount$ offers operations to increase by one or reset the integer. When the integer is changed, the model announces so through events. Both the $TimelineStats$ and $TweetCount$ models are only intended to be initiated once, unlike the $State$ model.
 
-For each state in the USA, a object is created from the $State$ model. This model holds values for state ID (nave abbreviation. e.g. NY for New York), number of positive and negative tweets for the given state. The model has operations for increasing both the negative and positive counter values by one. The model triggers an event when the values change. 
+For each state in the USA, an object is created from the $State$ model. This model holds values for state ID (nave abbreviation. e.g. NY for New York), number of positive and negative tweets for the given state. The model has operations for increasing both the negative and positive counter values by one. The model triggers an event when the values change. 
 
-A collections is simply a collection of models. In the SentiMap applications, the only collection is states which holds all the state model objects. Collections offers operations for fetching object based on ID. So a collection can retrieve the model object for New York, based on the abbreviated name. 
+A collection is simply a collection of models. In the SentiMap applications, the only collection is states which holds all the state model objects. Collections offers operations for fetching objects based on ID. This way, a collection can retrieve the model object for New York, based on the abbreviated name. 
 
-Views handles most of the logic and interactions with the end user. An view can represent a model or collection, but does not require to do so. A view is coupled with a HTML element in the DOM and can be used to render the contents of a model or collection of models into this DOM structure. A view can be looked at as a pluggable module. SentiMap consists of several views. Below is a list of the essential ones and a description of the view's role in the system.
+Views handles most of the logic and interactions with the end user. A view can represent a model or collection, but does not require to do so. A view is coupled with a HTML element in the DOM and can be used to render the contents of a model or collection of models into this DOM structure. A view can be looked at as a pluggable module. SentiMap consists of several views. Below is a list of the essential ones and a description of the view's role in the system.
 
 \begin{description}
 \item[App] \hfill \\
-The App view is the heart of the application. It loads and initiates all modules (views). When App is initiated, the map, timeline, tweet counter and stream view is initiated as well. The App view has a operation (method) for switching between a query based stream (search) or non-query based.
+The App view is the heart of the application. It loads and initiates all modules (views). When App is initiated, the map, timeline, tweet counter and stream view is initiated as well. The App view has an operation (method) for switching between a query based stream (search) or non-query based.
 
 \item[PublicStreamView] \hfill \\
 
@@ -208,13 +208,13 @@ The SearchView works almost exactly the same way as the PublicStreamView. If the
 
 \item[MapView] \hfill \\
 
-To render out a map of the USA and connect each state with a view, the MapView is initiated. The MapView is the view of the states collection. When initiated, the MapView renders out a map of the US consisting of individual parts for each state. MapView creates a StateView object per state in the map and attributes these objects with their corresponding state models.
+To render out a map of the USA and connect each state with a view, the MapView is initiated. The MapView is the view of the states collection. When initiated, the MapView renders out a map of the USA consisting of individual parts for each state. MapView creates a StateView object per state in the map and attributes these objects with their corresponding state models.
 
 \item[StateView] \hfill \\
 
 A state view is created by the MapView, and has two attribute values; a state HTML object from the map, and the state model object. 
 
-On initialization, the StateView listens for any events on the attached model. If a state model changes it's polarity (either positive or negative values are increased or reset), two operations get triggered; change colour on the map for the given state, and if the state specific statistics is visible, update the statistics.
+On initialization, the StateView listens for any events on the attached model. If a state model changes its polarity (either positive or negative values are increased or reset), two operations get triggered; change colour on the map for the given state, and if the state specific statistics is visible, update the statistics.
 
 The state view also handles the presentation of the state specific statistics. If a state on the map is clicked, the StateView of that state hides the current detailed statistics (if any), and shows the statistics for the clicked state. Before showing the chart, it makes sure that the details are up to date. 
 
@@ -238,7 +238,7 @@ The TimelineStatsView is initiated from the App view, and has the $TimelineStats
 \end{center}
 \end{figure}
 
-The SentiMap applications consists of three main components; an input box for search, a map of the USA with an optional details view and a time line graph (see Figure \ref{fig:sentimap_screenshot}). Per default, the search box, is empty which results in the map being updated with tweets without any constraints regarding topic or query. If a query is typed into the search box and the return-key is pressed, the map view cleared for any colour and statistics, and the map is updated with sentiments from tweets related to the submitted query (see Figure~\ref{fig:sentimap_screenshot_search}). 
+The SentiMap applications consists of three main components; an input box for search, a map of the USA with an optional details view and a timeline graph (see Figure \ref{fig:sentimap_screenshot}). Per default, the search box, is empty which results in the map being updated with tweets without any constraints regarding topic or query. If a query is typed into the search box and the return key is pressed, the map view cleared for any colour and statistics, and the map is updated with sentiments from tweets related to the submitted query (see Figure~\ref{fig:sentimap_screenshot_search}). 
 
 \begin{figure}[htb!]
 \begin{center}
@@ -248,11 +248,11 @@ The SentiMap applications consists of three main components; an input box for se
 \end{center}
 \end{figure}
 
-When a tweet is received, the state from where the tweet has it's origin updates it's colour, to reflect the change in sentiment based on the classification of that given tweet. A state where there are only negative tweets has a deep red colour, and a state with only positive tweets is clear green. If there is the same amount of positive and negative tweets, the colour of the state will be light grey. For more positive or negative a state is, the more deeper is the colour of the state. I.e. if a state is 55\% positive it is filled light green, and if a positive tweet from that state is registered, the state colour changes to a slightly more darker green.
+When a tweet is received, the state from where the tweet has its origin updates its colour, to reflect the change in sentiment based on the classification of that given tweet. A state where there are only negative tweets has a deep red colour, and a state with only positive tweets is clear green. If there is the same amount of positive and negative tweets, the colour of the state will be light grey. For more positive or negative a state is, the more deeper is the colour of the state. I.e. if a state is 55\% positive it is filled light green, and if a positive tweet from that state is registered, the state colour changes to a slightly more darker green.
 
 By default, no details from a specific state is shown. But if a user clicks on a state, a pie chart is added to the right of the U.S. map. This pie chart shows the details of sentiment on a given state, and the total of tweets registered from that state. This pie chart also updates in real time.
 
-The time line graph on the bottom on the page, reflects the sentiment difference over time in the entire U.S.. This graph is updated every second, so if the on that second there is registered 18 positive tweets and 12 negative tweets, the graph will show the value 6. If there are no tweets registered for a given time, the graph shows the value 0. Hovering over a point on the x-axis of the graph will show the details of that value, as seen in~Figure~\ref{fig:sentimap_screenshot_timeline}.
+The timeline graph on the bottom on the page, reflects the sentiment difference over time in the entire U.S.. This graph is updated every second, so if the on that second there is registered 18 positive tweets and 12 negative tweets, the graph will show the value 6. If there are no tweets registered for a given time, the graph shows the value 0. Hovering over a point on the x-axis of the graph will show the details of that value, as seen in~Figure~\ref{fig:sentimap_screenshot_timeline}.
 
 \begin{figure}[htb!]
 \begin{center}
