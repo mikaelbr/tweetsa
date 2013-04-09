@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -111,4 +110,3 @@ var search = io
         twitStream && twitStream.destroy();
     });
 });
-
