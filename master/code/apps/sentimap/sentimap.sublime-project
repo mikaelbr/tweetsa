@@ -2,7 +2,7 @@
 	"folders":
 	[
 		{
-			"path": "/Users/mikael/Sites/experiments/sentimap",
+			"path": "/Users/mikael/Sites/experiments/tweetsa/master/code/apps/sentimap",
       "folder_exclude_patterns": ["dist"],
       "file_exclude_patterns": ["*.sublime-workspace"]
 		}
