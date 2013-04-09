@@ -1,0 +1,96 @@
+body {
+  overflow:hidden;
+
+}
+
+.header-info {
+  position: absolute;
+  background: rgba(0,0,0, 0.6);
+  color: #fff;
+
+  bottom: 75px;
+  right: 0;
+  left: 0;
+
+  padding: 10px 30px;
+
+  z-index: 99;
+}
+
+.header-info h1 {
+  margin: 0px;
+  font-weight: 100;
+  border-left: 10px solid;
+  padding-left: 10px;
+  font-size: 1.3em;
+}
+
+.bg-holder {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+
+  display: none;
+}
+
+.header-info h2 {
+  font-size: 1em;
+  margin-bottom: 0;
+}
+
+.header-info p {
+  font-size: 0.8em;
+  margin: 5px 0 0;
+}
+
+.container {
+  max-width: 850px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 99;
+
+  padding-top: 60px;
+}
+
+
+.search-form {
+  position: absolute;
+  top: -100px;
+  width: 850px;
+}
+
+.search-form fieldset input {
+  width: 100%;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box;         /* Opera/IE 8+ */
+
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid;
+}
+
+.search-form fieldset {
+  border: 0;
+  margin: 10px 0 0;
+  padding: 0;
+}
+
+.search-form fieldset legend {
+  display: none;
+}
+
+
+.bottom-stats-block {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 5;
+  margin: 0 -9px;
+  margin-bottom: -16px;
+}

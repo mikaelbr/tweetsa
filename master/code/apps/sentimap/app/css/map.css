@@ -1,0 +1,80 @@
+.map-container {
+  padding: 10px;
+  margin-top: 20px;
+  box-shadow: 0 0 7px;
+  border-radius: 0px;
+
+  position: relative;
+  z-index: 999;
+
+  display: none;
+}
+
+.map-container header {
+  position: relative;
+}
+
+.map-container header h1 {
+  margin: 0;
+  font-weight: 100;
+  border-bottom: 2px solid;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.map-container header p {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  margin: 0;
+}
+
+.map-container ul {
+  text-align: center;
+}
+
+.map-container ul li {
+  list-style-type: none;
+  display: inline-block;
+
+  border: 1px solid #000;
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-size: 0.8em;
+}
+
+.graph-label-red,
+.graph-label-green {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+
+.map {
+  float: left;
+}
+
+
+.map-container aside {
+  float: right;
+}
+
+footer {
+  clear: both;
+  width: 100%;
+}
+
+
+.error-notice {
+  padding: 10px;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+
+.map-container .notice {
+  margin: 0;
+  font-size: 0.8em;
+  font-style: italic;
+}

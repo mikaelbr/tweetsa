@@ -51,3 +51,8 @@ fall_project/code/cli/dist/
 *.pyo
 
 master/code/sentiment_server/pickles/
+
+
+# Apps
+master/code/apps/sentimap/dist
+master/code/apps/sentimap/app/scripts/vendor/*

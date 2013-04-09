@@ -1,0 +1,78 @@
+
+/* Site Style */
+/*
+body {
+  background: #88bfe8; 
+  background: -moz-radial-gradient(center, ellipse cover,  #88bfe8 0%, #70b0e0 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#88bfe8), color-stop(100%,#70b0e0)); 
+  background: -webkit-radial-gradient(center, ellipse cover,  #88bfe8 0%,#70b0e0 100%);
+  background: -o-radial-gradient(center, ellipse cover,  #88bfe8 0%,#70b0e0 100%); 
+  background: -ms-radial-gradient(center, ellipse cover,  #88bfe8 0%,#70b0e0 100%); 
+  background: radial-gradient(ellipse at center,  #88bfe8 0%,#70b0e0 100%); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88bfe8', endColorstr='#70b0e0',GradientType=1 ); 
+  background-attachment: fixed;
+}*/
+
+html {
+  background: url('../img/461-1223013714msB6.jpg') no-repeat center center fixed; 
+  /*background: url('../img/1-1275673689tHg9.jpg') no-repeat center center fixed; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.bg-holder {
+  background-position: center center; 
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+a:link, a:visited {
+  color: #fff;
+}
+
+/* Map colors */
+.map-container {
+  /*background: -moz-linear-gradient(top,  rgba(212,228,239,0.8) 0%, rgba(134,174,204,0.8) 100%); 
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(212,228,239,0.8)), color-stop(100%,rgba(134,174,204,0.8))); 
+  background: -webkit-linear-gradient(top,  rgba(212,228,239,0.8) 0%,rgba(134,174,204,0.8) 100%); 
+  background: -o-linear-gradient(top,  rgba(212,228,239,0.8) 0%,rgba(134,174,204,0.8) 100%);
+  background: -ms-linear-gradient(top,  rgba(212,228,239,0.8) 0%,rgba(134,174,204,0.8) 100%); 
+  background: linear-gradient(to bottom,  rgba(212,228,239,0.8) 0%,rgba(134,174,204,0.8) 100%); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ccd4e4ef', endColorstr='#cc86aecc',GradientType=0 );
+
+  */
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 0 7px #000;
+  border-radius: 4px;
+}
+
+.graph-label-red,
+.graph-label-green {
+  background: rgb(255, 200, 200);
+}
+
+.graph-label-green {
+  background: rgb(200, 255, 200);
+}
+
+.map-container ul li {
+  border-color: #ddd;
+}
+
+
+.error-notice {
+  border-color: #eed3d7;
+  color: #b94a48;
+  background: #f2dede;
+}
+
+.header-info .info {
+  color: #ddd;
+}
+

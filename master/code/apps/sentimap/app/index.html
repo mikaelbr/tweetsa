@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>SentiMap</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <style>
+      
+    </style>
+  </head>
+
+  <body>
+     <header class="header-info">
+      <h1>SentiMap: Sentiment on Twitter across the United States</h1>
+      <div class="info">
+        <p>A Twitter Sentiment Analysis tool developed for a Master's Thesis on <a href="http://ntnu.no">NTNU</a>. This tool uses <a href="http://newsignature.github.com/us-map/">New Signatures U.S. Map</a> jQuery Plugin for the map, and <a href="http://highcharts.com/">Highcharts</a> for charting. The sentiment data used is classified by a server developed for this Master's thesis.</p>
+      </div>
+    </header>
+
+
+    <div class="container">
+
+      <form action="" method="post" class="search-form">
+        <fieldset>
+          <legend>Search</legend>
+          <input type="search" id="tweet-search" placeholder="Search for tweets" />
+        </fieldset>
+      </form>
+
+      <section class="map-container">
+        <header>
+          <h1 id="site-title">Showing all tweets from the USA</h1>
+          <p>Total Tweets: <i id="total-tweet-count">0</i></p>
+        </header>
+        <div id="map" class="map" style="width: 550px; height: 360px;"></div>
+
+        <aside>
+          <div id="stats"></div>
+        </aside>
+
+        <footer>
+          <!-- <ul>
+            <li>
+              <i class="graph-label-red"></i> Negative
+            </li>
+            
+            <li>
+              <i class="graph-label-green"></i>
+              Positive
+            </li>
+          </ul> -->
+          <p class="notice">
+            Tip: Click on a State to get an overview of number of tweets, positives and negative. Also, an empty search will show all tweets in the area.
+          </p>
+        </footer>
+      </section>
+
+    </div>
+
+    <!-- <div id="loading" class="loading">
+      <div class="bar">
+        <i class="sphere"></i>
+      </div>
+    </div> -->
+
+    <section id="overall-stats" class="bottom-stats-block" style="height: 100px"></section>
+
+    <span class="bg-holder" id="background-1"></span>
+    <script src="/socket.io/socket.io.js"></script>
+    <script data-main="scripts/main" src="scripts/vendor/requirejs/require.js"></script>
+  </body>
+</html>
