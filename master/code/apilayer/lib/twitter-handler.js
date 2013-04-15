@@ -114,7 +114,7 @@ TwitterHandler.prototype.search = function (req, cb) {
   try {
     var rp = generateParamList(req, paramList);
     console.log(rp.q);
-    rp.q = encodeURI(rp.q).replace(/\!/g, "%21")
+    rp.q = rp.q.replace(/\!/g, "%21")
         .replace(/\'/g, "%27")
         .replace(/\(/g, "%28")
         .replace(/\)/g, "%29")
