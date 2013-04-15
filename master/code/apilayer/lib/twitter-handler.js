@@ -46,7 +46,6 @@ var generateParamList = function (req, params) {
     if ( typeof paramValue === "undefined") {
 
       if (isRequired) {
-        console.log(item);
         throw constructErrorJSON("Required field not given", 400);
       }
 
@@ -71,7 +70,6 @@ var iterator = function (item, callback) {
   sentiment.get(item).on("data", function (classification) {
     item.sentiment = constructSentimentJSON(classification);
     var end = +new Date();
-    console.log("A spesific classification done in " + (end-start)/1000 + " seconds");
     callback(null, item);
   });
 };
@@ -82,7 +80,6 @@ var handleResponse = function(err, data, cb) {
 
   async.map(data, iterator, function (err, results) {
     var end = +new Date();
-    console.log("Entire classification took " + (end-start)/1000 + " seconds");
     cb(null, data);
   });
 };
@@ -127,7 +124,6 @@ TwitterHandler.prototype.search = function (req, cb) {
     var start = +new Date();    
     this.twit.get("/search/tweets.json", rp, function(err, data) {
       var end = +new Date();
-      console.log("Twitter search/lookup took " + (end-start)/1000 + " seconds");
       if (err) return handleResponse(err, null, cb);
       handleResponse(err, data.statuses, cb);
     });
@@ -296,7 +292,6 @@ var streamHelper = function (streamMethod, rp, eventEmitter) {
       var start = +new Date(); 
       sentiment.get(data).on("data", function (classification) {
         var end = +new Date();
-        console.log("Classification of stream item took " + (end-start)/1000 + " seconds");
         data.sentiment = constructSentimentJSON(classification);
         eventEmitter.emit('data', data);
       });
