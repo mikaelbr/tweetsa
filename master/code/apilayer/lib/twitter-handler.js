@@ -116,6 +116,7 @@ TwitterHandler.prototype.search = function (req, cb) {
     console.log(rp.q);
     rp.q = rp.q.replace(/\!/g, "%21")
         .replace(/\'/g, "%27")
+        .replace(/\:/g, "%3A")
         .replace(/\(/g, "%28")
         .replace(/\)/g, "%29")
         .replace(/\*/g, "%2A");
