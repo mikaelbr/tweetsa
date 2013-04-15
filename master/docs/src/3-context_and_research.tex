@@ -160,7 +160,7 @@ The client side (browser), can not connect to a Twitter stream by it self. So to
 
 Since the API layer is designed as a thin layer on top of the official Twitter API, the interface is the same. This means that programming libraries designed to interact with the Twitter API, can also communicate with the API Layer. SentiMap uses a forked (branched/copied a open sourced project) Node.JS module called nTwitter\footnote{\url{https://github.com/AvianFlu/ntwitter}}. The only alteration made on nTwitter is to change the base URL for the API location from pointing to Twitters servers to instead direct to the API Layer server.
 
-The server opens a WebSocket connection to allow clients to stream tweets from the forked nTwitter module. WebSockets\footnote{\url{http://en.wikipedia.org/wiki/WebSocket}} is a technology used to accomplish a full-duplex connection over TCP. This means that a server can push information to a client, without the client requesting it first, as with regular HTTP connection. There are two channels of communication opened for the WebSockets. One channel for streaming all tweets from the US, and one channel used to commute tweets related to a search. All clients share a connection to the non-query based stream, but for a search each client has it's own connection. If there are no clients connected to the non-query based stream, the connection to the API Layer is closed, and only opened again if a client connects to the WebSocket.
+The server opens a WebSocket connection to allow clients to stream tweets from the forked nTwitter module. WebSockets\footnote{\url{http://en.wikipedia.org/wiki/WebSocket}} is a technology used to accomplish a full-duplex connection over TCP. This means that a server can push information to a client, without the client requesting it first, as with regular HTTP connection. There are two channels of communication opened for the WebSockets. One channel for streaming all tweets from the US, and one channel used to commute tweets related to a search. All clients share a connection to the non-query based stream, but for a search each client has its own connection. If there are no clients connected to the non-query based stream, the connection to the API Layer is closed, and only opened again if a client connects to the WebSocket.
 
 The server uses a simple Node.js HTTP module to serve static file content to clients. The static content is HTML files, JavaScript libraries and code bases, images and styling files.
 
@@ -270,12 +270,26 @@ As the SentiMap application is designed to be open over a long period of time, t
 
 \subsection{Tweet Searching}
 
-Some introduction to the application.
+The Twitter search API is another popular service that allows for developers to search the Twitter corpus for recent tweets on a given keyword or topic. To show how to use this search API with our classification server, a demonstration application called SentiGraph, was developed. SentiGraph consist of a chart and a Twitter timeline that shows the sentiment for each of the tweets in the chart. The chart is a combination of a pie chart, and a bar chart, where both are divided into positive, neutral and negative tweets. The sentiment of the tweets is indicated with red (negative), blue (neutral) and green (positive) colours.
 
 \subsubsection{Implementation}
 
-How the application was implemented. 
+SentiGraph is a light weight web application that runs in the client's web browser. It consist of three main views: a search field, a combined chart, and a Twitter timeline. The communication between the application and the API Layer is through AJAX (Asynchronous Javasciprt and XML) technologies. AJAX is used to request and receive the response from the classification server. And by using AJAX for communication, the views can be updated with new data without reloading the entire application.
+
+The tweets shown in the timeline includes the tweet text, its date, the author's profile picture and the sentiment classification. All these data are extracted from the tweet JSON object provided by the API layer.
+
+The application uses CSS for responsiveness, so it fits different screen sizes. On large screens and resolutions, the presentation is divided into two columns, but when the browser window are minimized to below 1080 pixels, the timeline in the right column is moved to the left, so it appears below the chart view.
+
+\begin{figure}[htb!]
+\begin{center}
+ \includegraphics[width=0.8\textwidth]{../img/sentigraph_screenshot.png}
+ \caption[SentiGraph screen shot]{Caption here..}
+ \label{fig:sentigraph_screenshot}
+\end{center}
+\end{figure}
 
 \subsubsection{Working Product}
 
-How the application works.
+SentiGraph allows the user to define a search query and a maximum tweet count to limit the search. The tweets returned by the API are processed in JavaScript, and for the timeline view, each tweet's HTML container element are given a CSS colour code to indicate its sentiment. In addition to colouring the container, the script also inserts the author's profile picture, and the date and time the tweet was published. The script waits for all data in each tweet container to be completely downloaded before it renders it. This is mainly to avoid collapsing HTML elements because of missing data.
+
+
