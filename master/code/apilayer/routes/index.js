@@ -60,7 +60,6 @@ var routesHelper = function (method) {
     twitter[method](req, function (err, data) {
       responseHandle(err, data, res, req);
       var end = +new Date();
-      console.log("Entire lookup, done in " + (end-start)/1000 + " seconds");
     });
   }
 }
