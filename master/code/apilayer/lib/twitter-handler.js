@@ -113,13 +113,14 @@ TwitterHandler.prototype.search = function (req, cb) {
 
   try {
     var rp = generateParamList(req, paramList);
-
+    console.log(rp.q);
     rp.q = encodeURI(rp.q);
     rp.q.replace(/\!/g, "%21")
         .replace(/\'/g, "%27")
         .replace(/\(/g, "%28")
         .replace(/\)/g, "%29")
         .replace(/\*/g, "%2A");
+    console.log(rp.q);
 
     var start = +new Date();    
     this.twit.get("/search/tweets.json", rp, function(err, data) {
