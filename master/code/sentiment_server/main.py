@@ -87,12 +87,6 @@ if __name__ == "__main__":
                 default=False,
                 help='Show debug data.')
 
-    # parser.add_argument('-m', '--method',
-    #             dest='method_name',
-    #             action='store',
-    #             default='AFINN',
-    #             help='Show debug data. Default value "AFINN"')
-
     parser.add_argument('-p', '--port',
                 dest='port',
                 type=int,

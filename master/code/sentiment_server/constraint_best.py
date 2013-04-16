@@ -17,11 +17,21 @@ logging.basicConfig(level=logging.DEBUG, format='%(asctime)s %(message)s')
 docs_test, y_test, docs_train, y_train, docs_train_subjectivity, y_train_subjectivity, docs_train_polarity, y_train_polarity = d.get_data()
 pe.set_base_from_dataset(d.get_full_test_set())
 
+vect_options = {
+  'ngram_range': (1,1),
+  'sublinear_tf': True,
+  'preprocessor': pr.remove_noise,
+  'use_idf': True,
+  'smooth_idf': True,
+  'stop_words': None
+}
 
-# docs_train, y_train, docs_train_subjectivity=None, y_train_subjectivity=None, docs_train_polarity=None, y_train_polarity=None):
+default_options = {
+  'C': 1.0,
+  'penalty': 'l1',
+}
 
-clf = Boosting(docs_train, y_train, docs_train_subjectivity, y_train_subjectivity, docs_train_polarity, y_train_polarity)
-
+clf = SVM(docs_train, y_train, default_options=default_options, vect_options=vect_options)
 if len(sys.argv) > 1:
   y_predicted = clf.predict(docs_test)
   sys.stdout.write(pe.predictions_as_str(y_predicted))

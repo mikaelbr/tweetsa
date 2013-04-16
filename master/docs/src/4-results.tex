@@ -1,20 +1,8 @@
 \chapter{Experiments and Results}
 
-This should most likely contain both the results from the classification task and the visualization task.
-
-\textcolor{blue}{(8-10 pages) In this chapter you present your results from your work, coming from 
-testing/validating/exploring the theory/research-questions by empirical studies. It can be structured by contributions, 
-research questions, or studies done. Find what suits your thesis and results. Some also like to include the 
-bibliography of the included papers with abstract and identified contributions towards the thesis. Do not use all of 
-the headlines below, if it leads to the same point being said over and over. Find the approach that best makes your 
-point.}
-
-\section{Developer Tools}
-\textcolor{blue}{Describe what system and tools we use for the experiments}
-
+In this section a description of the experiment is defined, followed by the experimental results. 
 
 \section{Description of Experiment}
-\textcolor{blue}{Describe how the experiment was conducted.}
 
 To experiment with different solutions for sentiment analysis, a system testing platform and code base was developed. This testing system generates and trains different models based on input arguments as default values for algorithms and type of algorithm. The architecture and flow of this system is described as a part of section~\ref{sec:classifier_arch}.
 
@@ -118,7 +106,8 @@ Use Sublinear IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
 \end{figure}
 
 \section{Experiment Results}
-\textcolor{blue}{Show plots, significant features and so on and describe the results from the experiment}
+
+The experiment results is split into two different subsections. In the first subsection, the full grid search results are defined. In the latter, a detailed comparison of the best algorithms can be found.
 
 \subsection{Full Grid Search}
 As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F-measure and accuracy for each of the classifiers with test set 1 as evaluation data. We notice that most of the classifiers that involves the NB algorithm has a bad performance, both for accuracy and F-measure. This was observed for other test sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F-measure.

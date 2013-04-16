@@ -1,2 +1,4 @@
 simplejson>=2.6.2
 eventlet>=0.9.17
+sklearn>=0.13.0
+numpy>=1.0.0
