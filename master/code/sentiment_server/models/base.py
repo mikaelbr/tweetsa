@@ -42,7 +42,7 @@ class BaseMethod(object):
   def train(self, docs_train, y_train, extra = {}, useCrossValidation = False, vect_options={}):
 
     options = dict(self.options.items() + extra.items())
-    cv = StratifiedKFold(y_train, n_folds=5) if useCrossValidation else None
+    cv = StratifiedKFold(y_train, n_folds=10) if useCrossValidation else None
 
     pipeline = Pipeline([
         ('vect', TfidfVectorizer(charset_error='ignore', tokenizer=t.tokenize, **vect_options)),
