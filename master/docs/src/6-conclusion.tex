@@ -1,16 +1,18 @@
 \chapter{Conclusion}
 
+We found that machine learning algorithms perform well for doing domain semi-independent classification for sentiments. We tested three different base machine learning algorithms: Naive Bayes, SVM and MaxEnt, in addition of combining them for doing two-step classification and boosting with voting for sentiment. 
 
-\textcolor{blue}{(2-3 pages) Time for the conclusion, be short and try to nail down the essence. This should usually 
-list the major conclusions from your previous discussion. There should also be a section on possible future directions 
-for your work in this chapter.}
+Experiments show that SVM and MaxEnt in a single step classification perform the best for these datasets. Given the confusion matrices and results on different data sets, it seems that SVM performs better than MaxEnt, but having a neutral-heavy development set, caused MaxEnt to perform better than SVM while doing a complete full grid search across multiple values.
 
+Reducing the training set to normalize number of tweets per label did not improve the overall performance in accuracy but improved the F1-score and shows more positive trending confusion matrices. 
+
+The architecture purposed for this system performs well on both regular REST API requests, but is also capable to do streaming of tweets and classify tweets in real-time for several tweets per second. By extending the Twitter API and having the same end point interface, no additional documentation is needed for the API and existing libraries and programming language specific API wrappers can be used to retrieve information from our API Layer by only changing their URL connection point. 
 
 \section{Contribution}
 
 In this project we have defined the state of the art for Twitter Sentiment Analysis systems, and implemented a generic system with an architecture capable of classifying many tweets per second in a live stream. We found that, by extending the Twitter API and just attaching a value for sentiments, the data can easily be used to implement visualisation applications, or extending existing Twitter based systems. 
 
-We have tested different machine learning algorithms, reported to work well with TSA, and found that SVM and MaxEnt performs well on short messages in a semi-independent domain. 
+We have tested different machine learning algorithms, reported to work well with TSA, and found that SVM and MaxEnt performs well on domain semi-independent short messages. 
 
 \section{Future Work}
 
