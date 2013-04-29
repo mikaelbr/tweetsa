@@ -71,19 +71,39 @@ SVM:
     'clf__C': 0.3
 }
 """
+
 c1_vect_options = {
   'ngram_range': (1,1),
-  'sublinear_tf': True,
-  'preprocessor': pr.remove_noise,
+  'sublinear_tf': False,
+  'preprocessor': None, # pr.remove_noise,
   'use_idf': True,
+  'smooth_idf': False,
+  'stop_words': None
+}
+
+c2_vect_options = {
+  'ngram_range': (1,1),
+  'sublinear_tf': True,
   'smooth_idf': True,
-  'max_df': 0.5
+  'preprocessor': pr.no_usernames,
+  'use_idf': True,
+  'stop_words': None
 }
 
 c1_default_options = {
-  'C': 0.3
+  'penalty': 'l1',
+  'C': 1.0
 }
-clf = SVM(docs_train, y_train, default_options=c1_default_options, vect_options=c1_vect_options)
+
+c2_default_options = {
+  'C': 1.0
+}
+
+
+c1 = MaxEnt(docs_train_subjectivity, y_train_subjectivity, default_options=c1_default_options, vect_options=c1_vect_options)
+c2 = SVM(docs_train_polarity, y_train_polarity, default_options=c2_default_options, vect_options=c2_vect_options)
+clf = Combined(c1, c2)
+
 
 labels = []
 res = [
@@ -139,7 +159,7 @@ ax = plt.subplot(111)
 
 colors = ['#FA6E6E', '#6E9FFA', '#A4FA6E', '#E0AF1B']
 plt.xticks(ind + width * 2, labels)
-plt.title('Details for SVM')
+plt.title('Details for SVM->MaxEnt, w/NTNU')
 plt.grid(True)
 
 for i, l in enumerate(labels):
@@ -155,21 +175,21 @@ ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 
 ax.legend( ['Precision', 'Recall', 'F1 Score', 'Accuracy'], loc='center left', bbox_to_anchor=(1, 0.5) )
 
-savefig("plots/round2/svm_orig.png", format="png")
+savefig("plots/round2/svm_maxent_extra.png", format="png")
 
 
 
 plt.clf()
 fig = plt.figure(2)
 ax = fig.add_subplot(111)
-plt.title('Confusion Matrix For SVM')
+plt.title('Confusion Matrix For SVM->MaxEnt, w/NTNU')
 res = ax.imshow(array(norm_conf), cmap=cm.jet, interpolation='nearest')
 for i, cas in enumerate(conf_arr):
     for j, c in enumerate(cas):
         if c>0:
             plt.text(j-.2, i+.2, c, fontsize=14)
 cb = fig.colorbar(res)
-savefig("plots/round2/svm_confuse_orig.png", format="png")
+savefig("plots/round2/svm_maxent_confuse_extra.png", format="png")
 
 
 

@@ -42,21 +42,21 @@ MaxEnt:
     'vect__use_idf': True
 }
 """
-# c1_vect_options = {
-#   'ngram_range': (1,1),
-#   'sublinear_tf': True,
-#   'preprocessor': pr.placeholders,
-#   'use_idf': True,
-#   'smooth_idf': True,
-#   'max_df': 0.5,
-#   'stop_words': None
-# }
+c1_vect_options = {
+  'ngram_range': (1,1),
+  'sublinear_tf': True,
+  'preprocessor': pr.placeholders,
+  'use_idf': True,
+  'smooth_idf': True,
+  'max_df': 0.5,
+  'stop_words': None
+}
 
-# c1_default_options = {
-#   'C': 1.0,
-#   'penalty': 'l1'
-# }
-# clf = MaxEnt(docs_train, y_train, default_options=c1_default_options, vect_options=c1_vect_options)
+c1_default_options = {
+  'C': 1.0,
+  'penalty': 'l1'
+}
+clf = MaxEnt(docs_train, y_train, default_options=c1_default_options, vect_options=c1_vect_options)
 
 
 """
@@ -71,19 +71,19 @@ SVM:
     'clf__C': 0.3
 }
 """
-c1_vect_options = {
-  'ngram_range': (1,1),
-  'sublinear_tf': True,
-  'preprocessor': pr.remove_noise,
-  'use_idf': True,
-  'smooth_idf': True,
-  'max_df': 0.5
-}
+# c1_vect_options = {
+#   'ngram_range': (1,1),
+#   'sublinear_tf': True,
+#   'preprocessor': pr.remove_noise,
+#   'use_idf': True,
+#   'smooth_idf': True,
+#   'max_df': 0.5
+# }
 
-c1_default_options = {
-  'C': 0.3
-}
-clf = SVM(docs_train, y_train, default_options=c1_default_options, vect_options=c1_vect_options)
+# c1_default_options = {
+#   'C': 0.3
+# }
+# clf = SVM(docs_train, y_train, default_options=c1_default_options, vect_options=c1_vect_options)
 
 labels = []
 res = [
@@ -139,7 +139,7 @@ ax = plt.subplot(111)
 
 colors = ['#FA6E6E', '#6E9FFA', '#A4FA6E', '#E0AF1B']
 plt.xticks(ind + width * 2, labels)
-plt.title('Details for SVM')
+plt.title('Details for MaxEnt, w/NTNU')
 plt.grid(True)
 
 for i, l in enumerate(labels):
@@ -155,21 +155,21 @@ ax.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 
 ax.legend( ['Precision', 'Recall', 'F1 Score', 'Accuracy'], loc='center left', bbox_to_anchor=(1, 0.5) )
 
-savefig("plots/round2/svm_orig.png", format="png")
+savefig("plots/round2/maxent_extra.png", format="png")
 
 
 
 plt.clf()
 fig = plt.figure(2)
 ax = fig.add_subplot(111)
-plt.title('Confusion Matrix For SVM')
+plt.title('Confusion Matrix For MaxEnt, w/NTNU')
 res = ax.imshow(array(norm_conf), cmap=cm.jet, interpolation='nearest')
 for i, cas in enumerate(conf_arr):
     for j, c in enumerate(cas):
         if c>0:
             plt.text(j-.2, i+.2, c, fontsize=14)
 cb = fig.colorbar(res)
-savefig("plots/round2/svm_confuse_orig.png", format="png")
+savefig("plots/round2/maxent_confuse_extra.png", format="png")
 
 
 

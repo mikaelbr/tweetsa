@@ -27,8 +27,8 @@ def set_file_names(train_set = None, test_set = None):
     raise Exception("File not found")
 
   train = np.loadtxt(train_set_filename, delimiter='\t', dtype='S', comments=None)
-  # train2 = np.loadtxt('data/output_2013-03-07.tsv', delimiter='\t', dtype='S', comments=None)
-  # train = np.concatenate((train, train2), axis=0)
+  train2 = np.loadtxt('data/extra-dataset.tsv', delimiter='\t', dtype='S', comments=None)
+  train = np.concatenate((train, train2), axis=0)
 
   test = np.loadtxt(test_set_filename, delimiter='\t', dtype='S', comments=None)
 
