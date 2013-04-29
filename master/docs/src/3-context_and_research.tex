@@ -69,6 +69,17 @@ Support Vector Machines (SVM) are often called the large margin classifiers beca
 
 The equation for the separating hyperplane is defined by the closest points to the margin, as seen in~\autoref{fig:linear} These points are called \emph{support vectors}. In cases where the data is non-linear, as in~\autoref{fig:non-linear}, a kernel function is used to project the data into a high-dimensional space where it is linearly separable.
 
+\subsection{Ensemble Learning}
+
+Ensemble Learning is a process where multiple models are used in an ensemble to solve a problem. The thought behind using an ensemble of classifiers is to reflect how we make choices in our real lives. A normal procedure is to collect the opinion from several others, sometime even experts, to support our decisions. This is also what an Ensemble Learning classifier does. Ensemble Learning is itself a supervised learning algorithm, since it's trained and used to make predictions. An Ensemble learner can be a combination of different algorithms, and need not necessarily consist of one specific type. There are two complementary approaches to training these individual classifiers: bootstrap aggregating (bagging) and boosting. The main difference is how the classifiers in an ensemble use their training data. Each classifier in bagging is trained on a subset of the training data, while in boosting, all classifiers are trained on the same original data set.
+
+\subsubsection{Bootstrap Aggregating}
+
+In the bagging variant, each classifier have an equally weighted vote. To obtain variance in the ensemble, the individual classifiers are trained on a different dataset, called "bootstrap replicate", that are randomly drawn from the original training data set, with replacement. Thus, for a training set with \emph{n} samples, the bootstrap replicate would also have \emph{n} samples, but some samples may appear several times, and some samples from the original set may not appear at all.
+
+\subsubsection{Boosting}
+
+Boosting is a method that is used to increase the accuracy of several weak learners. Each classifier in a boosting algorithm is trained on a subset of the learning data. And the classifiers are trained in several iterations 
 
 \chapter{Architecture}
 \label{sec:experimentalsetup}
