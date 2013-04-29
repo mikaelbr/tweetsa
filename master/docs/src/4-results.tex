@@ -50,7 +50,7 @@ To reduce the vocabulary and to get more precise classification different featur
 \subsubsection{Replacing with place holders}
 There might be a chance that URLs or user names are relevant for the sentiment. Not necessarily the value of the name or URL it self, but the fact that there are references to URLs and user names. To make these features more informative for the machine learning algorithms a pre-processing method (P3) was implemented for replacing them with place holder texts. This means that a user name like $@$$someuser$ is replaced by the text $||U||$. $||U||$ was chosen as it is very unlikely that it would be a part of a original tweet. Hash-tags ($\#hash$) are replaced with $||H||$ and URLs with $||URL||$. 
 
-\subsubsection{Reduplacing letter duplication}
+\subsubsection{Reducing letter duplication}
 By reducing and normalizing excessive letter duplications like "I'm sooooooo happyyyyyyyy!!!!!!", the vocabulary is reduced and the classification can perform better. However, there might be that the word "sooooo" is more sentimentally charged than the proper form of the word "so". The sentence "I'm sooooooo happyyyyyyyy!!!!!!" is more positive polar than the statement "I'm so happy!". 
 
 To reduce the vocabulary but not lose information, all duplicates of more than three consecutive characters are reduced to exactly three duplications. So "I'm sooooooo happyyyyyyyy!!!!!!" would be changed to "I'm sooo happyyy!!!", and the same goes for "I'm sooooooooooooooo happyyyyyyyy!!!!!!".
