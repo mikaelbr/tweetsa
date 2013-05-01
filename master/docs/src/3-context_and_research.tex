@@ -32,7 +32,7 @@ The naive Bayes (NB) classifier is a practical Bayesian learning model that is e
 The NB classifier is based on an assumption that all the attribute values are conditionally independent given the target value of the instance.
 \begin{equation}
 \label{equation:nbc}
-v_{NB} = P(v_j) \amalg p(a_i|v_j)
+v_{NB} = \argmax{v_j \epsilon V} P(v_j) \prod_{i} p(a_i|v_j)
 \end{equation}
 
 To classify an instance, the classifier uses the Maximum Likelihood Estimation (MLE) method to find the ratio of an attribute value and a given target value on the same instance in the training corpus. This means that it has to calculate the probability estimate $P$ for each attribute $a_i$, given the target value. It then assigns the target value as the one that gives the highest product from multiplying all the probabilities $P$ from the training data.
@@ -79,7 +79,11 @@ In the bagging variant, each classifier have an equally weighted vote. To obtain
 
 \subsubsection{Boosting}
 
-Boosting is a method that is used to increase the accuracy of several weak learners. Each classifier in a boosting algorithm is trained on a subset of the learning data. And the classifiers are trained in several iterations 
+Boosting is a method that is used to increase the accuracy of several weak learners. Each classifier in a boosting algorithm is trained on the same dataset. Weights are added to each training instance in the learning set. The weights indicates the importance of an instance to the current classifier. 
+
+When a classifier fails to predict the correct class for an instance, the weight for that particular instance is increased. So when training the next hypothesis, it will have an increased chance to handle that instance.
+
+In the process of generating hypotheses for the ensemble, each of the classifiers are evaluated and given a weight, as an indicator of its accuracy. When new queries are sent to the boosting algorithm, a voting takes place. Each hypothesis recommends a classification for the query instance, then the weights are summed up, and the target class with the highest total weight is chosen.
 
 \chapter{Architecture}
 \label{sec:experimentalsetup}
