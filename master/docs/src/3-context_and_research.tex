@@ -27,7 +27,7 @@ Due to Twitter's privacy policy, the given data sets doesn't contain the tweet t
 The following section covers some theory for the machine learning algorithms that are used in the experiments for this thesis. First the Naive Bayes classifier is described, and then Maximum Entropy and Support Vector Machines are covered. At the end of the section, two ensemble methods, bagging and boosting are explained.
 
 \subsection{Naive Bayes classifier}
-The naive Bayes (NB) classifier is a practical Bayesian learning model that is easy to understand and implement. For some classification tasks, it has proven to be equally performing to more complex machine learning algorithms like artificial neural networks (ANN) and decision trees (DT). NB is used for learning tasks where an instance $x$ consists of a number of attribute-value pairs, and the target function $f(x)$ consists of a finite number of values from a set $V$.
+The naive Bayes (NB) classifier is a practical Bayesian learning model that is easy to understand and implement. For some classification tasks, it has proven to be equally performing to more complex machine learning algorithms like artificial neural networks (ANN) and decision trees (DT) ~\citep{book:Mitchell}. NB is used for learning tasks where an instance $x$ consists of a number of attribute-value pairs, and the target function $f(x)$ consists of a finite number of values from a set $V$.
 
 The NB classifier is based on an assumption that all the attribute values are conditionally independent given the target value of the instance.
 \begin{equation}
@@ -35,7 +35,7 @@ The NB classifier is based on an assumption that all the attribute values are co
 v_{NB} = \argmax{v_j \epsilon V} P(v_j) \prod_{i} p(a_i|v_j)
 \end{equation}
 
-To classify an instance, the classifier uses the Maximum Likelihood Estimation (MLE) method to find the ratio of an attribute value and a given target value on the same instance in the training corpus. This means that it has to calculate the probability estimate $P$ for each attribute $a_i$, given the target value. It then assigns the target value as the one that gives the highest product from multiplying all the probabilities $P$ from the training data.
+To classify an instance, the classifier uses the Maximum Likelihood Estimation (MLE) method to find the ratio of an attribute value and a given target value on the same instance in the training corpus. This means that it has to calculate the probability estimate $P$ for each attribute $a_i$, given the target value $v_j$, as shown in equation~\ref{equation:nbc}. It then assigns the target value as the one that gives the highest product from multiplying all the probabilities $P$ from the training data.
 
 The assumption of conditionally independent attributes makes this classifier best suited for handling bag-of-words models, which are composed by collections of unigrams.
 
