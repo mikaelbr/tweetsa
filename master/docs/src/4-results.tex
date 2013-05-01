@@ -94,7 +94,7 @@ The experiment results is split into two different subsections. In the first sub
  \label{fig:results_full}
 \end{sidewaysfigure}
 
-As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F1-score and accuracy for each of the classifiers with test set 1 as evaluation data. We notice that most of the classifiers that involves the NB algorithm has a bad performance, both for accuracy and F1-score. This was observed for other test sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F1-score.
+As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F1-score and accuracy for each of the classifiers with dev set 1 as evaluation data. We notice that most of the classifiers that involves the NB algorithm has a bad performance, both for accuracy and F1-score. This was observed for other dev sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F1-score.
 
 We can also see that all the classifiers with SVM tends to give a better confusion matrix than the others. This is showed in Figures~\ref{fig:confmat_svm} - \ref{fig:confmat_boosting}. We see that confusion matrices where SVM is involved, the negative accuracy performs better. In tests where NB is used, the system leans much more to the positive class than the other models.
 
@@ -241,7 +241,7 @@ We can also see that all the classifiers with SVM tends to give a better confusi
 As a part of the grid search, the system applied all the different preprocessing methods for each classifier. Figure~\ref{fig:preprocess_usage} clearly shows that P2 (removing user names, URLs, hash-tag prefixes, RT-tokens and redundant letters. See table~\ref{tab:preproc_desc}) is the pre-processing method that was most used, i.e., it gave the best accuracy. Figure~\ref{fig:preprocess_usage} also indicates that URLs are noisy, and does not contain any sentiment, and that hash-tags and emoticons are valuable features. We can see that with the P2 pre-processing method, there is no real Twitter specific feature. The hash-tag is included, but used as a regular word.
 
 \subsection{SVM vs MaxEnt}
-A second grid search with the two best classifiers from the first search was performed with test set 2 as evaluation data. The results for both the SVM and MaxEnt classifiers are shown in figure~\ref{fig:best_result} and the result of the grid search is visible in table~\ref{tab:gridsearch_params}. With test set 2, SVM's performance is much better than MaxEnt's, as seen in table~\ref{tab:performance}. Test set 1 contain more neutral tweets than test set 2, which gives us a reason to believe that it favours the MaxEnt classifier. In MaxEnt's confusion matrix from the first search, shown in Figure~\ref{fig:confmat_maxent}, we can see that it classifies more neutral tweets than the other classifiers.
+A second grid search with the two best classifiers from the first search was performed with dev set 2 as evaluation data. The results for both the SVM and MaxEnt classifiers are shown in figure~\ref{fig:best_result} and the result of the grid search is visible in table~\ref{tab:gridsearch_params}. With dev set 2, SVM's performance is much better than MaxEnt's, as seen in table~\ref{tab:performance}. Test set 1 contain more neutral tweets than dev set 2, which gives us a reason to believe that it favours the MaxEnt classifier. In MaxEnt's confusion matrix from the first search, shown in Figure~\ref{fig:confmat_maxent}, we can see that it classifies more neutral tweets than the other classifiers.
 
 \begin{table}[!htb]
 \centering
@@ -394,7 +394,7 @@ We see that for the most part the features seem to make sense, but we see some a
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_stats_best_diff_test.png}
 	\end{minipage}
-	\caption[Best performance plots for SVM and MaxEnt for test set 2]{Best performance plots for SVM and MaxEnt using test set 2. SVM outperforms MaxEnt with \textbf{0.728} in accuracy versus \textbf{0.581}. SVM performs better on all values.}
+	\caption[Best performance plots for SVM and MaxEnt for dev set 2]{Best performance plots for SVM and MaxEnt using dev set 2. SVM outperforms MaxEnt with \textbf{0.728} in accuracy versus \textbf{0.581}. SVM performs better on all values.}
 	\label{fig:best_result_testset2}
 \end{figure}
 
@@ -407,7 +407,7 @@ We see that for the most part the features seem to make sense, but we see some a
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best_diff_test.png}
 	\end{minipage}
-	\caption[Confusion Matrix for MaxEnt and SVM using test set 2]{Confusion Matrix for MaxEnt and  using test set 2. The performance difference between SVM and MaxEnt is visible in the confusion matrices as well. SVM shows a solid diagonal colour.}
+	\caption[Confusion Matrix for MaxEnt and SVM using dev set 2]{Confusion Matrix for MaxEnt and  using dev set 2. The performance difference between SVM and MaxEnt is visible in the confusion matrices as well. SVM shows a solid diagonal colour.}
 	\label{fig:best_result_confusion_testset2}
 \end{figure}
 
