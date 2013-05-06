@@ -3,7 +3,7 @@
 In this section a description of the experiment is defined, followed by the experimental results. 
 
 \section{Description of Experiment}
-
+\label{sec:experiment}
 To experiment with different solutions for sentiment analysis, a system testing platform and code base was developed. This testing system generates and trains different models based on input arguments as default values for algorithms and type of algorithm. The architecture and flow of this system is described as a part of section~\ref{sec:classifier_arch}.
 
 The testing system can take in a set of parameters to use for an algorithm, like pre-processor methods, whether or not to use inverse document frequency (IDF) or stop words and so on, or a grid search flag can be set. If the grid search option is activated, a model is generated with the best possible parameters set for the given algorithm. The grid search is conducted using cross validation, and the set of parameters to search across. The parameter search space is reflected in table~\ref{tab:gridsearch_params}.
@@ -81,6 +81,7 @@ The negation word "not" can change the polarity of an entire sentence. The sente
 By attaching the negation word the the preceding and the following the features will also reflect the change in polarity. So the features for the negative sentence would be $('I', 'am-not', 'not-happy')$.
 
 \section{Experiment Results}
+\label{sec:results}
 
 The experiment results is split into two different subsections. In the first subsection, the full grid search results are defined. In the latter, a detailed comparison of the best algorithms can be found.
 
