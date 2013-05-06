@@ -1,36 +1,66 @@
 \chapter{Discussion}
 
+The discussion is split into to parts; firstly the results and experiments are discussed, then the 
+visualisation applications. The visualisation application discussion also contains thoughts about
+the generic system architecture.
 
-\textcolor{blue}{(8-10 pages) In this chapter you assess your results. Identify your contributions. Possible theory 
-building (establish cause-effect). Compare to other work described in chapter 2. Suggestions for improvements. Discuss 
-construct-, internal-, external- and conclusion-validity. The major challenge in this chapter is usually which axis you 
-want to structure your discussion around: research questions, contributions or studies. Find what works best for you 
-and your studies.}
+\section{Experiments Discussion}
 
-\textcolor{green}{Evaluation of research questions}
 
-\textcolor{blue}{If you did not answer these questions in the results chapter, now is the time to revisit.}
+\section{Architecture and Visualisation Discussion}
 
-\textcolor{green}{Evaluation of Contributions}
+We are satisfied with the way the generic system architecture is built. By just extending the Twitter API, no API documentation is needed, and if you are familiar with the Twitter API, you don't have to re-learn any thing. In addition, if there is a system all ready integrated with Twitter data, the migration to our system is simple; simply swap the entry URL point from the Twitter API base URL to our system base URL. 
 
-\textcolor{blue}{How does our contributions fit with the state of the art we described in chapter 2? Do they extend the 
-field? In what way? How do your contributions compare to your research questions? Do you have your own reflections on 
-the contributions.}
+The current implementation of the API Layer is simplified in regards to authentication. The API Layer has no OAuth server, but rather uses it's own credentials to connect to Twitter. This means, if 10 different users do 30 requests each, Twitters request limit will engage and our API Layer will be put on hold until next window of requests. A better solution would have been to implement a mirror of Twitters OAuth server and pass on the received credentials to Twitter. This way each end-user or application client would have their own pool of requests. 
 
-\textcolor{green}{Evaluation of Validity Threats}
+One important point when designing the generic system was to have it as fast as possible. This to be able to handle large amount of tweets when streaming or simply searching with a high count limit. In some cases a client can request 1000 tweets at once. This required a system that can operate in parallel and handle asynchronous connections. The way our system was built, the API layer works independent of the classification server and each request is parallel and asynchronous. This maximize the number of tweets we can handle and reduce the collected wait time for the client. This solution works great for the applications we have built and for up to 5 clients running simultaneously, but the system has not been tested with any more clients or stress-tested in any way. A stress-test might show a bottleneck or a weakness in the system that is not apparent at this point. 
 
-\textcolor{blue}{What are the major threats to our research? Mention the major threats like:}
+\subsection{SentiMap}
 
-\begin{list}{$\bullet$}{}
-  \item Internal Validity 
-  \item External Validity
-  \item Construct Validity
-  \item Conclusion Validity
-\end{list}
+The SentiMap application show interesting information and distribution of tweets a cross the USA. It is easily capable of handling at least 50 tweets per second, and updates the map's colour scheme for each tweet. Every tweet is grouped by state, so the system looses some information in regards to locality. It could have been interesting to add more details to the map, showing the exact origin of a Tweet in addition to it changing the state sentiment indication colour.
 
-\textcolor{blue}{Note that you might have to discuss these separately for each study, and every validity might not be applicable depending on what research method you have used.}
+When opening SentiMap now, you start out from scratch. There is no history or storage for the tweets. If you were to open SentiMap and have it classify 1000 tweets, refreshing the application will remove these 1000 tweets. Adding a local storage for these tweets, could provide some usefulness. Also concatenating search data with stream data could be useful, starting the application with some initial data. If some big event happens now, a user has to be quick to open SentiMap to see the sentimental development. 
 
-\textcolor{green}{Reflections on the research context}
+There is no automatic way of plugging in a different country to the SentiMap application, but the architecture allows for easy system extension. By having defined a clear MV* architecture, each module is fairly independent of each other, and can thus be replaced with different modules. To make this even easier, a plug-in system could have been designed and documented. 
 
-\textcolor{blue}{Optional. But it is often good to reflect on the (project) context of your research and how it has 
-affected you and your research.}
+By using WebSockets to provide data from the API Layer, a continuously connection is established. This means that if the API Server goes down, or the visualisation application back-end server restarts, the application will automatically reconnect without any user action. E.g. if you open SentiMap on a laptop, closes this laptop, and then re-open it, SentiMap will reconnect and start showing data again. This means you can have the client open over a long, long time, if necessary.   
+
+
+\subsection{SentiSearch}
+
+\textcolor{green}{Discussion of sentisearch/sentigraph app.}
+
+
+%\textcolor{blue}{(8-10 pages) In this chapter you assess your results. Identify your contributions. Possible theory 
+%building (establish cause-effect). Compare to other work described in chapter 2. Suggestions for improvements. Discuss 
+%construct-, internal-, external- and conclusion-validity. The major challenge in this chapter is usually which axis you 
+%want to structure your discussion around: research questions, contributions or studies. Find what works best for you 
+%and your studies.}
+%
+%\textcolor{green}{Evaluation of research questions}
+%
+%\textcolor{blue}{If you did not answer these questions in the results chapter, now is the time to revisit.}
+%
+%\textcolor{green}{Evaluation of Contributions}
+%
+%\textcolor{blue}{How does our contributions fit with the state of the art we described in chapter 2? Do they extend the 
+%field? In what way? How do your contributions compare to your research questions? Do you have your own reflections on 
+%the contributions.}
+%
+%\textcolor{green}{Evaluation of Validity Threats}
+%
+%\textcolor{blue}{What are the major threats to our research? Mention the major threats like:}
+%
+%\begin{list}{$\bullet$}{}
+%  \item Internal Validity 
+%  \item External Validity
+%  \item Construct Validity
+%  \item Conclusion Validity
+%\end{list}
+%
+%\textcolor{blue}{Note that you might have to discuss these separately for each study, and every validity might not be applicable depending on what research method you have used.}
+%
+%\textcolor{green}{Reflections on the research context}
+%
+%\textcolor{blue}{Optional. But it is often good to reflect on the (project) context of your research and how it has 
+%affected you and your research.}
