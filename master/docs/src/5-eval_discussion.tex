@@ -1,13 +1,28 @@
 \chapter{Discussion}
 
-The discussion is split into to parts; firstly the results and experiments are discussed, then the 
-visualisation applications. The visualisation application discussion also contains thoughts about
-the generic system architecture.
+In the introduction two main goals were introduced for this Master's Thesis:
 
-\section{Experiments Discussion}
+\begin{description}
 
+\item[G1] \textbf{Experiment with different methods for doing sentiment analysis}
+	
+\item[G2] \textbf{Develop tools for visualising sentiment classified tweets}
 
-\section{Architecture and Visualisation Discussion}
+\end{description}
+
+In this section we will discuss whether or not we succeeded in reaching these goals. The first section handles G1 and the second section discusses G2. The generic system architecture is an important part of achieving making the visualisation applications, and thus it is discussed in the latter section.
+
+\section{G1: Experiment with different methods for doing sentiment analysis}
+
+\textcolor{green}{
+	Discussion of results / experiments.
+	Notes: 
+		- SVM vs MaxEnt.
+		- NaiveBayes (poor results)
+		- Discuss contributions
+}
+
+\section{G2: Develop tools for visualising sentiment classified tweets}
 
 We are satisfied with the way the generic system architecture is built. By just extending the Twitter API, no API documentation is needed, and if you are familiar with the Twitter API, you don't have to re-learn any thing. In addition, if there is a system all ready integrated with Twitter data, the migration to our system is simple; simply swap the entry URL point from the Twitter API base URL to our system base URL. 
 
@@ -24,7 +39,6 @@ When opening SentiMap now, you start out from scratch. There is no history or st
 There is no automatic way of plugging in a different country to the SentiMap application, but the architecture allows for easy system extension. By having defined a clear MV* architecture, each module is fairly independent of each other, and can thus be replaced with different modules. To make this even easier, a plug-in system could have been designed and documented. 
 
 By using WebSockets to provide data from the API Layer, a continuously connection is established. This means that if the API Server goes down, or the visualisation application back-end server restarts, the application will automatically reconnect without any user action. E.g. if you open SentiMap on a laptop, closes this laptop, and then re-open it, SentiMap will reconnect and start showing data again. This means you can have the client open over a long, long time, if necessary.   
-
 
 \subsection{SentiSearch}
 
