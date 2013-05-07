@@ -4,10 +4,15 @@
 
   \item [{AJAX}]\begingroup Asynchronous JavaScript and XML\nomeqref {4.0}
 		\nompageref{36}
+  \item [{ANN}]\begingroup Artificial Neural Networks\nomeqref {3.0}
+		\nompageref{18}
   \item [{API}]\begingroup Application Programming Interface\nomeqref {4.0}
 		\nompageref{23}
+  \item [{bagging}]\begingroup Bootstrap Aggregating\nomeqref {3.1}
+		\nompageref{20}
   \item [{CSS}]\begingroup Cascading Style Sheets\nomeqref {4.0}
 		\nompageref{31}
+  \item [{DT}]\begingroup Decision Trees\nomeqref {3.0}\nompageref{18}
   \item [{HTTP}]\begingroup Hypertext Transfer (or Transport) Protocol\nomeqref {4.0}
 		\nompageref{23}
   \item [{IDF}]\begingroup Inverse Document Frequency\nomeqref {5.0}
