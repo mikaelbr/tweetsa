@@ -3,7 +3,7 @@
 \section{Data sets}
 Manually collecting information from Twitter would be a tedious task, but Twitter offers a well documented Representational State Transfer Application Programming Interface (REST API) which allows users to collect a corpus from the microblogosphere. Most of the data used in TSA research is collected through the Twitter API, either by searching for a certain topic/keyword or by streaming realtime data. Four different data sets were used in the experiments described below. Three were supplied by the organisers of the SemEval'13 shared task on Twitter sentiment analysis~\citep{WilsonEA:13}, in the form of a training set, a smaller initial development set, and a larger development set. All sets consist of manually annotated tweets on a range of topics, including different products and events.
 
-Tweet-level classification (Task 2B) was split into two subtasks in SemEval'13, one allowing training only on the data sets supplied by the organisers (constrained) and one allowing training also on external data (unconstrained). To this end, a web application\footnote{http://tinyurl.com/tweetannotator} for manual annotation of tweets was built and used to annotate a small fourth data set ('NTNU'). Each of the 461 tweets in the 'NTNU' data set were annotated by one person only.
+Tweet-level classification (Task 2B) was split into two subtasks in SemEval'13, one allowing training only on the data sets supplied by the organisers (constrained) and one allowing training also on external data (unconstrained). To this end, a web application\footnote{\url{https://github.com/mikaelbr/tweetannotator}} for manual annotation of tweets was built and used to annotate a small fourth data set ('NTNU'). Each of the 461 tweets in the 'NTNU' data set were annotated by one person only.
 
 The distribution of target classes in the data sets is shown in Table~\ref{tab:datasets}. The data was neither preprocessed nor filtered, and thus contain hashtags, URLs, emoticons, etc. However, all the data sets provided by SemEval'13 had more than three target classes (e.g., 'objective', 'objective-OR-neutral'), so tweets that were not annotated as 'positive' or 'negative' were merged into the 'neutral' target class.
 
@@ -25,7 +25,7 @@ Total & 8709 && 688 && 1654 && 461 &\\
 \label{tab:datasets}
 \end{table}
 
-Due to Twitter's privacy policy, the given data sets do not contain the tweet text, but only the tweet ID which in turn can be used to download the text. The Twitter API has a limit on the number of downloads per hour, so SemEval'13 provided a Python script to scrape texts from https://twitter.com. This script was slow and did not download the texts for all tweet IDs in the data sets, so a faster and more precise download script\footnote{http://tinyurl.com/twitscraper} for node.js was implemented and submitted to the shared task organisers.
+Due to Twitter's privacy policy, the given data sets do not contain the tweet text, but only the tweet ID which in turn can be used to download the text. The Twitter API has a limit on the number of downloads per hour, so SemEval'13 provided a Python script to scrape texts from https://twitter.com. This script was slow and did not download the texts for all tweet IDs in the data sets, so a faster and more precise download script\footnote{\url{https://github.com/mikaelbr/twitscraper}} for Node.JS was implemented and submitted to the shared task organisers.
 
 \section{Algorithms}
 
