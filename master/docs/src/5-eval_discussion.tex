@@ -16,7 +16,7 @@ In this section we will discuss whether or not we succeeded in reaching these go
 
 In this section we will discuss if whether we succeeded with our first goal or not. The first goal stated that we should try different methods of classifying sentiments on short messages. 
 
-The experiment description from~section~\ref{sec:experiment} show that we used grid searching on different machine learning algorithms and combination of algorithms to classify sentiment. A total set of 13 different models were thoroughly tested with a large training set. Our system generated graphs and plots comparing the different models, both on accuracy, F1-score, recall, precision and their confusion matrix. This comparative view allowed us to find what model performs the best. 
+The experiment description from~section~\ref{sec:experiment} show that we used grid searching on different machine learning algorithms and combination of algorithms to classify sentiment. A total set of 13 different models were thoroughly tested with a large training set. Our system generated graphs and plots comparing the different models, both on accuracy, F1-score, recall, precision and their confusion matrices. This comparative view allowed us to find what model performs the best.
 
 In our experiments we found that MaxEnt and SVM perform best in regards to accuracy. 
 
@@ -28,19 +28,27 @@ In our experiments we found that MaxEnt and SVM perform best in regards to accur
 		- Discuss contributions
 }
 
+The data that we used to train the different hypotheses/models was given by SemSeval'13, who also provided a test set for SMS messages. This task was considered an opportunity to test of the system supported semi-independent domains. The results from the task indicates that the system performed well on both when trained with dev set 1, and with dev set 1 and the NTNU set.
+
+Some of the preprocessing methods are to be considered naive, such as the negation handling. In these experiments we only utilized unigram feature selection with a simple negation support. This simple method binds all appearances of the word 'not' to the next word in the sentence, e.g., 'not bad' would be merged into the unigram 'not-bad'. This is a very naive approach which in some cases may extend the vocabulary with little informative features. Rather than the simple treatment of negation used here, an approach to automatic induction of scope through a negation detector\citep{CouncillEA:10} could be used.
+
+From the list of features we can see that emoticons are informative features, both for SVM and MaxEnt. However, this system does not have support for emoji, wich has very similar semantics as emoticons, but are implemented in Apple products as an own character set (rather than ascii characters such as ':)' and ':D', etc). There are reasons to believe that these emojis would provide informative features to the vocabulary, and could be either converted to ascii characters or some other placeholder.
+
+
+
 \section{G2: Develop tools for visualising sentiment classified tweets}
 
 We achieved goal 2 by implementing two different applications for visualising sentiment analysis data, and by designing and using a generic system for classifying tweets. 
 
-We are satisfied with the way the generic system architecture is built. By just extending the Twitter API, no API documentation is needed, and if you are familiar with the Twitter API, you don't have to re-learn any thing. In addition, if there is a system all ready integrated with Twitter data, the migration to our system is simple; simply swap the entry URL point from the Twitter API base URL to our system base URL. 
+We are satisfied with the way the generic system architecture is built. By just extending the Twitter API, no API documentation is needed, and if you are familiar with the Twitter API, you don't have to re-learn anything. In addition, if there is a system allready integrated with Twitter data, the migration to our system is simple; swap the entry URL point from the Twitter API base URL to our system base URL. 
 
-The current implementation of the API Layer is simplified in regards to authentication. The API Layer has no OAuth server, but rather uses it's own credentials to connect to Twitter. This means, if 10 different users do 30 requests each, Twitters request limit will engage and our API Layer will be put on hold until next window of requests. A better solution would have been to implement a mirror of Twitters OAuth server and pass on the received credentials to Twitter. This way each end-user or application client would have their own pool of requests. 
+The current implementation of the API Layer is simplified in regards to authentication. The API Layer has no OAuth server, but rather uses its own credentials to connect to Twitter. This means, if 10 different users do 30 requests each, Twitter's request limit will engage and our API Layer will be put on hold until next window of requests. A better solution would have been to implement a mirror of Twitters OAuth server and pass on the received credentials to Twitter. This way each end-user or application client would have their own pool of requests. 
 
 One important point when designing the generic system was to have it as fast as possible. This to be able to handle large amount of tweets when streaming or simply searching with a high count limit. In some cases a client can request 1000 tweets at once. This required a system that can operate in parallel and handle asynchronous connections. The way our system was built, the API layer works independent of the classification server and each request is parallel and asynchronous. This maximize the number of tweets we can handle and reduce the collected wait time for the client. This solution works great for the applications we have built and for up to 5 clients running simultaneously, but the system has not been tested with any more clients or stress-tested in any way. A stress-test might show a bottleneck or a weakness in the system that is not apparent at this point. 
 
 \subsection{SentiMap}
 
-The SentiMap application show interesting information and distribution of tweets a cross the USA. It is easily capable of handling at least 50 tweets per second, and updates the map's colour scheme for each tweet. Every tweet is grouped by state, so the system looses some information in regards to locality. It could have been interesting to add more details to the map, showing the exact origin of a Tweet in addition to it changing the state sentiment indication colour.
+The SentiMap application show interesting information and distribution of tweets a cross the USA. It is capable of handling at least 50 tweets per second, and updates the map's colour scheme for each tweet. Every tweet is grouped by state, so the system looses some information in regards to locality. It could have been interesting to add more details to the map, showing the exact origin of a Tweet in addition to it changing the state sentiment indication colour.
 
 When opening SentiMap now, you start out from scratch. There is no history or storage for the tweets. If you were to open SentiMap and have it classify 1000 tweets, refreshing the application will remove these 1000 tweets. Adding a local storage for these tweets, could provide some usefulness. Also concatenating search data with stream data could be useful, starting the application with some initial data. If some big event happens now, a user has to be quick to open SentiMap to see the sentimental development. 
 
