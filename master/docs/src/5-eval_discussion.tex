@@ -10,7 +10,7 @@ In the introduction two main goals were introduced for this Master's Thesis:
 
 \end{description}
 
-In this section we will discuss whether or not we succeeded in reaching these goals. The first section handles G1 and the second section discusses G2. The generic system architecture is an important part of achieving making the visualisation applications, and thus it is discussed in the latter section.
+In this section we will discuss whether or not we succeeded in reaching these goals, and discuss the solutions in general. The first section handles G1 and the second section discusses G2. The generic system architecture is an important part of achieving making the visualisation applications, and thus it is included in the latter section.
 
 \section{G1: Experiment with different methods for doing sentiment analysis}
 
@@ -29,6 +29,8 @@ In our experiments we found that MaxEnt and SVM perform best in regards to accur
 }
 
 \section{G2: Develop tools for visualising sentiment classified tweets}
+
+We achieved goal 2 by implementing two different applications for visualising sentiment analysis data, and by designing and using a generic system for classifying tweets. 
 
 We are satisfied with the way the generic system architecture is built. By just extending the Twitter API, no API documentation is needed, and if you are familiar with the Twitter API, you don't have to re-learn any thing. In addition, if there is a system all ready integrated with Twitter data, the migration to our system is simple; simply swap the entry URL point from the Twitter API base URL to our system base URL. 
 
