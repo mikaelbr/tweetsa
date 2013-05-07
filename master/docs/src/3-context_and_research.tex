@@ -1,45 +1,31 @@
 \chapter{Material and Methods}
 
 \section{Data sets}
-We have used four different data sets in our experiments. Three of the data sets was given by the Semeval-2013 contest. These corpora consists of a learning set, a development/evaluation set, and a test set. All sets consist of manually annotated tweets on a range of topics, including different products and events. The development set and the test set contain some overlapping tweets, so either one of these had to be used for learning and evaluation. All the data sets had more than three different target classes, e.g., 'objective', 'objective-OR-neutral'. So to make them fit a 3-way classification task, all tweets that wasn't annotated as 'positive' or 'negative' was merged into the target class 'neutral'. The distribution of target classes in the data sets are listed in Table~\ref{tab:data_sets}. None of the tweets has been pre processed or filtered in any way, so they contain hashtags, urls, emoticons etc.
+Manually collecting information from Twitter would be a tedious task, but Twitter offers a well documented Representational State Transfer Application Programming Interface (REST API) which allows users to collect a corpus from the microblogosphere. Most of the data used in TSA research is collected through the Twitter API, either by searching for a certain topic/keyword or by streaming realtime data. Four different data sets were used in the experiments described below. three were supplied by the organisers of the SemEval'13 shared task on Twitter sentiment analysis ~\cite{WilsonEA:13}, in the form of a training set, a smaller initial development set, and a larger development set. All sets consist of manually annotated tweets on a range of topics, including different products and events.
 
+Tweet-level classification (Task 2B) was split into two subtasks in SemEval'13, one allowing training only on the data sets supplied by the organisers (constrained) and one allowing training also on external data (unconstrained). To this end, a web application\footnote{http://tinyurl.com/tweetannotator} for manual annotation of tweets was built and used to annotate a small fourth data set ('NTNU'). Each of the 461 tweets in the 'NTNU' data set were annotated by one person only.
 
-%
-%\begin{table}[htb]
-%\centering
-%\begin{tabular}{|r||c|c|c|} 
-%\cline{2-4}
-%\multicolumn{1}{c|}{ } & \textbf{Learning} & \textbf{Test set 1} &\textbf{Test set 2} \\ \hline
-%Positive & 3270 & 526 & 368 \\ \hline
-%Neutral  & 4151 & 673 & 144 \\ \hline
-%Negative & 1288 & 313 & 176 \\ \hline
-%Total & 8709 & 1512 & 688 \\ \hline
-%
-%\end{tabular}
-%\caption{These data sets was used in the experiments.}
-%\label{tab:data_sets}
-%\end{table}
+The distribution of target classes in the data sets is shown in Table~\ref{tab:datasets}. The data was neither preprocessed nor filtered, and thus contain hashtags, URLs, emoticons, etc. However, all the data sets provided by SemEval'13 had more than three target classes (e.g., 'objective', 'objective-OR-neutral'), so tweets that were not annotated as 'positive' or 'negative' were merged into the 'neutral' target class.
 
 \begin{table}[htb!]
 \centering
-\begin{tabular}{l|rrrr} 
+\begin{tabular}{l|rrrrrrrrr} 
 \noalign{\smallskip}\hline\noalign{\smallskip}
-Class & \multicolumn{1}{c}{Training} & \multicolumn{1}{c}{Devel.} &\multicolumn{1}{c}{Test} &\multicolumn{1}{c}{NTNU}  \\
+& \multicolumn{2}{c}{Training} & \multicolumn{2}{c}{Dev 1} &\multicolumn{2}{c}{Dev 2} &\multicolumn{2}{c}{NTNU}  \\
+Class & Num & \% & Num & \% & Num & \% & Num & \% \\
+
 \noalign{\smallskip}\hline\noalign{\smallskip}
-Positive & 3270 & 575 & 368 & 142\\ 
-Neutral  & 4151 & 739 & 144 & 232\\ 
-Negative & 1288 & 340 & 176 & 86\\ 
-Total & 8709 & 1654 & 688 & 461\\
+Negative & 1288 & 15 & 176 & 21 & 340 & 26 & 86 & 19\\
+Neutral  & 4151 & 48 & 144 & 45 & 739 & 21 & 232 & 50 \\
+Positive & 3270 & 37 & 368 & 35 & 575 & 54 & 142 & 31 \\ 
+Total & 8709 && 688 && 1654 && 461 &\\ 
 \noalign{\smallskip}\hline\noalign{\smallskip}
 \end{tabular}
 \caption{The data sets used in the experiments}
 \label{tab:datasets}
 \end{table}
 
-
-In addition to the data sets that were given by (the contest), we made a small data set on our own. Before we knew about the Semeval data sets, we made a web application for manually annotation of tweets. This system was tested and used to collect a small data set, but when we got the collection of data sets from the contest we decided to cancel the collection of our own data.
-
-Due to Twitter's privacy policy, the given data sets doesn't contain the tweet text itself, but the tweet ID that can be used to download the actual text. The Twitter API has a limit on number of downloads per hour, so Semeval-2013 provided a python script that uses the tweet ID to scrape the text from Twitter.com. This script was slow, and it didn't download all the tweet texts from the tweet IDs in the data sets. To solve this we made a new download script for node.js that was both faster and more precise. The data files outputted by the script are in the same format as the provided one. The files are tab separated (.tsv formatted) with columns that contain tweet ID, user ID, target class, and tweet text.
+Due to Twitter's privacy policy, the given data sets do not contain the tweet text, but only the tweet ID which in turn can be used to download the text. The Twitter API has a limit on the number of downloads per hour, so SemEval'13 provided a Python script to scrape texts from https://twitter.com. This script was slow and did not download the texts for all tweet IDs in the data sets, so a faster and more precise download script\footnote{http://tinyurl.com/twitscraper} for node.js was implemented and submitted to the shared task organisers.
 
 \section{Algorithms}
 
@@ -355,7 +341,7 @@ SentiGraph is a light weight web application that runs in the client's web brows
 
 The tweets shown in the timeline includes the tweet text, its date, the author's profile picture and the sentiment classification. All these data are extracted from the tweet JSON object provided by the API layer.
 
-The application uses CSS for responsiveness, so it fits different screen sizes. On large screens and resolutions, the presentation is divided into two columns, but when the browser window are minimized to below 1080 pixels, the timeline in the right column is moved to the left, so it appears below the chart view.
+The application uses CSS for responsiveness, so it fits different screen sizes. On large screens and resolutions the presentation is divided into two columns, but when the browser window is minimized to below 1080 pixels, the timeline in the right column is moved to the left, so it appears below the chart view.
 
 \begin{figure}[htb!]
 \begin{center}
@@ -367,6 +353,6 @@ The application uses CSS for responsiveness, so it fits different screen sizes. 
 
 \subsubsection{Working Product}
 
-SentiGraph allows the user to define a search query and a maximum tweet count to limit the search. The tweets returned by the API are processed in JavaScript, and for the timeline view, each tweet's HTML container element are given a CSS colour code to indicate its sentiment. In addition to colouring the container, the script also inserts the author's profile picture, and the date and time the tweet was published. The script waits for all data in each tweet container to be completely downloaded before it renders it. This is mainly to avoid collapsing HTML elements because of missing data.
+SentiGraph allows the user to define a search query and a maximum tweet count to limit the search. The maximum limit supported by the Twitter API is 100 tweets per query. The returned tweets are processed in JavaScript, and for the timeline view, each tweets HTML container element are given a CSS colour code to indicate its sentiment. In addition to colouring the container, the script also inserts the author's profile picture, and the date and time the tweet was published. The script waits for all data in each tweet container to be completely downloaded before it renders it. This is mainly to avoid collapsing HTML elements because of missing data.
 
 
