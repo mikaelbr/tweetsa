@@ -1,0 +1,33 @@
+\begin{thenomenclature} 
+
+ \nomgroup{A}
+
+  \item [{API}]\begingroup Application Programming Interface\nomeqref {4.0}
+		\nompageref{23}
+  \item [{HTTP}]\begingroup Hypertext Transfer (or Transport) Protocol\nomeqref {4.0}
+		\nompageref{23}
+  \item [{IDF}]\begingroup Inverse Document Frequency\nomeqref {5.0}
+		\nompageref{39}
+  \item [{MaxEnt}]\begingroup Maximum Entropy\nomeqref {2.0}
+		\nompageref{15}
+  \item [{MLE}]\begingroup Maximum Likelihood Estimation\nomeqref {3.1}
+		\nompageref{18}
+  \item [{NB}]\begingroup Naïve Bayes\nomeqref {2.0}\nompageref{15}
+  \item [{NTNU}]\begingroup Norwegian University of Science and Technology\nomeqref {1.0}
+		\nompageref{1}
+  \item [{POS}]\begingroup Part-of-Speech\nomeqref {2.0}\nompageref{15}
+  \item [{RQ}]\begingroup Research Question\nomeqref {2.0}
+		\nompageref{5}
+  \item [{RT}]\begingroup Re-Tweet\nomeqref {5.0}\nompageref{40}
+  \item [{SA}]\begingroup Sentiment Analysis\nomeqref {1.0}
+		\nompageref{2}
+  \item [{SLR}]\begingroup Systematic Literature Review\nomeqref {2.0}
+		\nompageref{5}
+  \item [{SLRP}]\begingroup Systematic Literature Review Protocol\nomeqref {2.0}
+		\nompageref{6}
+  \item [{SVM}]\begingroup Support Vector Machine\nomeqref {2.0}
+		\nompageref{15}
+  \item [{TSA}]\begingroup Twitter Sentiment Analysis\nomeqref {2.0}
+		\nompageref{5}
+
+\end{thenomenclature}

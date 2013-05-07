@@ -9,7 +9,7 @@ The distribution of target classes in the data sets is shown in Table~\ref{tab:d
 
 \begin{table}[htb!]
 \centering
-\begin{tabular}{l|rrrrrrrrr} 
+\begin{tabular}{l|rrrrrrrrr}
 \noalign{\smallskip}\hline\noalign{\smallskip}
 & \multicolumn{2}{c}{Training} & \multicolumn{2}{c}{Dev 1} &\multicolumn{2}{c}{Dev 2} &\multicolumn{2}{c}{NTNU}  \\
 Class & Num & \% & Num & \% & Num & \% & Num & \% \\
@@ -32,7 +32,7 @@ Due to Twitter's privacy policy, the given data sets do not contain the tweet te
 The following section covers some theory for the machine learning algorithms that are used in the experiments for this thesis. First the Naive Bayes classifier is described, and then Maximum Entropy and Support Vector Machines are covered. At the end of the section, two ensemble methods, bagging and boosting are explained.
 
 \subsection{Naive Bayes classifier}
-The naive Bayes (NB) classifier is a practical Bayesian learning model that is easy to understand and implement. For some classification tasks, it has proven to be equally performing to more complex machine learning algorithms like artificial neural networks (ANN) and decision trees (DT) ~\citep{book:Mitchell}. NB is used for learning tasks where an instance $x$ consists of a number of attribute-value pairs, and the target function $f(x)$ consists of a finite number of values from a set $V$.
+The Naive Bayes (NB) classifier is a practical Bayesian learning model that is easy to understand and implement. For some classification tasks, it has proven to be equally performing to more complex machine learning algorithms like artificial neural networks (ANN) and decision trees (DT) ~\citep{book:Mitchell}. NB is used for learning tasks where an instance $x$ consists of a number of attribute-value pairs, and the target function $f(x)$ consists of a finite number of values from a set $V$.
 
 The NB classifier is based on an assumption that all the attribute values are conditionally independent given the target value of the instance.
 \begin{equation}
@@ -40,7 +40,7 @@ The NB classifier is based on an assumption that all the attribute values are co
 v_{NB} = \argmax{v_j \epsilon V} P(v_j) \prod_{i} p(a_i|v_j)
 \end{equation}
 
-To classify an instance, the classifier uses the Maximum Likelihood Estimation (MLE) method to find the ratio of an attribute value and a given target value on the same instance in the training corpus. This means that it has to calculate the probability estimate $P$ for each attribute $a_i$, given the target value $v_j$, as shown in equation~\ref{equation:nbc}. It then assigns the target value as the one that gives the highest product from multiplying all the probabilities $P$ from the training data.
+To classify an instance, the classifier uses the Maximum Likelihood Estimation (MLE\nom{MLE}{Maximum Likelihood Estimation}) method to find the ratio of an attribute value and a given target value on the same instance in the training corpus. This means that it has to calculate the probability estimate $P$ for each attribute $a_i$, given the target value $v_j$, as shown in equation~\ref{equation:nbc}. It then assigns the target value as the one that gives the highest product from multiplying all the probabilities $P$ from the training data.
 
 The assumption of conditionally independent attributes makes this classifier best suited for handling bag-of-words models, which are composed by collections of unigrams.
 
@@ -98,9 +98,9 @@ This chapter defines the architecture for the generic Twitter Sentiment Analysis
 \section{TSA Architecture}
 \label{sec:tsaarchitecture}
 
-This section describes the overall architecture and how the system works. First the general system will be described, and then the API Layer and classification server in turn.  
+This section describes the overall architecture and how the system works. First the general system will be described, and then the Application Programming Interface~(\nom{API}{Application Programming Interface}) Layer and classification server in turn.  
 
-To make the system as modularized and responsive as possible, the API layer was written in Node.js and the sentiment classifier in the Python programming language. Both systems are continuously running servers. This allows multiple services to run simultaneously, both for the API layer and the classifier. The idea is to make the system horizontally scalable.
+To make the system as modulJavascript on the Node.js platformarized and responsive as possible, the API Layer was written in Node.js and the sentiment classifier in the Python programming language. Both systems are continuously running servers. This allows multiple services to run simultaneously, both for the API layer and the classifier. The idea is to make the system horizontally scalable.
 
 \begin{figure}[ht]
  \begin{center}
@@ -110,7 +110,7 @@ To make the system as modularized and responsive as possible, the API layer was 
  \label{fig:NetworkDiagram.pdf}
 \end{figure}
 
-A client makes a request to the API Layer, with the same interface as the Twitter API service. From there the API Layer will retrieve information from the Twitter API with HTTP requests, iterate over all tweets received, and send them in parallel to the classification server. When the classification server is done processing and classifying the tweet, it is sent back to the API Layer. When the API layer has received all the tweets, it responds to the client with the same JSON structure as the Twitter API sends out, only with an additional attribute noting the tweet's sentiment. This architecture and application flow can be seen in~\autoref{fig:NetworkDiagram.pdf}. 
+A client makes a request to the API Layer, with the same interface as the Twitter API service. From there the API Layer will retrieve information from the Twitter API with Hypertext Transfer (or Transport) Protocol~(\nom{HTTP}{Hypertext Transfer (or Transport) Protocol}) requests, iterate over all tweets received, and send them in parallel to the classification server. When the classification server is done processing and classifying the tweet, it is sent back to the API Layer. When the API layer has received all the tweets, it responds to the client with the same JSON structure as the Twitter API sends out, only with an additional attribute noting the tweet's sentiment. This architecture and application flow can be seen in~\autoref{fig:NetworkDiagram.pdf}. 
 
 \subsection{API Layer Extension}
 
@@ -353,6 +353,6 @@ The application uses CSS for responsiveness, so it fits different screen sizes. 
 
 \subsubsection{Working Product}
 
-SentiGraph allows the user to define a search query and a maximum tweet count to limit the search. The maximum limit supported by the Twitter API is 100 tweets per query. The returned tweets are processed in JavaScript, and for the timeline view, each tweets HTML container element are given a CSS colour code to indicate its sentiment. In addition to colouring the container, the script also inserts the author's profile picture, and the date and time the tweet was published. The script waits for all data in each tweet container to be completely downloaded before it renders it. This is mainly to avoid collapsing HTML elements because of missing data.
+SentiGraph allows the user to define a search query and a maximum tweet count to limit the search. The maximum limit supported by the Twitter API is 100 tweets per query. The returned tweets are processed in JavaScript, and for the timeline view, each tweet's HTML container element are given a CSS colour code to indicate its sentiment. In addition to colouring the container, the script also inserts the author's profile picture, and the date and time the tweet was published. The script waits for all data in each tweet container to be completely downloaded before it renders it. This is mainly to avoid collapsing HTML elements because of missing data.
 
 
