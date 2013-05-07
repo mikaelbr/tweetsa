@@ -30,9 +30,12 @@ A set of terms is defined closely based on the first research questions (\textbf
 
 All search terms are placed in a table with the groups as columns and the search term as a row. The entire search string will be constructed by using Boolean notation. All terms in a group are concatenated by the keyword $OR$, and the groups themselves are concatenated by the keyword $AND$. This search string is represented by the following formula: 
 
-\begin{verbatim}
-([G1, T1] OR ([G1, T2] OR [G1, T3]) AND ([G2, T1] OR [G2, T2]) 
-\end{verbatim}
+	
+\begin{verse}
+	\centering
+	([G1, T1] OR ([G1, T2] OR [G1, T3]) \\
+	AND ([G2, T1] OR [G2, T2]) 
+\end{verse}
 
 \begin{table}[htdp]
 \begin{center}
@@ -59,7 +62,7 @@ To reduce the studies even more, they are assessed using three different screeni
 
 \begin{description}
 
-\item[IC1] The study’s main concern is Sentiment Analysis.
+\item[IC1] The study's main concern is Sentiment Analysis.
 \item[IC2] The study is a primary study presenting empirical results.
 \item[IC3] The study focuses on sentiment analysis on the english language.
 
