@@ -110,11 +110,11 @@ To make the system as modulJavascript on the Node.js platformarized and responsi
  \label{fig:NetworkDiagram.pdf}
 \end{figure}
 
-A client makes a request to the API Layer, with the same interface as the Twitter API service. From there the API Layer will retrieve information from the Twitter API with Hypertext Transfer (or Transport) Protocol~(\nom{HTTP}{Hypertext Transfer (or Transport) Protocol}) requests, iterate over all tweets received, and send them in parallel to the classification server. When the classification server is done processing and classifying the tweet, it is sent back to the API Layer. When the API layer has received all the tweets, it responds to the client with the same JSON structure as the Twitter API sends out, only with an additional attribute noting the tweet's sentiment. This architecture and application flow can be seen in~\autoref{fig:NetworkDiagram.pdf}. 
+A client makes a request to the API Layer, with the same interface as the Twitter API service. From there the API Layer will retrieve information from the Twitter API with Hypertext Transfer (or Transport) Protocol~(\nom{HTTP}{Hypertext Transfer (or Transport) Protocol}) requests, iterate over all tweets received, and send them in parallel to the classification server. When the classification server is done processing and classifying the tweet, it is sent back to the API Layer. When the API layer has received all the tweets, it responds to the client with the same JavaScript Object Notation~\nom{JSON}{JavaScript Object Notation} data structure as the Twitter API sends out, only with an additional attribute noting the tweet's sentiment. This architecture and application flow can be seen in~\autoref{fig:NetworkDiagram.pdf}. 
 
 \subsection{API Layer Extension}
 
-To be able to have a scalable and responsive solution, the API Layer was written using the Node.js platform. Since Node.js uses JavaScript as programming language, the JSON data retrieved from the Twitter REST and Streaming API are easily manipulated and passed around. 
+To be able to have a scalable and responsive solution, the API Layer was written using the Node.js platform. Since Node.js uses JavaScript as programming language, the JSON data retrieved from the Twitter Representational state transfer~(\nom{REST}{Representational state transfer}) and Streaming API are easily manipulated and passed around. 
 
 The API Layer works as a thin layer extending the Twitter API. This means that the interface used by Twitter, with all defined options and appropriate methods, is reflected through the API Layer. The main benefit is that all documentation for the Twitter API also documents most of this extended API Layer.
 
@@ -130,7 +130,7 @@ For authentication, an application is registered with a developer account at the
  \label{fig:APILayerArcitechture.pdf}
 \end{figure}
 
-When a request from a client is made, the request gets processed by the server and the routing module determines what the client is looking for. When the proper service is found, the client-specified parameters are sent directly to the Twitter API, using the Twitter Data Handler module (TDH). The TDH module then iterates over all found tweets, and sends them in parallel to the classification server. When a tweet has been processed by the classification server the classified sentiment is sent back to the TBH module and the original tweet object is extended to contain a property with the sentiment. When all tweets are classified, the TBH module passes the extended twitter data to the render module. The render module renders the JSON data and sends it to the client with appropriate HTTP headers set. This application flow can be seen in~\autoref{fig:APILayerArcitechture.pdf}.
+When a request from a client is made, the request gets processed by the server and the routing module determines what the client is looking for. When the proper service is found, the client-specified parameters are sent directly to the Twitter API, using the Twitter Data Handler module (\nom{TDH}{Twitter Data Handler}). The TDH module then iterates over all found tweets, and sends them in parallel to the classification server. When a tweet has been processed by the classification server the classified sentiment is sent back to the TDH module and the original tweet object is extended to contain a property with the sentiment. When all tweets are classified, the TDH module passes the extended twitter data to the render module. The render module renders the JSON data and sends it to the client with appropriate HTTP headers set. This application flow can be seen in~\autoref{fig:APILayerArcitechture.pdf}.
 
 If there is an error during any part of the process, the error is caught by the routing module, and the error is rendered as a JSON object, in the same manner as it would be by the Twitter API. 
 
@@ -138,19 +138,19 @@ When using both the Twitter REST API and Streaming API, there is a high level of
 
 All internal and external message passing in the API Layer is asynchronous. When requesting Twitter for data, an event is triggered when that data is ready and all tweets are separately sent to the classifier. By sending all tweets separately in parallel, classification of the entire set of tweets does not take much longer than classifying only one tweet. 
 
-When streaming, the TBH module opens a connection to the Twitter API, but never closes it. There is a continuously open connection to the Twitter server, which is feeding the TBH module with single tweets as they get stored in the Twitter system. From the first received tweet, a connection to the requesting client is opened by the render response module. This connection will also remain open. In this way there is an open connection between the client and the API Layer as well as between the API Layer and the Twitter API. The API Layer works as a middleman, taking in tweets, classifying them, and streaming them to the client. By running this entire process asynchronously, the system can process data independently of when it is published.
+When streaming, the TDH module opens a connection to the Twitter API, but never closes it. There is a continuously open connection to the Twitter server, which is feeding the TDH module with single tweets as they get stored in the Twitter system. From the first received tweet, a connection to the requesting client is opened by the render response module. This connection will also remain open. In this way there is an open connection between the client and the API Layer as well as between the API Layer and the Twitter API. The API Layer works as a middleman, taking in tweets, classifying them, and streaming them to the client. By running this entire process asynchronously, the system can process data independently of when it is published.
 
 
 \subsection{Sentiment Analysis Classifier}
 \label{sec:classifier_arch}
 
-Python is computationally stronger than Node.js in many ways. Additionally, it is much more mature. There are a lot of well documented packages for handling various tasks. Scikit-learn (sklearn) is one of these packages. sklearn is package built on top of the Python packages numpy, scipy and matplotlib. sklearn integrates machine learning algorithms as SVM, NB, MaxEnt and more. sklearn implements solutions for doing feature extraction, grid searching, cross validation and a lot more for analysing text. Thus it is a good choice for the process of sentiment analysis. As a dynamic typed language, Python allows for rapid development and prototyping. These attributes are some of the reasons Python is a good fit for the present system. 
+Python is computationally stronger than Node.js in many ways. Additionally, it is much more mature. There are a lot of well documented packages for handling various tasks. Scikit-learn (\nom{sklearn}{Scikit-learn python module}) is one of these packages. sklearn is package built on top of the Python packages numpy, scipy and matplotlib. sklearn integrates machine learning algorithms as SVM, NB, MaxEnt and more. sklearn implements solutions for doing feature extraction, grid searching, cross validation and a lot more for analysing text. Thus it is a good choice for the process of sentiment analysis. As a dynamic typed language, Python allows for rapid development and prototyping. These attributes are some of the reasons Python is a good fit for the present system. 
 
 The Sentiment Analysis Classifier system runs as a server waiting for requests. The HTTP method POST is used for a client to send a \textit{stringified} tweet object to the server. Stringify is a JSON method for returning a serialized object represented by a string. The classification server converts this string to a Python dictionary. The response will be a string with the sentiment classification, that is, either \textit{positive}, \textit{neutral} or \textit{negative}. The classification scheme can be extended if necessary. 
 
 The classifier server can be initialized with different settings for classification strategy, what port to run at, what training data to use, and whether or not to show debug data. This allows for multiple servers running at the same time, with different settings. Running multiple server instances makes it easier to compare different classification strategies. Two servers could run side by side, and a test framework could use the two servers to classify the same tweets for a comparison.
 
-When the server is initiated, the selected model is trained by having and made availeble to be used by the classification server. 
+When the server is initiated, the selected model is trained by having and made available to be used by the classification server. 
 
 The classification server uses a pool of child processes. For each receiving tweet, it spawns a new child from this pool and in this process the tweet is classified. This way the classification server can process several tweets in parallel, which helps the one-to-one relationship between a tweet on the classification server and the same tweet on the API Layer.
 
@@ -168,7 +168,7 @@ The classification server uses a pool of child processes. For each receiving twe
  \begin{center}
      \includegraphics[width=0.8\textwidth]{../img/ClassifierArcitechture30Boosting.pdf}
  \end{center}
- \caption[Architectural overview of the classification server with Boosting.]{Architectural overview of the classification server with boosting. On server start, the Boosting model for predicting seniment is generated with a set of sub-models. When a request from the API Layer is made to the POST Server, a child processes is spawned. The tweet text is extracted and sent into the model for classification. All models predicts a sentiment and sends the sentiment to voting. For voting the Boosting model selects the sentiment with highest score and returns this to the API sentiment provider.}
+ \caption[Architectural overview of the classification server with Boosting.]{Architectural overview of the classification server with boosting. On server start, the Boosting model for predicting sentiment is generated with a set of sub-models. When a request from the API Layer is made to the POST Server, a child processes is spawned. The tweet text is extracted and sent into the model for classification. All models predicts a sentiment and sends the sentiment to voting. For voting the Boosting model selects the sentiment with highest score and returns this to the API sentiment provider.}
  \label{fig:ClassifierArcitechtureBoosting}
 \end{figure}
 
@@ -201,7 +201,7 @@ To test and give example of how to use the generic system designed in~Section\re
 
 \subsection{SentiMap: Geo-location based streams}
 
-To show how the streaming API and geo-location can be used to analyze sentiments for a location in real-time, SentiMap was developed. SentiMap is a visualization tool showing the distribution of sentiments across the states of USA with or without a search query. When a new tweet is posted, within the USA, it is used to change the colour of the state it originated from. SentiMap can show the specifics of a state, with the number of positive and negative tweets, and the total of tweets registered.
+To show how the streaming API and geo-location can be used to analyse sentiments for a location in real-time, SentiMap was developed. SentiMap is a visualization tool showing the distribution of sentiments across the states of USA with or without a search query. When a new tweet is posted, within the USA, it is used to change the colour of the state it originated from. SentiMap can show the specifics of a state, with the number of positive and negative tweets, and the total of tweets registered.
 
 SentiMap also tracks changes in sentiment in the entire USA per second. If a major event happens, the time line would show a declining sentiment difference. The sentiment difference is calculated by taking the number of positive tweets subtracted by the number of negative tweets in a given second. 
 
@@ -217,13 +217,13 @@ The client side (browser), can not connect to a Twitter stream by it self. So to
 \begin{enumerate}
 \item Connect to the API Layer stream.
 \item Open a WebSocket connection for clients to connect to. 
-\item Start a HTTP server, serving HTML, JS, CSS, images and other resources. 
+\item Start a HTTP server, serving HTML, JavaScript~(\nom{JS}{JavaScript}),  Cascading Style Sheets~(\nom{CSS}{Cascading Style Sheets}), images and other resources. 
 \item Serve the clients connected to the WebSocket with tweets.
 \end{enumerate}
 
 Since the API layer is designed as a thin layer on top of the official Twitter API, the interface is the same. This means that programming libraries designed to interact with the Twitter API, can also communicate with the API Layer. SentiMap uses a forked (branched/copied a open sourced project) Node.JS module called nTwitter\footnote{\url{https://github.com/AvianFlu/ntwitter}}. The only alteration made on nTwitter is to change the base URL for the API location from pointing to Twitters servers to instead direct to the API Layer server.
 
-The server opens a WebSocket connection to allow clients to stream tweets from the forked nTwitter module. WebSockets\footnote{\url{http://en.wikipedia.org/wiki/WebSocket}} is a technology used to accomplish a full-duplex connection over TCP. This means that a server can push information to a client, without the client requesting it first, as with regular HTTP connection. There are two channels of communication opened for the WebSockets. One channel for streaming all tweets from the US, and one channel used to commute tweets related to a search. All clients share a connection to the non-query based stream, but for a search each client has its own connection. If there are no clients connected to the non-query based stream, the connection to the API Layer is closed, and only opened again if a client connects to the WebSocket.
+The server opens a WebSocket connection to allow clients to stream tweets from the forked nTwitter module. WebSockets\footnote{\url{http://en.wikipedia.org/wiki/WebSocket}} is a technology used to accomplish a full-duplex connection over Transmission Control Protocol~(\nom{TCP}{Transmission Control Protocol}). This means that a server can push information to a client, without the client requesting it first, as with regular HTTP connection. There are two channels of communication opened for the WebSockets. One channel for streaming all tweets from the US, and one channel used to commute tweets related to a search. All clients share a connection to the non-query based stream, but for a search each client has its own connection. If there are no clients connected to the non-query based stream, the connection to the API Layer is closed, and only opened again if a client connects to the WebSocket.
 
 The server uses a simple Node.js HTTP module to serve static file content to clients. The static content is HTML files, JavaScript libraries and code bases, images and styling files.
 
@@ -231,7 +231,7 @@ When a client connects to the WebSocket, on either channel, it gets fed tweets i
 
 \textbf{Client side implementation} \\
 
-The client side uses a MV* design pattern to accomplish modularity and structure. A MV* design pattern, resembles a classical MVC pattern, but uses no controllers but instead relies more on views to handle the logic. To help with this design pattern, a JavaScript framework called Backbone.js\footnote{\url{http://backbonejs.org/}} is used. In later years Backbone has become a very popular framework to use on the client side for achieving structure in large scale applications. Backbone is a small framework and works in smaller applications as well as big corporate ones.
+The client side uses a MV* design pattern to accomplish modularity and structure. A Model-View-*~(\nom{MV*}{Model-View-*}) design pattern, resembles a classical Model View Controller~(\nom{MVC}{Model View Controller}) pattern, but uses no controllers but instead relies more on views to handle the logic. To help with this design pattern, a JavaScript framework called Backbone.js\footnote{\url{http://backbonejs.org/}} is used. In later years Backbone has become a very popular framework to use on the client side for achieving structure in large scale applications. Backbone is a small framework and works in smaller applications as well as big corporate ones.
 
 Every application function is its own independent module, and as such is pluggable. To support this modularity, the code is be separated into three different code structures:
 
@@ -247,7 +247,7 @@ The $TimelineStats$ model holds a two dimensional array with time stamps and sen
 
 The $TweetCount$ model operates the same as $TimelineStats$, but instead of having an array as a value, it simply stores an integer. $TweetCount$ offers operations to increase by one or reset the integer. When the integer is changed, the model announces so through events. Both the $TimelineStats$ and $TweetCount$ models are only intended to be initiated once, unlike the $State$ model.
 
-For each state in the USA, an object is created from the $State$ model. This model holds values for state ID (nave abbreviation. e.g. NY for New York), number of positive and negative tweets for the given state. The model has operations for increasing both the negative and positive counter values by one. The model triggers an event when the values change. 
+For each state in the USA, an object is created from the $State$ model. This model holds values for state ID (name abbreviation. e.g. NY for New York), number of positive and negative tweets for the given state. The model has operations for increasing both the negative and positive counter values by one. The model triggers an event when the values change. 
 
 A collection is simply a collection of models. In the SentiMap applications, the only collection is states which holds all the state model objects. Collections offers operations for fetching objects based on ID. This way, a collection can retrieve the model object for New York, based on the abbreviated name. 
 
@@ -337,7 +337,7 @@ The Twitter search API is another popular service that allows for developers to 
 
 \subsubsection{Implementation}
 
-SentiGraph is a light weight web application that runs in the client's web browser. It consist of three main views: a search field, a combined chart, and a Twitter timeline. The communication between the application and the API Layer is through AJAX (Asynchronous Javasciprt and XML) technologies. AJAX is used to request and receive the response from the classification server. And by using AJAX for communication, the views can be updated with new data without reloading the entire application.
+SentiGraph is a light weight web application that runs in the client's web browser. It consist of three main views: a search field, a combined chart, and a Twitter timeline. The communication between the application and the API Layer is through Asynchronous JavaScript and XML~(\nom{XML}{Asynchronous JavaScript and XML}) technologies. AJAX is used to request and receive the response from the classification server. And by using AJAX for communication, the views can be updated with new data without reloading the entire application.
 
 The tweets shown in the timeline includes the tweet text, its date, the author's profile picture and the sentiment classification. All these data are extracted from the tweet JSON object provided by the API layer.
 
