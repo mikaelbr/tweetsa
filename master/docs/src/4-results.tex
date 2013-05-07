@@ -91,20 +91,20 @@ The experiment results is split into two different subsections. In the first sub
  \begin{center}
      \includegraphics[width=\linewidth]{../img/plots/grid/full.png}
  \end{center}
- \caption[Results overview across models]{A full overview of the performance of the different models after a full grid search. Two models sticks out as having highest accuracies: SVM and MaxEnt. One can also see models using Naive Bayes, especially on it's own or to classify subjectivity, performs poorly.}
+ \caption[Results overview across models]{A full overview of the performance of the different models after a full grid search. Two models points out as having highest accuracies: SVM and MaxEnt. One can also see models using Naive Bayes, especially on it's own or to classify subjectivity, performs poorly.}
  \label{fig:results_full}
 \end{sidewaysfigure}
 
 As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F1-score and accuracy for each of the classifiers with dev set 1 as evaluation data. We notice that most of the classifiers that involves the NB algorithm has a bad performance, both for accuracy and F1-score. This was observed for other dev sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F1-score.
 
-We can also see that all the classifiers with SVM tends to give a better confusion matrix than the others. This is showed in Figures~\ref{fig:confmat_svm} - \ref{fig:confmat_boosting}. We see that in the confusion matrices where SVM is involved, the negative accuracy performs better. In tests where NB is used, the system leans much more to the positive class than the other models.
+We can also see that all the classifiers with SVM tends to give a better confusion matrix than the others. This is showed in Figures~\ref{fig:confmat_svm} - \ref{fig:confmat_boosting}. The confusion matrices that include SVM indicates that it has a more precise classification of negative instances than the others. In tests where NB is used, the system leans much more to the positive class than the other models.
 
 \begin{minipage}[!htb]{\linewidth}
      \centering
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_SVM.png}
-           \caption[Plot showing the confusion matrix for SVM]{Confusion matrix for the model using SVM. Performs well on both neutral and positive predictions, but somewhat poorer on negative.}
+           \caption[Plot showing the confusion matrix for SVM]{Confusion matrix for the model using SVM. Performs well on both neutral and positive predictions, but somewhat poor on negative.}
            \label{fig:confmat_svm}
           \end{figure}
      \end{minipage}
@@ -131,7 +131,7 @@ We can also see that all the classifiers with SVM tends to give a better confusi
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-NB.png}
-           \caption[Plot showing the confusion matrix for two-step NB -> NB]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and NB for polarity. Shows the same trend as when using NB in a one-step model. Model favours positive predictions.}
+           \caption[Plot showing the confusion matrix for two-step NB -> NB]{Confusion matrix for the two-step model using NB for both subjectivity/objectivity and polarity classification. Shows the same trend as when using NB in a one-step model. Model favours positive predictions.}
            \label{fig:confmat_nb_nb}
           \end{figure}
      \end{minipage}
@@ -235,7 +235,7 @@ We can also see that all the classifiers with SVM tends to give a better confusi
 			(P6,3) (P1,3) (P3,1)};
 	  \end{axis}
 	\end{tikzpicture}
-	\caption[Statistics of pre-processing usage.]{Statistics of pre-processing usage. Removing all usernames, urls hash-tag character, RT-tag and excessive letters as features seem to perform the best.}
+	\caption[Statistics of pre-processing usage.]{Statistics of pre-processing usage. Removing all usernames, urls, hash-tag character, RT-tag and excessive letters as features seem to perform the best.}
 	\label{fig:preprocess_usage}
 \end{figure}
 
