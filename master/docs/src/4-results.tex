@@ -15,9 +15,9 @@ The testing system can take in a set of parameters to use for an algorithm, like
 \cline{2-4}
 
 \multicolumn{1}{c|}{ } & \textbf{NB} & \textbf{SVM} & \textbf{MaxEnt} \\ \hline
-alpha & <0.1, 0.3, 0.5, 0.7, 0.8, 1.0> & \multicolumn{2}{ c| }{-} \\ \hline
+
 penalty  &  - &  - & L1 or L2 \\ \hline
-C &  - & \multicolumn{2}{ c| }{<0.1, 0.3, 0.5, 0.7, 0.8, 1.0>} \\ \hline
+alpha/C  & \multicolumn{3}{ c| }{<0.1, 0.3, 0.5, 0.7, 0.8, 1.0>} \\ \hline
 ngram &  \multicolumn{3}{ c| }{ Unigram, Bigram or Trigram } \\ \hline
 Use IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
 Use Smooth IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
@@ -47,17 +47,30 @@ This section describes the different pre-processing implementations used; what p
 
 		\cline{2-9}
 	 \multicolumn{1}{c| }{ } & \textbf{None} & \textbf{P1} & \textbf{P2} & \textbf{P3} & \textbf{P4} & \textbf{P5} & \textbf{P6} & \textbf{P7}  \\ \hline
+%	 Remove Usernames                     & & x & x &   & x & x & & x \\ \hline
+%	 		$||U||$ instead of $@username$       & &   &   & x &   &   & & \\ \hline
+%	 		Remove URLs                          & &   & x &   & x & x & & x \\ \hline
+%	 		$||URL||$ instead of real URL        & &   &   & x &   &   & & \\ \hline
+%	 		Remove Hash-tags                     & &   &   &   & x & x & & \\ \hline
+%	 		Hash-tags as words                   & &   & x &   &   &   & & \\ \hline
+%	 		$||H||$ instead of hash-tag          & &   &   & x &   &   & & \\ \hline
+%	 		Remove $RT$-tag                      & &   & x &   & x & x & & \\ \hline
+%	 		Remove emoticons                     & &   &   &   & x & x & & \\ \hline
+%	 		Reduce letter duplicates             & &   & x &   & x &   & x & x \\ \hline
+%	 		Attach negation to surrounding words & &   &   &   & x &   & x & x \\ \hline
+	 
+	 
 		Remove Usernames                     & & x & x &   & x & x & & x \\ \hline
-		$||U||$ instead of $@username$       & &   &   & x &   &   & & \\ \hline
+		Username placeholder       & &   &   & x &   &   & & \\ \hline
 		Remove URLs                          & &   & x &   & x & x & & x \\ \hline
-		$||URL||$ instead of real URL        & &   &   & x &   &   & & \\ \hline
+		URL placeholder        & &   &   & x &   &   & & \\ \hline
 		Remove Hash-tags                     & &   &   &   & x & x & & \\ \hline
 		Hash-tags as words                   & &   & x &   &   &   & & \\ \hline
-		$||H||$ instead of hash-tag          & &   &   & x &   &   & & \\ \hline
+		Hash-tag placeholder          & &   &   & x &   &   & & \\ \hline
 		Remove $RT$-tag                      & &   & x &   & x & x & & \\ \hline
 		Remove emoticons                     & &   &   &   & x & x & & \\ \hline
 		Reduce letter duplicates             & &   & x &   & x &   & x & x \\ \hline
-		Attach negation to surrounding words & &   &   &   & x &   & x & x \\ \hline
+		Attach negation  & &   &   &   & x &   & x & x \\ \hline
 	\end{tabular}
 	\caption[Description of used pre-processing methods]{Description of the pre-processing methods used for the experiments. Some functions remove entities, other replace them with a place holder text. The hash-tag as word transforms a hash-tag to a regular word and uses the hash-tag as a feature. "Reduce letter duplicates", reduces redundant letters to a maximum of three.}
 	\label{tab:preproc_desc}
@@ -307,10 +320,9 @@ The features in Table~\ref{tab:informative_features} is the most informative fea
 We see that for the most part the features seem to make sense, but we see some anomalies. Both SVM and MaxEnt show why as a negative feature, which is not that loaded with sentiment. In addition, the most informative feature for SVM is wait, which is not a particularly positively charged word.
 
 \begin{table}[!htb]
+	\centering
+	\begin{tabular}{|c|c|c|c|}
 	
-	\begin{minipage}{.45\linewidth}
-		\begin{tabular}{|c|c|c|c|}
-		
 		\multicolumn{4}{c}{SVM} \\ \hline
 		
 		\# & Negative & Neutral & Positive \\ \hline\hline
@@ -330,34 +342,39 @@ We see that for the most part the features seem to make sense, but we see some a
 		13 & not  		& set & best \\ \hline
 		14 & fuck  		& 8th & great \\ \hline
 		15 & :(  		& paterno & good \\ \hline
-		\end{tabular}
-	\end{minipage}
-	\hspace{0.05\linewidth}
-	\begin{minipage}{.45\linewidth}
-		\begin{tabular}{|c|c|c|c|}		
-		\multicolumn{4}{c}{MaxEnt} \\ \hline
-		
-		\# & Negative & Neutral & Positive \\ \hline\hline
-		
-		1 & no 	& center & glad \\ \hline
-		2 & don't 	& royal & nice \\ \hline
-		3 & why 	& plan & thanks \\ \hline
-		4 & bad 	& joe & cool \\ \hline
-		5 & shit 	& nov & awesome \\ \hline
-		6 & injury 	& george & interesting \\ \hline
-		7 & cancelled 	& theres & amazing \\ \hline
-		8 & hate 	& arrows & :) \\ \hline
-		9 & worst 	& trip & fun \\ \hline
-		10 & worse 	& set & best \\ \hline
-		11 & fuck 	& question & excited \\ \hline
-		12 & sorry 	& at & love \\ \hline
-		13 & not 	& url & happy \\ \hline
-		14 & sad 	& 8th & good \\ \hline
-		15 & :( 	& paterno & great \\ \hline
-		\end{tabular}
-	\end{minipage}
-	\caption[Most informative features]{Top 15 of the most informative features for SVM and MaxEnt}
-	\label{tab:informative_features}
+	\end{tabular}
+	
+	\caption[Most informative features for SVM]{Top 15 of the most informative features for SVM}
+	\label{tab:informative_features_svm}
+\end{table}
+
+
+\begin{table}[!htb]
+	\centering
+	\begin{tabular}{|c|c|c|c|}		
+	\multicolumn{4}{c}{MaxEnt} \\ \hline
+	
+	\# & Negative & Neutral & Positive \\ \hline\hline
+	
+	1 & no 	& center & glad \\ \hline
+	2 & don't 	& royal & nice \\ \hline
+	3 & why 	& plan & thanks \\ \hline
+	4 & bad 	& joe & cool \\ \hline
+	5 & shit 	& nov & awesome \\ \hline
+	6 & injury 	& george & interesting \\ \hline
+	7 & cancelled 	& theres & amazing \\ \hline
+	8 & hate 	& arrows & :) \\ \hline
+	9 & worst 	& trip & fun \\ \hline
+	10 & worse 	& set & best \\ \hline
+	11 & fuck 	& question & excited \\ \hline
+	12 & sorry 	& at & love \\ \hline
+	13 & not 	& url & happy \\ \hline
+	14 & sad 	& 8th & good \\ \hline
+	15 & :( 	& paterno & great \\ \hline
+	\end{tabular}
+	
+	\caption[Most informative features]{Top 15 of the most informative features for MaxEnt}
+	\label{tab:informative_features_maxent}
 \end{table}
 
 \begin{figure}[!htb]
