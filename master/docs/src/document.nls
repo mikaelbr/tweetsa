@@ -2,6 +2,8 @@
 
  \nomgroup{A}
 
+  \item [{AJAX}]\begingroup Asynchronous JavaScript and XML\nomeqref {4.0}
+		\nompageref{36}
   \item [{API}]\begingroup Application Programming Interface\nomeqref {4.0}
 		\nompageref{23}
   \item [{CSS}]\begingroup Cascading Style Sheets\nomeqref {4.0}
@@ -45,7 +47,5 @@
 		\nompageref{24}
   \item [{TSA}]\begingroup Twitter Sentiment Analysis\nomeqref {2.0}
 		\nompageref{5}
-  \item [{XML}]\begingroup Asynchronous JavaScript and XML\nomeqref {4.0}
-		\nompageref{36}
 
 \end{thenomenclature}
