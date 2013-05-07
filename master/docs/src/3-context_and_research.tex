@@ -1,7 +1,7 @@
 \chapter{Material and Methods}
 
 \section{Data sets}
-We have used four different data sets in our experiments. Three of the data sets was given by the Semeval-2013 contest. These corpora consists of a learning set, a development/evaluation set, and a test set. All sets consist of manually annotated tweets on a range of topics, including different products and events. The development set and the test set contain some overlapping tweets, so either one of these had to be used for learning and evaluation. All the data sets had more than three different target classes, e.g., 'objective', 'objective-OR-neutral'. So to make them fit a 3-way classification task, all tweets that wasn't annotated as 'positive' or 'negative' was merged into the target class 'neutral'. The distribution of target classes in the data sets are listed in Table~\ref{tab:data_sets}. None of the tweets has been pre processed or filtered in any way, so they contain hashtags, urls, emoticons etc.
+We have used four different data sets in our experiments. Three of the data sets was given by the Semeval-2013 contest. These corpora consists of a learning set, a development/evaluation set, and a test set. All sets consist of manually annotated tweets on a range of topics, including different products and events. The development set and the test set contain some overlapping tweets, so either one of these had to be used for learning and evaluation. All the data sets had more than three different target classes, e.g., 'objective', 'objective-OR-neutral'. So to make them fit a 3-way classification task, all tweets that wasn't annotated as 'positive' or 'negative' was merged into the target class 'neutral'. The distribution of target classes in the data sets are listed in Table~\ref{tab:datasets}. None of the tweets has been pre processed or filtered in any way, so they contain hashtags, urls, emoticons etc.
 
 
 %
@@ -39,14 +39,14 @@ Total & 8709 & 1654 & 688 & 461\\
 
 In addition to the data sets that were given by (the contest), we made a small data set on our own. Before we knew about the Semeval data sets, we made a web application for manually annotation of tweets. This system was tested and used to collect a small data set, but when we got the collection of data sets from the contest we decided to cancel the collection of our own data.
 
-Due to Twitter's privacy policy, the given data sets doesn't contain the tweet text itself, but the tweet ID that can be used to download the actual text. The Twitter API has a limit on number of downloads per hour, so Semeval-2013 provided a python script that uses the tweet ID to scrape the text from Twitter.com. This script was slow, and it didn't download all the tweet texts from the tweet IDs in the data sets. To solve this we made a new download script for node.js that was both faster and more precise. The data files outputted by the script are in the same format as the provided one. The files are tab separated (.tsv formatted) with columns that contain tweet ID, user ID, target class, and tweet text.
+Due to Twitter's privacy policy, the given data sets doesn't contain the tweet text itself, but the tweet ID that can be used to download the actual text. The Twitter API has a limit on number of downloads per hour, so Semeval-2013 provided a python script that uses the tweet ID to scrape the text from Twitter.com. This script was slow, and it didn't download all the tweet texts from the tweet IDs in the data sets. To solve this we made a new download script for node.js that was both faster and more precise. The data files outputted by the script are in the same format as the provided one. The files are tab separated (.\nom{TSV}{Tab Separated Values} formatted) with columns that contain tweet ID, user ID, target class, and tweet text.
 
 \section{Algorithms}
 
 The following section covers some theory for the machine learning algorithms that are used in the experiments for this thesis. First the Naive Bayes classifier is described, and then Maximum Entropy and Support Vector Machines are covered. At the end of the section, two ensemble methods, bagging and boosting are explained.
 
 \subsection{Naive Bayes classifier}
-The naive Bayes (NB) classifier is a practical Bayesian learning model that is easy to understand and implement. For some classification tasks, it has proven to be equally performing to more complex machine learning algorithms like artificial neural networks (ANN) and decision trees (DT) ~\citep{book:Mitchell}. NB is used for learning tasks where an instance $x$ consists of a number of attribute-value pairs, and the target function $f(x)$ consists of a finite number of values from a set $V$.
+The Naive Bayes (NB) classifier is a practical Bayesian learning model that is easy to understand and implement. For some classification tasks, it has proven to be equally performing to more complex machine learning algorithms like artificial neural networks (ANN) and decision trees (DT) ~\citep{book:Mitchell}. NB is used for learning tasks where an instance $x$ consists of a number of attribute-value pairs, and the target function $f(x)$ consists of a finite number of values from a set $V$.
 
 The NB classifier is based on an assumption that all the attribute values are conditionally independent given the target value of the instance.
 \begin{equation}
@@ -54,7 +54,7 @@ The NB classifier is based on an assumption that all the attribute values are co
 v_{NB} = \argmax{v_j \epsilon V} P(v_j) \prod_{i} p(a_i|v_j)
 \end{equation}
 
-To classify an instance, the classifier uses the Maximum Likelihood Estimation (MLE) method to find the ratio of an attribute value and a given target value on the same instance in the training corpus. This means that it has to calculate the probability estimate $P$ for each attribute $a_i$, given the target value $v_j$, as shown in equation~\ref{equation:nbc}. It then assigns the target value as the one that gives the highest product from multiplying all the probabilities $P$ from the training data.
+To classify an instance, the classifier uses the Maximum Likelihood Estimation (\nom{MLE}{Maximum Likelihood Estimation}) method to find the ratio of an attribute value and a given target value on the same instance in the training corpus. This means that it has to calculate the probability estimate $P$ for each attribute $a_i$, given the target value $v_j$, as shown in equation~\ref{equation:nbc}. It then assigns the target value as the one that gives the highest product from multiplying all the probabilities $P$ from the training data.
 
 The assumption of conditionally independent attributes makes this classifier best suited for handling bag-of-words models, which are composed by collections of unigrams.
 
@@ -112,9 +112,9 @@ This chapter defines the architecture for the generic Twitter Sentiment Analysis
 \section{TSA Architecture}
 \label{sec:tsaarchitecture}
 
-This section describes the overall architecture and how the system works. First the general system will be described, and then the API Layer and classification server in turn.  
+This section describes the overall architecture and how the system works. First the general system will be described, and then the Application Programming Interface~(\nom{API}{Application Programming Interface}) Layer and classification server in turn.  
 
-To make the system as modularized and responsive as possible, the API layer was written in Node.js and the sentiment classifier in the Python programming language. Both systems are continuously running servers. This allows multiple services to run simultaneously, both for the API layer and the classifier. The idea is to make the system horizontally scalable.
+To make the system as modularized and responsive as possible, the API Layer was written in Javascript on the Node.js platform and the sentiment classifier in the Python programming language. Both systems are continuously running servers. This allows multiple services to run simultaneously, both for the API layer and the classifier. The idea is to make the system horizontally scalable.
 
 \begin{figure}[ht]
  \begin{center}
@@ -124,11 +124,11 @@ To make the system as modularized and responsive as possible, the API layer was 
  \label{fig:NetworkDiagram.pdf}
 \end{figure}
 
-A client makes a request to the API Layer, with the same interface as the Twitter API service. From there the API Layer will retrieve information from the Twitter API with HTTP requests, iterate over all tweets received, and send them in parallel to the classification server. When the classification server is done processing and classifying the tweet, it is sent back to the API Layer. When the API layer has received all the tweets, it responds to the client with the same JSON structure as the Twitter API sends out, only with an additional attribute noting the tweet's sentiment. This architecture and application flow can be seen in~\autoref{fig:NetworkDiagram.pdf}. 
+A client makes a request to the API Layer, with the same interface as the Twitter API service. From there the API Layer will retrieve information from the Twitter API with Hypertext Transfer (or Transport) Protocol~(\nom{HTTP}{Hypertext Transfer (or Transport) Protocol}) requests, iterate over all tweets received, and send them in parallel to the classification server. When the classification server is done processing and classifying the tweet, it is sent back to the API Layer. When the API layer has received all the tweets, it responds to the client with the same JavaScript Object Notation~(\nom{JSON}{JavaScript Object Notation}) structure as the Twitter API sends out, only with an additional attribute noting the tweet's sentiment. This architecture and application flow can be seen in~\autoref{fig:NetworkDiagram.pdf}. 
 
 \subsection{API Layer Extension}
 
-To be able to have a scalable and responsive solution, the API Layer was written using the Node.js platform. Since Node.js uses JavaScript as programming language, the JSON data retrieved from the Twitter REST and Streaming API are easily manipulated and passed around. 
+To be able to have a scalable and responsive solution, the API Layer was written using the Node.js platform. Since Node.js uses JavaScript as programming language, the JSON data retrieved from the Twitter Representational state transfer~(\nom{REST}{Representational state transfer}) and Streaming API are easily manipulated and passed around. 
 
 The API Layer works as a thin layer extending the Twitter API. This means that the interface used by Twitter, with all defined options and appropriate methods, is reflected through the API Layer. The main benefit is that all documentation for the Twitter API also documents most of this extended API Layer.
 
@@ -144,7 +144,7 @@ For authentication, an application is registered with a developer account at the
  \label{fig:APILayerArcitechture.pdf}
 \end{figure}
 
-When a request from a client is made, the request gets processed by the server and the routing module determines what the client is looking for. When the proper service is found, the client-specified parameters are sent directly to the Twitter API, using the Twitter Data Handler module (TDH). The TDH module then iterates over all found tweets, and sends them in parallel to the classification server. When a tweet has been processed by the classification server the classified sentiment is sent back to the TBH module and the original tweet object is extended to contain a property with the sentiment. When all tweets are classified, the TBH module passes the extended twitter data to the render module. The render module renders the JSON data and sends it to the client with appropriate HTTP headers set. This application flow can be seen in~\autoref{fig:APILayerArcitechture.pdf}.
+When a request from a client is made, the request gets processed by the server and the routing module determines what the client is looking for. When the proper service is found, the client-specified parameters are sent directly to the Twitter API, using the Twitter Data Handler module (\nom{TDH}{Twitter Data Handler}). The TDH module then iterates over all found tweets, and sends them in parallel to the classification server. When a tweet has been processed by the classification server the classified sentiment is sent back to the TDH module and the original tweet object is extended to contain a property with the sentiment. When all tweets are classified, the TDH module passes the extended twitter data to the render module. The render module renders the JSON data and sends it to the client with appropriate HTTP headers set. This application flow can be seen in~\autoref{fig:APILayerArcitechture.pdf}.
 
 If there is an error during any part of the process, the error is caught by the routing module, and the error is rendered as a JSON object, in the same manner as it would be by the Twitter API. 
 
@@ -152,19 +152,19 @@ When using both the Twitter REST API and Streaming API, there is a high level of
 
 All internal and external message passing in the API Layer is asynchronous. When requesting Twitter for data, an event is triggered when that data is ready and all tweets are separately sent to the classifier. By sending all tweets separately in parallel, classification of the entire set of tweets does not take much longer than classifying only one tweet. 
 
-When streaming, the TBH module opens a connection to the Twitter API, but never closes it. There is a continuously open connection to the Twitter server, which is feeding the TBH module with single tweets as they get stored in the Twitter system. From the first received tweet, a connection to the requesting client is opened by the render response module. This connection will also remain open. In this way there is an open connection between the client and the API Layer as well as between the API Layer and the Twitter API. The API Layer works as a middleman, taking in tweets, classifying them, and streaming them to the client. By running this entire process asynchronously, the system can process data independently of when it is published.
+When streaming, the TDH module opens a connection to the Twitter API, but never closes it. There is a continuously open connection to the Twitter server, which is feeding the TDH module with single tweets as they get stored in the Twitter system. From the first received tweet, a connection to the requesting client is opened by the render response module. This connection will also remain open. In this way there is an open connection between the client and the API Layer as well as between the API Layer and the Twitter API. The API Layer works as a middleman, taking in tweets, classifying them, and streaming them to the client. By running this entire process asynchronously, the system can process data independently of when it is published.
 
 
 \subsection{Sentiment Analysis Classifier}
 \label{sec:classifier_arch}
 
-Python is computationally stronger than Node.js in many ways. Additionally, it is much more mature. There are a lot of well documented packages for handling various tasks. Scikit-learn (sklearn) is one of these packages. sklearn is package built on top of the Python packages numpy, scipy and matplotlib. sklearn integrates machine learning algorithms as SVM, NB, MaxEnt and more. sklearn implements solutions for doing feature extraction, grid searching, cross validation and a lot more for analysing text. Thus it is a good choice for the process of sentiment analysis. As a dynamic typed language, Python allows for rapid development and prototyping. These attributes are some of the reasons Python is a good fit for the present system. 
+Python is computationally stronger than Node.js in many ways. Additionally, it is much more mature. There are a lot of well documented packages for handling various tasks. Scikit-learn (\nom{sklearn}{Scikit-learn python module}) is one of these packages. sklearn is package built on top of the Python packages numpy, scipy and matplotlib. sklearn integrates machine learning algorithms as SVM, NB, MaxEnt and more. sklearn implements solutions for doing feature extraction, grid searching, cross validation and a lot more for analysing text. Thus it is a good choice for the process of sentiment analysis. As a dynamic typed language, Python allows for rapid development and prototyping. These attributes are some of the reasons Python is a good fit for the present system. 
 
 The Sentiment Analysis Classifier system runs as a server waiting for requests. The HTTP method POST is used for a client to send a \textit{stringified} tweet object to the server. Stringify is a JSON method for returning a serialized object represented by a string. The classification server converts this string to a Python dictionary. The response will be a string with the sentiment classification, that is, either \textit{positive}, \textit{neutral} or \textit{negative}. The classification scheme can be extended if necessary. 
 
 The classifier server can be initialized with different settings for classification strategy, what port to run at, what training data to use, and whether or not to show debug data. This allows for multiple servers running at the same time, with different settings. Running multiple server instances makes it easier to compare different classification strategies. Two servers could run side by side, and a test framework could use the two servers to classify the same tweets for a comparison.
 
-When the server is initiated, the selected model is trained by having and made availeble to be used by the classification server. 
+When the server is initiated, the selected model is trained by having and made available to be used by the classification server. 
 
 The classification server uses a pool of child processes. For each receiving tweet, it spawns a new child from this pool and in this process the tweet is classified. This way the classification server can process several tweets in parallel, which helps the one-to-one relationship between a tweet on the classification server and the same tweet on the API Layer.
 
@@ -174,7 +174,7 @@ The classification server uses a pool of child processes. For each receiving twe
  \begin{center}
      \includegraphics[width=0.8\textwidth]{../img/ClassifierArcitechture30.pdf}
  \end{center}
- \caption[Architectural overview of the classification server.]{Architectural overview of the classification server. On server start, a model for predicting seniment is generated. When a request from the API Layer is made to the POST Server, a child processes is spawned. The tweet text is extracted and sent into the model for classification. If the classification model is a one-step process, the classifier returns to the sentiment provider with either a neutral, positive or negative classification. If the generated model is two-stepped, the tweet is first classified as either neutral or subjective. If it is neutral, it is returned to the API Layer, if it is subjective, it is sent to the next step and the result from that step is returned to the sentiment provider.}
+ \caption[Architectural overview of the classification server.]{Architectural overview of the classification server. On server start, a model for predicting sentiment is generated. When a request from the API Layer is made to the POST Server, a child processes is spawned. The tweet text is extracted and sent into the model for classification. If the classification model is a one-step process, the classifier returns to the sentiment provider with either a neutral, positive or negative classification. If the generated model is two-stepped, the tweet is first classified as either neutral or subjective. If it is neutral, it is returned to the API Layer, if it is subjective, it is sent to the next step and the result from that step is returned to the sentiment provider.}
  \label{fig:ClassifierArcitechture}
 \end{figure}
 
@@ -198,7 +198,7 @@ When using the Boosting model, a set of sub-models is generated and all used in 
 
 The classification models are implemented by wrapping machine learning algorithms from sklearn in a inheritance based class structure. By having every model inherit from a base model, the interface is the same across every model, and the system can use the model without having knowledge what kind of algorithm it uses. An overview of this structure is presented in figure~\ref{fig:ModelsStructure}.
 
-The base parent model implements methods for training the machine learning algorithm and for predicing either a set of documents or one document. For simple algorithms as NB, SVM and MaxEnt, these generic methods can be used, but the TwoStep and Boosting model have their own implementation. 
+The base parent model implements methods for training the machine learning algorithm and for predicting either a set of documents or one document. For simple algorithms as NB, SVM and MaxEnt, these generic methods can be used, but the TwoStep and Boosting model have their own implementation. 
  
 \begin{figure}[htb!]
  \begin{center}
@@ -231,7 +231,7 @@ The client side (browser), can not connect to a Twitter stream by it self. So to
 \begin{enumerate}
 \item Connect to the API Layer stream.
 \item Open a WebSocket connection for clients to connect to. 
-\item Start a HTTP server, serving HTML, JS, CSS, images and other resources. 
+\item Start a HTTP server, serving HTML, JavaScript (\nom{JS}{JavaScript}), Cascading Style Sheets (\nom{CSS}{Cascading Style Sheets}), images and other resources. 
 \item Serve the clients connected to the WebSocket with tweets.
 \end{enumerate}
 
@@ -265,7 +265,7 @@ For each state in the USA, an object is created from the $State$ model. This mod
 
 A collection is simply a collection of models. In the SentiMap applications, the only collection is states which holds all the state model objects. Collections offers operations for fetching objects based on ID. This way, a collection can retrieve the model object for New York, based on the abbreviated name. 
 
-Views handles most of the logic and interactions with the end user. A view can represent a model or collection, but does not require to do so. A view is coupled with a HTML element in the DOM and can be used to render the contents of a model or collection of models into this DOM structure. A view can be looked at as a pluggable module. SentiMap consists of several views. Below is a list of the essential ones and a description of the view's role in the system.
+Views handles most of the logic and interactions with the end user. A view can represent a model or collection, but does not require to do so. A view is coupled with a HTML element in the Document Object Model~(\nom{DOM}{Document Object Model}) and can be used to render the contents of a model or collection of models into this DOM structure. A view can be looked at as a pluggable module. SentiMap consists of several views. Below is a list of the essential ones and a description of the view's role in the system.
 
 \begin{description}
 \item[App] \hfill \\

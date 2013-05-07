@@ -47,6 +47,13 @@
 % Used for math symbols
 
 
+% Used for abbriviations
+\usepackage{nomencl}
+\renewcommand{\nomname}{Abbreviation}
+\renewcommand{\nomlabel}[1]{\textbf{#1}} % make abbreviations bold
+\makenomenclature
+\newcommand*{\nom}[2]{#1\nomenclature{#1}{#2}}
+\cleardoublepage
 
 %\usepackage{makeidx}
 %\makeindex
