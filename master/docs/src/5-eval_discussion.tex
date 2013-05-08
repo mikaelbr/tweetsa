@@ -28,11 +28,13 @@ In our experiments we found that MaxEnt and SVM perform best in regards to accur
 		- Discuss contributions
 }
 
-The data that we used to train the different hypotheses/models was given by SemSeval'13, who also provided a test set for SMS messages. This task was considered an opportunity to test of the system supported semi-independent domains. The results from the task indicates that the system performed well on both when trained with dev set 1, and with dev set 1 and the NTNU set.
+The data that we used to train the different hypotheses/models was given by SemSeval'13, who also provided a test set for SMS messages. This task was considered an opportunity to test if the system supported semi-independent domains. The results from the task indicates that the system performed well on both when trained with dev set 1,and with dev set 1 and the NTNU set.
 
 Some of the preprocessing methods are to be considered naive, such as the negation handling. In these experiments we only utilized unigram feature selection with a simple negation support. This simple method binds all appearances of the word 'not' to the next word in the sentence, e.g., 'not bad' would be merged into the unigram 'not-bad'. This is a very naive approach which in some cases may extend the vocabulary with little informative features. Rather than the simple treatment of negation used here, an approach to automatic induction of scope through a negation detector\citep{CouncillEA:10} could be used.
 
 From the list of features we can see that emoticons are informative features, both for SVM and MaxEnt. However, this system does not have support for emoji, wich has very similar semantics as emoticons, but are implemented in Apple products as an own character set (rather than ascii characters such as ':)' and ':D', etc). There are reasons to believe that these emojis would provide informative features to the vocabulary, and could be either converted to ascii characters or some other placeholder.
+
+The data sets used to train our models was not evenly distributed among the different target classes. This may have affected the results for some of the algorithms that were used. The data has a large amount of neutral tweets, which seemed to favor MaxEnt. To even out the distribution in the data set, we tried to limit the number of tweets per class. The results when limiting to 2000 tweets per class gave better recall and F1-measure, but a small decrease in both accuracy and precision. The confusion matrix also indicates that an dkjf in the ability to sucessfully classify negative instances. This was an expected result since the classifier was trained on a more balanced data set. The lack of accuracy and precision may be a consequence of lacking training data. When limiting to 1000 tweets per class the performance was generally worse.
 
 
 

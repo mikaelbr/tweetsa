@@ -308,6 +308,9 @@ penalty &  & l1 \\ \hline
 \end{table}
 
 
+To even out the distribution of the different classes, we did a grid search with a reduced training set. Figure~\ref{fig:svm_reduced_1000} and~\ref{fig:svm_reduced_2000} shows SVM's results when reducing the training set to a maximum of 1000 and 2000 tweets per class. The accuracy on SVM is highest on the original training set, but the F1-score and Recall improves on reducing the training set to maximum 2000 per class. See complete effects of reducing training set in~table~\ref{tab:svm_reduced}. The negative classification improves when reducing the training set to maximum 2000 tweets per class, but the accuracy for neutral and positive tweets decrease. Similar observation can be made when reducing the data set to 1000. Negative tweets perform better, but positive and neutral performance is worse. This can be deduced from~figure~\ref{fig:best_result_confusion},~\ref{fig:svm_reduced_2000} and~\ref{fig:svm_reduced_1000}.
+
+
 \begin{table}[!htb]
 	\centering
 	\begin{tabular}{l|ccc} 
@@ -324,7 +327,6 @@ penalty &  & l1 \\ \hline
 	\label{tab:svm_reduced}
 \end{table}
 
-To even out distribution of the different classes, we did a grid search with a reduced training set. Figure~\ref{fig:svm_reduced_1000} and~\ref{fig:svm_reduced_2000} shows SVM's results when reducing the training set to a maximum of 1000 and 2000 tweets per class. The accuracy on SVM is highest on the original training set, but the F1-score and Recall improves on reducing the training set to maximum 2000 per class. See complete effects of reducing training set in~table~\ref{tab:svm_reduced}. The negative classification improves when reducing the training set to maximum 2000 tweets per class, but the accuracy for neutral and positive tweets decrease. Similar observation can be made when reducing the data set to 1000. Negative tweets perform better, but positive and neutral performance is worse. This can be deduced from~figure~\ref{fig:best_result_confusion},~\ref{fig:svm_reduced_2000} and~\ref{fig:svm_reduced_1000}.
 
 \begin{table}[!htb]
 	\centering
