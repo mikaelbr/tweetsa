@@ -93,6 +93,10 @@ The negation word "not" can change the polarity of an entire sentence. The sente
 
 By attaching the negation word the the preceding and the following the features will also reflect the change in polarity. So the features for the negative sentence would be $('I', 'am-not', 'not-happy')$.
 
+\subsection{SemEval'13}
+
+The system from this Master's Thesis, participated in a workshop with focus on semantic analysis systems. SemEval'13 had several tasks, but we took part of Task 2 B; building a message polarity classification system in Twitter. The task had two parts: unconstrained and constrained systems. The unconstrained system required a training set in addition to the one provided by SemEval'13, and the constrained system could only use the provided set. To test the systems beyond Twitter, SemEval'13 also evaluated the systems using a SMS test set. Thus, there were a total of four different deliveries to SemEval'13: Twitter unconstrained and constrained, and SMS unconstrained and constrained.
+
 \section{Experiment Results}
 \label{sec:results}
 
@@ -234,6 +238,10 @@ We can also see that all the classifiers with SVM tends to give a better confusi
      \end{minipage}
 \end{minipage}
 
+
+
+As a part of the grid search, the system applied all the different preprocessing methods for each classifier. Figure~\ref{fig:preprocess_usage} clearly shows that P2 (removing user names, URLs, hash-tag prefixes, RT-tokens and redundant letters. See table~\ref{tab:preproc_desc}) is the pre-processing method that was most used, i.e., it gave the best accuracy. Figure~\ref{fig:preprocess_usage} also indicates that URLs are noisy, and does not contain any sentiment, and that hash-tags and emoticons are valuable features. We can see that with the P2 pre-processing method, there is no real Twitter specific feature. The hash-tag is included, but used as a regular word.
+
 \begin{figure}[!htb]
 	\centering
 	\begin{tikzpicture}
@@ -257,8 +265,7 @@ We can also see that all the classifiers with SVM tends to give a better confusi
 	\label{fig:preprocess_usage}
 \end{figure}
 
-As a part of the grid search, the system applied all the different preprocessing methods for each classifier. Figure~\ref{fig:preprocess_usage} clearly shows that P2 (removing user names, URLs, hash-tag prefixes, RT-tokens and redundant letters. See table~\ref{tab:preproc_desc}) is the pre-processing method that was most used, i.e., it gave the best accuracy. Figure~\ref{fig:preprocess_usage} also indicates that URLs are noisy, and does not contain any sentiment, and that hash-tags and emoticons are valuable features. We can see that with the P2 pre-processing method, there is no real Twitter specific feature. The hash-tag is included, but used as a regular word.
-
+\clearpage
 \subsection{SVM vs MaxEnt}
 A second grid search with the two best classifiers from the first search was performed with dev set 2 as evaluation data. The results for both the SVM and MaxEnt classifiers are shown in figure~\ref{fig:best_result} and the result of the grid search is visible in table~\ref{tab:gridsearch_params}. With dev set 2, SVM's performance is much better than MaxEnt's, as seen in table~\ref{tab:performance}. Test set 1 contain more neutral tweets than dev set 2, which gives us a reason to believe that it favours the MaxEnt classifier. In MaxEnt's confusion matrix from the first search, shown in Figure~\ref{fig:confmat_maxent}, we can see that it classifies more neutral tweets than the other classifiers.
 
@@ -301,9 +308,6 @@ penalty &  & l1 \\ \hline
 \end{table}
 
 
-To even out distribution of the different classes, we did a grid search with a reduced training set. Figure~\ref{fig:svm_reduced_1000} and~\ref{fig:svm_reduced_2000} shows SVM's results when reducing the training set to a maximum of 1000 and 2000 tweets per class. The accuracy on SVM is highest on the original training set, but the F1-score and Recall improves on reducing the training set to maximum 2000 per class. See complete effects of reducing training set in~table~\ref{tab:svm_reduced}. The negative classification improves when reducing the training set to maximum 2000 tweets per class, but the accuracy for neutral and positive tweets decrease. Similar observation can be made when reducing the data set to 1000. Negative tweets perform better, but positive and neutral performance is worse. This can be deduced from~figure~\ref{fig:best_result_confusion},~\ref{fig:svm_reduced_2000} and~\ref{fig:svm_reduced_1000}.
-
-
 \begin{table}[!htb]
 	\centering
 	\begin{tabular}{l|ccc} 
@@ -320,9 +324,7 @@ To even out distribution of the different classes, we did a grid search with a r
 	\label{tab:svm_reduced}
 \end{table}
 
-The features in Table~\ref{tab:informative_features} is the most informative features from each of the classifiers in the second grid search. Some features are represented among the top 15 for both SVM and MaxEnt, and most of these features makes sense. As we did not normalize the features, we can see that some words appears in different forms and degrees (e.g., "worse", "worst" and "don't", "didn't"). For both MaxEnt and SVM, emoticons are listed among the most informative features. In the case of SVM, the exclamation point is an informative feature for positive classification.
-
-We see that for the most part the features seem to make sense, but we see some anomalies. Both SVM and MaxEnt show why as a negative feature, which is not that loaded with sentiment. In addition, the most informative feature for SVM is wait, which is not a particularly positively charged word.
+To even out distribution of the different classes, we did a grid search with a reduced training set. Figure~\ref{fig:svm_reduced_1000} and~\ref{fig:svm_reduced_2000} shows SVM's results when reducing the training set to a maximum of 1000 and 2000 tweets per class. The accuracy on SVM is highest on the original training set, but the F1-score and Recall improves on reducing the training set to maximum 2000 per class. See complete effects of reducing training set in~table~\ref{tab:svm_reduced}. The negative classification improves when reducing the training set to maximum 2000 tweets per class, but the accuracy for neutral and positive tweets decrease. Similar observation can be made when reducing the data set to 1000. Negative tweets perform better, but positive and neutral performance is worse. This can be deduced from~figure~\ref{fig:best_result_confusion},~\ref{fig:svm_reduced_2000} and~\ref{fig:svm_reduced_1000}.
 
 \begin{table}[!htb]
 	\centering
@@ -381,6 +383,12 @@ We see that for the most part the features seem to make sense, but we see some a
 	\caption[Most informative features]{Top 15 of the most informative features for MaxEnt}
 	\label{tab:informative_features_maxent}
 \end{table}
+
+
+The features in tables~\ref{tab:informative_features_svm} and~Table~\ref{tab:informative_features_maxent}  is the most informative features from each of the classifiers in the second grid search. Some features are represented among the top 15 for both SVM and MaxEnt, and most of these features makes sense. As we did not normalize the features, we can see that some words appears in different forms and degrees (e.g., "worse", "worst" and "don't", "didn't"). For both MaxEnt and SVM, emoticons are listed among the most informative features. In the case of SVM, the exclamation point is an informative feature for positive classification.
+
+We see that for the most part the features seem to make sense, but we see some anomalies. Both SVM and MaxEnt show why as a negative feature, which is not that loaded with sentiment. In addition, the most informative feature for SVM is wait, which is not a particularly positively charged word.
+
 
 \begin{figure}[!htb]
 	\centering
@@ -459,3 +467,33 @@ We see that for the most part the features seem to make sense, but we see some a
 	\caption[Performance of SVM when reduced dataset to max 2000 per class]{Performance of SVM when reduced dataset to maximum 2000 per class. Showing better recall and F1-Score than without reduction, but poorer accuracy and precision. Some better performance on negative tweets, but poorer on neutral and positive.}
 	\label{fig:svm_reduced_2000}
 \end{figure}
+
+
+\subsection{SemEval'13 Results}
+
+Based on the information from the grid search, two systems were built for SemEval'13. Since one-step SVM-based classification showed the best performance on the training data, it was chosen for the system participating in the constrained subtask, NTNUC. The preprocessing also was the one with the best performance on the provided data, P2 which involves lower-casing all letters; reducing letter duplicates; using hash-tags as words (removing \#); and removing all URLs, user names and RT -tags.
+
+Given the small size of the in-house ('NTNU') data set, no major improvement was expected from adding it in the unconstrained task. Instead, a radically different set-up was chosen to create a new system, and train it on both the in-house and provided data. NTNUU utilizes a two-step approach, with SVM for subjectivity and MaxEnt for polarity classification, a combination intended to capture the strengths of both algorithms. No preprocessing was used for the subjectivity step, but user names were removed before attempting polarity classification.
+
+As further described by~\citet{WilsonEA:13}, the SemEval’13 shared task involved testing on a set of 3813 tweets (1572 positive, 601 negative, and 1640 neutral). In order to evaluate classification performance on data of roughly the same length and type, but from a different domain, the evaluation data also included 2094 Short Message Service texts (SMS; 492 positive, 394 negative, and 1208 neutral).
+
+\begin{table}
+
+\centering
+\begin{tabular}{l|cc|cc} 
+\noalign{\smallskip}\hline\noalign{\smallskip}
+	& \multicolumn{2}{c|}{Twitter}	& \multicolumn{2}{c}{SMS} \\
+ \multicolumn{1}{r|}{\bf NTNU-}	&  {\footnotesize NTNUC}	& {\footnotesize NTNUU}	& {\footnotesize NTNUC}	& {\footnotesize NTNUU} \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+Precision    				& {\bf 0.652}	& 0.633 	& {\bf 0.659} 	& 0.623 \\
+Recall       				& {\bf 0.579}  	& 0.564 	& {\bf 0.646} 	& 0.623  \\
+F1-score  				& {\bf 0.590}  	& 0.572 	& {\bf 0.652} 	& 0.623  \\
+F1 pos/neg 				& {\bf 0.532}  	& 0.507 	& {\bf 0.580} 	& 0.546  \\
+\noalign{\smallskip}\hline\noalign{\smallskip}
+\end{tabular}
+
+\caption{{\bf NTNUC} and {\bf NTNUU} in SemEval'13}
+\label{tab:semeval_results}
+\end{table}
+
+Table \ref{tab:semeval_results}~shows the results obtained by the NTNU systems on the SemEval'13 evaluation data, in terms of average precision, recall and F-score for all three classes, as well as average F-score for positive and negative tweets only (F1 + / \textendash; i.e., the measure used to rank the systems participating in the shared task).
