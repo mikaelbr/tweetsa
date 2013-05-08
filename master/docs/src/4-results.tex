@@ -166,8 +166,11 @@ We can also see that all the classifiers with SVM tends to give a better confusi
            \caption[Plot showing the confusion matrix for two-step NB -> MaxEnt]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and SVM for polarity. Shows the same trend as when using the NB -> SVM model. Model favours positive predictions but performing better for negative tweets.}
            \label{fig:confmat_nb_maxent}
           \end{figure}
-     \end{minipage} \\ 
+     \end{minipage}
+\end{minipage}
 
+\begin{minipage}[!htb]{\linewidth}
+     \centering
      \begin{minipage}{0.45\linewidth}
            \begin{figure}[H]
                 \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-NB.png}
@@ -201,8 +204,11 @@ We can also see that all the classifiers with SVM tends to give a better confusi
            \caption[Plot showing the confusion matrix for two-step MaxEnt -> NB]{Confusion matrix for the model using MaxEnt and NB. Performs good for positive tweets, but not too well with negative and neutral tweets.}
            \label{fig:confmat_maxent_nb}
           \end{figure}
-     \end{minipage}   \\
-         
+     \end{minipage}
+\end{minipage}
+     
+\begin{minipage}[!htb]{\linewidth}
+     \centering
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-SVM.png}
@@ -226,7 +232,6 @@ We can also see that all the classifiers with SVM tends to give a better confusi
 	      \label{fig:confmat_boosting}
 	     \end{figure}
      \end{minipage}
-     
 \end{minipage}
 
 \begin{figure}[!htb]

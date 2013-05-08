@@ -122,7 +122,7 @@ For authentication, an application is registered with a developer account at the
 
 \subsubsection{Architectural Flow}
 
-\begin{figure}[htb!]
+\begin{figure}[!ht]
  \begin{center}
      \includegraphics[width=0.8\textwidth]{../img/APILayerArcitechture.pdf}
  \end{center}
@@ -156,7 +156,7 @@ The classification server uses a pool of child processes. For each receiving twe
 
 \subsubsection{Architectural Flow}
 
-\begin{figure}[htb!]
+\begin{figure}[!htb]
  \begin{center}
      \includegraphics[width=0.8\textwidth]{../img/ClassifierArcitechture30.pdf}
  \end{center}
@@ -164,7 +164,7 @@ The classification server uses a pool of child processes. For each receiving twe
  \label{fig:ClassifierArcitechture}
 \end{figure}
 
-\begin{figure}[htb!]
+\begin{figure}[!htb]
  \begin{center}
      \includegraphics[width=0.8\textwidth]{../img/ClassifierArcitechture30Boosting.pdf}
  \end{center}
@@ -186,7 +186,7 @@ The classification models are implemented by wrapping machine learning algorithm
 
 The base parent model implements methods for training the machine learning algorithm and for predicing either a set of documents or one document. For simple algorithms as NB, SVM and MaxEnt, these generic methods can be used, but the TwoStep and Boosting model have their own implementation. 
  
-\begin{figure}[htb!]
+\begin{figure}[!ht]
  \begin{center}
      \includegraphics[width=0.8\textwidth]{../img/ModelsStructure.pdf}
  \end{center}
@@ -195,6 +195,7 @@ The base parent model implements methods for training the machine learning algor
 \end{figure}
 
 
+\clearpage
 \section{Visualization Applications}
 \label{sec:visualization_applications}
 To test and give example of how to use the generic system designed in~Section\ref{sec:tsaarchitecture}, different visualization applications were implemented. Each of these applications is described in their own sub section in this section. The sub sections are divided into describing how the applications are implemented and the finished product.
