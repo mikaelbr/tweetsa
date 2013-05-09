@@ -31,9 +31,9 @@ Use Sublinear IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
 
 \subsection{Pre-processing and Feature Selection}
 
-This section describes the different pre-processing implementations used; what place holders, negation attachment and reducing letter duplications is.
+This section describes the different pre-processing implementations used; what place-holders, negation attachment and reducing letter duplications is.
 
-To find the best features to use and what kind of pre-processing was the best, a set of 8 different combination of pre-processing methods was designed. The different methods include no pre-processing, where all characters are included as features, full remove where all special Twitter features like user names, URLs, hash tags and emoticons are stripped and one where the Twitter features are replaced with place holder texts to reduce vocabulary. A full view of the pre-processing methods can be viewed in~table~\ref{tab:preproc_desc}.
+To find the best features to use and what kind of pre-processing was the best, a set of 8 different combination of pre-processing methods was designed. The different methods include no pre-processing, where all characters are included as features, full remove where all special Twitter features like user names, URLs, hash tags and emoticons are stripped and one where the Twitter features are replaced with place-holder texts to reduce vocabulary. A full view of the pre-processing methods can be viewed in~table~\ref{tab:preproc_desc}.
 
 \begin{table}[!htb]
 	\centering
@@ -73,15 +73,15 @@ To find the best features to use and what kind of pre-processing was the best, a
 		Reduce letter duplicates             & &   & x &   & x &   & x & x \\ \hline
 		Attach negation  & &   &   &   & x &   & x & x \\ \hline
 	\end{tabular}
-	\caption[Description of used pre-processing methods]{Description of the pre-processing methods used for the experiments. Some functions remove entities, other replace them with a place holder text. The hash-tag as word transforms a hash-tag to a regular word and uses the hash-tag as a feature. "Reduce letter duplicates", reduces redundant letters to a maximum of three.}
+	\caption[Description of used pre-processing methods]{Description of the pre-processing methods used for the experiments. Some functions remove entities, other replace them with a place-holder text. The hash-tag as word transforms a hash-tag to a regular word and uses the hash-tag as a feature. "Reduce letter duplicates", reduces redundant letters to a maximum of three.}
 	\label{tab:preproc_desc}
 \end{table}
 
 \subsubsection{Removing features}
-To reduce the vocabulary and to get more precise classification different features were tried omitted. A user name might be relevant for a text's sentiment. The same goes for a URL, \nom{RT}{Re-Tweet}-tag and emoticon. Some methods, like P1, P2, P4, P5 and P7 removes user names from the text, as it most likely is just noise for the sentiment. Removing features will remove all notion of the feature, unlike with replacing with a place holder.
+To reduce the vocabulary and to get more precise classification different features were tried omitted. A user name might be relevant for a text's sentiment. The same goes for a URL, \nom{RT}{Re-Tweet}-tag and emoticon. Some methods, like P1, P2, P4, P5 and P7 removes user names from the text, as it most likely is just noise for the sentiment. Removing features will remove all notion of the feature, unlike with replacing with a place-holder.
 
-\subsubsection{Replacing with place holders}
-There might be a chance that URLs or user names are relevant for the sentiment. Not necessarily the value of the name or URL it self, but the fact that there are references to URLs and user names. To make these features more informative for the machine learning algorithms a pre-processing method (P3) was implemented for replacing them with place holder texts. This means that a user name like $@$$someuser$ is replaced by the text $||U||$. $||U||$ was chosen as it is very unlikely that it would be a part of a original tweet. Hash-tags ($\#hash$) are replaced with $||H||$ and URLs with $||URL||$. 
+\subsubsection{Replacing with place-holders}
+There might be a chance that URLs or user names are relevant for the sentiment. Not necessarily the value of the name or URL it self, but the fact that there are references to URLs and user names. To make these features more informative for the machine learning algorithms a pre-processing method (P3) was implemented for replacing them with place-holder texts. This means that a user name like $@$$someuser$ is replaced by the text $||U||$. $||U||$ was chosen as it is very unlikely that it would be a part of a original tweet. Hash-tags ($\#hash$) are replaced with $||H||$ and URLs with $||URL||$. 
 
 \subsubsection{Reducing letter duplication}
 By reducing and normalizing excessive letter duplications like "I'm sooooooo happyyyyyyyy!!!!!!", the vocabulary is reduced and the classification can perform better. However, there might be that the word "sooooo" is more sentimentally charged than the proper form of the word "so". The sentence "I'm sooooooo happyyyyyyyy!!!!!!" is more positive polar than the statement "I'm so happy!".
@@ -96,7 +96,7 @@ By attaching the negation word the the preceding and the following the features 
 
 \subsection{SemEval'13}
 
-The system from this Master's Thesis, participated in a workshop with focus on semantic analysis systems. SemEval'13\footnote{\url{http://www.cs.york.ac.uk/semeval-2013/}} had several shared tasks, but we took part of Task 2 B; building a message polarity classification system in Twitter. The task had two parts: unconstrained and constrained systems. The unconstrained system required a training set in addition to the one provided by SemEval'13, and the constrained system could only use the provided set. To test the systems beyond Twitter, SemEval'13 also evaluated the systems using a SMS test set. Thus, there were a total of four different deliveries to SemEval'13: Twitter unconstrained and constrained, and SMS unconstrained and constrained.
+The system from this Master's Thesis, participated in a workshop with focus on semantic analysis systems. SemEval'13\footnote{\url{http://www.cs.york.ac.uk/semeval-2013/}} had several shared tasks, but we took part of Task 2B; building a message polarity classification system in Twitter. The task had two parts: unconstrained and constrained systems. The unconstrained system required a training set in addition to the one provided by SemEval'13, and the constrained system could only use the provided set. To test the systems beyond Twitter, SemEval'13 also evaluated the systems using a Short Message (or Messaging) Service~(\nom{SMS}{Short Message (or Messaging) Service}) test set. Thus, there were a total of four different deliveries to SemEval'13: Twitter unconstrained and constrained, and SMS unconstrained and constrained.
 
 \section{Experiment Results}
 \label{sec:results}
@@ -115,7 +115,7 @@ The experiment results is split into two different subsections. In the first sub
 
 As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F1-score and accuracy for each of the classifiers with dev set 1 as evaluation data. We notice that most of the classifiers that involves the NB algorithm has a bad performance, both for accuracy and F1-score. This was observed for other dev sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F1-score.
 
-We can also see that all the classifiers with SVM tends to give a better confusion matrix than the others. This is showed in Figures~\ref{fig:confmat_svm} - \ref{fig:confmat_boosting}. The confusion matrices that include SVM indicates that it has a more precise classification of negative instances than the others. In tests where NB is used, the system leans much more to the positive class than the other models.
+We can also see that all the classifiers with SVM tends to give a better confusion matrix than the others. This is shown in Figures~\ref{fig:confmat_svm} - \ref{fig:confmat_boosting}. The confusion matrices that include SVM indicates that it has a more precise classification of negative instances than the others. In tests where NB is used, the system leans much more to the positive class than the other models.
 
 \begin{minipage}[!htb]{\linewidth}
      \centering
@@ -179,7 +179,7 @@ We can also see that all the classifiers with SVM tends to give a better confusi
      \begin{minipage}{0.45\linewidth}
            \begin{figure}[H]
                 \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-NB.png}
-        		\caption[Plot showing the confusion matrix for two-step SVM -> NB]{Confusion matrix for the model using SVM and NB. Performs good for positive tweets, but not as good for neutral and negativion over here.}
+        		\caption[Plot showing the confusion matrix for two-step SVM -> NB]{Confusion matrix for the model using SVM and NB. Performs good for positive tweets, but not as good for neutral and negative.}
             \label{fig:confmat_svm_nb}
            \end{figure}
       \end{minipage}
@@ -225,7 +225,7 @@ We can also see that all the classifiers with SVM tends to give a better confusi
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-MaxEnt.png}
-           \caption[Plot showing the confusion matrix for two-step MaxEnt -> MaxEnt]{Confusion matrix for the model using MaxEnt and MaxEnt. Performs good but is too heavy on the positive classification.}
+           \caption[Plot showing the confusion matrix for two-step MaxEnt -> MaxEnt]{Confusion matrix for the model using MaxEnt and MaxEnt. As with MaxEnt -> SVM, this model performs good but is too heavy on the positive classification.}
            \label{fig:confmat_maxent_maxent}
           \end{figure}
      \end{minipage} \\
@@ -233,7 +233,7 @@ We can also see that all the classifiers with SVM tends to give a better confusi
      \begin{minipage}{0.45\linewidth}
 	     \begin{figure}[H]
 	          \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Boosting.png}
-	      \caption[Plot showing the confusion matrix for Boosting]{Confusion matrix for the model using Boosting. Performs good but is too heavy on the positive classification.}
+	      \caption[Plot showing the confusion matrix for Boosting]{Confusion matrix for the model using Boosting. Showing the same trend as the MaxEnt -> SVM and MaxEnt -> MaxEnt models, tends to classify too much positive.}
 	      \label{fig:confmat_boosting}
 	     \end{figure}
      \end{minipage}
@@ -262,7 +262,7 @@ As a part of the grid search, the system applied all the different preprocessing
 			(P6,3) (P1,3) (P3,1)};
 	  \end{axis}
 	\end{tikzpicture}
-	\caption[Statistics of pre-processing usage.]{Statistics of pre-processing usage. Removing all usernames, urls, hash-tag character, RT-tag and excessive letters as features seem to perform the best.}
+	\caption[Statistics of pre-processing usage.]{Statistics of pre-processing usage. Removing all usernames, urls, hash-tag character, RT-tag and excessive letters as features seem to give best performance.}
 	\label{fig:preprocess_usage}
 \end{figure}
 
@@ -286,7 +286,7 @@ C & 1.0 & 0.3 \\ \hline
 penalty &  & l1 \\ \hline
 
 \end{tabular}
-\caption{Best parameters for SVM and MaxEnt.}
+\caption{Table showing an overview of the selected parameters for both the SVM and MaxEnt model. Parameters selected by doing an excessive grid search.}
 \label{tab:svm_maxent_best_params}
 \end{table}
 
@@ -295,7 +295,7 @@ penalty &  & l1 \\ \hline
 	\centering
 	\begin{tabular}{l|cc|cc} 
 	\noalign{\smallskip}\hline\noalign{\smallskip}
-	Data set & \multicolumn{2}{c|}{Test set 1} & \multicolumn{2}{c}{Test set 2} \\
+	Data set & \multicolumn{2}{c|}{Dev set 1} & \multicolumn{2}{c}{Dev set 2} \\
 	Learner  & SVM    & MaxEnt & SVM    & MaxEnt \\
 	\noalign{\smallskip}\hline\noalign{\smallskip}
 	Precision  & 0.627  & {\bf 0.647}   & {\bf 0.700}  & 0.561 \\
@@ -304,7 +304,7 @@ penalty &  & l1 \\ \hline
 	Accuracy & 0.638  & {\bf 0.645}  & {\bf 0.728}  & 0.581 \\
 	\noalign{\smallskip}\hline\noalign{\smallskip}
 	\end{tabular}
-	\caption{Best classifier performance {\small (bold=best score)}}
+	\caption{Best classifier performance {\small (bold=best score)}. Shows that using dev set 1 MaxEnt has better accuracy and precision, but SVM performs better in regards to F1-score and recall. For dev set 2, SVM have higher measures across the board.}
 	\label{tab:performance}
 \end{table}
 
@@ -390,7 +390,7 @@ To even out the distribution of the different classes, we did a grid search with
 
 The features in tables~\ref{tab:informative_features_svm} and~Table~\ref{tab:informative_features_maxent}  is the most informative features from each of the classifiers in the second grid search. Some features are represented among the top 15 for both SVM and MaxEnt, and most of these features makes sense. As we did not normalize the features, we can see that some words appears in different forms and degrees (e.g., "worse", "worst" and "don't", "didn't"). For both MaxEnt and SVM, emoticons are listed among the most informative features. In the case of SVM, the exclamation point is an informative feature for positive classification.
 
-We see that for the most part the features seem to make sense, but we see some anomalies. Both SVM and MaxEnt show why as a negative feature, which is not that loaded with sentiment. In addition, the most informative feature for SVM is wait, which is not a particularly positively charged word.
+We see that for the most part the features seem to make sense, but we see some anomalies. Both SVM and MaxEnt show 'why' as a negative feature, which is normally incorrect. In addition, the most informative feature for SVM is wait, which is not a particularly positively charged word.
 
 
 \begin{figure}[!htb]
@@ -474,7 +474,7 @@ We see that for the most part the features seem to make sense, but we see some a
 
 \subsection{SemEval'13 Results}
 
-Based on the information from the grid search, two systems were built for SemEval'13. Since one-step SVM-based classification showed the best performance on the training data, it was chosen for the system participating in the constrained subtask, NTNUC. The preprocessing also was the one with the best performance on the provided data, P2 which involves lower-casing all letters; reducing letter duplicates; using hash-tags as words (removing \#); and removing all URLs, user names and RT -tags.
+Based on the information from the grid search, two systems were built for SemEval'13. Since one-step SVM-based classification showed the best performance on the training data, it was chosen for the system participating in the constrained subtask, NTNUC. The pre-processing was also the one with the best performance on the provided data, P2 which involves lower-casing all letters; reducing letter duplicates; using hash-tags as words (removing \#); and removing all URLs, user names and RT -tags.
 
 Given the small size of the in-house ('NTNU') data set, no major improvement was expected from adding it in the unconstrained task. Instead, a radically different set-up was chosen to create a new system, and train it on both the in-house and provided data. NTNUU utilizes a two-step approach, with SVM for subjectivity and MaxEnt for polarity classification, a combination intended to capture the strengths of both algorithms. No preprocessing was used for the subjectivity step, but user names were removed before attempting polarity classification.
 
