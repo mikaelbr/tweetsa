@@ -232,7 +232,7 @@ When a client connects to the WebSocket, on either channel, it gets fed tweets i
 
 \textbf{Client side implementation} \\
 
-The client side uses a MV* design pattern to accomplish modularity and structure. A Model-View-*~(\nom{MV*}{Model-View-*}) design pattern, resembles a classical Model View Controller~(\nom{MVC}{Model View Controller}) pattern, but uses no controllers but instead relies more on views to handle the logic. To help with this design pattern, a JavaScript framework called Backbone.js\footnote{\url{http://backbonejs.org/}} is used. In later years Backbone has become a very popular framework to use on the client side for achieving structure in large scale applications. Backbone is a small framework and works in smaller applications as well as big corporate ones.
+The client side uses a MV* design pattern to accomplish modularity and structure. A Model-View-*~(\nom{MV*}{Model-View-*}) design pattern, resembles a classical Model View Controller~(\nom{MVC}{Model View Controller}) pattern, but uses no controllers. Instead it relies more on views to handle the logic. To help with this design pattern, a JavaScript framework called Backbone.js\footnote{\url{http://backbonejs.org/}} is used. In later years Backbone has become a very popular framework to use on the client side for achieving structure in large scale applications. Backbone is a small framework and works in smaller applications as well as big corporate ones.
 
 Every application function is its own independent module, and as such is pluggable. To support this modularity, the code is be separated into three different code structures:
 
@@ -244,7 +244,7 @@ Every application function is its own independent module, and as such is pluggab
 
 Models holds values and operations to interact with these values. For the SentiMap application, there are three different models; $State$, $TimelineStats$, and $TweetCount$. 
 
-The $TimelineStats$ model holds a two dimensional array with time stamps and sentiment difference as value, and an operation to append attributes to this value. When a set of time stamp and sentiment difference is added to the array, the model announces this change to the rest of the application, to any arbitrary listeners, by using \textit{events}. 
+The $TimelineStats$ model holds a two dimensional array with time stamps and sentiment difference as value, and an operation to append attributes to this value. When a set of time stamp and sentiment difference is added to the array, the model broadcasts this change to any listeners, by using \textit{events}. 
 
 The $TweetCount$ model operates the same as $TimelineStats$, but instead of having an array as a value, it simply stores an integer. $TweetCount$ offers operations to increase by one or reset the integer. When the integer is changed, the model announces so through events. Both the $TimelineStats$ and $TweetCount$ models are only intended to be initiated once, unlike the $State$ model.
 
@@ -252,7 +252,7 @@ For each state in the USA, an object is created from the $State$ model. This mod
 
 A collection is simply a collection of models. In the SentiMap applications, the only collection is states which holds all the state model objects. Collections offers operations for fetching objects based on ID. This way, a collection can retrieve the model object for New York, based on the abbreviated name. 
 
-Views handles most of the logic and interactions with the end user. A view can represent a model or collection, but does not require to do so. A view is coupled with a HTML element in the DOM and can be used to render the contents of a model or collection of models into this DOM structure. A view can be looked at as a pluggable module. SentiMap consists of several views. Below is a list of the essential ones and a description of the view's role in the system.
+Views handles most of the logic and interactions with the end user. A view can represent a model or collection, but does not require to do so. A view is coupled with a HTML element in the Document Object Model~(\nom{DOM}{Document Object Model}) and can be used to render the contents of a model or collection of models into this DOM structure. A view can be looked at as a pluggable module. SentiMap consists of several views. Below is a list of the essential ones and a description of the view's role in the system.
 
 \begin{description}
 \item[App] \hfill \\
@@ -334,19 +334,19 @@ As the SentiMap application is designed to be open over a long period of time, t
 
 \subsection{Tweet Searching}
 
-The Twitter search API is another popular service that allows for developers to search the Twitter corpus for recent tweets on a given keyword or topic. To show how to use this search API with our classification server, a demonstration application called SentiGraph, was developed. SentiGraph consist of a chart and a Twitter timeline that shows the sentiment for each of the tweets in the chart. The chart is a combination of a pie chart, and a bar chart, where both are divided into positive, neutral and negative tweets. The sentiment of the tweets is indicated with red (negative), blue (neutral) and green (positive) colours.
+The Twitter Search API is another popular service that allows for developers to search the Twitter corpus for recent tweets on a given keyword or topic. To show how to use this Search API with our classification server, a demonstration application called SentiGraph, was developed. SentiGraph consist of a chart and a Twitter timeline that shows the sentiment for each of the tweets in the chart. The chart is a combination of a pie chart, and a bar chart, where both are divided into positive, neutral and negative tweets. The sentiment of the tweets is indicated with red (negative), blue (neutral) and green (positive) colours.
 
 \subsubsection{Implementation}
 
-SentiGraph is a light weight web application that runs in the client's web browser. It consist of three main views: a search field, a combined chart, and a Twitter timeline. The communication between the application and the API Layer is through Asynchronous JavaScript and XML~(\nom{AJAX}{Asynchronous JavaScript and XML}) technologies. AJAX is used to request and receive the response from the classification server. And by using AJAX for communication, the views can be updated with new data without reloading the entire application.
+SentiGraph is a light weight web application that runs exclusively in the client's web browser. It consist of three main views: a search field, a combined chart, and a Twitter timeline. The communication between the application and the API Layer is through Asynchronous JavaScript and XML~(\nom{AJAX}{Asynchronous JavaScript and XML}) technologies. AJAX is used to request and receive the response from the classification server. By using AJAX for communication, the views can be updated with new data without reloading the entire application.
 
-The tweets shown in the timeline includes the tweet text, its date, the author's profile picture and the sentiment classification. All these data are extracted from the tweet JSON object provided by the API layer.
+The tweets shown in the timeline includes the tweet text, its published date, the author's profile picture and the sentiment classification. All these data are extracted from the tweet JSON object provided by the API layer.
 
 The application uses CSS for responsiveness, so it fits different screen sizes. On large screens and resolutions the presentation is divided into two columns, but when the browser window is minimized to below 1080 pixels, the timeline in the right column is moved to the left, so it appears below the chart view.
 
 \begin{figure}[htb!]
 \begin{center}
- \includegraphics[width=0.8\textwidth]{../img/screenshot_sentigraph.png}
+ \includegraphics[width=\textwidth]{../img/screenshot_sentigraph.png}
  \caption[SentiGraph screen shot]{Screen shot of the SentiGraph system working, the same day as Manchester United confirmed Sir Alex Fergusons retirement. Showing overwhelming positive tweets.}
  \label{fig:sentigraph_screenshot}
 \end{center}
