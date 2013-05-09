@@ -32,7 +32,7 @@ Due to Twitter's privacy policy, the given data sets do not contain the tweet te
 The following section covers some theory for the machine learning algorithms that are used in the experiments for this thesis. First the Naive Bayes classifier is described, and then Maximum Entropy and Support Vector Machines are covered. At the end of the section, two ensemble methods, bagging and boosting are explained.
 
 \subsection{Naive Bayes classifier}
-The Naive Bayes (NB) classifier is a practical Bayesian learning model that is easy to understand and implement. For some classification tasks, it has proven to be equally performing to more complex machine learning algorithms like artificial neural networks (\nom{ANN}{Artificial Neural Networks}) and decision trees~(\nom{DT}{Decision Trees})~\citep{book:Mitchell}. NB is used for learning tasks where an instance $x$ consists of a number of attribute-value pairs, and the target function $f(x)$ consists of a finite number of values from a set $V$.
+The Naive Bayes (NB) classifier is a practical Bayesian learning model that is easy to understand and implement. For some classification tasks, it has proven to be equally performing to more complex machine learning algorithms like artificial neural networks (\nom{ANN}{Artificial Neural Networks}) and decision trees (\nom{DT}{Decision Trees})~\citep{book:Mitchell}. NB is used for learning tasks where an instance $x$ consists of a number of attribute-value pairs, and the target function $f(x)$ consists of a finite number of values from a set $V$.
 
 The NB classifier is based on an assumption that all the attribute values are conditionally independent given the target value of the instance.
 \begin{equation}
@@ -76,19 +76,19 @@ The equation for the separating hyperplane is defined by the closest points to t
 
 \subsection{Ensemble Learning}
 
-Ensemble Learning is a process where multiple models are used in an ensemble to solve a problem. The thought behind using an ensemble of classifiers is to reflect how we make choices in our real lives. A normal procedure is to collect the opinion from several others, sometime even experts, to support our decisions. This is also what an Ensemble Learning classifier does. Ensemble Learning is itself a supervised learning algorithm, since it's trained and used to make predictions. An Ensemble learner can be a combination of different algorithms, and need not necessarily consist of one specific type. There are two complementary approaches to training these individual classifiers: bootstrap aggregating~(\nom{bagging}{Bootstrap Aggregating}) and boosting. The main difference is how the classifiers in an ensemble use their training data. Each classifier in bagging is trained on a subset of the training data, while in boosting, all classifiers are trained on the same original data set.
+Ensemble Learning is a process where multiple models are used in an ensemble to solve a problem. The thought behind using an ensemble of classifiers is to reflect how we make choices in our real lives. A normal procedure is to collect the opinion from several others, sometime even experts, to support our decisions. This is also what an Ensemble Learning classifier does. Ensemble Learning is itself a supervised learning algorithm, since it's trained and used to make predictions. An Ensemble learner can be a combination of different algorithms, and need not necessarily consist of one specific type. There are mainly two complementary approaches to training these individual classifiers: bootstrap aggregating~(\nom{bagging}{Bootstrap Aggregating}) and boosting. The main difference is how the classifiers in an ensemble use their training data. Each classifier in bagging is trained on a subset of the training data, while in boosting, all classifiers are trained on the same original data set.
 
 \subsubsection{Bootstrap Aggregating}
 
-In the bagging variant, each classifier have an equally weighted vote. To obtain variance in the ensemble, the individual classifiers are trained on a different dataset, called "bootstrap replicate", that are randomly drawn from the original training data set, with replacement. Thus, for a training set with \emph{n} samples, the bootstrap replicate would also have \emph{n} samples, but some samples may appear several times, and some samples from the original set may not appear at all.
+In the bagging variant, each classifier have an equally weighted vote. To obtain variance in the ensemble, the individual classifiers are trained on a different dataset, called "bootstrap replicate", that is randomly drawn from the original training data set, with replacement. Thus, for a training set with \emph{n} samples, the bootstrap replicate would also have \emph{n} samples, but some samples may appear several times and some samples from the original set may not appear at all.
 
 \subsubsection{Boosting}
 
 Boosting is a method that is used to increase the accuracy of several weak learners. Each classifier in a boosting algorithm is trained on the same dataset. Weights are added to each training instance in the learning set. The weights indicates the importance of an instance to the current classifier. 
 
-When a classifier fails to predict the correct class for an instance, the weight for that particular instance is increased. So when training the next hypothesis, it will have an increased chance to handle that instance.
+When a classifier fails to predict the correct class for an instance, the weight for that particular instance is increased. So when training the next hypothesis, it will have an increased chance to successfully handle that instance.
 
-In the process of generating hypotheses for the ensemble, each of the classifiers are evaluated and given a weight, as an indicator of its accuracy. When new queries are sent to the boosting algorithm, a voting takes place. Each hypothesis recommends a classification for the query instance, then the weights are summed up, and the target class with the highest total weight is chosen.
+In the process of generating hypotheses for the ensemble, each of the classifiers are evaluated and given a weight, as an indicator of its accuracy. When new queries are sent to the boosting algorithm, a voting takes place. Each hypothesis recommends a classification for the query instance, then the weights are summed up and the target class with the highest total weight is chosen.
 
 \chapter{Architecture}
 \label{sec:experimentalsetup}
@@ -98,9 +98,9 @@ This chapter defines the architecture for the generic Twitter Sentiment Analysis
 \section{TSA Architecture}
 \label{sec:tsaarchitecture}
 
-This section describes the overall architecture and how the system works. First the general system will be described, and then the Application Programming Interface~(\nom{API}{Application Programming Interface}) Layer and classification server in turn.  
+This section describes the overall architecture and how the system works. First the general system will be described, then the Application Programming Interface~(\nom{API}{Application Programming Interface}) Layer and classification server in turn.  
 
-To make the system as modulJavascript on the Node.js platformarized and responsive as possible, the API Layer was written in Node.js and the sentiment classifier in the Python programming language. Both systems are continuously running servers. This allows multiple services to run simultaneously, both for the API layer and the classifier. The idea is to make the system horizontally scalable.
+To make the system as modularized and responsive as possible, the API Layer was written in Javascript, on the Node.js platform, and the sentiment classifier in the Python programming language. Both systems are continuously running servers. This allows multiple services to run simultaneously, both for the API layer and the classifier. The idea is to make the system horizontally scalable.
 
 \begin{figure}[ht]
  \begin{center}
@@ -110,7 +110,7 @@ To make the system as modulJavascript on the Node.js platformarized and responsi
  \label{fig:NetworkDiagram.pdf}
 \end{figure}
 
-A client makes a request to the API Layer, with the same interface as the Twitter API service. From there the API Layer will retrieve information from the Twitter API with Hypertext Transfer (or Transport) Protocol~(\nom{HTTP}{Hypertext Transfer (or Transport) Protocol}) requests, iterate over all tweets received, and send them in parallel to the classification server. When the classification server is done processing and classifying the tweet, it is sent back to the API Layer. When the API layer has received all the tweets, it responds to the client with the same JavaScript Object Notation~\nom{JSON}{JavaScript Object Notation} data structure as the Twitter API sends out, only with an additional attribute noting the tweet's sentiment. This architecture and application flow can be seen in~\autoref{fig:NetworkDiagram.pdf}. 
+A client makes a request to the API Layer, with the same interface as the Twitter API service. From there the API Layer will retrieve information from the Twitter API with Hypertext Transfer (or Transport) Protocol~(\nom{HTTP}{Hypertext Transfer (or Transport) Protocol}) requests, iterate over all tweets received, and send them in parallel to the classification server. When the classification server is done processing and classifying the tweet, it is sent back to the API Layer. When the API layer has received all the tweets, it responds to the client with the same JavaScript Object Notation~(\nom{JSON}{JavaScript Object Notation}) data structure as the Twitter API sends out, only with an additional attribute noting the tweet's sentiment. This architecture and application flow can be seen in~\autoref{fig:NetworkDiagram.pdf}. 
 
 \subsection{API Layer Extension}
 
@@ -118,7 +118,7 @@ To be able to have a scalable and responsive solution, the API Layer was written
 
 The API Layer works as a thin layer extending the Twitter API. This means that the interface used by Twitter, with all defined options and appropriate methods, is reflected through the API Layer. The main benefit is that all documentation for the Twitter API also documents most of this extended API Layer.
 
-For authentication, an application is registered with a developer account at the Twitter Developer site. This creates OAuth credentials, which is used to identify the application, and to gain access to the Twitter data. For this implementation, the data is retrieved using the OAuth access for the application, not at user level. 
+For authentication, an application is registered with a developer account at the Twitter Developer site. This creates OAuth credentials, which is used to identify the application~\citep{site:oauth}, and to gain access to the Twitter data. For this implementation, the data is retrieved using the OAuth access for the application, not at user level. 
 
 \subsubsection{Architectural Flow}
 
@@ -144,7 +144,7 @@ When streaming, the TDH module opens a connection to the Twitter API, but never 
 \subsection{Sentiment Analysis Classifier}
 \label{sec:classifier_arch}
 
-Python is computationally stronger than Node.js in many ways. Additionally, it is much more mature. There are a lot of well documented packages for handling various tasks. Scikit-learn (\nom{sklearn}{Scikit-learn python module}) is one of these packages. sklearn is package built on top of the Python packages numpy, scipy and matplotlib. sklearn integrates machine learning algorithms as SVM, NB, MaxEnt and more. sklearn implements solutions for doing feature extraction, grid searching, cross validation and a lot more for analysing text. Thus it is a good choice for the process of sentiment analysis. As a dynamic typed language, Python allows for rapid development and prototyping. These attributes are some of the reasons Python is a good fit for the present system. 
+Python is computationally stronger than Node.js in many ways. Additionally, it is much more mature. There are a lot of well documented packages for handling various tasks. Scikit-learn (\nom{sklearn}{Scikit-learn python module}) is one of these packages. sklearn is a package built on top of the Python packages numpy, scipy and matplotlib. sklearn integrates machine learning algorithms as SVM, NB, MaxEnt and more. sklearn implements solutions for doing feature extraction, grid searching, cross validation and a lot more for analysing text. Thus it is a good choice for the process of sentiment analysis. As a dynamic typed language, Python allows for rapid development and prototyping. These attributes are some of the reasons Python is a good fit for the present system. 
 
 The Sentiment Analysis Classifier system runs as a server waiting for requests. The HTTP method POST is used for a client to send a \textit{stringified} tweet object to the server. Stringify is a JSON method for returning a serialized object represented by a string. The classification server converts this string to a Python dictionary. The response will be a string with the sentiment classification, that is, either \textit{positive}, \textit{neutral} or \textit{negative}. The classification scheme can be extended if necessary. 
 
@@ -160,7 +160,7 @@ The classification server uses a pool of child processes. For each receiving twe
  \begin{center}
      \includegraphics[width=0.8\textwidth]{../img/ClassifierArcitechture30.pdf}
  \end{center}
- \caption[Architectural overview of the classification server.]{Architectural overview of the classification server. On server start, a model for predicting seniment is generated. When a request from the API Layer is made to the POST Server, a child processes is spawned. The tweet text is extracted and sent into the model for classification. If the classification model is a one-step process, the classifier returns to the sentiment provider with either a neutral, positive or negative classification. If the generated model is two-stepped, the tweet is first classified as either neutral or subjective. If it is neutral, it is returned to the API Layer, if it is subjective, it is sent to the next step and the result from that step is returned to the sentiment provider.}
+ \caption[Architectural overview of the classification server.]{Architectural overview of the classification server. On server start, a model for predicting sentiment is generated. When a request from the API Layer is made to the POST Server, a child processes is spawned. The tweet text is extracted and sent into the model for classification. If the classification model is a one-step process, the classifier returns to the sentiment provider with either a neutral, positive or negative classification. If the generated model is two-stepped, the tweet is first classified as either neutral or subjective. If it is neutral, it is returned to the API Layer, if it is subjective, it is sent to the next step and the result from that step is returned to the sentiment provider.}
  \label{fig:ClassifierArcitechture}
 \end{figure}
 
@@ -168,29 +168,29 @@ The classification server uses a pool of child processes. For each receiving twe
  \begin{center}
      \includegraphics[width=0.8\textwidth]{../img/ClassifierArcitechture30Boosting.pdf}
  \end{center}
- \caption[Architectural overview of the classification server with Boosting.]{Architectural overview of the classification server with boosting. On server start, the Boosting model for predicting sentiment is generated with a set of sub-models. When a request from the API Layer is made to the POST Server, a child processes is spawned. The tweet text is extracted and sent into the model for classification. All models predicts a sentiment and sends the sentiment to voting. For voting the Boosting model selects the sentiment with highest score and returns this to the API sentiment provider.}
+ \caption[Architectural overview of the classification server with boosting.]{Architectural overview of the classification server with boosting. On server start, the boosting model for predicting sentiment is generated with a set of sub-models. When a request from the API Layer is made to the POST Server, a child processes is spawned. The tweet text is extracted and sent into the model for classification. All models predicts a sentiment and sends the sentiment to voting. For voting the boosting model selects the sentiment with highest score and returns this to the API sentiment provider.}
  \label{fig:ClassifierArcitechtureBoosting}
 \end{figure}
 
 The Sentiment Provider module from the API Layer makes a request to the classifier's POST Server. The POST server translates the string to a Python dictionary and passes the information down to the Child Process Spawner. A new process is spawned and, using the module generated when initiating the server, the tweet is classified and returned to the API Layer.
 
-When the classification model is trained on the server initialization, various text filters, normalizations and other pre-processing methods can be utilized, as seen in figure~\ref{fig:ClassifierArcitechture}. The model can be generated as either a one-step process, two-step process or a combination using Boosting. 
+When the classification model is trained on the server initialization, various text filters, normalizations and other pre-processing methods can be utilized, as seen in figure~\ref{fig:ClassifierArcitechture}. The model can be generated as either a one-step process, two-step process or a combination using boosting. 
 
 If a one-step model is used, one algorithm is used to classify the tweet as either negative, neutral or positive. If a two-step model is used, the tweet is first classified as either subjective or neutral in the subjectivity classification step. If it is neutral, the model returns with the classification. If the result is subjective, the tweet is sent to the polarity classification step, where the result can either be negative or positive. The end classification is returned to the API Layer.
 
-When using the Boosting model, a set of sub-models is generated and all used in conjunction to predict a sentiment of a tweet. All sub-models predicts and sends the classification to a voting mechanism. The final classification is the result of the vote. This process is visualized in figure~\ref{fig:ClassifierArcitechtureBoosting}.
+When using the boosting model, a set of sub-models is generated and all used in conjunction to predict a sentiment of a tweet. All sub-models predicts and sends the classification to a weighted voting mechanism. The final classification is the result of the vote. This process is visualized in figure~\ref{fig:ClassifierArcitechtureBoosting}.
 
 \subsubsection{Classification Model Structure}
 
 The classification models are implemented by wrapping machine learning algorithms from sklearn in a inheritance based class structure. By having every model inherit from a base model, the interface is the same across every model, and the system can use the model without having knowledge what kind of algorithm it uses. An overview of this structure is presented in figure~\ref{fig:ModelsStructure}.
 
-The base parent model implements methods for training the machine learning algorithm and for predicing either a set of documents or one document. For simple algorithms as NB, SVM and MaxEnt, these generic methods can be used, but the TwoStep and Boosting model have their own implementation. 
+The base parent model implements methods for training the machine learning algorithm and for predicting either a set of documents or one document. For one-step algorithms as NB, SVM and MaxEnt, these generic methods can be used, but the two-step and boosting models have their own implementation. 
  
 \begin{figure}[!ht]
  \begin{center}
-     \includegraphics[width=0.8\textwidth]{../img/ModelsStructure.pdf}
+     \includegraphics[width=\textwidth]{../img/ModelsStructure.pdf}
  \end{center}
- \caption[Classification Model Structure Overview]{Overview of how the models are built and connected. There is a base model class implementing a method for predicting and training. All models extends from this base model. The models for NaiveBayes, SVM and MaxEnt uses the base model's implementation of train and predict, whilst the TwoStep and Boosting models implement their own. The interface for each model is the same.}
+ \caption[Classification Model Structure Overview]{Overview of how the models are built and connected. There is a base model class implementing a method for predicting and training. All models extends from this base model. The models for NaiveBayes, SVM and MaxEnt uses the base model's implementation of train and predict, whilst the TwoStep and boosting models implement their own. The interface for each model is the same.}
  \label{fig:ModelsStructure}
 \end{figure}
 
@@ -198,17 +198,17 @@ The base parent model implements methods for training the machine learning algor
 \clearpage
 \section{Visualization Applications}
 \label{sec:visualization_applications}
-To test and give example of how to use the generic system designed in~Section\ref{sec:tsaarchitecture}, different visualization applications were implemented. Each of these applications is described in their own sub section in this section. The sub sections are divided into describing how the applications are implemented and the finished product.
+To test and give example of how to use the generic system designed in~Section~\ref{sec:tsaarchitecture}, different visualization applications were implemented. Each of these applications is described in their own sub section in this section. The sub sections are divided into describing how the applications are implemented and the finished product.
 
 \subsection{SentiMap: Geo-location based streams}
 
 To show how the streaming API and geo-location can be used to analyse sentiments for a location in real-time, SentiMap was developed. SentiMap is a visualization tool showing the distribution of sentiments across the states of USA with or without a search query. When a new tweet is posted, within the USA, it is used to change the colour of the state it originated from. SentiMap can show the specifics of a state, with the number of positive and negative tweets, and the total of tweets registered.
 
-SentiMap also tracks changes in sentiment in the entire USA per second. If a major event happens, the time line would show a declining sentiment difference. The sentiment difference is calculated by taking the number of positive tweets subtracted by the number of negative tweets in a given second. 
+SentiMap also tracks changes in sentiment in the entire USA per second. If a major event happens, the time line could show a change in sentiment across the country. The sentiment difference is calculated by taking the number of positive tweets subtracted by the number of negative tweets in a given second. 
 
 \subsubsection{Implementation}
 
-Most of the application is implemented on the client side, and thus running in the browser. There is a thin server side code base running, handling the stream. In this section, firstly the server will be described, and then all details about the client implementation is covered. 
+Most of the application is implemented on the client side, and thus running in the browser. There is a thin server side code base running, handling the stream. In this section, the server will be described first, then all details about the client implementation is covered. 
 
 
 \textbf{Server side implementation} \\
@@ -222,9 +222,9 @@ The client side (browser), can not connect to a Twitter stream by it self. So to
 \item Serve the clients connected to the WebSocket with tweets.
 \end{enumerate}
 
-Since the API layer is designed as a thin layer on top of the official Twitter API, the interface is the same. This means that programming libraries designed to interact with the Twitter API, can also communicate with the API Layer. SentiMap uses a forked (branched/copied a open sourced project) Node.JS module called nTwitter\footnote{\url{https://github.com/AvianFlu/ntwitter}}. The only alteration made on nTwitter is to change the base URL for the API location from pointing to Twitters servers to instead direct to the API Layer server.
+Since the API layer is designed as a thin layer on top of the official Twitter API, the interface is the same. This means that programming libraries designed to interact with the Twitter API, can also communicate with the API Layer. SentiMap uses a forked (branched/copied a open sourced project) Node.JS module called nTwitter\footnote{\url{https://github.com/AvianFlu/ntwitter}}. The only alteration made on nTwitter is to change the base URL for the API location from pointing to Twitter's servers to direct to the API Layer server instead.
 
-The server opens a WebSocket connection to allow clients to stream tweets from the forked nTwitter module. WebSockets\footnote{\url{http://en.wikipedia.org/wiki/WebSocket}} is a technology used to accomplish a full-duplex connection over Transmission Control Protocol~(\nom{TCP}{Transmission Control Protocol}). This means that a server can push information to a client, without the client requesting it first, as with regular HTTP connection. There are two channels of communication opened for the WebSockets. One channel for streaming all tweets from the US, and one channel used to commute tweets related to a search. All clients share a connection to the non-query based stream, but for a search each client has its own connection. If there are no clients connected to the non-query based stream, the connection to the API Layer is closed, and only opened again if a client connects to the WebSocket.
+The server opens a WebSocket connection to allow clients to stream tweets from the forked nTwitter module. WebSockets\footnote{\url{http://en.wikipedia.org/wiki/WebSocket}} is a technology used to accomplish a full-duplex connection over the Transmission Control Protocol~(\nom{TCP}{Transmission Control Protocol}). This means that a server can push information to a client, without the client requesting it first, as with regular HTTP connection. There are two channels of communication opened for the WebSockets. One channel for streaming all tweets from the US, and one channel used to commute tweets related to a search. All clients share a connection to the non-query based stream, but for a search each client has its own connection. If there are no clients connected to the non-query based stream, the connection to the API Layer is closed, and only opened again if a client connects to the WebSocket.
 
 The server uses a simple Node.js HTTP module to serve static file content to clients. The static content is HTML files, JavaScript libraries and code bases, images and styling files.
 
