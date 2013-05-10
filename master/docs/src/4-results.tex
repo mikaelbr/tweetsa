@@ -115,6 +115,8 @@ The experiment results is split into two different subsections. In the first sub
 
 As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F1-score and accuracy for each of the classifiers with dev set 1 as evaluation data. We notice that most of the classifiers that involves the NB algorithm has a bad performance, both for accuracy and F1-score. This was observed for other dev sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F1-score.
 
+Two- step models with SVM-based subjectivity classification exhibit the same basic behaviour. The one-step MaxEnt model classifies more tweets as neutral than the other classifiers. Using MaxEnt for subjectivity classification and either MaxEnt or SVM for polarity classification performs well, but is too heavy on the positive class. Boosting does not improve and behaves in a fashion similar to two-step MaxEnt models. All combinations involving NB tend to heavily favour positive predictions; only the two-step models involving another algorithm for polarity classification gave some improvement for negative tweets.
+
 We can also see that all the classifiers with SVM tends to give a better confusion matrix than the others. This is shown in Figures~\ref{fig:confmat_svm} - \ref{fig:confmat_boosting}. The confusion matrices that include SVM indicates that it has a more precise classification of negative instances than the others. In tests where NB is used, the system leans much more to the positive class than the other models.
 
 \begin{minipage}[!htb]{\linewidth}
@@ -212,7 +214,7 @@ We can also see that all the classifiers with SVM tends to give a better confusi
      \end{minipage}
 \end{minipage}
      
-\begin{minipage}[!htb]{\linewidth}
+\begin{minipage}[htb!]{\linewidth}
      \centering
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
@@ -228,8 +230,11 @@ We can also see that all the classifiers with SVM tends to give a better confusi
            \caption[Plot showing the confusion matrix for two-step MaxEnt -> MaxEnt]{Confusion matrix for the model using MaxEnt and MaxEnt. As with MaxEnt -> SVM, this model performs good but is too heavy on the positive classification.}
            \label{fig:confmat_maxent_maxent}
           \end{figure}
-     \end{minipage} \\
-     
+     \end{minipage}
+\end{minipage}
+
+\begin{minipage}[htb!]{\linewidth}
+     \centering
      \begin{minipage}{0.45\linewidth}
 	     \begin{figure}[H]
 	          \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Boosting.png}
@@ -268,7 +273,12 @@ As a part of the grid search, the system applied all the different preprocessing
 
 \clearpage
 \subsection{SVM vs MaxEnt}
-A second grid search with the two best classifiers from the first search was performed with dev set 2 as evaluation data. The results for both the SVM and MaxEnt classifiers are shown in figure~\ref{fig:best_result} and the result of the grid search is visible in table~\ref{tab:gridsearch_params}. With dev set 2, SVM's performance is much better than MaxEnt's, as seen in table~\ref{tab:performance}. Test set 1 contain more neutral tweets than dev set 2, which gives us a reason to believe that it favours the MaxEnt classifier. In MaxEnt's confusion matrix from the first search, shown in Figure~\ref{fig:confmat_maxent}, we can see that it classifies more neutral tweets than the other classifiers.
+
+From the full grid search, the best parameters on SVM and MaxEnt was extracted and more detailed tests were done with only using SVM and MaxEnt, without grid searching. The best parameters for the SVM model, was using unigram, P2 pre-processing method, not removing stop words, and a C value of 1.0. For the MaxEnt model, the P3 pre-processing method was used, along with unigrams, IDF, not removing stop words and 0.3 as C value. Penalty for MaxEnt was selected to be L1. Full parameter selection for SVM and MaxEnt is visible in~table~\ref{tab:svm_maxent_best_params}. The SVM and MaxEnt models, with these parameters, were tested with an additional development set (dev set 2).
+
+The results for both the SVM and MaxEnt classifiers are shown in figure~\ref{fig:best_result} and the result of the grid search is visible in table~\ref{tab:gridsearch_params}. With dev set 2, SVM's performance is much better than MaxEnt's, as seen in table~\ref{tab:performance}. Test set 1 contain more neutral tweets than dev set 2, which gives us a reason to believe that it favours the MaxEnt classifier. In MaxEnt's confusion matrix from the first search, shown in Figure~\ref{fig:confmat_maxent}, we can see that it classifies more neutral tweets than the other classifiers.
+
+
 
 \begin{table}[!htb]
 \centering
@@ -471,14 +481,10 @@ We see that for the most part the features seem to make sense, but we see some a
 	\label{fig:svm_reduced_2000}
 \end{figure}
 
-
+\clearpage
 \subsection{SemEval'13 Results}
 
 Based on the information from the grid search, two systems were built for SemEval'13. Since one-step SVM-based classification showed the best performance on the training data, it was chosen for the system participating in the constrained subtask, NTNUC. The pre-processing was also the one with the best performance on the provided data, P2 which involves lower-casing all letters; reducing letter duplicates; using hash-tags as words (removing \#); and removing all URLs, user names and RT -tags.
-
-Given the small size of the in-house ('NTNU') data set, no major improvement was expected from adding it in the unconstrained task. Instead, a radically different set-up was chosen to create a new system, and train it on both the in-house and provided data. NTNUU utilizes a two-step approach, with SVM for subjectivity and MaxEnt for polarity classification, a combination intended to capture the strengths of both algorithms. No preprocessing was used for the subjectivity step, but user names were removed before attempting polarity classification.
-
-As further described by~\citet{WilsonEA:13}, the SemEval'13 shared task involved testing on a set of 3813 tweets (1572 positive, 601 negative, and 1640 neutral). In order to evaluate classification performance on data of roughly the same length and type, but from a different domain, the evaluation data also included 2094 Short Message Service texts (SMS; 492 positive, 394 negative, and 1208 neutral).
 
 \begin{table}
 
@@ -498,5 +504,9 @@ F1 pos/neg 				& {\bf 0.532}  	& 0.507 	& {\bf 0.580} 	& 0.546  \\
 \caption{{\bf NTNUC} and {\bf NTNUU} in SemEval'13}
 \label{tab:semeval_results}
 \end{table}
+
+Given the small size of the in-house ('NTNU') data set, no major improvement was expected from adding it in the unconstrained task. Instead, a radically different set-up was chosen to create a new system, and train it on both the in-house and provided data. NTNUU utilizes a two-step approach, with SVM for subjectivity and MaxEnt for polarity classification, a combination intended to capture the strengths of both algorithms. No preprocessing was used for the subjectivity step, but user names were removed before attempting polarity classification.
+
+As further described by~\citet{WilsonEA:13}, the SemEval'13 shared task involved testing on a set of 3813 tweets (1572 positive, 601 negative, and 1640 neutral). In order to evaluate classification performance on data of roughly the same length and type, but from a different domain, the evaluation data also included 2094 Short Message Service texts (SMS; 492 positive, 394 negative, and 1208 neutral).
 
 Table \ref{tab:semeval_results}~shows the results obtained by the NTNU systems on the SemEval'13 evaluation data, in terms of average precision, recall and F-score for all three classes, as well as average F-score for positive and negative tweets only (F1 + / \textendash; i.e., the measure used to rank the systems participating in the shared task).
