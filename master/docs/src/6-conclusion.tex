@@ -8,6 +8,8 @@ Reducing the training set to normalize number of tweets per label did not improv
 
 The architecture purposed for this system performs well on both regular REST API requests, but is also capable to do streaming of tweets and classify tweets in real-time for several tweets per second. By extending the Twitter API and having the same end point interface, no additional documentation is needed for the API and existing libraries and programming language specific API wrappers can be used to retrieve information from our API Layer by only changing their URL connection point. 
 
+We found that the sentiment data can be used to visualise in different practical views. Since Twitter has a lot of meta data attached to each tweet from the REST API, the possibilities for making visualisation applications are huge. With relatively simple steps, one can make applications for showing accumulated sentiments based on a search query, or show changes in sentiment across a country. 
+
 \section{Contribution}
 
 In this project we have defined the state of the art for Twitter Sentiment Analysis systems, and implemented a generic system with an architecture capable of classifying many tweets per second in a live stream. We found that, by extending the Twitter API and just attaching a value for sentiments, the data can easily be used to implement visualisation applications, or extending existing Twitter based systems. 
