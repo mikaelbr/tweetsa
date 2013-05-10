@@ -94,7 +94,7 @@ In the process of generating hypotheses for the ensemble, each of the classifier
 \chapter{Architecture}
 \label{sec:experimentalsetup}
 
-This chapter defines the architecture for the generic Twitter Sentiment Analysis system, and the implemented visualization applications. Section~\ref{sec:tsaarchitecture}, describes the architecture for the API layer as well as the sentiment classifier server. Section~\ref{sec:visualization_applications}, documents how the visualization applications are implemented and how the finished product works.
+This chapter defines the architecture for the generic Twitter Sentiment Analysis system, and the implemented visualisation applications. Section~\ref{sec:tsaarchitecture}, describes the architecture for the API layer as well as the sentiment classifier server. Section~\ref{sec:visualization_applications}, documents how the visualisation applications are implemented and how the finished product works.
 
 \section{TSA Architecture}
 \label{sec:tsaarchitecture}
@@ -179,7 +179,7 @@ When the classification model is trained on the server initialization, various t
 
 If a one-step model is used, one algorithm is used to classify the tweet as either negative, neutral or positive. If a two-step model is used, the tweet is first classified as either subjective or neutral in the subjectivity classification step. If it is neutral, the model returns with the classification. If the result is subjective, the tweet is sent to the polarity classification step, where the result can either be negative or positive. The end classification is returned to the API Layer.
 
-When using the boosting model, a set of sub-models is generated and all used in conjunction to predict a sentiment of a tweet. All sub-models predicts and sends the classification to a weighted voting mechanism. The final classification is the result of the vote. This process is visualized in figure~\ref{fig:ClassifierArcitechtureBoosting}.
+When using the boosting model, a set of sub-models is generated and all used in conjunction to predict a sentiment of a tweet. All sub-models predicts and sends the classification to a weighted voting mechanism. The final classification is the result of the vote. This process is visualised in figure~\ref{fig:ClassifierArcitechtureBoosting}.
 
 \subsubsection{Classification Model Structure}
 
@@ -197,13 +197,13 @@ The base parent model implements methods for training the machine learning algor
 
 
 \clearpage
-\section{Visualization Applications}
+\section{Visualisation Applications}
 \label{sec:visualization_applications}
-To test and give example of how to use the generic system designed in~Section~\ref{sec:tsaarchitecture}, different visualization applications were implemented. Each of these applications is described in their own sub section in this section. The sub sections are divided into describing how the applications are implemented and the finished product.
+To test and give example of how to use the generic system designed in~Section~\ref{sec:tsaarchitecture}, different visualisation applications were implemented. Each of these applications is described in their own sub section in this section. The sub sections are divided into describing how the applications are implemented and the finished product.
 
 \subsection{SentiMap: Geo-location based streams}
 
-To show how the streaming API and geo-location can be used to analyse sentiments for a location in real-time, SentiMap was developed. SentiMap is a visualization tool showing the distribution of sentiments across the states of USA with or without a search query. When a new tweet is posted, within the USA, it is used to change the colour of the state it originated from. SentiMap can show the specifics of a state, with the number of positive and negative tweets, and the total of tweets registered.
+To show how the streaming API and geo-location can be used to analyse sentiments for a location in real-time, SentiMap was developed. SentiMap is a visualisation tool showing the distribution of sentiments across the states of USA with or without a search query. When a new tweet is posted, within the USA, it is used to change the colour of the state it originated from. SentiMap can show the specifics of a state, with the number of positive and negative tweets, and the total of tweets registered.
 
 SentiMap also tracks changes in sentiment in the entire USA per second. If a major event happens, the time line could show a change in sentiment across the country. The sentiment difference is calculated by taking the number of positive tweets subtracted by the number of negative tweets in a given second. 
 
