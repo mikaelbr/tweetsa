@@ -78,7 +78,7 @@ To find the best features to use and what kind of pre-processing was the best, a
 \end{table}
 
 \subsubsection{Removing features}
-To reduce the vocabulary and to get more precise classification different features were tried omitted. A user name might be relevant for a text's sentiment. The same goes for a URL, \nom{RT}{Re-Tweet}-tag and emoticon. Some methods, like P1, P2, P4, P5 and P7 removes user names from the text, as it most likely is just noise for the sentiment. Removing features will remove all notion of the feature, unlike with replacing with a place-holder.
+To reduce the vocabulary and to get more precise classification, some features were tried omitted. User names are most likely to be considered noisy, but in some cases it may be relevant for a text's sentiment. The same goes for a URL, \nom{RT}{Re-Tweet}-tag and emoticon. Some methods, like P1, P2, P4, P5 and P7 considers the user names noisy and removes them from the text. Removing features will remove all notion of the feature, unlike when replacing it with a placeholder.
 
 \subsubsection{Replacing with place-holders}
 There might be a chance that URLs or user names are relevant for the sentiment. Not necessarily the value of the name or URL it self, but the fact that there are references to URLs and user names. To make these features more informative for the machine learning algorithms a pre-processing method (P3) was implemented for replacing them with place-holder texts. This means that a user name like $@$$someuser$ is replaced by the text $||U||$. $||U||$ was chosen as it is very unlikely that it would be a part of a original tweet. Hash-tags ($\#hash$) are replaced with $||H||$ and URLs with $||URL||$. 
