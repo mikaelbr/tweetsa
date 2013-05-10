@@ -2,11 +2,11 @@
 
 We found that machine learning algorithms perform well for doing domain semi-independent classification for sentiments. We tested three different base machine learning algorithms: Naive Bayes, SVM and MaxEnt, in addition of combining them for doing two-step classification and boosting with voting for sentiment. 
 
-Experiments show that SVM and MaxEnt in a single step classification perform the best for these datasets. Given the confusion matrices and results on different data sets, it seems that SVM performs better than MaxEnt, but having a neutral-heavy development set, caused MaxEnt to perform better than SVM while doing a complete full grid search across multiple values.
+Experiments show that SVM and MaxEnt in a single step classification performs best for these datasets. Given the confusion matrices and results on different data sets, it seems that SVM performs better than MaxEnt. But the neutral-heavy development set caused MaxEnt to perform better than SVM while doing a complete full grid search across multiple values.
 
-Reducing the training set to normalize number of tweets per label did not improve the overall performance in accuracy but improved the F1-score and shows more positive trending confusion matrices. 
+Reducing the training set to normalise the number of tweets per label did not improve the overall performance in accuracy, but improved the F1-score and the classification of positive tweets. 
 
-The architecture purposed for this system performs well on both regular REST API requests, but is also capable to do streaming of tweets and classify tweets in real-time for several tweets per second. By extending the Twitter API and having the same end point interface, no additional documentation is needed for the API and existing libraries and programming language specific API wrappers can be used to retrieve information from our API Layer by only changing their URL connection point. 
+The architecture proposed for this system performs well on regular REST API requests, but is also capable of streaming and classifying several tweets per second in real-time. By extending the Twitter API and having the same end point interface, no additional documentation is needed for the API. Existing libraries and programming language specific API wrappers can be used to retrieve information from our API Layer by only changing their URL connection point. 
 
 We found that the sentiment data can be used to visualise in different practical views. Since Twitter has a lot of meta data attached to each tweet from the REST API, the possibilities for making visualisation applications are huge. With relatively simple steps, one can make applications for showing accumulated sentiments based on a search query, or show changes in sentiment across a country. 
 
@@ -18,10 +18,10 @@ We have tested different machine learning algorithms, reported to work well with
 
 \section{Future Work}
 
-A natural way to extend this work, is to add additional classification algorithms as models. There are also several different features that could be investigated and more combinations of pre-processing methods. 
+A natural way to extend this work, is to add additional classification algorithms as models. There are also several different features that could be investigated, as well as more combinations of pre-processing methods.
 
-To improve the classification on tweets, and thus make the system less domain independent, more Twitter specific features can be used. E.g. lexica developed specifically for social media, like the~\citet{article:afinn} lexicon. 
+To improve the classification on tweets, one can make the system less domain independent by adding more Twitter specific features. E.g. lexica developed specifically for social media, like the~\citet{article:afinn} lexicon.
 
-It could also be interesting adding POS-tagging as an experiment, using it to classify subjectivity as shown to work by~\citet{article:pak}.
+It could also be interesting to add POS-tagging as an experiment, using it to classify subjectivity as shown to work by~\citet{article:pak}.
 
 While developing the visualisation application SentiMap, another more specific feature could be seen in the tweets streamed by Twitter. As the tweets were restricted by geographical location, most of them originated from hand held devices. Apples iPhone, has their own smilies, originally intended for the Japan user marked, called Emoji\footnote{\url{http://en.wikipedia.org/wiki/Emoji}}. Emoji smilies are different smilies and icons representing situations of sentiments, but not constructed from ASCII characters like regular smilies (e.g. $:($ and $:)$). By translating these Emojies to sentiments like $||Happy||$ or $||Sad||$ they could be used as features.
