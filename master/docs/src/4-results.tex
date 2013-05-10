@@ -31,9 +31,9 @@ Use Sublinear IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
 
 \subsection{Pre-processing and Feature Selection}
 
-This section describes the different pre-processing implementations used; what place-holders, negation attachment and reducing letter duplications is.
+This section describes the different pre-processing implementations used; what placeholders, negation attachment and reducing letter duplications is.
 
-To find the best features to use and what kind of pre-processing was the best, a set of 8 different combination of pre-processing methods was designed. The different methods include no pre-processing, where all characters are included as features, full remove where all special Twitter features like user names, URLs, hash tags and emoticons are stripped and one where the Twitter features are replaced with place-holder texts to reduce vocabulary. A full view of the pre-processing methods can be viewed in~table~\ref{tab:preproc_desc}.
+To find the best features to use and what kind of pre-processing was the best, a set of 8 different combination of pre-processing methods was designed. The different methods include no pre-processing, where all characters are included as features, full remove where all special Twitter features like user names, URLs, hash tags and emoticons are stripped and one where the Twitter features are replaced with placeholder texts to reduce vocabulary. A full view of the pre-processing methods can be viewed in~table~\ref{tab:preproc_desc}.
 
 \begin{table}[!htb]
 	\centering
@@ -73,15 +73,15 @@ To find the best features to use and what kind of pre-processing was the best, a
 		Reduce letter duplicates             & &   & x &   & x &   & x & x \\ \hline
 		Attach negation  & &   &   &   & x &   & x & x \\ \hline
 	\end{tabular}
-	\caption[Description of used pre-processing methods]{Description of the pre-processing methods used for the experiments. Some functions remove entities, other replace them with a place-holder text. The hash-tag as word transforms a hash-tag to a regular word and uses the hash-tag as a feature. "Reduce letter duplicates", reduces redundant letters to a maximum of three.}
+	\caption[Description of used pre-processing methods]{Description of the pre-processing methods used for the experiments. Some functions remove entities, other replace them with a placeholder text. The hash-tag as word transforms a hash-tag to a regular word and uses the hash-tag as a feature. "Reduce letter duplicates", reduces redundant letters to a maximum of three.}
 	\label{tab:preproc_desc}
 \end{table}
 
 \subsubsection{Removing features}
 To reduce the vocabulary and to get more precise classification, some features were tried omitted. User names are most likely to be considered noisy, but in some cases it may be relevant for a text's sentiment. The same goes for a URL, \nom{RT}{Re-Tweet}-tag and emoticon. Some methods, like P1, P2, P4, P5 and P7 considers the user names noisy and removes them from the text. Removing features will remove all notion of the feature, unlike when replacing it with a placeholder.
 
-\subsubsection{Replacing with place-holders}
-There might be a chance that URLs or user names are relevant for the sentiment. Not necessarily the value of the name or URL it self, but the fact that there are references to URLs and user names. To make these features more informative for the machine learning algorithms a pre-processing method (P3) was implemented for replacing them with place-holder texts. This means that a user name like $@$$someuser$ is replaced by the text $||U||$. $||U||$ was chosen as it is very unlikely that it would be a part of a original tweet. Hash-tags ($\#hash$) are replaced with $||H||$ and URLs with $||URL||$. 
+\subsubsection{Replacing with placeholders}
+There might be a chance that URLs or user names are relevant for the sentiment. Not necessarily the value of the name or URL it self, but the fact that there are references to URLs and user names. To make these features more informative for the machine learning algorithms a pre-processing method (P3) was implemented for replacing them with placeholder texts. This means that a user name like $@$$someuser$ is replaced by the text $||U||$. $||U||$ was chosen as it is very unlikely that it would be a part of a original tweet. Hash-tags ($\#hash$) are replaced with $||H||$ and URLs with $||URL||$. 
 
 \subsubsection{Reducing letter duplication}
 By reducing and normalizing excessive letter duplications like "I'm sooooooo happyyyyyyyy!!!!!!", the vocabulary is reduced and the classification can perform better. However, there might be that the word "sooooo" is more sentimentally charged than the proper form of the word "so". The sentence "I'm sooooooo happyyyyyyyy!!!!!!" is more positive polar than the statement "I'm so happy!".
