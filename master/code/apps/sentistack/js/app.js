@@ -117,8 +117,8 @@
 
     constructSeries: function () {
       var that = this;
-      $.each(['negative', 'positive'], function (i, sent) {
-      // $.each(['neutral', 'negative', 'positive'], function (i, sent) {
+      // $.each(['negative', 'positive'], function (i, sent) {
+      $.each(['neutral', 'negative', 'positive'], function (i, sent) {
         var data = [];
         $.each(that.queries, function(i, query) {
           data.push(that.data[query][sent]);
