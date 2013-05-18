@@ -10,11 +10,14 @@
 
     <form action="/" method="get">
       <fieldset>
-        <input type="text" name="q[]" placeholder="Search Query" class="query">
+        <div class="input-wrap">
+          <input type="text" name="q[]" placeholder="Search Query" class="query">
+        </div>
 
         <p>
           <a href="#" id="appendQuery">Add Query</a>
           <input type="submit" name="send" value="Compare!">
+          <a href="#" class="hide-button">Toggle Hide</a>
         </p>
       </fieldset>
     </form>
