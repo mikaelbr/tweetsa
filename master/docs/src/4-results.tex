@@ -508,3 +508,40 @@ Given the small size of the in-house ('NTNU') data set, no major improvement was
 As further described by~\citet{WilsonEA:13}, the SemEval'13 shared task involved testing on a set of 3813 tweets (1572 positive, 601 negative, and 1640 neutral). In order to evaluate classification performance on data of roughly the same length and type, but from a different domain, the evaluation data also included 2094 Short Message Service texts (SMS; 492 positive, 394 negative, and 1208 neutral).
 
 Table \ref{tab:semeval_results}~shows the results obtained by the NTNU systems on the SemEval'13 evaluation data, in terms of average precision, recall and F-score for all three classes, as well as average F-score for positive and negative tweets only (F1 + / \textendash; i.e., the measure used to rank the systems participating in the shared task).
+
+
+\subsection{Visualisation Results}
+
+
+
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[width=\linewidth]{../img/sentistack_esc.png}
+	\caption[SentiStack running before the Eurovision Song Contest Final]{The SentiStack application running before the Eurovision Song Contest Final. The order of the bar stacks is equal to the running order: France, Lithuania, Moldova, Finland, Spain, Belgium, Estonia, Belarus, Malta, Russia, Germany, Armenia, The Netherlands, Romania, United Kingdom, Sweden, Hungary, Denmark, Iceland, Azerbaijan, Greece, Ukraine, Italy, Norway, Georgia and Ireland. We see that }
+	\label{fig:sentistack_esc}
+\end{figure}
+
+
+\begin{table}
+
+\centering
+\begin{tabular}{|c|l|l|} 
+\hline
+ Place	&  Prediction	& Result  \\ \hline \hline
+
+1. & Ireland & Denmark      \\ \hline
+2. & Germany & Azerbaijan   \\ \hline
+3. & Malta & Ukraine      \\ \hline
+4. & Finland & Norway       \\ \hline
+5. & Denmark & Russia       \\ \hline
+6. & Ukraine & Greece       \\ \hline
+7. & Iceland & Italy        \\ \hline
+8. & Sweden & Malta        \\ \hline
+9. & Hungary & Netherlands  \\ \hline
+10. & Azerbaijan & Hungary  \\ \hline
+
+\end{tabular}
+
+\caption[Eurovision Song Contest experiment result]{The results of the Eurovision Song Contest versus the predictions by using the SentiStack visualisation application.}
+\label{tab:esc_results}
+\end{table}
