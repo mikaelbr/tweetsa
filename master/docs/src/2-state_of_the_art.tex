@@ -124,3 +124,21 @@ In \autoref{tab:quality} all the individual points for the quality criteria are 
 \subsection{Twitter Sentiment Analysis: State-of-the-Art}
 \label{sec:stateofart}
 \input{2-state_of_the_art/tsa}
+
+\subsection{State-of-the-Art Post SemEval'13}
+
+The SLR was performed before the SemEval'13 tasks~\citep{WilsonEA:13}. This means that a lot of work has been done on TSA after the state-of-the-art was defined. Many of the points are still relevant, but some additional information can be extracted. 
+
+In relation to SemEval'13,~\cite{MohammadEA:13} defined and implemented a state-of-the-art system. The system implemented by~\cite{MohammadEA:13}, is described as the strongest system by~\cite{WilsonEA:13}, showing the highest F-measure on both tweets and SMS.
+
+\subsubsection{Sentiment Lexicon}
+
+The system developed by~\cite{MohammadEA:13}, used lexica to help classify sentiment. In addition to using existing general lexica like the NRC Emotion Lexicon~\citep{mohammad2010emotions, mohammad2011tracking}, MPQA Lexicon~\citep{wilson2005recognizing}, and the Bing Liu Lexicon~\citep{hu2004mining}, they also used Twitter specific lexica. One Twitter specific lexicon was developed for the system by streaming from the Twitter API from April to December 2012, using 78 different seed words as hash tags~\citep{MohammadEA:13}. In addition to their own lexicon, the Sentiment140 by~\cite{article:go} lexicon was used.
+
+\subsubsection{Classifier and Features}
+
+As with many previous systems (e.g. \cite{article:bermingham}, \cite{chamlertwat2012discovering}, \cite{zhang2011combining}, \cite{asiaee2012if}), supervised learning with SVM was used on the training data provided by SemEval'13. The classification was done in one step, classifying three ways (neutral, positive and negative)~\citep{MohammadEA:13}.
+
+URLs and user names were normalised to placeholder text (\textit{http://someurl} and  $@$$someuser$) and the tweets were tokenized and part-of-speech tagged using a tool for doing natural language processing on Twitter by~\cite{gimpel2010part}. 
+
+The features used were word ngrams, character ngrams, number of words in all caps, POS tags, hashtags, lexica, punctuations, emoticons, the number of elongated words (e.g. $goooood$), clusters and the nuber of negated contexts. \cite{MohammadEA:13} found that using all these features gave the best performance for F-measure.
