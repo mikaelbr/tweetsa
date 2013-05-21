@@ -361,3 +361,52 @@ SentiGraph allows the user to define a search query and the number of tweets to 
 
 The combined pie and bar chart supports some interaction from the user. When clicking one the bars in the bar chart, it shows how many tweets that are predicted as the selected class. By clicking one of the sectors in the pie chart it will display the percentage of tweets in that class.
 
+\subsection{Comparing Queries: SentiStack}
+
+SentiStack is an application to easily compare sentiments between an arbitrary amount of search queries. SentiStack uses the Twitter Search API to retrieve data, and visualises the data as a bar stack per search query. If there is three queries, three bar stacks will be presented in the graph. A bar stack consists of three values; neutral tweets, positive tweets and negative tweets. See a screen shot of the final product in figure~\ref{fig:sentistack_screenshot}.
+
+
+\begin{figure}[htb!]
+\begin{center}
+ \includegraphics[width=\textwidth]{../img/sentistack_screenshot_full.png}
+ \caption[SentiStack screen shot]{Screen shot of the SentiStack system. Showing a comparison of iPhone, Android and Windows Phone. The graph indicates that there are most positive tweets about Android.}
+ \label{fig:sentistack_screenshot}
+\end{center}
+\end{figure}
+
+
+\subsubsection{Implementation}
+
+Like SentiGraph, SentiStack is a client side application, and does not require any server side code base. This means that the application can be easily distributed and run locally without any server running to execute the code. 
+
+There are two different aspects to the SentiStack code: input queries, and output graph. Communication with the input form happens through events. When the SentiStack system is initiated, it listens for three events: when a new query is requested, when the "toggle input boxes" button is clicked, and when the "Compare" button is triggered. If one of these events are triggered, an attached method will respond and execute appropriate code; either append input box, hide input boxes or initiate comparison and present the result as a graph.
+
+When the "Compare" button is pressed, the system extracts each query from the input boxes, and constructs a query list. This query list will be iterated and a total of 200 tweets from each query will be retrieved from the Search API using AJAX. As the API responds in JSON, the data can be easily parsed and manipulated. All results from the queries are accumulated in a hash map using the query as a key and a list of the sentiment distribution for that query (e.g. 70 neutral, 70 positive and 60 negative) as a value. When every API request is done, the presentation method is triggered.
+
+The presentation method uses the accumulated data hash map as a source and generates a graph based on that information. For each key in the hash map, a bar stack is generated with the value as distribution for the parts of the stack. The search queries (hash map keys), is used as labels for the graph.
+
+If compare is triggered again, the system will reset (clearing the data hash map and query list) and start the entire process again.
+
+\subsubsection{Working Product}
+
+When opening the SentiStack system, an empty input box is shown, without any graph. The graph will only appear when requested by the "Compare" button. When entering queries in the input boxes and pressing "Compare" the graph will be generated and presented as visible in~figure~\ref{fig:sentistack_screenshot}. 
+
+To add a new query to the system, the "Add Query" link is used. When pressing the link, the last input box is cloned and the cloned box is appended to the list without any value. This process is shown in~figure~\ref{fig:sentistack_addquery}. There are no limitations of the number of queries that can be added, but if there are many of them, the query labels can be hard to read in the graph. If there are many queries, the graph will be pushed down on the page. To avoid this, the "Toggle hide" button can be used. This button toggles the visibility of all except the first input boxes. 
+
+\begin{figure}[htb!]
+\begin{center}
+ \includegraphics[width=0.7\textwidth]{../img/sentistack_addquery.png}
+ \caption[SentiStack add new query screen shot]{Screen shot of the SentiStack system when adding a new query. Figure shows the system after "Add Query" is pressed. The added input box gains focus and is ready to receive query.}
+ \label{fig:sentistack_addquery}
+\end{center}
+\end{figure}
+
+Details for the different queries is visible by hovering over a given bar stack in the graph. The details consists of the number of positive, negative and neutral tweets, as well as the percentage for each of these classifications. This detailed view can be seen in~figure~\ref{fig:sentistack_details}.
+
+\begin{figure}[htb!]
+\begin{center}
+ \includegraphics[width=0.5\textwidth]{../img/sentistack_details.png}
+ \caption[SentiStack detailed view screen shot]{Screen shot of the SentiStack system  when hovering over a bar stack and showing the details for a given query.}
+ \label{fig:sentistack_details}
+\end{center}
+\end{figure}
