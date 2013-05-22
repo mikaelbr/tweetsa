@@ -291,7 +291,7 @@ smooth\_idf & True & True \\ \hline
 max\_df & 0.5 & 0.5 \\ \hline
 stop\_words & None & None \\ \hline
 C & 1.0 & 0.3 \\ \hline
-penalty &  & l1 \\ \hline
+penalty &  & L1 \\ \hline
 
 \end{tabular}
 \caption[Selected parameters from grid search]{Table showing an overview of the selected parameters for both the SVM and MaxEnt model. Parameters selected by doing an excessive grid search.}
@@ -398,7 +398,7 @@ To even out the distribution of the different classes, we did a grid search with
 
 The features in tables~\ref{tab:informative_features_svm} and~Table~\ref{tab:informative_features_maxent}  is the most informative features from each of the classifiers in the second grid search. Some features are represented among the top 15 for both SVM and MaxEnt, and most of these features makes sense. As we did not normalize the features, we can see that some words appears in different forms and degrees (e.g., "worse", "worst" and "don't", "didn't"). For both MaxEnt and SVM, emoticons are listed among the most informative features. In the case of SVM, the exclamation point is an informative feature for positive classification.
 
-We see that for the most part the features seem to make sense, but we see some anomalies. Both SVM and MaxEnt show 'why' as a negative feature, which is normally incorrect. In addition, the most informative feature for SVM is wait, which is not a particularly positively charged word.
+We see that for the most part the features seem to make sense, but we see some anomalies. Both SVM and MaxEnt show 'why' as a negative feature, which is normally incorrect. In addition, the most informative positive feature for SVM is wait, which is not a particularly positively charged word.
 
 
 \begin{figure}[!htb]
@@ -410,7 +410,7 @@ We see that for the most part the features seem to make sense, but we see some a
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_stats_best.png}
 	\end{minipage}
-	\caption[Best performance plots for SVM and MaxEnt]{Best performance plots for SVM and MaxEnt. We see that MaxEnt has better Precision and Accuracy, but SVM scores higher on F1-score and Recall.}
+	\caption[Best performance plots for SVM and MaxEnt]{Best performance plots for SVM and MaxEnt. MaxEnt has better Precision and Accuracy, but SVM scores higher on F1-score and Recall.}
 	\label{fig:best_result}
 \end{figure}
 
@@ -423,7 +423,7 @@ We see that for the most part the features seem to make sense, but we see some a
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best.png}
 	\end{minipage}
-	\caption[Confusion Matrix for SVM and MaxEnt]{Confusion Matrix for SVM and MaxEnt. MaxEnt favours neutral classification, and perfoms poorer than SVM on both positive and negative classifications.}
+	\caption[Confusion Matrix for SVM and MaxEnt]{Confusion Matrix for SVM and MaxEnt. MaxEnt favours neutral classification, and performs worse than SVM on both positive and negative classifications.}
 	\label{fig:best_result_confusion}
 \end{figure}
 

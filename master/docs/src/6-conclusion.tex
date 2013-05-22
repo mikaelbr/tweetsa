@@ -4,11 +4,15 @@ We found that machine learning algorithms perform well for doing domain semi-ind
 
 Experiments show that SVM and MaxEnt in a single step classification performs best for these datasets. Given the confusion matrices and results on different data sets, it seems that SVM performs better than MaxEnt. But the neutral-heavy development set caused MaxEnt to perform better than SVM while doing a complete full grid search across multiple values.
 
-Reducing the training set to normalise the number of tweets per label did not improve the overall performance in accuracy, but improved the F1-score and the classification of positive tweets. 
+Notably, both systems perform well on the out- of-domain data represented by the SMS messages, which is encouraging and indicates that the approach taken really is domain semi-independent. This was also reflected in the rankings of the two systems in the shared task: both were on the lower half among the participating systems on Twitter data (24th/36 resp. 10th/15), but near the top on SMS data, with the constrained system being ranked 5th of 28  and the unconstrained 6th of 15.
+
+As emoticons are proven informative features, we should have implemented support for emojis as well. This would give better performance to applications like SentiMap, that processes only tweets with a geolocation attached to it. I.e, it supports only tweets sent from a mobile device, and possibly an Apple product that uses these emojis.
+
+By reducing the training set, we obtained better classification for negative and positive tweets separately. But when the number of instances was reduced to a perfect balance between positive, neutral and negative classes, the total number of tweets was too low to train a well-performing classifier.
 
 The architecture proposed for this system performs well on regular REST API requests, but is also capable of streaming and classifying several tweets per second in real-time. By extending the Twitter API and having the same end point interface, no additional documentation is needed for the API. Existing libraries and programming language specific API wrappers can be used to retrieve information from our API Layer by only changing their URL connection point. 
 
-We found that the sentiment data can be used to visualise in different practical views. Since Twitter has a lot of meta data attached to each tweet from the REST API, the possibilities for making visualisation applications are huge. With relatively simple steps, one can make applications for showing accumulated sentiments based on a search query, or show changes in sentiment across a country. 
+We found that the sentiment data can be used to visualise in different practical views. Since Twitter has a lot of meta data attached to each tweet from the REST API, the possibilities for making visualisation applications are huge. With relatively simple steps, one can make applications for showing accumulated sentiments based on a search query, or show changes in sentiment across a country.
 
 \section{Contribution}
 
