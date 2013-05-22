@@ -142,3 +142,14 @@ As with many previous systems (e.g. \cite{article:bermingham}, \cite{chamlertwat
 URLs and user names were normalised to placeholder text (\textit{http://someurl} and  $@$$someuser$) and the tweets were tokenized and part-of-speech tagged using a tool for doing natural language processing on Twitter by~\cite{gimpel2010part}. 
 
 The features used were word ngrams, character ngrams, number of words in all caps, POS tags, hashtags, lexica, punctuations, emoticons, the number of elongated words (e.g. $goooood$), clusters and the number of negated contexts. \cite{MohammadEA:13} found that using all these features gave the best performance for F-measure.
+
+
+\subsection{Visualisation: State-of-the-Art}
+
+Not as much focus has been on doing distribution and visualisation of sentiment data, as with the actual classification of the data. Sentiment140\footnote{\url{http://www.sentiment140.com/}}, the system developed by~\cite{article:go}, uses searching and bar charts and pie charts to visualise positive and negative sentiments. In addition it shows all tweets the sentiment is calculated from, even the neutral tweets. 
+
+TweetFeel\footnote{\url{http://www.tweetfeel.com/}} is another popular site, and used by~\cite{barbosa2010robust} to generate data set. TweetFeel shows a textual stream of tweets regarding to a search query. The individual tweets are highlighted as either green or red, depending on the sentiment.
+
+Another visualisation SMM\footnote{\url{http://smm.streamcrab.com/}}. SMM is a Sentiment Analysis tool developed as a open source project and is distributed at Github\footnote{\url{https://github.com/cyhex/smm}}. The visualisation of SMM is a bit more complex than the previous systems. You can chose whether or not to stream data, and there are five different views used to plot sentiment. Three views has plots focusing on showing negative, positive and neutral tweets developed over time, where the x-axis indicate seconds ago and the y-axis show accumulated score. Another view in SMM show a pie chart with percentage of neutral, positive and negative tweets. The last view show the individual tweets and their sentiment score as defined by a number between -1 and 1.
+
+Although WeFeelFine, by~\cite{article:wefeelfine} is not similar to the systems previously described, it is worth mentioning, as it focuses a lot on visualising data collected from Twitter. WeFeelFine is a system that has tracked feelings from blogs and Twitter since 2005. The feelings can be anything from hunger to sleepiness. The data is presented in a creative way, where as a collection of moving graphical nodes, float around on the page, represents each feeling felt. One can search and filter on feelings, gender, weather, location and date. When clicking on a node, the text where the feeling was extracted from is shown. 
