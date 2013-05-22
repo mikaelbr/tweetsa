@@ -347,6 +347,8 @@ A JavaScript library called Highcharts was used to render the combined pie and b
 
 The application uses CSS for responsiveness, so it fits different screen sizes. On large screens and resolutions the presentation is divided into two columns, but when the browser window is minimized to below 1080 pixels, the timeline in the right column is moved to the left, so it appears below the chart view.
 
+\subsubsection{Working Product}
+
 \begin{figure}[htb!]
 \begin{center}
  \includegraphics[width=\textwidth]{../img/screenshot_sentigraph.png}
@@ -355,9 +357,24 @@ The application uses CSS for responsiveness, so it fits different screen sizes. 
 \end{center}
 \end{figure}
 
-\subsubsection{Working Product}
+\begin{figure}[htb!]
+\begin{center}
+ \includegraphics[width=\textwidth]{../img/sentigraph_1.png}
+ \caption[SentiGraph graph view screen shot]{Screen shot of the SentiGraph plot close up. Screen shot is taken the same day as Manchester United confirmed Sir Alex Fergusons retirement. Almost 50\% of all the tweets show a positive sentiment, and less than 10\% negative.}
+ \label{fig:sentigraph_1}
+\end{center}
+\end{figure}
 
-SentiGraph allows the user to define a search query and the number of tweets to be returned. The maximum limit supported by the Twitter API is 100 tweets per query. The returned tweets are processed in JavaScript, and for the timeline view, each tweet's HTML container element are given a CSS colour code to indicate its sentiment. In addition to colouring the container, the script also inserts the author's profile picture, and the date and time the tweet was published. The script waits for all data in each tweet container to be completely downloaded before it renders them in a chronological order. While the application is downloading the data, a loading screen appears in the timeline view. This is mainly to avoid collapsing HTML elements and design flaws because of missing data, but it is also an indication that the application is busy.
+\begin{figure}[htb!]
+\begin{center}
+ \includegraphics[width=\textwidth]{../img/sentigraph_2.png}
+ \caption[SentiGraph tweet list screen shot]{Screen shot of the tweet list on the SentiGraph application. Screen shot taken the same day as Manchester United confirmed Sir Alex Fergusons retirement. The tweets shown is an excerpt of the entire list of tweets. The tweets have different background colours according to their sentiment.}
+ \label{fig:sentigraph_2}
+\end{center}
+\end{figure}
+
+
+SentiGraph allows the user to define a search query and the number of tweets to be returned. The maximum limit supported by the Twitter API is 100 tweets per query. The returned tweets are processed in JavaScript, and for the timeline view, each tweet's HTML container element are given a CSS colour code to indicate its sentiment. This can be seen in~figure~\ref{fig:sentigraph_2}. In addition to colouring the container, the script also inserts the author's profile picture, and the date and time the tweet was published. The script waits for all data in each tweet container to be completely downloaded before it renders them in a chronological order. While the application is downloading the data, a loading screen appears in the timeline view. This is mainly to avoid collapsing HTML elements and design flaws because of missing data, but it is also an indication that the application is busy.
 
 The combined pie and bar chart supports some interaction from the user. When clicking one the bars in the bar chart, it shows how many tweets that are predicted as the selected class. By clicking one of the sectors in the pie chart it will display the percentage of tweets in that class.
 
