@@ -98,12 +98,29 @@ By attaching the negation word the the preceding and the following the features 
 
 The system from this Master's Thesis, participated in a workshop with focus on semantic analysis systems. SemEval'13\footnote{\url{http://www.cs.york.ac.uk/semeval-2013/}} had several shared tasks, but we took part of Task 2B; building a message polarity classification system in Twitter. The task had two parts: unconstrained and constrained systems. The unconstrained system required a training set in addition to the one provided by SemEval'13, and the constrained system could only use the provided set. To test the systems beyond Twitter, SemEval'13 also evaluated the systems using a Short Message (or Messaging) Service~(\nom{SMS}{Short Message (or Messaging) Service}) test set. Thus, there were a total of four different deliveries to SemEval'13: Twitter unconstrained and constrained, and SMS unconstrained and constrained.
 
+\subsection{Visualisation Applications}
+
+To test the visualisation applications an experiment to predict the outcome of the Eurovision Song Contest~(\nom{ESC}{Eurovision Song Contest}), was conducted.
+
+Eurovision Song Contest is a popular annual cross Europe song contest. Each country participate with their selected song, and every country vote for their favourite song to win the contest. A country can not vote on their own song. In addition to tele-voting in each country, a country also has a panel of judges giving expert opinions.
+
+ESC has historically been criticized for being too political, but research can indicate other wise. \cite{ginsburgh2008eurovision} show that the amount of vote trading is rather minimal and that the voting is more cultural and geographical than political. Furthermore, \cite{ginsburgh2008eurovision} suggest that immigration can have some impact on voting. In any case, it may be plausible, that the amount of tele-voters for ESC, is equal to the amount of people tweeting about a given country contribution.
+
+To predict the outfall of ESC, the SentiStack application was used. This allows for several Twitter Search queries to be compared to each other, and thus see what may be considered as favourites. The predictions were carried out before the ESC final, but after the semi-finals.  
+
+%\subsubsection{SentiMap After a Natural Disaster}
+%
+%After the Oklahoma Tornado disaster\footnote{2013 Moore tornado: \url{http://en.wikipedia.org/wiki/2013_Moore_tornado}}, the experiment executed was to observe the SentiMap application, and see how the natural disaster affected the sentiment across the nation. 
+
+
 \section{Experiment Results}
 \label{sec:results}
 
 The experiment results is split into two different subsections. In the first subsection, the full grid search results are defined. In the latter, a detailed comparison of the best algorithms can be found.
 
 \subsection{Full Grid Search}
+
+As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F1-score and accuracy for each of the classifiers with dev set 1 as evaluation data. We notice that most of the classifiers that involves the NB algorithm has a bad performance, both for accuracy and F1-score. This was observed for other dev sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F1-score.
 
 \begin{sidewaysfigure}[!htb]
  \begin{center}
@@ -112,8 +129,6 @@ The experiment results is split into two different subsections. In the first sub
  \caption[Results overview across all models]{A full overview of the performance of the different models after a full grid search. Two models points out as having highest accuracies: SVM and MaxEnt. One can also see models using Naive Bayes, especially on it's own or to classify subjectivity, performs poorly.}
  \label{fig:results_full}
 \end{sidewaysfigure}
-
-As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F1-score and accuracy for each of the classifiers with dev set 1 as evaluation data. We notice that most of the classifiers that involves the NB algorithm has a bad performance, both for accuracy and F1-score. This was observed for other dev sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F1-score.
 
 Two-step models with SVM-based subjectivity classification exhibit the same basic behaviour. The one-step MaxEnt model classifies more tweets as neutral than the other classifiers. Using MaxEnt for subjectivity classification and either MaxEnt or SVM for polarity classification performs well, but is too heavy on the positive class. Boosting does not improve and behaves in a fashion similar to two-step MaxEnt models. All combinations involving NB tend to heavily favour positive predictions; only the two-step models involving another algorithm for polarity classification gave some improvement for negative tweets.
 
@@ -512,15 +527,22 @@ Table \ref{tab:semeval_results}~shows the results obtained by the NTNU systems o
 
 \subsection{Visualisation Results}
 
+During the experiment a screen shot of the SentiStack system was taken. 
 
-
-\begin{figure}[!htb]
+\begin{figure}[htb!]
 	\centering
 	\includegraphics[width=\linewidth]{../img/sentistack_esc.png}
 	\caption[SentiStack running before the Eurovision Song Contest Final]{The SentiStack application running before the Eurovision Song Contest Final. The order of the bar stacks is equal to the running order: France, Lithuania, Moldova, Finland, Spain, Belgium, Estonia, Belarus, Malta, Russia, Germany, Armenia, The Netherlands, Romania, United Kingdom, Sweden, Hungary, Denmark, Iceland, Azerbaijan, Greece, Ukraine, Italy, Norway, Georgia and Ireland. We see that }
 	\label{fig:sentistack_esc}
 \end{figure}
 
+The application was run before the final, but after the semi-finals. The goal were to predict as much of the top 10 list as possible. By sheer guesswork, one could expect to get $\dfrac{10}{26} = 0.3846 \approx 38.5\%$\footnote{10 out of 26 participants.} of the top 10. 
+
+In figure~\ref{fig:sentistack_esc}, the prediction results is shown. By the graph, it is clearly visible that Ireland was predicted to be the obvious winner, followed by Germany, Malta, Finland and Denmark.
+
+
+
+Table~\ref{tab:esc_results} shows an overview of the predictions and the actual results of the ESC 2013. It's clear to se that only 5 of the predicted top 10, actually resulted amongst the top 10, and thus having an accuracy of 50\%. 
 
 \begin{table}
 
@@ -545,3 +567,33 @@ Table \ref{tab:semeval_results}~shows the results obtained by the NTNU systems o
 \caption[Eurovision Song Contest experiment result]{The results of the Eurovision Song Contest versus the predictions from using the SentiStack visualisation application. From the table, it is visible that 50\% of the countries predicted in the top 10, resulted in a position among the top 10.}
 \label{tab:esc_results}
 \end{table}
+
+%
+%\subsubsection{SentiMap After a Natural Disaster}
+%
+%\begin{figure}[htb!]
+%	\centering
+%	\includegraphics[width=\linewidth]{../img/disaster_sentimap.png}
+%	\caption[SentiMap after a natural disaster]{Showing SentiMap running after a natural disaster in Oklahoma. Showing little change in sentiment in the state or the nation. Positive tweets at 60.7\%.}
+%	\label{fig:disaster_sentimap}
+%\end{figure}
+%
+%There was no notable change in sentiment for Oklahoma over time after the tornado disaster. After streaming tweets for a while, the sentiment normalized at 60.7\% positive and 39.4\% negative. This is about the same as previous runs. This is shown in~figure~\ref{fig:disaster_sentimap}. 
+%
+%Results from searching on Oklahoma on SentiGraph show that many tweets related to 
+%
+%\begin{figure}[htb!]
+%	\centering
+%	\includegraphics[width=\linewidth]{../img/disaster_graph.png}
+%	\caption[SentiGraph plots after a natural disaster]{SentiGraph after a natural disaster in Oklahoma. Showing a large portion of the tweets as neutral and many positive.}
+%	\label{fig:disaster_graph}
+%\end{figure}
+%
+%
+%
+%\begin{figure}[htb!]
+%	\centering
+%	\includegraphics[width=\linewidth]{../img/disaster_list.png}
+%	\caption[SentiGraph tweet list after a natural disaster]{SentiGraph showing tweets after a natural disaster in Oklahoma. Many tweets classified as positive with prayers for Oklahoma, and many neutral tweets with links to different news sites and articles.}
+%	\label{fig:disaster_list}
+%\end{figure}
