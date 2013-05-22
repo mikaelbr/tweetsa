@@ -7,7 +7,7 @@ Notably, both systems perform well on the out- of-domain data represented by the
 
 As emoticons were proven informative features, support for Emojis as feature would be an improvement. This would give better performance to applications like SentiMap, that processes only tweets with a geolocation attached to it. I.e, it supports only tweets sent from a mobile device, and possibly an Apple product that uses these Emojis.
 
-By reducing the training set, we obtained better classification for negative and positive tweets separately. But when the number of instances was reduced to a perfect balance between positive, neutral and negative classes, the total number of tweets was too low to train a well-performing classifier. A bigger dataset would reveal, as our results suggest, if training with balance between target classes would give a better performing classifier.
+By reducing the training set, we obtained better classification for negative and positive tweets separately. But when the number of instances was reduced to a perfect balance between positive, neutral and negative classes, the total number of tweets was too low to train a well-performing classifier. A bigger dataset would reveal if training with more balanced data would give a better performing classifier.
 
 The architecture proposed for this system performs well on regular REST API requests, but is also capable of streaming and classifying several tweets per second in real-time. By extending the Twitter API and having the same end point interface, no additional documentation is needed for the API. Existing libraries and programming language specific API wrappers can be used to retrieve information from our API Layer by only changing their URL connection point. 
 
@@ -23,11 +23,9 @@ The development of the visualisation applications shows how Twitter sentiment ca
 
 \section{Future Work}
 
-A natural way to extend this work, is to add additional classification algorithms as models. There are also several different features that could be investigated, as well as more combinations of pre-processing methods.
+An obvious way to extend this work, would be to add other classification algorithms to the grid search, e.g., Conditional Random Fields or more elaborate ensembles. There are also several
+features and feature selection methods that could be investigated, such as POS-tagging, like~\cite{article:pak}, and a less na\"{i}ve way of handling negation. Rather than the simple treatment of negation used here, an approach to automatic induction of scope through a negation detector~\citep{CouncillEA:10} could be used.
 
-To improve the classification on tweets, one can make the system less domain independent by adding more Twitter specific features. E.g., by utilizing automatic phrase-polarity lexicon extraction \citep{VelikovichEA:10}, or by adding lexica like the AFINN word list by ~\cite{article:afinn} that is developed specifically for social media.
-
-
-It could also be interesting to add POS-tagging as an experiment, using it to classify subjectivity as shown to work by~\cite{article:pak}.
+To improve the classification on tweets, one can make the system less domain independent by adding more Twitter specific features. E.g., by utilizing automatic phrase-polarity lexicon extraction \citep{VelikovichEA:10}, or by adding lexica like the AFINN word list by~\cite{article:afinn} that is developed specifically for social media.
 
 While developing the visualisation application SentiMap, a wide use of Emojis was shown in the tweet stream. As the tweets were restricted by geographical location, most of them originated from hand held devices, such as Apple's iPhone. By translating these Emojis to common placeholders like $||Happy||$ or $||Sad||$ they could be used as features.
