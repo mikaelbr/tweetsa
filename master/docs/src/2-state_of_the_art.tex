@@ -1,6 +1,6 @@
 \chapter{State of the Art}
 
-In this section it is described how a systematic literature review (\nom{SLR}{Systematic Literature Review}) was conducted to establish the state of the art of a Twitter Sentiment Analysis (\nom{TSA}{Twitter Sentiment Analysis}) system, and the result of the review. The first section, Section~\ref{sec:slrintro}, covers the introduction and defines our research questions. The review method is described in Section~\ref{sec:slrmethod} and the result in Section~\ref{sec:slrresults}.
+A systematic literature review (\nom{SLR}{Systematic Literature Review}) was conducted to establish the state of the art of a Twitter Sentiment Analysis (\nom{TSA}{Twitter Sentiment Analysis}) system. The method and results is documented in this chapter. The first section, Section~\ref{sec:slrintro}, covers the introduction and defines our research questions. The review method is described in Section~\ref{sec:slrmethod} and the result in Section~\ref{sec:slrresults}.
 
 \section{Introduction}
 \label{sec:slrintro}
@@ -106,11 +106,11 @@ In this section we will describe our process step by step according to the syste
 \section{Results}
 \label{sec:slrresults}
 
-In this section the result of the systematic literature review is presented. In Section~\ref{sec:selected} all of the extracted data from the selected studies are presented. The assessed quality is also presented. 
+In this section the result of the systematic literature review is presented. In Section~\ref{sec:selected} all of the extracted data from the selected studies are presented. The assessed quality of the articles is also documented here.
 
-In Section~\ref{sec:stateofart} the answers to our research questions are given. 
+Section~\ref{sec:stateofart} answers the research questions given as a part of the SLRP. 
 
-\subsection{Selected studies}
+\subsection{Selected studies} 
 \label{sec:selected}
 
 In this section all of the selected studies are presented in table format as a part of the data extraction step in the SLR. The results can be found in~\autoref{tab:extraction}. In addition to the data features defined in the review protocol, the total quality is added to be a part of the extraction table.
@@ -133,7 +133,7 @@ In relation to SemEval'13,~\cite{MohammadEA:13} defined and implemented a state-
 
 \subsubsection{Sentiment Lexicon}
 
-The system developed by~\cite{MohammadEA:13}, used lexica to help classify sentiment. In addition to using existing general lexica like the NRC Emotion Lexicon~\citep{mohammad2010emotions, mohammad2011tracking}, MPQA Lexicon~\citep{wilson2005recognizing}, and the Bing Liu Lexicon~\citep{hu2004mining}, they also used Twitter specific lexica. One Twitter specific lexicon was developed for the system by streaming from the Twitter API from April to December 2012, using 78 different seed words as hash tags~\citep{MohammadEA:13}. In addition to their own lexicon, the Sentiment140 by~\cite{article:go} lexicon was used.
+The system developed by~\cite{MohammadEA:13}, used lexica to help classify sentiment. In addition to using existing general lexica like the NRC Emotion Lexicon~\citep{mohammad2010emotions, mohammad2011tracking}, MPQA Lexicon~\citep{wilson2005recognizing}, and the Bing Liu Lexicon~\citep{hu2004mining}, they also used Twitter specific lexica. One Twitter specific lexicon was developed for the system by streaming from the Twitter API from April to December 2012, using 78 different seed words as hash tags~\citep{MohammadEA:13}. In addition to their own lexicon, the Sentiment140 lexicon created by~\cite{article:go} was used.
 
 \subsubsection{Classifier and Features}
 
@@ -150,6 +150,6 @@ The distribution and visualisation of sentiment data has not been given as much 
 
 TweetFeel\footnote{\url{http://www.tweetfeel.com/}} is also a popular site for visualisation of Twitter sentiment. It was used by~\cite{barbosa2010robust} to generate a data set. TweetFeel shows a textual stream of tweets matching a given search query. The matched query or keyword in the tweet text are highlighted as either green or red, depending on the sentiment.
 
-Another visualisation SMM\footnote{\url{http://smm.streamcrab.com/}}. SMM is a Sentiment Analysis tool developed as a open source project and is distributed at Github\footnote{\url{https://github.com/cyhex/smm}}. The visualisation of SMM is a bit more complex than the previous systems. You can chose whether or not to stream data, and there are five different views used to plot sentiment. Three views have plots focusing on showing negative, positive and neutral tweets developed over time, where the x-axis indicate the number of seconds ago and the y-axis show accumulated score. Another view in SMM shows a pie chart with percentage of neutral, positive and negative tweets. The last view shows the individual tweets and their sentiment score as defined by a number between -1 and 1.
+Another visualisation SMM\footnote{\url{http://smm.streamcrab.com/}}. SMM is a Sentiment Analysis tool developed as a open source project and is distributed at Github\footnote{\url{https://github.com/cyhex/smm}}. The visualisation of SMM is a bit more complex than the previous systems. You can choose whether or not to stream data, and there are five different views used to plot sentiment. Three views have plots focusing on showing negative, positive and neutral tweets developed over time, where the x-axis indicate the number of seconds ago and the y-axis show accumulated score. Another view in SMM shows a pie chart with percentage of neutral, positive and negative tweets. The last view shows the individual tweets and their sentiment score as defined by a number between -1 and 1.
 
-Although WeFeelFine, by~\cite{article:wefeelfine} is not similar to the systems previously described, it is worth mentioning, as it focuses a lot on visualising data collected from Twitter. WeFeelFine is a system that has tracked feelings from blogs and Twitter since 2005. The feelings can be anything from hunger to sleepiness. The data is presented in a creative way, where as a collection of moving graphical nodes, float around on the page, represents each feeling felt. One can search and filter on feelings, gender, weather, location and date. When clicking on a node, the text where the feeling was extracted from is shown. 
+Although WeFeelFine, by~\cite{article:wefeelfine} is not a SA system like the previously noted systems, it is worth mentioning as it focuses a lot on visualising data partly collected from Twitter. WeFeelFine is a system that has tracked feelings from blogs and Twitter since 2005. The feelings can be anything from hunger to sleepiness. The data is presented in a creative way, where as a collection of moving graphical nodes, float around on the page, represents each feeling felt. One can search and filter on feelings, gender, weather, location and date. When clicking on a node, the text where the feeling was extracted from is shown. 
