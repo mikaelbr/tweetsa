@@ -76,7 +76,7 @@ The equation for the separating hyperplane is defined by the closest points to t
 
 \subsection{Ensemble Learning}
 
-Ensemble Learning is a process where multiple models are used in an ensemble to solve a problem. The thought behind using an ensemble of classifiers is to reflect how we make choices in our real lives. A normal procedure is to collect the opinion from several others, sometime even experts, to support our decisions. This is also what an Ensemble Learning classifier does. Ensemble Learning is itself a supervised learning algorithm, since it's trained and used to make predictions. An Ensemble learner can be a combination of different algorithms, and need not necessarily consist of one specific type. There are mainly two complementary approaches to training these individual classifiers: bootstrap aggregating~(\nom{bagging}{Bootstrap Aggregating}) and boosting. The main difference is how the classifiers in an ensemble use their training data. Each classifier in bagging is trained on a subset of the training data, while in boosting, all classifiers are trained on the same original data set.
+Ensemble Learning is a process where multiple models are used in an ensemble to solve a problem. The thought behind using an ensemble of classifiers is to reflect how we make choices in our real lives. A normal procedure is to collect the opinion from several others, sometime even experts, to support our decisions. This is also what an Ensemble Learning classifier does. Ensemble Learning is itself a supervised learning algorithm, since it is trained and used to make predictions. An Ensemble learner can be a combination of different algorithms, and need not necessarily consist of one specific type. There are mainly two complementary approaches to training these individual classifiers: bootstrap aggregating~(\nom{bagging}{Bootstrap Aggregating}) and boosting. The main difference is how the classifiers in an ensemble use their training data. Each classifier in bagging is trained on a subset of the training data, while in boosting, all classifiers are trained on the same original data set~\citep{BauerEA:99}.
 
 \subsubsection{Bootstrap Aggregating}
 
@@ -377,7 +377,7 @@ SentiGraph allows the user to define a search query and the number of tweets to 
 
 The combined pie and bar chart supports some interaction from the user. When clicking one the bars in the bar chart, it shows how many tweets that are predicted as the selected class. By clicking one of the sectors in the pie chart it will display the percentage of tweets in that class.
 
-An overview of all the views and the application can be seen in~figure~\ref{fig:sentigraph_screenshot}. The top has the query input box, and on the left side the plots are visible (seen in detail in~figure~\ref{fig:sentigraph_1}). All the tweets that form the plots can be seen in detail in the tweet list as seen in~figure~\ref{fig:sentigraph_2}.
+An overview of all the views and the application can be seen in~figure~\ref{fig:sentigraph_screenshot}. The top has the query input box, and on the left side the plots are visible (seen in detail in~figure~\ref{fig:sentigraph_1}). All the tweets that form the plots can be seen in detail in the timeline as seen in~figure~\ref{fig:sentigraph_2}.
 
 \subsection{Comparing Queries: SentiStack}
 
@@ -401,7 +401,7 @@ There are two different aspects to the SentiStack code: input queries, and outpu
 
 When the "Compare" button is pressed, the system extracts each query from the input boxes, and constructs a query list. This query list will be iterated and a total of 200 tweets from each query will be retrieved from the Search API using AJAX. As the API responds in JSON, the data can be easily parsed and manipulated. All results from the queries are accumulated in a hash map using the query as a key and a list of the sentiment distribution for that query (e.g. 70 neutral, 70 positive and 60 negative) as a value. When every API request is done, the presentation method is triggered.
 
-The presentation method uses the accumulated data hash map as a source and generates a graph based on that information. For each key in the hash map, a bar stack is generated with the value as distribution for the parts of the stack. The search queries (hash map keys), is used as labels for the graph.
+The presentation method uses the accumulated data hash map as a source and generates a graph based on that information. For each key in the hash map, a bar stack is generated with the value as distribution for the parts of the stack. The search queries (hash map keys) are used as labels for the graph.
 
 If compare is triggered again, the system will reset (clearing the data hash map and query list) and start the entire process again.
 

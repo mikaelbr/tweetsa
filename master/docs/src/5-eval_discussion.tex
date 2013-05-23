@@ -33,7 +33,7 @@ The data sets used to train our models was not evenly distributed among the diff
 
 \section{G2: Develop tools for visualising sentiment classified tweets}
 
-We achieved goal 2 by implementing two different applications for visualising sentiment analysis data, and by designing and using a generic system for classifying tweets. 
+We achieved goal 2 by implementing three different applications for visualising sentiment analysis data, and by designing and using a generic system for classifying tweets. 
 
 We are satisfied with the way the generic system architecture is built. By just extending the Twitter API, no API documentation is needed, and if you are familiar with the Twitter API, you don't have to re-learn anything. In addition, if there is a system all ready integrated with Twitter data, the migration to our system is simple; swap the entry URL point from the Twitter API base URL to our system base URL. 
 
@@ -64,7 +64,7 @@ A big limitation of the SentiStack system is the number of requests to the Twitt
 
 \subsubsection{Predicting ESC}
 
-By looking at the results from predicting the winners of ESC, it is clear to see that it did not perform too well. Only 5 of the ones predicted to be in the top 10 actually ended up in the top 10. This is marginally better than the baseline of $3.85$, but not enough to make any conclusions. 
+By looking at the results from predicting the winners of ESC, it is clear that it did not perform too well. Only 5 of the finalists predicted to be among the top 10 was correct. This is marginally better than the baseline of $3.85$, but not enough to make any conclusions. 
 
 Ireland was picked as a clear winner by SentiStack, but in fact ended up in decidedly last place with only 5 points\footnote{\url{http://en.wikipedia.org/wiki/Eurovision_Song_Contest_2013}}. It is difficult to say why Ireland did so poorly when it shows a large amount of positive tweets. It could seem like the assumption of tweets being representative for the tele-voting on ESC is wrong. One important aspect is, that since Ireland is an English speaking country, their tweets is visible to the SenitStack system, unlike most of the other countries. This can lead to many bias tweets being registered from Ireland and thus skewing the results. 
 
