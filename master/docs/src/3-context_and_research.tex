@@ -198,22 +198,22 @@ The base parent model implements methods for training the machine learning algor
 \clearpage
 \section{Visualisation Applications}
 \label{sec:visualization_applications}
-To test and give example of how to use the generic system, different visualisation applications were implemented. Each of these applications is described in their own sub section. These sub sections are divided into describing how the applications are implemented and the finished product.
+To test and give examples of how to use the generic system, three different visualisation applications were implemented: SentiMap which presents geo-location based streams, SentiGraph which is a method for displaying tweet sentiment in a combined pie and bar chart, and SentiStack which helps visualising the twitter data as a bar stack per search query. Each of these applications is described in their own subsection. The subsections are in turn divided into describing how the applications are implemented and the finished product.
 
-\subsection{SentiMap: Geo-location based streams}
+\subsection{SentiMap: Geo-location Based Streams}
 
 To show how the streaming API and geo-location can be used to analyse sentiments for a location in real-time, SentiMap was developed. SentiMap is a visualisation tool showing the distribution of sentiments across the states of USA with or without a search query. When a new tweet is posted, within the USA, it is used to change the colour of the state it originated from. SentiMap can show the specifics of a state, with the number of positive and negative tweets, and the total of tweets registered.
 
-SentiMap also tracks changes in sentiment in the entire USA per second. If a major event happens, the time line could show a change in sentiment across the country. The sentiment difference is calculated by taking the number of positive tweets subtracted by the number of negative tweets in a given second. 
+SentiMap also tracks changes in sentiment in the entire USA per second. If a major event happens, the time line could show a change in sentiment across the country. The sentiment difference is calculated by taking the number of positive tweets subtracted by the number of negative tweets in a given moment. 
 
 \subsubsection{Implementation}
 
-Most of the application is implemented on the client side, and thus running in the browser. There is a thin server side code base running, handling the stream. In this section, the server will be described first, then all details about the client implementation is covered. 
+Most of the application is implemented on the client side, and thus running in the browser. There is a thin server side code base running, handling the stream. In this section, the server will be described first, then all details of the client implementation are covered. 
 
 
 \textbf{Server side implementation} \\
 
-The client side (browser), can not connect to a Twitter stream by it self. So to be continually fed tweets in real-time, a server implementation is necessary. SentiMap's server handles the following:
+The client side (browser), cannot connect to a Twitter stream by itself. So to be continually fed tweets in real-time, a server implementation is necessary. SentiMap's server handles the following:
 
 \begin{enumerate}
 \item Connect to the API Layer stream.
@@ -222,19 +222,19 @@ The client side (browser), can not connect to a Twitter stream by it self. So to
 \item Serve the clients connected to the WebSocket with tweets.
 \end{enumerate}
 
-Since the API layer is designed as a thin layer on top of the official Twitter API, the interface is the same. This means that programming libraries designed to interact with the Twitter API, can also communicate with the API Layer. SentiMap uses a forked (branched/copied a open sourced project) Node.JS module called nTwitter\footnote{\url{https://github.com/AvianFlu/ntwitter}}. The only alteration made on nTwitter is to change the base URL for the API location from pointing to Twitter's servers to direct to the API Layer server instead.
+Since the API layer is designed as a thin layer on top of the official Twitter API, the interface is the same. This means that programming libraries designed to interact with the Twitter API, can also communicate with the API Layer. SentiMap uses a forked (branched/copied an open sourced project) Node.JS module called nTwitter.\footnote{\url{https://github.com/AvianFlu/ntwitter}} The only alteration made on nTwitter is to change the base URL for the API location from pointing to Twitter's servers and directed to the API Layer server instead.
 
-The server opens a WebSocket connection to allow clients to stream tweets from the forked nTwitter module. WebSockets\footnote{\url{http://en.wikipedia.org/wiki/WebSocket}} is a technology used to accomplish a full-duplex connection over the Transmission Control Protocol~(TCP). This means that a server can push information to a client, without the client requesting it first, as with regular HTTP connection. There are two channels of communication opened for the WebSockets. One channel for streaming all tweets from the US, and one channel used to commute tweets related to a search. All clients share a connection to the non-query based stream, but for a search each client has its own connection. If there are no clients connected to the non-query based stream, the connection to the API Layer is closed, and only opened again if a client connects to the WebSocket.
+The server opens a WebSocket connection to allow clients to stream tweets from the forked nTwitter module. WebSockets\footnote{\url{http://en.wikipedia.org/wiki/WebSocket}} is a technology used to accomplish a full-duplex connection over the Transmission Control Protocol~(TCP). This means that a server can push information to a client, without the client requesting it first, as with regular HTTP connection. There are two channels of communication opened for the WebSockets. One channel for streaming all tweets from the US, and one channel used to transmit tweets related to a search. All clients share a connection to the non-query based stream, but for a search each client has its own connection. If there are no clients connected to the non-query based stream, the connection to the API Layer is closed, and only opened again if a client connects to the WebSocket.
 
 The server uses a simple Node.js HTTP module to serve static file content to clients. The static content is HTML files, JavaScript libraries and code bases, images and styling files.
 
-When a client connects to the WebSocket, on either channel, it gets fed tweets in real time. The clients receive full tweet objects directly from the API Layer. This way the clients them self can choose to do with the tweets and use them for multiple purposes at once. All logic regarding computation of sentiment statistics, graphing and logging is handled by each client.
+When a client connects to the WebSocket, on either channel, it gets fed tweets in real time. The clients receive full tweet objects directly from the API Layer. This way the clients themselves can choose what to do with the tweets and use them for multiple purposes at once. All logic regarding computation of sentiment statistics, graphing and logging is handled by each client.
 
 \textbf{Client side implementation} \\
 
-The client side uses a MV* design pattern to accomplish modularity and structure. A Model-View-*~(\nom{MV*}{Model-View-*}) design pattern, resembles a classical Model View Controller~(\nom{MVC}{Model View Controller}) pattern, but uses no controllers. Instead it relies more on views to handle the logic. To help with this design pattern, a JavaScript framework called Backbone.js\footnote{\url{http://backbonejs.org/}} is used. In later years Backbone has become a very popular framework to use on the client side for achieving structure in large scale applications. Backbone is a small framework and works in smaller applications as well as big corporate ones.
+The client side uses a MV* design pattern to accomplish modularity and structure. A Model-View-*~(\nom{MV*}{Model-View-*}) design pattern resembles a classical Model View Controller~(\nom{MVC}{Model View Controller}) pattern, but uses no controllers. Instead it relies more on views to handle the logic. To help with this design pattern, a JavaScript framework called Backbone.js\footnote{\url{http://backbonejs.org/}} is used. In later years Backbone has become a very popular framework to use on the client side for achieving structure in large-scale applications. Backbone is a small framework and works in smaller applications as well as big corporate ones.
 
-Every application function is its own independent module, and as such is pluggable. To support this modularity, the code is be separated into three different code structures:
+Every application function is its own independent module, and as such is pluggable. To support this modularity, the code is separated into three different code structures:
 
 \begin{enumerate}
 \item Models
@@ -244,23 +244,23 @@ Every application function is its own independent module, and as such is pluggab
 
 Models holds values and operations to interact with these values. For the SentiMap application, there are three different models; $State$, $TimelineStats$, and $TweetCount$. 
 
-The $TimelineStats$ model holds a two dimensional array with time stamps and sentiment difference as value, and an operation to append attributes to this value. When a set of time stamp and sentiment difference is added to the array, the model broadcasts this change to any listeners, by using \textit{events}. 
+The $TimelineStats$ model holds a two-dimensional array with time stamps and sentiment difference as value, and an operation to append attributes to this value. When a set of time stamp and sentiment difference is added to the array, the model broadcasts this change to any listeners, using \textit{events}. 
 
-The $TweetCount$ model operates the same as $TimelineStats$, but instead of having an array as a value, it simply stores an integer. $TweetCount$ offers operations to increase by one or reset the integer. When the integer is changed, the model announces so through events. Both the $TimelineStats$ and $TweetCount$ models are only intended to be initiated once, unlike the $State$ model.
+The $TweetCount$ model operates in the same way as $TimelineStats$, but instead of having an array as a value, it simply stores an integer. $TweetCount$ offers operations to increase by one or reset the integer. When the integer is changed, the model announces so through events. Both the $TimelineStats$ and $TweetCount$ models are only intended to be initiated once, unlike the $State$ model.
 
-For each state in the USA, an object is created from the $State$ model. This model holds values for state ID (name abbreviation. e.g. NY for New York), number of positive and negative tweets for the given state. The model has operations for increasing both the negative and positive counter values by one. The model triggers an event when the values change. 
+For each state in the USA, an object is created from the $State$ model. This model holds values for state ID (name abbreviation, e.g., NY for New York), number of positive and negative tweets for the given state. The model has operations for increasing both the negative and positive counter values by one. The model triggers an event when the values change. 
 
 A collection is simply a collection of models. In the SentiMap applications, the only collection is states which holds all the state model objects. Collections offers operations for fetching objects based on ID. This way, a collection can retrieve the model object for New York, based on the abbreviated name. 
 
-Views handles most of the logic and interactions with the end user. A view can represent a model or collection, but does not require to do so. A view is coupled with a HTML element in the Document Object Model~(\nom{DOM}{Document Object Model}) and can be used to render the contents of a model or collection of models into this DOM structure. A view can be looked at as a pluggable module. SentiMap consists of several views. Below is a list of the essential ones and a description of the view's role in the system.
+Views handles most of the logic and interactions with the end user. A view can represent a model or collection, but is not required to do so. A view is coupled with an HTML element in the Document Object Model~(\nom{DOM}{Document Object Model}) and can be used to render the contents of a model or collection of models into this DOM structure. A view can be looked at as a pluggable module. SentiMap consists of several views. Below is a list of the essential ones and a description of the view's role in the system.
 
 \begin{description}
 \item[App] \hfill \\
-The App view is the heart of the application. It loads and initiates all modules (views). When App is initiated, the map, timeline, tweet counter and stream view is initiated as well. The App view has an operation (method) for switching between a query based stream (search) or non-query based.
+The App view is the heart of the application. It loads and initiates all modules (views). When App is initiated, the map, timeline, tweet counter and stream view are initiated as well. The App view has an operation (method) for switching between a query-based stream (search) or non-query based.
 
 \item[PublicStreamView] \hfill \\
 
-The PublicStreamView and SearchView is strongly related. PublicStreamView handles the streaming of tweets when no search query is defined. PublicStreamView connects to the non-query based channel of the servers WebSocket, and attaches an operation to respond when the server pushes a new tweet. This response operation reads the tweet and based on the tweet location property, determines what state the tweet originates from. Using the ID for the state, the state model object is fetched from the state collection. Depending on whether the sentiment classification of the tweet is positive or negative, the response operation triggers the increase negative or positive tweet method on the model.
+The PublicStreamView and SearchView are strongly related. PublicStreamView handles the streaming of tweets when no search query is defined. PublicStreamView connects to the non-query based channel of the server's WebSocket, and attaches an operation to respond when the server pushes a new tweet. This response operation reads the tweet and based on the tweet location property, determines what state the tweet originates from. Using the ID for the state, the state model object is fetched from the state collection. Depending on whether the sentiment classification of the tweet is positive or negative, the response operation triggers the increase negative or positive tweet method on the model.
 
 The PublicStreamView module also has methods for disconnecting from the server WebSocket, and removing the generated HTML view from the DOM.
 
@@ -268,7 +268,7 @@ The response handler broadcasts a global event each time a new tweet is received
 
 \item[SearchView] \hfill \\
 
-The SearchView works almost exactly the same way as the PublicStreamView. If the App triggers a change between modes (from non-query based, to search), the SearchView connects to the search channel on the WebSocket and communicates on which query it would like to receive tweets related to. The SearchView and PublicStreamView shares the response handler on a new tweet.
+The SearchView works in almost exactly the same way as the PublicStreamView. If the App triggers a change between modes (from non-query based to search), the SearchView connects to the search channel on the WebSocket and communicates on which query it would like to receive tweets related to. The SearchView and PublicStreamView share the response handler on a new tweet.
 
 \item[MapView] \hfill \\
 
@@ -278,13 +278,13 @@ To render out a map of the USA and connect each state with a view, the MapView i
 
 A state view is created by the MapView, and has two attribute values; a state HTML object from the map, and the state model object. 
 
-On initialization, the StateView listens for any events on the attached model. If a state model changes its polarity (either positive or negative values are increased or reset), two operations get triggered; change colour on the map for the given state, and if the state specific statistics is visible, update the statistics.
+On initialization, the StateView listens for any events on the attached model. If a state model changes its polarity (either positive or negative values are increased or reset), two operations get triggered: change colour on the map for the given state and if the state specific statistics is visible, update the statistics.
 
 The state view also handles the presentation of the state specific statistics. If a state on the map is clicked, the StateView of that state hides the current detailed statistics (if any), and shows the statistics for the clicked state. Before showing the chart, it makes sure that the details are up to date. 
 
 \item[TweetCountView] \hfill \\
 
-The TweetCountView is a simple view, initiated by the App view. On initialization, the TweetCountView attaches a view render operation on the new tweet event broadcasted by the public stream and search stream response handlers. This view renderer updates a counter on the site, informing the end user on how many tweets the SentiMap as registered on the current map. 
+The TweetCountView is a simple view, initiated by the App view. On initialization, the TweetCountView attaches a view render operation on the new tweet event broadcasted by the public stream and search stream response handlers. This view renderer updates a counter on the site, informing the end user on how many tweets the SentiMap has registered on the current map. 
 
 \item[TimelineStatsView] \hfill \\
 
@@ -302,7 +302,7 @@ The TimelineStatsView is initiated from the App view, and has the $TimelineStats
 \end{center}
 \end{figure}
 
-The SentiMap applications consists of three main components; an input box for search, a map of the USA with an optional details view and a timeline graph (see Figure \ref{fig:sentimap_screenshot}). Per default, the search box, is empty which results in the map being updated with tweets without any constraints regarding topic or query. If a query is typed into the search box and the return key is pressed, the map view cleared for any colour and statistics, and the map is updated with sentiments from tweets related to the submitted query (see Figure~\ref{fig:sentimap_screenshot_search}). 
+The SentiMap applications consists of three main components: an input box for search, a map of the USA with an optional details view, and a timeline graph (see Figure \ref{fig:sentimap_screenshot}). Per default, the search box is empty which results in the map being updated with tweets without any constraints regarding topic or query. If a query is typed into the search box and the return key is pressed, the map view is cleared for any colour and statistics, and the map is updated with sentiments from tweets related to the submitted query (see Figure~\ref{fig:sentimap_screenshot_search}). 
 
 \begin{figure}[htb!]
 \begin{center}
@@ -312,11 +312,11 @@ The SentiMap applications consists of three main components; an input box for se
 \end{center}
 \end{figure}
 
-When a tweet is received, the state from where the tweet has its origin updates its colour, to reflect the change in sentiment based on the classification of that given tweet. A state where there are only negative tweets has a deep red colour, and a state with only positive tweets is clear green. If there is the same amount of positive and negative tweets, the colour of the state will be light grey. For more positive or negative a state is, the more deeper is the colour of the state. I.e. if a state is 55\% positive it is filled light green, and if a positive tweet from that state is registered, the state colour changes to a slightly more darker green.
+When a tweet is received, the state from where the tweet has its origin updates its colour, to reflect the change in sentiment based on the classification of that given tweet. A state where there are only negative tweets has a deep red colour, and a state with only positive tweets is clear green. If there is the same amount of positive and negative tweets, the colour of the state will be light grey. For more positive or negative a state is, the deeper is the colour of the state, i.e., if a state is 55\% positive it is filled light green, and if a positive tweet from that state is registered, the state colour changes to a slightly darker green.
 
 By default, no details from a specific state is shown. But if a user clicks on a state, a pie chart is added to the right of the U.S. map. This pie chart shows the details of sentiment on a given state, and the total of tweets registered from that state. This pie chart also updates in real time.
 
-The timeline graph on the bottom on the page, reflects the sentiment difference over time in the entire U.S.. This graph is updated every second, so if the on that second there is registered 18 positive tweets and 12 negative tweets, the graph will show the value 6. If there are no tweets registered for a given time, the graph shows the value 0. Hovering over a point on the x-axis of the graph will show the details of that value, as seen in~Figure~\ref{fig:sentimap_screenshot_timeline}.
+The timeline graph at the bottom of the page reflects the sentiment difference over time in the entire U.S. This graph is updated every second, so if on that second there is registered 18 positive tweets and 12 negative tweets, the graph will show the value 6. If there are no tweets registered for a given time, the graph shows the value 0. Hovering over a point on the x-axis of the graph will show the details of that value, as seen in~Figure~\ref{fig:sentimap_screenshot_timeline}.
 
 \begin{figure}[htb!]
 \begin{center}
@@ -326,25 +326,25 @@ The timeline graph on the bottom on the page, reflects the sentiment difference 
 \end{center}
 \end{figure}
 
-The SentiMap always starts from scratch on initialize. So refreshing the page or when opening it for the first time, the map has no values and the time line is set to nil. All statistics and colours reflects sentiments from the second a user initializes the application.
+The SentiMap always starts from scratch on initialize. So refreshing the page or when opening it for the first time, the map has no values and the time line is set to nil. All statistics and colours reflect sentiments from the second a user initializes the application.
 
 As the SentiMap application is designed to be open over a long period of time, the background image of the application changes to a random nature photography every 30 seconds. This to give an extra visual stimuli and to make the application prettier.
 
 
 
-\subsection{Tweet Searching}
+\subsection{SentiGraph: Tweet Sentiment Chart}
 
-The Twitter Search API is another popular service that allows for developers to search the Twitter corpus for recent tweets on a given keyword or topic. To show how to use this Search API with our classification server, a demonstration application called SentiGraph, was developed. SentiGraph consist of a chart and a Twitter timeline that shows the sentiment for each of the tweets in the chart. The chart is a combination of a pie chart, and a bar chart, where both are divided into positive, neutral and negative tweets. The sentiment of the tweets is indicated with red (negative), blue (neutral) and green (positive) colours.
+The Twitter Search API is a popular service that allows for developers to search the Twitter corpus for recent tweets on a given keyword or topic. To show how to use this Search API with our classification server, a demonstration application called SentiGraph was developed. SentiGraph consists of a chart and a Twitter timeline that shows the sentiment for each of the tweets in the chart. The chart is a combination of a pie chart and a bar chart, where both are divided into positive, neutral and negative tweets. The sentiment of the tweets is indicated with red (negative), blue (neutral) and green (positive) colours.
 
 \subsubsection{Implementation}
 
-SentiGraph is a light weight web application that runs exclusively in the client's web browser. It consist of three main views: a search field, a combined chart, and a Twitter timeline. The communication between the application and the API Layer is through Asynchronous JavaScript and XML~(\nom{AJAX}{Asynchronous JavaScript and XML}) technologies. AJAX is used to request and receive the response from the classification server. By using AJAX for communication, the views can be updated with new data without reloading the entire application.
+SentiGraph is a light-weight web application that runs exclusively in the client's web browser. It consists of three main views: a search field, a combined chart, and a Twitter timeline. The communication between the application and the API Layer is through Asynchronous JavaScript and XML~(\nom{AJAX}{Asynchronous JavaScript and XML}) technologies. AJAX is used to request and receive responses from the classification server. By using AJAX for communication, the views can be updated with new data without reloading the entire application.
 
-The tweets shown in the timeline includes the tweet text, the date it was published, the author's profile picture and the sentiment classification. All these data are extracted from the tweet JSON object provided by the API layer. The tweets are returned from Twitter API in a chronological order, so when the tweets are rendered they are prepended to the HTML container element to show the most recent tweet first.
+The tweets shown in the timeline include the tweet text, the date it was published, the author's profile picture and the sentiment classification. All these data are extracted from the tweet JSON object provided by the API layer. The tweets are returned from Twitter API in a chronological order, so when the tweets are rendered they are prepended to the HTML container element to show the most recent tweet first.
 
 A JavaScript library called Highcharts was used to render the combined pie and bar chart. Highcharts offers intuitive and interactive charts written in HTML and JavaScript, and was a good fit for this task. 
 
-The application uses CSS for responsiveness, so it fits different screen sizes. On large screens and resolutions the presentation is divided into two columns, but when the browser window is minimized to below 1080 pixels, the timeline in the right column is moved to the left, so it appears below the chart view.
+The application uses CSS for responsiveness, so it fits different screen sizes. On large screens and resolutions, the presentation is divided into two columns, but when the browser window is minimized to below 1080 pixels, the timeline in the right column is moved to the left, so it appears below the chart view.
 
 \subsubsection{Working Product}
 
@@ -359,7 +359,7 @@ The application uses CSS for responsiveness, so it fits different screen sizes. 
 \begin{figure}[htb!]
 \begin{center}
  \includegraphics[width=\textwidth]{../img/sentigraph_1.png}
- \caption[SentiGraph graph view screen shot]{Screen shot of the SentiGraph plot close up. Screen shot is taken the same day as Manchester United confirmed Sir Alex Fergusons retirement. Almost 50\% of all the tweets show a positive sentiment, and less than 10\% negative.}
+ \caption[SentiGraph graph view screen shot]{Screen shot of the SentiGraph plot close up. The Screen shot is taken the same day as Manchester United confirmed Sir Alex Fergusons retirement. Almost 50\% of all the tweets show a positive sentiment, and less than 10\% negative.}
  \label{fig:sentigraph_1}
 \end{center}
 \end{figure}
@@ -367,21 +367,21 @@ The application uses CSS for responsiveness, so it fits different screen sizes. 
 \begin{figure}[htb!]
 \begin{center}
  \includegraphics[width=\textwidth]{../img/sentigraph_2.png}
- \caption[SentiGraph tweet list screen shot]{Screen shot of the tweet list on the SentiGraph application. Screen shot taken the same day as Manchester United confirmed Sir Alex Fergusons retirement. The tweets shown is an excerpt of the entire list of tweets. The tweets have different background colours according to their sentiment.}
+ \caption[SentiGraph tweet list screen shot]{Screen shot of the tweet list on the SentiGraph application. Screen shot taken the same day as Manchester United confirmed Sir Alex Fergusons retirement. The tweets shown are an excerpt of the entire list of tweets. The tweets have different background colours according to their sentiment.}
  \label{fig:sentigraph_2}
 \end{center}
 \end{figure}
 
 
-SentiGraph allows the user to define a search query and the number of tweets to be returned. The maximum limit supported by the Twitter API is 100 tweets per query. The returned tweets are processed in JavaScript, and for the timeline view, each tweet's HTML container element are given a CSS colour code to indicate its sentiment. This can be seen in~figure~\ref{fig:sentigraph_2}. In addition to colouring the container, the script also inserts the author's profile picture, and the date and time the tweet was published. The script waits for all data in each tweet container to be completely downloaded before it renders them in a chronological order. While the application is downloading the data, a loading screen appears in the timeline view. This is mainly to avoid collapsing HTML elements and design flaws because of missing data, but it is also an indication that the application is busy.
+SentiGraph allows the user to define a search query and the number of tweets to be returned. The maximum limit supported by the Twitter API is 100 tweets per query. The returned tweets are processed in JavaScript, and for the timeline view, each tweet's HTML container element is given a CSS colour code to indicate its sentiment. This can be seen in~figure~\ref{fig:sentigraph_2}. In addition to colouring the container, the script also inserts the author's profile picture, and the date and time the tweet was published. The script waits for all data in each tweet container to be completely downloaded before it renders them in a chronological order. While the application is downloading the data, a loading screen appears in the timeline view. This is mainly to avoid collapsing HTML elements and design flaws because of missing data, but it is also an indication that the application is busy.
 
-The combined pie and bar chart supports some interaction from the user. When clicking one the bars in the bar chart, it shows how many tweets that are predicted as the selected class. By clicking one of the sectors in the pie chart it will display the percentage of tweets in that class.
+The combined pie and bar chart supports some interaction from the user. When clicking one of the bars in the bar chart, it shows how many tweets that are predicted as the selected class. By clicking one of the sectors in the pie chart it will display the percentage of tweets in that class.
 
-An overview of all the views and the application can be seen in~figure~\ref{fig:sentigraph_screenshot}. The top has the query input box, and on the left side the plots are visible (seen in detail in~figure~\ref{fig:sentigraph_1}). All the tweets that form the plots can be seen in detail in the timeline as seen in~figure~\ref{fig:sentigraph_2}.
+An overview of all the views and the application can be seen in~figure~\ref{fig:sentigraph_screenshot}. The top has the query input box, and on the left side the plots are visible (seen in detail in~figure~\ref{fig:sentigraph_1}). All the tweets that form the plots can be seen in detail in the timeline displayed in~figure~\ref{fig:sentigraph_2}.
 
-\subsection{Comparing Queries: SentiStack}
+\subsection{SentiStack: Comparing Queries}
 
-SentiStack is an application to easily compare sentiments between an arbitrary amount of search queries. SentiStack uses the Twitter Search API to retrieve data, and visualises the data as a bar stack per search query. If there is three queries, three bar stacks will be presented in the graph. A bar stack consists of three values; neutral tweets, positive tweets and negative tweets. See a screen shot of the final product in figure~\ref{fig:sentistack_screenshot}.
+SentiStack is an application to easily compare sentiments between an arbitrary amount of search queries. SentiStack uses the Twitter Search API to retrieve data, and visualises the data as a bar stack per search query. If there are three queries, three bar stacks will be presented in the graph. A bar stack consists of three values: neutral tweets, positive tweets and negative tweets. See a screen shot of the final product in figure~\ref{fig:sentistack_screenshot}.
 
 
 \begin{figure}[htb!]
@@ -397,9 +397,9 @@ SentiStack is an application to easily compare sentiments between an arbitrary a
 
 Like SentiGraph, SentiStack is a client side application, and does not require any server side code base. This means that the application can be easily distributed and run locally without any server running to execute the code. 
 
-There are two different aspects to the SentiStack code: input queries, and output graph. Communication with the input form happens through events. When the SentiStack system is initiated, it listens for three events: when a new query is requested, when the "toggle input boxes" button is clicked, and when the "Compare" button is triggered. If one of these events are triggered, an attached method will respond and execute appropriate code; either append input box, hide input boxes or initiate comparison and present the result as a graph.
+There are two different aspects to the SentiStack code: input queries, and output graphs. Communication with the input form happens through events. When the SentiStack system is initiated, it listens for three events: a new query is requested, the "toggle input boxes" button is clicked, and the "Compare" button is triggered. If one of these events is triggered, an attached method will respond and execute appropriate code; either append input box, hide input boxes or initiate comparison and present the result as a graph.
 
-When the "Compare" button is pressed, the system extracts each query from the input boxes, and constructs a query list. This query list will be iterated and a total of 200 tweets from each query will be retrieved from the Search API using AJAX. As the API responds in JSON, the data can be easily parsed and manipulated. All results from the queries are accumulated in a hash map using the query as a key and a list of the sentiment distribution for that query (e.g. 70 neutral, 70 positive and 60 negative) as a value. When every API request is done, the presentation method is triggered.
+When the "Compare" button is pressed, the system extracts each query from the input boxes, and constructs a query list. This query list will be iterated and a total of 200 tweets from each query will be retrieved from the Search API using AJAX. As the API responds in JSON, the data can be easily parsed and manipulated. All results from the queries are accumulated in a hash map using the query as a key and a list of the sentiment distribution for that query (e.g., 70 neutral, 70 positive and 60 negative) as a value. When every API request is done, the presentation method is triggered.
 
 The presentation method uses the accumulated data hash map as a source and generates a graph based on that information. For each key in the hash map, a bar stack is generated with the value as distribution for the parts of the stack. The search queries (hash map keys) are used as labels for the graph.
 
@@ -407,7 +407,7 @@ If compare is triggered again, the system will reset (clearing the data hash map
 
 \subsubsection{Working Product}
 
-When opening the SentiStack system, an empty input box is shown, without any graph. The graph will only appear when requested by the "Compare" button. When entering queries in the input boxes and pressing "Compare" the graph will be generated and presented as visible in~figure~\ref{fig:sentistack_screenshot}. 
+When opening the SentiStack system, an empty input box is shown, without any graph. The graph will only appear when requested by the "Compare" button. When entering queries in the input boxes and pressing "Compare" the graph will be generated and presented as shown in~figure~\ref{fig:sentistack_screenshot}. 
 
 To add a new query to the system, the "Add Query" link is used. When pressing the link, the last input box is cloned and the cloned box is appended to the list without any value. This process is shown in~figure~\ref{fig:sentistack_addquery}. There are no limitations of the number of queries that can be added, but if there are many of them, the query labels can be hard to read in the graph. If there are many queries, the graph will be pushed down on the page. To avoid this, the "Toggle hide" button can be used. This button toggles the visibility of all except the first input boxes. 
 
@@ -419,7 +419,7 @@ To add a new query to the system, the "Add Query" link is used. When pressing th
 \end{center}
 \end{figure}
 
-Details for the different queries is visible by hovering over a given bar stack in the graph. The details consists of the number of positive, negative and neutral tweets, as well as the percentage for each of these classifications. This detailed view can be seen in~figure~\ref{fig:sentistack_details}.
+Details for the different queries is visible by hovering over a given bar stack in the graph. The details consist of the number of positive, negative and neutral tweets, as well as the percentage for each of these classifications. This detailed view can be seen in~figure~\ref{fig:sentistack_details}.
 
 \begin{figure}[htb!]
 \begin{center}
