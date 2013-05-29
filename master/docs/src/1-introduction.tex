@@ -1,6 +1,6 @@
 \chapter{Introduction}
 
-The introduction chapter first defines the task description. Background and Motivation for this task is given in~section~\ref{sec:motivation}, followed by an overview of the project goals in~section~\ref{sec:projectgoals} and in~section~\ref{sec:contribution} the project contribution is summarised. In the last section of the introduction, an overview of this report is described. 
+The introduction chapter first defines the task description. Background and Motivation for this task is given in~section~\ref{sec:motivation}, followed by an overview of the project goals in~section~\ref{sec:projectgoals} and in~section~\ref{sec:contribution} the project contribution is summarised. During the project, we participated in a workshop, which is described in~section~\ref{sec:semevalintro}. In the last section of the introduction, an overview of this report is described. 
 
 This report is the result of a Master thesis at Department of Computer and Information Science, \nom{NTNU}{Norwegian University of Science and Technology}, 2013. 
 
@@ -20,26 +20,26 @@ In this project, the goal is to use the Twitter corpus to do Sentiment Analysis 
 \section{Background and Motivation}
 \label{sec:motivation}
 
-Twitter has become a popular social media service often referred to as a micro-blogging site. On Twitter users can post messages of maximum 140 characters, called tweets, on their own \emph{timeline}. A timeline is a collection of all user submitted tweets and all tweets from the other users that a user is connected to (following). Tweets can be categorized by using hashtags. A hashtag can, for instance, look like \emph{\#happy} or \emph{\#obama2012}. By annotating the tweets with this tag, users can find similar tweets across Twitter. Tweets often also contain references to other users by using the $@$-character followed by the user name (e.g. \emph{$@$obama}) or references to pictures or articles via URLs.
+Twitter has become a popular social media service often referred to as a micro-blogging site. On Twitter users can post messages of maximum 140 characters, called tweets, on their own \emph{timeline}. A timeline is a collection of all user submitted tweets and all tweets from the other users that a user is connected to (following). Tweets can be categorized by using hashtags. A hashtag can, for instance, look like \emph{\#happy} or \emph{\#obama2012}. By annotating the tweets with this tag, users can find similar tweets across Twitter. Tweets often also contain references to other users by using the $@$-character followed by the user name (e.g., \emph{$@$obama}) or references to pictures or articles via URLs.
 
 Twitter has grown very rapidly and the usage statistics is ever changing. In June 2012, there were posted over 400 million tweets every day~\citep{site:twitterusage}. With over 500 million users, where about 170 million of these are active ones~\citep{site:users}, it is safe to say that Twitter offers a lot of data.
 
+The growth in Twitter users and status updates (tweets) over the last years has made Twitter an attractive platform for companies, marketeers, politicians and others who are looking for feedback. Manually collecting information like this is a tedious if not impossible task.
+
 The informal nature of Twitter leads to a lot of sentiments being posted and this has made Twitter a gold mine for sentiment analysis (\nom{SA}{Sentiment Analysis}). Many systems have used Twitter as corpus for SA. The first one to really use Twitter as a corpus was Sentiment140 (previously known as TwitterSentiment) by a group of Stanford students~\citep{article:go}. After this paper, and as Twitter grew in popularity, many other systems have been developed. Some of the later ones are TwiSent and C-Feel-IT~\citep{mukherjee2012twisent}, Tweenator~\citep{saif2012semantic} and MSAS~\citep{chamlertwat2012discovering}.
 
-Many systems are using a single step, three way, classification for sentiments. But another approach is to do a two step classification, where the subjectivity is classified first, and in step two, the polarity is predicted. Subjectivity classification is the task of classifying if a tweet is subjective or objective. \cite{article:pak} counted word frequencies in a subjective vs an objective set of tweets; the results showed that interjections and personal pronouns are the strongest indicators of subjectivity. If the tweet is classified as objective (or neutral), no further classification is required. If the tweet is subjective, however, it requires polarity classification. Polarity classification will classify between positive and negative tweets.~\cite{article:omg} experimented with different solutions for tweet polarity classification, and found that the best performance came from using n-grams together with a lexicon and micro-blog features. Interestingly, performance dropped when a part-of-speech (POS) tagger was included. They speculate that this can be due to the accuracy of the POS tagger itself, or that POS tagging just is less effective for analysing tweet polarity.
-
-The growth in Twitter users and status updates (tweets) over the last years has made Twitter an attractive platform for companies, marketeers, politicians and others who are looking for feedback. Manually collecting information like this is a tedious if not impossible task.
+Many systems are using a single step, three way, classification for sentiments. Another approach is to do a two step classification, where the subjectivity is classified first, and in step two, the polarity is predicted. \textit{Subjectivity classification} is the task of classifying a tweet as subjective or objective. \cite{article:pak} counted word frequencies in a subjective vs an objective set of tweets; the results showed that interjections and personal pronouns are the strongest indicators of subjectivity. If the tweet is classified as objective (or neutral), no further classification is required. If the tweet is subjective, however, it requires polarity classification. \textit{Polarity classification} will classify between positive and negative tweets.~\cite{article:omg} experimented with different solutions for tweet polarity classification, and found that the best performance came from using n-grams together with a lexicon and micro-blog features. Interestingly, performance dropped when a part-of-speech (POS) tagger was included. They speculate that this can be due to the accuracy of the POS tagger itself, or that POS tagging just is less effective for analysing tweet polarity.
 
 The informal texts on social media represent challenges for traditional natural language processing systems. These texts are short, and often con- tain misspellings, slang and abbreviations. The challenge of handling such a vocabulary has only been researched over the last few years.
 
-Another interesting feature is that Twitter messages offer a lot of meta data and information about their origin, such as location, language, and more. These data could for example be used to filter out and classify tweets from a certain event, like a festival or a conference.
+Another interesting feature is that Twitter messages offer a lot of meta data and information about their origin, such as location, language, and more. These data could, for example, be used to filter out and classify tweets from a certain event, like a festival or a conference.
 
-For visualising sentiment data, not as much has been done. Sentiment140, by~\cite{article:gimpel}, has some rudimentary visualising with pie and bar charts\footnote{\url{http://www.sentiment140.com/}}. \cite{article:wefeelfine} developed an emotional search engine with different advanced techniques for visualising mood, but not for three way classification for sentiment on Twitter.
+For visualising sentiment data, not as much has been done. Sentiment140, by~\cite{article:gimpel}, has some rudimentary visualising with pie and bar charts.\footnote{\url{http://www.sentiment140.com/}} \cite{article:wefeelfine} developed an emotional search engine with different advanced techniques for visualising mood, but not for three-way classification for sentiment on Twitter.
 
 \section{Project Goals}
 \label{sec:projectgoals}
 
-In this section, the main goals of for this project are described.
+In this section, the main goals of this project are described.
 
 \begin{description}
 
@@ -55,24 +55,24 @@ In this section, the main goals of for this project are described.
 \label{sec:contribution}
 
 \begin{itemize}
-\item[\textbf{C1}] This thesis provides a definition of the state-of-the-art for Twitter Sentiment Analysis.
+\item[\textbf{C1}] A literary study of the state-of-the-art for Twitter Sentiment Analysis. 
 
-\item[\textbf{C2}] A general system architecture for doing Twitter Sentiment Analysis is implemented. 
+\item[\textbf{C2}] The implementation of a general system architecture for doing Twitter Sentiment Analysis. 
 
-\item[\textbf{C3}] Different machine learning algorithms are compared for the task of identifying sentiments in short messages in a fairly semi-independent domain.
+\item[\textbf{C3}] A comparison of different machine learning algorithms for the task of identifying sentiments in short messages in a fairly semi-independent domain.
 
-\item[\textbf{C4}] Visualisation applications are implemented, showing how to use data from the generic system and examples of how to show sentiment analysis data.
- 
+\item[\textbf{C4}] Implementations of a set of visualisation applications, showing how to use data from the generic system and providing examples of how to present sentiment analysis data.
 \end{itemize}
 
 \section{SemEval'13}
+\label{sec:semevalintro}
 
 During the course of this project, a workshop for semantic analysis systems, called SemEval'13, was held. The workshop had several different shared tasks, amongst others a task for building a message polarity classification system. In relation to this workshop, data sets were published to the participants. To take advantage of this and to formally test our system, we participated in the workshop and submitted a paper. 
 
 \section{Thesis Structure}
 \label{sec:structure}
 
-In Chapter 2, the existing solutions and current state of the art is described. In Chapter 3, data sets and machine learning theory is described. The system architecture and model is presented and documented in Chapter 4. Chapter 4 also has a complete description of the visualisation application architecture and how the applications work. In Chapter 5 experiments and results regarding different approaches for doing Sentiment Analysis is described. Chapter 6 includes evaluation and discussions of the results. In Chapter 7 the report is concluded and future work is proposed. 
+In Chapter 2, the existing solutions and current state-of-the-art are described. In Chapter 3, data sets and machine learning theory are described. The system architecture and model is presented and documented in Chapter 4. Chapter 4 also has a complete description of the visualisation application architecture and how the applications work. In Chapter 5 experiments and results regarding different approaches for doing Sentiment Analysis are described. Chapter 6 includes evaluation and discussions of the results. In Chapter 7 the report is concluded and future work is proposed. 
 
 % \section{Examples REMOVEME!}
 

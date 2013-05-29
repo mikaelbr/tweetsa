@@ -1,27 +1,29 @@
-\chapter{State of the Art}
+\chapter{State-of-the-Art}
 
-A systematic literature review (\nom{SLR}{Systematic Literature Review}) was conducted to establish the state of the art of a Twitter Sentiment Analysis (\nom{TSA}{Twitter Sentiment Analysis}) system. The method and results is documented in this chapter. The first section, Section~\ref{sec:slrintro}, covers the introduction and defines our research questions. The review method is described in Section~\ref{sec:slrmethod} and the result in Section~\ref{sec:slrresults}.
+A systematic literature review (\nom{SLR}{Systematic Literature Review}) was conducted to establish the state-of-the-art of a Twitter Sentiment Analysis (\nom{TSA}{Twitter Sentiment Analysis}) system. The method and results is documented in this chapter. The first section, Section~\ref{sec:slrintro}, covers the introduction and defines our research questions. The review method is described in Section~\ref{sec:slrmethod} and the results in Section~\ref{sec:slrresults}.
+
+As a workshop on TSA was conducted after defining the state-of-the-art, a lot of additional work has been done in the field. Updates to the state-of-the-art can be found in~Section~\ref{sec:stateofart_post}. Related work in visualisation is described in~Section~\ref{sec:visualisation_state}.
 
 \section{Introduction}
 \label{sec:slrintro}
 
-SLRs are still new in the field of computer science. There are few examples of an SLR in practice. The method we used is heavily inspired by the documentation paper by~\cite{paper:slrdesc} and the Master's thesis by~\cite{master:slr}. \\
+SLRs are still new in the field of Computer Science. There are few examples of an SLR in practice. The method we used is heavily inspired by the documentation paper by~\cite{paper:slrdesc} and the Master's thesis by~\cite{master:slr}. \\
 
 \noindent We defined our research questions (\nom{RQ}{Research Question}) as the following:
 
 \begin{description}
 
-\item[RQ1] What are some of the existing solutions for SA (sentiment analysis) in the Twitter Corpus.
-\item[RQ2] How does the different solutions found by addressing RQ1 compare to each other with respect to micro-blogs like Twitter.
+\item[RQ1] What are some of the existing solutions for SA (sentiment analysis) in the Twitter Corpus?
+\item[RQ2] How does the different solutions found by addressing RQ1 compare to each other with respect to micro-blogs like Twitter?
 \item[RQ3] What is the strength of the evidence in support of the different solutions?
 \item[RQ4] What implications will these findings have when creating the application/system?
 
 \end{description}
 
-\section{Review method}
+\section{Review Method}
 \label{sec:slrmethod}
 
-In this section we will describe our process step by step according to the systematic literature review. 
+In this section we will describe our process step by step according to the systematic literature review protocol as defined by and shown in~Appendix~\ref{apx:slrp}.
 
 \subsection{Planning}
 
@@ -33,11 +35,11 @@ In this section we will describe our process step by step according to the syste
 	\item[2. Commissioning a review] \hfill \\
 		Assumed to be commissioned for this project, so no commission report was produced. 
 
-	\item[3. Specifying the research question(s)] \hfill \\
+	\item[3. Specifying the research question(s), RQs] \hfill \\
 		We defined the RQs based on what we felt needed to be researched when finding the state-of-the-art for sentiment analysis systems on Twitter. The RQs can be seen in Section~\ref{sec:slrintro}. 
 
 	\item[4. Developing a review protocol] \hfill \\
-		The review protocol \nom{SLRP}{Systematic Literature Review Protocol} was developed in the early stages of the project. After the first revision it was evaluated by the project supervisor. The protocol was revised several times during the execution of the review.
+		The systematic literature review protocol \nom{SLRP}{Systematic Literature Review Protocol} was developed in the early stages of the project. After the first revision, it was evaluated by the project supervisor. The protocol was revised several times during the execution of the review.
 	
 
 	\item[5. Evaluating the review protocol] \hfill \\
@@ -54,10 +56,11 @@ In this section we will describe our process step by step according to the syste
 		We defined a series of keywords and synonyms to construct a search string to use. The search string was defined to find papers relevant to our research questions. The development of this search string is documented by Appendix~\ref{apx:slrp}. The search string we used was:
 		
 		\begin{verbatim}
-		("Sentiment Analysis" OR "Sentiment Classification" 
-		OR "Opinion Mining") AND (Twitter OR Microblog)
+		("Sentiment Analysis" OR "Sentiment 
+		Classification" OR "Opinion Mining") 
+		AND (Twitter OR Microblog)
 		\end{verbatim}
-		
+
 		For the search domain, we used Google Scholar. Google Scholar accumulates results from several different sources and gave many results for our search. A lot of the results given corresponded to the studies handed out by the project supervisor, a domain expert. 
 		
 		We limited the search to only give papers released after 2008. This is due to Twitter being as new as it is.
@@ -67,12 +70,12 @@ In this section we will describe our process step by step according to the syste
 		
 
 	\item[2. Selection of primary studies] \hfill \\
-		First, we defined a set of primary inclusion criteria. These criteria were applied to the title and abstract of the study. If a paper did not pass the criteria, it was dropped from the set. Secondly we defined secondary inclusion criteria. These criteria were checked against the full text of the study. These inclusion criteria are documented in the protocol in~\autoref{apx:slrp}. 
+		First, we defined a set of primary inclusion criteria. These criteria were applied to the title and abstract of the study. If a paper did not pass the criteria, it was dropped from the set. In addition we defined secondary inclusion criteria. These criteria were checked against the full text of the study. These inclusion criteria are documented in the protocol in~\autoref{apx:slrp}. 
 		
 		After both selection processes, we had a set of 23 papers. 
 
 	\item[3. Study quality assessment] \hfill \\
-		With the help of \cite{paper:slrdesc} we defined a set of 10 quality criteria. All of the criteria are documented in the protocol in~\autoref{apx:slrp}. Each of the papers in our set was assessed with all of these criteria. If the paper met the criteria, it would get 1 point, if met partly it would get 0,5 points, and if it did not meet the criteria it would get 0 points. 
+		Using the description of \cite{paper:slrdesc} we defined a set of 10 quality criteria. All of the criteria are documented in the protocol in~\autoref{apx:slrp}. Each of the papers in our set was assessed according to all of these criteria. If the paper met the criteria, it would get 1 point; if it partially met them, it would get 0,5 points; and if it did not meet the criteria, it would get 0 points. 
 		
 		The papers with the lowest score did not get taken as much into consideration when defining the state-of-the-art. 
 		
@@ -113,7 +116,7 @@ Section~\ref{sec:stateofart} answers the research questions given as a part of t
 \subsection{Selected studies} 
 \label{sec:selected}
 
-In this section all of the selected studies are presented in table format as a part of the data extraction step in the SLR. The results can be found in~\autoref{tab:extraction}. In addition to the data features defined in the review protocol, the total quality is added to be a part of the extraction table.
+All of the selected studies are presented in table format as a part of the data extraction step in the SLR. The results can be found in~\autoref{tab:extraction}. In addition to the data features defined in the review protocol, the total quality is added to be a part of the extraction table.
 
 \input{2-state_of_the_art/slr/extractiontable}
 
@@ -125,31 +128,31 @@ In \autoref{tab:quality} all the individual points for the quality criteria are 
 \label{sec:stateofart}
 \input{2-state_of_the_art/tsa}
 
-\subsection{State-of-the-Art Post SemEval'13}
+\section{State-of-the-Art Post SemEval'13}~\label{sec:stateofart_post}
 
 The SLR was performed before the SemEval'13 tasks~\citep{WilsonEA:13}. This means that a lot of work has been done on TSA after the state-of-the-art was defined. Many of the points are still relevant, but some additional information can be extracted. 
 
-In relation to SemEval'13,~\cite{MohammadEA:13} defined and implemented a state-of-the-art system. The system implemented by~\cite{MohammadEA:13}, is described as the strongest system by~\cite{WilsonEA:13}, showing the highest F-measure on both tweets and SMS.
+In relation to SemEval'13,~\cite{MohammadEA:13} defined and implemented a state-of-the-art system. The system implemented by~\cite{MohammadEA:13}, is described as the strongest system by~\cite{WilsonEA:13}, showing the highest F-measure on both tweets and SMS. Hence we will describe it in further detail below.
 
-\subsubsection{Sentiment Lexicon}
+\subsection{Sentiment Lexicon}
 
-The system developed by~\cite{MohammadEA:13}, used lexica to help classify sentiment. In addition to using existing general lexica like the NRC Emotion Lexicon~\citep{mohammad2010emotions, mohammad2011tracking}, MPQA Lexicon~\citep{wilson2005recognizing}, and the Bing Liu Lexicon~\citep{hu2004mining}, they also used Twitter specific lexica. One Twitter specific lexicon was developed for the system by streaming from the Twitter API from April to December 2012, using 78 different seed words as hash tags~\citep{MohammadEA:13}. In addition to their own lexicon, the Sentiment140 lexicon created by~\cite{article:go} was used.
+The system developed by~\cite{MohammadEA:13}, used lexica to help classify sentiment. In addition to using existing general lexica like the NRC Emotion Lexicon~\citep{mohammad2010emotions, mohammad2011tracking}, the MPQA Lexicon~\citep{wilson2005recognizing}, and the Bing Liu Lexicon~\citep{hu2004mining}, \cite{MohammadEA:13} also used Twitter specific lexica. One Twitter specific lexicon was developed for the system by streaming from the Twitter API from April to December 2012, using 78 different seed words as hash tags~\citep{MohammadEA:13}. In addition to their own Twitter specific lexicon, the Sentiment140 lexicon created by~\cite{article:go} was used.
 
-\subsubsection{Classifier and Features}
+\subsection{Classifier and Features}
 
 As with many previous systems (e.g. \cite{article:bermingham}, \cite{chamlertwat2012discovering}, \cite{zhang2011combining}, \cite{asiaee2012if}), supervised learning with SVM was used on the training data provided by SemEval'13. The classification was done in one step, classifying three ways (neutral, positive and negative)~\citep{MohammadEA:13}.
 
 URLs and user names were normalised to placeholder text (\textit{http://someurl} and  $@$$someuser$) and the tweets were tokenized and part-of-speech tagged using a tool for doing natural language processing on Twitter by~\cite{gimpel2010part}. 
 
-The features used were word ngrams, character ngrams, number of words in all caps, POS tags, hashtags, lexica, punctuations, emoticons, the number of elongated words (e.g. $goooood$), clusters and the number of negated contexts. \cite{MohammadEA:13} found that using all these features gave the best performance for F-measure.
+The features used were word ngrams, character ngrams, number of words in all caps, POS tags, hashtags, lexica, punctuations, emoticons, the number of elongated words (e.g., $goooood$), clusters, and the number of negated contexts. \cite{MohammadEA:13} found that using all these features gave the best performance for F-measure.
 
 
-\subsection{Visualisation: State-of-the-Art}
+\section{Visualisation: State-of-the-Art}~\label{sec:visualisation_state}
 
-The distribution and visualisation of sentiment data has not been given as much focus as the actual classification of the data. Sentiment140\footnote{\url{http://www.sentiment140.com/}}, the system developed by~\cite{article:go}, uses searching with bar charts and pie charts to visualise positive and negative sentiment. In addition it shows all tweets the sentiment is calculated from, even the neutral tweets.
+The distribution and visualisation of sentiment data has not been given as much focus as the actual classification of the data. Sentiment140,\footnote{\url{http://www.sentiment140.com/}} the system developed by~\cite{article:go}, uses searching with bar charts and pie charts to visualise positive and negative sentiment. In addition it shows all tweets the sentiment is calculated from, even the neutral tweets.
 
 TweetFeel\footnote{\url{http://www.tweetfeel.com/}} is also a popular site for visualisation of Twitter sentiment. It was used by~\cite{barbosa2010robust} to generate a data set for their experiments. TweetFeel shows a textual stream of tweets matching a given search query. The matched query or keyword in the tweet text are highlighted as either green or red, depending on the sentiment.
 
-Another visualisation SMM\footnote{\url{http://smm.streamcrab.com/}}. SMM is a Sentiment Analysis tool developed as a open source project and is distributed at Github\footnote{\url{https://github.com/cyhex/smm}}. The visualisation of SMM is a bit more complex than the previous systems. The user can choose whether or not to stream data, and there are five different views used to plot sentiment. Three views have plots focusing on showing negative, positive and neutral tweets developed over time, where the x-axis indicate the number of seconds ago and the y-axis show accumulated score. Another view in SMM shows a pie chart with percentage of neutral, positive and negative tweets. The last view shows the individual tweets and their sentiment score as defined by a number between -1 and 1.
+Another system, using a different presentation, is SMM.\footnote{\url{http://smm.streamcrab.com/}} SMM is a Sentiment Analysis tool developed as a open source project and distributed at Github.\footnote{\url{https://github.com/cyhex/smm}} The visualisation of SMM is a bit more complex than the previous systems. The user can choose whether or not to stream data, and there are five different views used to plot sentiment. Three views have plots focusing on showing negative, positive and neutral tweets developed over time, where the x-axis indicates seconds and the y-axis shows accumulated score. Another view in SMM shows a pie chart with percentage of neutral, positive and negative tweets. The last view shows the individual tweets and their sentiment score as defined by a number between -1~and~1.
 
-Although WeFeelFine, by~\cite{article:wefeelfine} is not a SA system like the previously noted systems, it is worth mentioning as it focuses a lot on visualising data partly collected from Twitter. WeFeelFine is a system that has tracked feelings from blogs and Twitter since 2005. The feelings can be anything from hunger to sleepiness. The data is presented in a creative way, where as a collection of moving graphical nodes, float around on the page, represents each feeling felt. One can search and filter on feelings, gender, weather, location and date. When clicking on a node, the text where the feeling was extracted from is shown. 
+Although WeFeelFine, by~\cite{article:wefeelfine} is not a SA system like the previously noted systems, it is worth mentioning as it focuses a lot on visualising data partly collected from Twitter. WeFeelFine is a system that has tracked feelings from blogs and Twitter since 2005. The feelings can be anything from hunger to sleepiness. The data is presented in a creative way, where a collection of moving graphical nodes, float around on the page, represents each feeling felt. One can search and filter on feelings, gender, weather, location and date. When clicking on a node, the text that the feeling was extracted from is shown. 
