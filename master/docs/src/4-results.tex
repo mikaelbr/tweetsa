@@ -1,15 +1,9 @@
-\chapter{Experiments and Results}
-
-The experiments were executed as described in section~\ref{sec:experiment}, and the results that followed are defined in section~\ref{sec:results}.
-
-\section{Description of Experiment}
+\chapter{Experimental Setups}
 \label{sec:experiment}
+
 To experiment with different solutions for sentiment analysis, a system testing platform and code base was developed. This testing system generates and trains different models based on input arguments as default values for algorithms and type of algorithm. The architecture and flow of this system is described as a part of section~\ref{sec:classifier_arch}.
 
-The testing system can take in a set of parameters to use for an algorithm, like pre-processor methods, whether or not to use inverse document frequency (\nom{IDF}{Inverse Document Frequency}) or stop words and so on, or a grid search flag can be set. If the grid search option is activated, a model is generated with the best possible parameters set for the given algorithm. The grid search is conducted using k-fold cross validation, and the set of parameters to search across. The parameter search space is reflected in table~\ref{tab:gridsearch_params}.
-
-
-\begin{table}[!htb]
+\begin{table}[t!]
 \centering
 \begin{tabular}{|r||c|c|c|} 
 \cline{2-4}
@@ -29,13 +23,16 @@ Use Sublinear IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
 \label{tab:gridsearch_params}
 \end{table}
 
-\subsection{Pre-processing and Feature Selection}
+The testing system can take in a set of parameters to use for an algorithm, like pre-processor methods, whether or not to use inverse document frequency (\nom{IDF}{Inverse Document Frequency}) or stop words, and so on, or a grid search flag can be set. If the grid search option is activated, a model is generated with the best possible parameters set for the given algorithm. The grid search is conducted using k-fold cross validation, and the set of parameters to search across. The parameter search space is reflected in table~\ref{tab:gridsearch_params}. The following parameters were included in the search. Three binary ($Yes$/$No$) parameters: $Use IDF$, $Use Smooth IDF$, and $Use Sublinear IDF$, together with $ngram$ ($unigram$/$bigram$/$trigram$). SVM and MaxEnt models in addition included $C$ and NB models $alpha$ parameters, all with the value ranges [$0.1/0.3/0.5/0.7/0.8/1.0$]. MaxEnt models also had \textit{penalty} ($L1$/$L2$).
+
+
+\section{Pre-processing and Feature Selection}
 
 This section describes the different pre-processing implementations used; what placeholders, negation attachment and reducing letter duplications is.
 
-To find the best features to use and what kind of pre-processing was the best, a set of 8 different combination of pre-processing methods was designed. The different methods include no pre-processing, where all characters are included as features, full remove where all special Twitter features like user names, URLs, hash tags and emoticons are stripped and one where the Twitter features are replaced with placeholder texts to reduce vocabulary. A full view of the pre-processing methods can be viewed in~table~\ref{tab:preproc_desc}.
+To find the best features to use and what kind of pre-processing was the best, a set of 8 different combinations of pre-processing methods was designed. The different methods include no pre-processing, where all characters are included as features; full remove where all special Twitter features like user names, URLs, hash tags and emoticons are stripped; and one where the Twitter features are replaced with placeholder texts to reduce vocabulary. A full overview of the pre-processing methods is given in~table~\ref{tab:preproc_desc}.
 
-\begin{table}[!htb]
+\begin{table}[t!]
 	\centering
 	\begin{tabular}{|r||c|c|c|c|c|c|c|c|}
 		% P1  -> no\_usernames
@@ -77,32 +74,32 @@ To find the best features to use and what kind of pre-processing was the best, a
 	\label{tab:preproc_desc}
 \end{table}
 
-\subsubsection{Removing features}
-To reduce the vocabulary and to get more precise classification, some features were tried omitted. User names are most likely to be considered noisy, but in some cases it may be relevant for a text's sentiment. The same goes for a URL, \nom{RT}{Re-Tweet}-tag and emoticon. Some methods, like P1, P2, P4, P5 and P7 considers the user names noisy and removes them from the text. Removing features will remove all notion of the feature, unlike when replacing it with a placeholder.
+\subsection{Removing features}
+To reduce the vocabulary and to get more precise classification, some features were omitted. User names are most likely to be considered noisy, but in some cases they may be relevant for a text's sentiment. The same goes for URLs, \nom{RT}{Re-Tweet}-tags and emoticons. Some methods, like P1, P2, P4, P5 and P7 consider the user names noisy and remove them from the text. Removing features will remove all notion of the feature, unlike when replacing it with a placeholder.
 
-\subsubsection{Replacing with placeholders}
-There might be a chance that URLs or user names are relevant for the sentiment. Not necessarily the value of the name or URL it self, but the fact that there are references to URLs and user names. To make these features more informative for the machine learning algorithms a pre-processing method (P3) was implemented for replacing them with placeholder texts. This means that a user name like $@$$someuser$ is replaced by the text $||U||$. $||U||$ was chosen as it is very unlikely that it would be a part of a original tweet. Hash-tags ($\#hash$) are replaced with $||H||$ and URLs with $||URL||$. 
+\subsection{Replacing with placeholders}
+There might be a chance that URLs or user names are relevant for the sentiment. Not necessarily the value of the name or URL itself, but the fact that there are references to URLs and user names. To make these features more informative for the machine learning algorithms, a pre-processing method (P3) was implemented for replacing them with placeholder texts. This means that a user name like $@$$someuser$ is replaced by the text $||U||$. $||U||$ was chosen as it is very unlikely that it would be a part of the original tweet. Hash-tags ($\#hash$) are replaced by $||H||$ and URLs by $||URL||$. 
 
-\subsubsection{Reducing letter duplication}
-By reducing and normalizing excessive letter duplications like "I'm sooooooo happyyyyyyyy!!!!!!", the vocabulary is reduced and the classification can perform better. However, there might be that the word "sooooo" is more sentimentally charged than the proper form of the word "so". The sentence "I'm sooooooo happyyyyyyyy!!!!!!" is more positive polar than the statement "I'm so happy!".
+\subsection{Reducing letter duplication}
+By reducing and normalizing excessive letter duplications like "I'm sooo-ooo happyyyyyyyy!!!!!!", the vocabulary is reduced and the classification can perform better. However, there might be that the word "sooooo" is more sentimentally charged than the proper form of the word "so". The sentence "I'm sooooooo happyyyyyyyy!!!!!!" is more positive polar than the statement "I'm so happy!".
 
 To reduce the vocabulary but not lose information, all duplicates of more than three consecutive characters are reduced to exactly three duplications. So "I'm sooooooo happyyyyyyyy!!!!!!" would be changed to "I'm sooo happyyy!!!", and the same goes for "I'm sooooooooooooooo happyyyyyyyy!!!!!!". This way the additional sentiment is preserved.
 
-\subsubsection{Attaching negation}
+\subsection{Attaching negation}
 
-The negation word "not" can change the polarity of an entire sentence. The sentence "I am happy" is obviously positive, and "I am not happy" negative. If using unigrams, the features of the second sentence would have been $('I', 'am', 'not', 'happy')$ and for the first one $('I', 'am', 'happy')$. Both having the word "happy" in them, and if that were to be a significant feature for positive classification, the negative sentence could be classified as negative.
+The negation word "not" can change the polarity of an entire sentence. The sentence "I am happy" is obviously positive, and "I am not happy" negative. If using unigrams, the features of the second sentence would have been $('I', 'am', 'not', 'happy')$ and for the first one $('I', 'am', 'happy')$. Both having the word "happy" in them, and if that were to be a significant feature for positive classification, the negative sentence could be classified as positive.
 
-By attaching the negation word the the preceding and the following the features will also reflect the change in polarity. So the features for the negative sentence would be $('I', 'am-not', 'not-happy')$.
+By attaching the negation word to the preceding and the following word, the features will also reflect the change in polarity. So the features for the negative sentence would be $('I', 'am-not', 'not-happy')$.
 
-\subsection{SemEval'13}
+\section{SemEval'13}
 
-The system from this Master's Thesis, participated in a workshop with focus on semantic analysis systems. SemEval'13\footnote{\url{http://www.cs.york.ac.uk/semeval-2013/}} had several shared tasks, but we took part of Task 2B; building a message polarity classification system in Twitter. The task had two parts: unconstrained and constrained systems. The unconstrained system required a training set in addition to the one provided by SemEval'13, and the constrained system could only use the provided set. To test the systems beyond Twitter, SemEval'13 also evaluated the systems using a Short Message (or Messaging) Service~(\nom{SMS}{Short Message (or Messaging) Service}) test set. Thus, there were a total of four different deliveries to SemEval'13: Twitter unconstrained and constrained, and SMS unconstrained and constrained.
+The system from this Master's Thesis participated in a workshop with focus on semantic analysis systems. SemEval'13\footnote{\url{http://www.cs.york.ac.uk/semeval-2013/}} had several shared tasks, but we only took part in Task 2B; building a message polarity classification system in Twitter. The task had two parts: unconstrained and constrained systems. The unconstrained system allowed for a training set in addition to the one provided by SemEval'13, while the constrained system could only use the provided set. To test the systems beyond Twitter, SemEval'13 also evaluated the systems using a Short Message (or Messaging) Service~(\nom{SMS}{Short Message (or Messaging) Service}) test set. Thus, there were a total of four different deliveries to SemEval'13: Twitter unconstrained and constrained, and SMS unconstrained and constrained.
 
-\subsection{Visualisation Applications}
+\section{Visualisation Applications}
 
-To test the visualisation applications an experiment to predict the outcome of the Eurovision Song Contest~(\nom{ESC}{Eurovision Song Contest}), was conducted.
+To test the visualisation applications, an experiment to predict the outcome of the Eurovision Song Contest~(\nom{ESC}{Eurovision Song Contest}) was conducted.
 
-Eurovision Song Contest is a popular annual cross Europe song contest. Each country participate with their selected song, and every country vote for their favourite song to win the contest. A country can not vote on their own song. In addition to tele-voting in each country, a country also has a panel of judges giving expert opinions.
+Eurovision Song Contest is a popular annual cross-Europe song contest. Each country participates with their selected song, and every country vote for their favourite song to win the contest. A country cannot vote on their own song. In addition to tele-voting in each country, a country also has a panel of judges giving expert opinions.
 
 ESC has historically been criticized for being too political, but research can indicate otherwise. \cite{ginsburgh2008eurovision} show that the amount of vote trading is rather minimal and that the voting is more cultural and geographical than political. Furthermore, \cite{ginsburgh2008eurovision} suggest that immigration can have some impact on voting. In any case, it may be plausible that the amount of tele-voters for ESC is equal to the amount of people tweeting about a given country contribution.
 
@@ -113,33 +110,38 @@ To predict the outfall of ESC, the SentiStack application was used. This allows 
 %After the Oklahoma Tornado disaster\footnote{2013 Moore tornado: \url{http://en.wikipedia.org/wiki/2013_Moore_tornado}}, the experiment executed was to observe the SentiMap application, and see how the natural disaster affected the sentiment across the nation. 
 
 
-\section{Experiment Results}
+\chapter{Results}
 \label{sec:results}
 
-The experiment results is split into two different subsections. In the first subsection, the full grid search results are defined. In the latter, a detailed comparison of the best algorithms can be found.
 
-\subsection{Full Grid Search}
+The experimental results is split into four different sections. In the first section, the full grid search results are defined. In the second, a detailed comparison of the best algorithms can be found. \ref{sec:semeval_result} describes the result from SemEval'13, and~Section~\ref{sec:esc_result} covers the ESC experiment.
 
-As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F1-score and accuracy for each of the classifiers with dev set 1 as evaluation data. We notice that most of the classifiers that involves the NB algorithm has a bad performance, both for accuracy and F1-score. This was observed for other dev sets as well. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F1-score.
+\section{Full Grid Search}
 
-\begin{sidewaysfigure}[!htb]
- \begin{center}
-     \includegraphics[width=\linewidth]{../img/plots/grid/full_biggersize.png}
- \end{center}
- \caption[Results overview across all models]{A full overview of the performance of the different models after a full grid search. Two models points out as having highest accuracies: SVM and MaxEnt. One can also see models using Naive Bayes, especially on it's own or to classify subjectivity, performs poorly.}
- \label{fig:results_full}
-\end{sidewaysfigure}
+As described above, an extensive grid search was conducted. This search cycled through different algorithms, parameters and preprocessing techniques. Figure~\ref{fig:results_full} displays the precision, recall, F1-score and accuracy for each of the classifiers with dev 1 as evaluation data. We notice that most of the classifiers that involve the NB algorithm have a bad performance, both for accuracy and F1-score. Further, we can see that the MaxEnt classifier has the best accuracy, while SVM has a slightly better F1-score.
 
 Two-step models with SVM-based subjectivity classification exhibit the same basic behaviour. The one-step MaxEnt model classifies more tweets as neutral than the other classifiers. Using MaxEnt for subjectivity classification and either MaxEnt or SVM for polarity classification performs well, but is too heavy on the positive class. Boosting does not improve and behaves in a fashion similar to two-step MaxEnt models. All combinations involving NB tend to heavily favour positive predictions; only the two-step models involving another algorithm for polarity classification gave some improvement for negative tweets.
 
-We can also see that all the classifiers with SVM tends to give a better confusion matrix than the others. This is shown in Figures~\ref{fig:confmat_svm} - \ref{fig:confmat_boosting}. The confusion matrices that include SVM indicates that it has a more precise classification of negative instances than the others. In tests where NB is used, the system leans much more to the positive class than the other models.
+We can also see that all the classifiers with SVM tend to give a better confusion matrix than the others. This is shown in Figures~\ref{fig:confmat_svm} - \ref{fig:confmat_boosting}. The figures show what classifications that were correct. The columns are [$negative$, $neutral$, $positive$]. This means that the top left box is how many tweets that were classified as negative, and actually were negative, the box to the left is how many tweets were classified as neutral, but was negative. The blue colour indicate low number of tweets, and the red colour indicate a high number. What we would like to see is a red colour on the diagonal. The confusion matrices that include SVM indicate that it has a more precise classification of negative instances than the others. In tests where NB is used, the system leans much more to the positive class than the other models.
 
-\begin{minipage}[!htb]{\linewidth}
+As a part of the grid search, the system applied all the different preprocessing methods for each classifier. Figure~\ref{fig:preprocess_usage} shows that $P2$ (removing user names, URLs, hash- tags prefixes, retweet tokens, and redundant letters) is the preprocessing method which performs best (gives the best accuracy) and thus used most often (10 times). Figure~\ref{fig:preprocess_usage} also indicates that URLs are noisy and do not contain much sentiment, while hashtags and emoticons tend to be more valuable features ($P2$ and $P7$ \textemdash~removing URLs \textemdash~perform best, while $P4$ and $P5$ \textemdash~removing hashtags and emoticons in addition to URLs \textemdash~perform badly).
+
+\begin{sidewaysfigure}[tb!]
+ \begin{center}
+     \includegraphics[width=\linewidth]{../img/plots/grid/full_biggersize.png}
+ \end{center}
+ \caption[Results overview across all models]{A full overview of the performance of the different models after a full grid search. Two models stand out as having highest accuracies: SVM and MaxEnt. One can also see that models using Na\"{i}ve Bayes, especially on its own or to classify subjectivity, perform poorly.}
+ \label{fig:results_full}
+\end{sidewaysfigure}
+
+\clearpage
+
+\begin{minipage}[t!]{\linewidth}
      \centering
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_SVM.png}
-           \caption[Plot showing the confusion matrix for SVM]{Confusion matrix for the model using SVM. Performs well on both neutral and positive predictions, but somewhat poor on negative.}
+           \caption[Plot showing the confusion matrix for SVM]{Confusion matrix for the model using SVM. Performs well on both neutral and positive predictions, but somewhat poorly on negative.}
            \label{fig:confmat_svm}
           \end{figure}
      \end{minipage}
@@ -147,18 +149,14 @@ We can also see that all the classifiers with SVM tends to give a better confusi
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_MaxEnt.png}
-           \caption[Plot showing the confusion matrix for MaxEnt]{Confusion matrix for the model using MaxEnt. Performs especially good on neutral tweets, but seem to be classifying neutral too much.}
+           \caption[Plot showing the confusion matrix for MaxEnt]{Confusion matrix for the model using MaxEnt. Performs especially good on neutral tweets, but seems to be classifying neutral too much.}
            \label{fig:confmat_maxent}
           \end{figure}
      \end{minipage}
- \end{minipage}    
- 
- \begin{minipage}[!htb]{\linewidth}
-      \centering
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_NB.png}
-           \caption[Plot showing the confusion matrix for NB]{Confusion matrix for the model using NB. Performs very well for positive tweets, but seem to favour it too much.}
+           \caption[Plot showing the confusion matrix for NB]{Confusion matrix for the model using NB. Performs very well for positive tweets, but seems to favour them too much.}
            \label{fig:confmat_nb}
           \end{figure}
      \end{minipage}
@@ -166,18 +164,18 @@ We can also see that all the classifiers with SVM tends to give a better confusi
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-NB.png}
-           \caption[Plot showing the confusion matrix for two-step NB -> NB]{Confusion matrix for the two-step model using NB for both subjectivity/objectivity and polarity classification. Shows the same trend as when using NB in a one-step model. Model favours positive predictions.}
+           \caption[Plot showing the confusion matrix for two-step NB -> NB]{Confusion matrix for the two-step model using NB for both subjectivity/objectivity and polarity classification. Shows the same trend as when using NB in a one-step model: the model favours positive predictions.}
            \label{fig:confmat_nb_nb}
           \end{figure}
      \end{minipage}
 \end{minipage}
 
-\begin{minipage}[!htb]{\linewidth}
+\begin{minipage}[t!]{\linewidth}
      \centering
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-SVM.png}
-           \caption[Plot showing the confusion matrix for two-step NB -> SVM]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and SVM for polarity. Shows the same trend as when using NB in a one-step model. Model favours positive predictions but performing better for negative tweets.}
+           \caption[Plot showing the confusion matrix for two-step NB -> SVM]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and SVM for polarity. Shows the same trend as when using NB in a one-step model: the model favours positive predictions but is performing better for negative tweets.}
            \label{fig:confmat_nb_svm}
           \end{figure}
      \end{minipage}
@@ -185,18 +183,18 @@ We can also see that all the classifiers with SVM tends to give a better confusi
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-NB-MaxEnt.png}
-           \caption[Plot showing the confusion matrix for two-step NB -> MaxEnt]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and SVM for polarity. Shows the same trend as when using the NB -> SVM model. Model favours positive predictions but performing better for negative tweets.}
+           \caption[Plot showing the confusion matrix for two-step NB -> MaxEnt]{Confusion matrix for the two-step model using NB for subjectivity/objectivity classification and SVM for polarity. Shows the same trend as when using the NB -> SVM model: the model favours positive predictions but is performing better for negative tweets.}
            \label{fig:confmat_nb_maxent}
           \end{figure}
      \end{minipage}
 \end{minipage}
 
-\begin{minipage}[!htb]{\linewidth}
+\begin{minipage}[t!]{\linewidth}
      \centering
      \begin{minipage}{0.45\linewidth}
            \begin{figure}[H]
                 \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-NB.png}
-        		\caption[Plot showing the confusion matrix for two-step SVM -> NB]{Confusion matrix for the model using SVM and NB. Performs good for positive tweets, but not as good for neutral and negative.}
+        		\caption[Plot showing the confusion matrix for two-step SVM -> NB]{Confusion matrix for the model using SVM and NB. Performs well for positive tweets, but not as well for neutral and negative.}
             \label{fig:confmat_svm_nb}
            \end{figure}
       \end{minipage}
@@ -204,18 +202,18 @@ We can also see that all the classifiers with SVM tends to give a better confusi
       \begin{minipage}{0.45\linewidth}
            \begin{figure}[H]
                 \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-SVM.png}
-         		\caption[Plot showing the confusion matrix for two-step SVM -> SVM]{Confusion matrix for the model using SVM and SVM. Performs good across the board, and shows a good diagonal colour profile in the plot.}
+         		\caption[Plot showing the confusion matrix for two-step SVM -> SVM]{Confusion matrix for the model using SVM and SVM. Performs well across the board, and shows a good diagonal colour profile in the plot.}
             \label{fig:confmat_svm_svm}
            \end{figure}
       \end{minipage} \\
  \end{minipage}
  
- \begin{minipage}[!htb]{\linewidth}
+ \begin{minipage}[t!]{\linewidth}
       \centering
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-SVM-MaxEnt.png}
-           \caption[Plot showing the confusion matrix for two-step SVM -> MaxEnt]{Confusion matrix for the model using SVM and MaxEnt. Performs good for neutral and positive tweets, but not too well with negative tweets.}
+           \caption[Plot showing the confusion matrix for two-step SVM -> MaxEnt]{Confusion matrix for the model using SVM and MaxEnt. Performs well for neutral and positive tweets, but not too well on negative tweets.}
            \label{fig:confmat_svm_maxent}
           \end{figure}
      \end{minipage}
@@ -223,18 +221,18 @@ We can also see that all the classifiers with SVM tends to give a better confusi
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-NB.png}
-           \caption[Plot showing the confusion matrix for two-step MaxEnt -> NB]{Confusion matrix for the model using MaxEnt and NB. Performs good for positive tweets, but not too well with negative and neutral tweets.}
+           \caption[Plot showing the confusion matrix for two-step MaxEnt -> NB]{Confusion matrix for the model using MaxEnt and NB. Performs well for positive tweets, but not too well on negative and neutral tweets.}
            \label{fig:confmat_maxent_nb}
           \end{figure}
      \end{minipage}
 \end{minipage}
      
-\begin{minipage}[htb!]{\linewidth}
+\begin{minipage}[t!]{\linewidth}
      \centering
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-SVM.png}
-           \caption[Plot showing the confusion matrix for two-step MaxEnt -> SVM]{Confusion matrix for the model using MaxEnt and SVM. Performs good but is too heavy on the positive classification.}
+           \caption[Plot showing the confusion matrix for two-step MaxEnt -> SVM]{Confusion matrix for the model using MaxEnt and SVM. Performs well but is too heavy on the positive classification.}
            \label{fig:confmat_maxent_svm}
           \end{figure}
      \end{minipage}
@@ -242,28 +240,24 @@ We can also see that all the classifiers with SVM tends to give a better confusi
      \begin{minipage}{0.45\linewidth}
           \begin{figure}[H]
                \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Comb-MaxEnt-MaxEnt.png}
-           \caption[Plot showing the confusion matrix for two-step MaxEnt -> MaxEnt]{Confusion matrix for the model using MaxEnt and MaxEnt. As with MaxEnt -> SVM, this model performs good but is too heavy on the positive classification.}
+           \caption[Plot showing the confusion matrix for two-step MaxEnt -> MaxEnt]{Confusion matrix for the model using MaxEnt and MaxEnt. As with MaxEnt -> SVM, this model performs well but is too heavy on the positive classification.}
            \label{fig:confmat_maxent_maxent}
           \end{figure}
      \end{minipage}
 \end{minipage}
 
-\begin{minipage}[htb!]{\linewidth}
+\begin{minipage}[t!]{\linewidth}
      \centering
      \begin{minipage}{0.45\linewidth}
 	     \begin{figure}[H]
 	          \includegraphics[width=\linewidth]{../img/plots/grid/confusion_matrix_Boosting.png}
-	      \caption[Plot showing the confusion matrix for Boosting]{Confusion matrix for the model using Boosting. Showing the same trend as the MaxEnt -> SVM and MaxEnt -> MaxEnt models, tends to classify too much positive.}
+	      \caption[Plot showing the confusion matrix for Boosting]{Confusion matrix for the model using Boosting. Showing the same trend as the MaxEnt -> SVM and MaxEnt -> MaxEnt models: it tends to classify too many tweets as positive.}
 	      \label{fig:confmat_boosting}
 	     \end{figure}
      \end{minipage}
 \end{minipage}
 
-
-
-As a part of the grid search, the system applied all the different preprocessing methods for each classifier. Figure~\ref{fig:preprocess_usage} clearly shows that P2 (removing user names, URLs, hash-tag prefixes, RT-tokens and redundant letters. See table~\ref{tab:preproc_desc}) is the pre-processing method that was most used, i.e., it gave the best accuracy. Figure~\ref{fig:preprocess_usage} also indicates that URLs are noisy, and does not contain any sentiment, and that hash-tags and emoticons are valuable features. We can see that with the P2 pre-processing method, there is no real Twitter specific feature. The hash-tag is included, but used as a regular word.
-
-\begin{figure}[!htb]
+\begin{figure}[b!]
 	\centering
 	\begin{tikzpicture}
 	  \begin{axis}[
@@ -282,18 +276,15 @@ As a part of the grid search, the system applied all the different preprocessing
 			(P6,3) (P1,3) (P3,1)};
 	  \end{axis}
 	\end{tikzpicture}
-	\caption[Statistics of pre-processing usage.]{Statistics of pre-processing usage. Removing all usernames, urls, hash-tag character, RT-tag and excessive letters as features seem to give best performance.}
+	\caption[Statistics of pre-processing usage.]{Statistics of pre-processing usage. Removing all usernames, URLs, hash-tag characters, RT-tags and excessive letters seem to give best performance.}
 	\label{fig:preprocess_usage}
 \end{figure}
 
 \clearpage
-\subsection{SVM vs MaxEnt}
 
-From the full grid search, the best parameters on SVM and MaxEnt was extracted and more detailed tests were done with only using SVM and MaxEnt, without grid searching. The best parameters for the SVM model, was using unigram, P2 pre-processing method, not removing stop words, and a C value of 1.0. For the MaxEnt model, the P3 pre-processing method was used, along with unigrams, IDF, not removing stop words and 0.3 as C value. Penalty for MaxEnt was selected to be L1. Full parameter selection for SVM and MaxEnt is visible in~table~\ref{tab:svm_maxent_best_params}. The SVM and MaxEnt models, with these parameters, were tested with an additional development set (dev set 2).
+\section{SVM vs MaxEnt}
 
-The results for both the SVM and MaxEnt classifiers with dev set 1 are shown in figure~\ref{fig:best_result}. With dev set 2, SVM's performance is much better than MaxEnt's, as seen in table~\ref{tab:performance}. Dev set 1 contain more neutral tweets than dev set 2, which gives us a reason to believe that it favours the MaxEnt classifier. In MaxEnt's confusion matrix from the first search, shown in Figure~\ref{fig:confmat_maxent}, we can see that it classifies more neutral tweets than the other classifiers.
-
-\begin{table}[!htb]
+\begin{table}[t!]
 \centering
 \begin{tabular}{|r||c|c|c|} 
 \cline{2-3}
@@ -309,12 +300,41 @@ C & 1.0 & 0.3 \\ \hline
 penalty &  & L1 \\ \hline
 
 \end{tabular}
-\caption[Selected parameters from grid search]{Table showing an overview of the selected parameters for both the SVM and MaxEnt model. Parameters selected by doing an excessive grid search.}
+\caption[Selected parameters from grid search]{The parameters selected for SVM and MaxEnt models through extensive grid search.}
 \label{tab:svm_maxent_best_params}
 \end{table}
 
+From the full grid search, the best parameters on SVM and MaxEnt were extracted and more detailed tests were carried out only using SVM and MaxEnt, without grid searching. The best parameter setting for the SVM model was using unigram, the $P2$ preprocessing method, not removing stop words, and a $C$ value of $1.0$. For the MaxEnt model, the $P3$ preprocessing method was used, along with unigrams, IDF, not removing stop words, and $0.3$ as $C$ value. The penalty for MaxEnt was selected to be L1. Full parameter selection for SVM and MaxEnt is visible in~table~\ref{tab:svm_maxent_best_params}. The SVM and MaxEnt models, with these parameters, were tested with an additional development set (the data set Dev 2; see table~\ref{tab:datasets}).
 
-\begin{table}[!htb]
+The results for both the SVM and MaxEnt classifiers with Dev 1 are shown in figure~\ref{fig:best_result}. With Dev 2, SVM's performance is much better than MaxEnt's, as seen in table~\ref{tab:performance}. Dev 1 contains more neutral tweets than Dev 2, which gives us a reason to believe that it favours the MaxEnt classifier. In MaxEnt's confusion matrix from the first search, shown in Figure~\ref{fig:confmat_maxent}, we can see that it classifies more neutral tweets than the other classifiers.
+
+\begin{figure}[t!]
+	\centering
+	\begin{minipage}{.45\linewidth}
+		\includegraphics[width=\linewidth]{../img/plots/analysis/maxent_stats_best.png}
+	\end{minipage}
+	\hspace{0.05\linewidth}
+	\begin{minipage}{.45\linewidth}
+		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_stats_best.png}
+	\end{minipage}
+	\caption[Best performance plots for SVM and MaxEnt]{Best performance plots for SVM and MaxEnt. MaxEnt has better Precision and Accuracy, but SVM scores higher on F1-score and Recall.}
+	\label{fig:best_result}
+\end{figure}
+
+\begin{figure}[t!]
+	\centering
+	\begin{minipage}{.45\linewidth}
+		\includegraphics[width=\linewidth]{../img/plots/analysis/maxent_confusion_matrix_best.png}
+	\end{minipage}
+	\hspace{0.05\linewidth}
+	\begin{minipage}{.45\linewidth}
+		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best.png}
+	\end{minipage}
+	\caption[Confusion Matrix for SVM and MaxEnt]{Confusion Matrix for SVM and MaxEnt. MaxEnt favours neutral classification, and performs worse than SVM on both positive and negative classifications.}
+	\label{fig:best_result_confusion}
+\end{figure}
+
+\begin{table}[t!]
 	\centering
 	\begin{tabular}{l|cc|cc} 
 	\noalign{\smallskip}\hline\noalign{\smallskip}
@@ -327,15 +347,37 @@ penalty &  & L1 \\ \hline
 	Accuracy & 0.638  & {\bf 0.645}  & {\bf 0.728}  & 0.581 \\
 	\noalign{\smallskip}\hline\noalign{\smallskip}
 	\end{tabular}
-	\caption[Best classifier performance]{Best classifier performance {\small (bold=best score)}. Shows that using dev set 1 MaxEnt has better accuracy and precision, but SVM performs better in regards to F1-score and recall. For dev set 2, SVM have higher measures across the board.}
+	\caption[Best classifier performance]{Best classifier performance {\small (bold=best score)}. Shows that using Dev 1, MaxEnt has better accuracy and precision, but SVM performs better in regards to F1-score and recall. For Dev 2, SVM has higher measures across the board.}
 	\label{tab:performance}
 \end{table}
 
+\begin{figure}[t!]
+	\centering
+	\begin{minipage}{.45\linewidth}
+		\includegraphics[width=\linewidth]{../img/plots/analysis/maxent_stats_best_diff_test.png}
+	\end{minipage}
+	\hspace{0.05\linewidth}
+	\begin{minipage}{.45\linewidth}
+		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_stats_best_diff_test.png}
+	\end{minipage}
+	\caption[Best performance plots for SVM and MaxEnt for dev set 2]{Best performance plots for SVM and MaxEnt using Dev 2. SVM outperforms MaxEnt with \textbf{0.728} in accuracy versus \textbf{0.581}. SVM performs better according to all measures.}
+	\label{fig:best_result_testset2}
+\end{figure}
 
-To even out the distribution of the different classes, we did a grid search with a reduced training set. Figure~\ref{fig:svm_reduced_1000} and~\ref{fig:svm_reduced_2000} shows SVM's results when reducing the training set to a maximum of 1000 and 2000 tweets per class. The accuracy on SVM is highest on the original training set, but the F1-score and Recall improves on reducing the training set to maximum 2000 per class. See complete effects of reducing training set in~table~\ref{tab:svm_reduced}. The negative classification improves when reducing the training set to maximum 2000 tweets per class, but the accuracy for neutral and positive tweets decrease. Similar observation can be made when reducing the data set to 1000. Negative tweets perform better, but positive and neutral performance is worse. This can be deduced from~figure~\ref{fig:best_result_confusion},~\ref{fig:svm_reduced_2000} and~\ref{fig:svm_reduced_1000}.
+\begin{figure}[t!]
+	\centering
+	\begin{minipage}{.45\linewidth}
+		\includegraphics[width=\linewidth]{../img/plots/analysis/maxent_confusion_matrix_best_diff_test.png}
+	\end{minipage}
+	\hspace{0.05\linewidth}
+	\begin{minipage}{.45\linewidth}
+		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best_diff_test.png}
+	\end{minipage}
+	\caption[Confusion Matrix for MaxEnt and SVM using dev set 2]{Confusion Matrix for MaxEnt and  using dev set 2. The performance difference between SVM and MaxEnt is visible in the confusion matrices as well. SVM shows a solid diagonal colour.}
+	\label{fig:best_result_confusion_testset2}
+\end{figure}
 
-
-\begin{table}[!htb]
+\begin{table}[t!]
 	\centering
 	\begin{tabular}{l|ccc} 
 	\noalign{\smallskip}\hline\noalign{\smallskip}
@@ -351,137 +393,9 @@ To even out the distribution of the different classes, we did a grid search with
 	\label{tab:svm_reduced}
 \end{table}
 
+To even out the distribution of the different classes, we did a grid search with a reduced training set. Figure~\ref{fig:svm_reduced_1000} and~\ref{fig:svm_reduced_2000} show SVM's results when reducing the training set to a maximum of 1000 and 2000 tweets per class. The accuracy of SVM is highest on the original training set, but the F1-score and Recall improves when reducing the training set to maximum 2000 per class. See complete effects of reducing training set in~table~\ref{tab:svm_reduced}. The negative classification improves when reducing the training set to maximum 2000 tweets per class, but the accuracy for neutral and positive tweets decrease. Similar observation can be made when reducing the data set to 1000. Negative tweets perform better, but positive and neutral performance are worse. This can be deduced from~figures~\ref{fig:best_result_confusion},~\ref{fig:svm_reduced_2000} and~\ref{fig:svm_reduced_1000}.
 
-\begin{table}[!htb]
-	\centering
-	\begin{tabular}{|c|c|c|c|}
-	
-		\multicolumn{4}{c}{SVM} \\ \hline
-		
-		\# & Negative & Neutral & Positive \\ \hline\hline
-		
-		1 & no  		& wear & wait \\ \hline
-		2 & didn't  	& tallahassee & nice \\ \hline
-		3 & cancelled  	& 15th & interesting \\ \hline
-		4 & don't  		& 26 & awesome \\ \hline
-		5 & worse  		& at & cool \\ \hline
-		6 & why  		& trip & amazing \\ \hline
-		7 & bad  		& joe & fun \\ \hline
-		8 & worst  		& theres & ! \\ \hline
-		9 & hate  		& arrows & :) \\ \hline
-		10 & shit  		& murphy, & excited \\ \hline
-		11 & sad  		& question & happy \\ \hline
-		12 & sorry  		& plan & love \\ \hline
-		13 & not  		& set & best \\ \hline
-		14 & fuck  		& 8th & great \\ \hline
-		15 & :(  		& paterno & good \\ \hline
-	\end{tabular}
-	
-	\caption[Most informative features for SVM]{Top 15 of the most informative features for SVM}
-	\label{tab:informative_features_svm}
-\end{table}
-
-
-\begin{table}[!htb]
-	\centering
-	\begin{tabular}{|c|c|c|c|}		
-	\multicolumn{4}{c}{MaxEnt} \\ \hline
-	
-	\# & Negative & Neutral & Positive \\ \hline\hline
-	
-	1 & no 	& center & glad \\ \hline
-	2 & don't 	& royal & nice \\ \hline
-	3 & why 	& plan & thanks \\ \hline
-	4 & bad 	& joe & cool \\ \hline
-	5 & shit 	& nov & awesome \\ \hline
-	6 & injury 	& george & interesting \\ \hline
-	7 & cancelled 	& theres & amazing \\ \hline
-	8 & hate 	& arrows & :) \\ \hline
-	9 & worst 	& trip & fun \\ \hline
-	10 & worse 	& set & best \\ \hline
-	11 & fuck 	& question & excited \\ \hline
-	12 & sorry 	& at & love \\ \hline
-	13 & not 	& url & happy \\ \hline
-	14 & sad 	& 8th & good \\ \hline
-	15 & :( 	& paterno & great \\ \hline
-	\end{tabular}
-	
-	\caption[Most informative features]{Top 15 of the most informative features for MaxEnt}
-	\label{tab:informative_features_maxent}
-\end{table}
-
-
-The features in tables~\ref{tab:informative_features_svm} and~Table~\ref{tab:informative_features_maxent}  is the most informative features from each of the classifiers in the second grid search. Some features are represented among the top 15 for both SVM and MaxEnt, and most of these features makes sense. As we did not normalize the features, we can see that some words appears in different forms and degrees (e.g., "worse", "worst" and "don't", "didn't"). For both MaxEnt and SVM, emoticons are listed among the most informative features. In the case of SVM, the exclamation point is an informative feature for positive classification.
-
-We see that for the most part the features seem to make sense, but we see some anomalies. Both SVM and MaxEnt show 'why' as a negative feature, which is normally incorrect. In addition, the most informative positive feature for SVM is wait, which is not a particularly positively charged word.
-
-
-\begin{figure}[!htb]
-	\centering
-	\begin{minipage}{.45\linewidth}
-		\includegraphics[width=\linewidth]{../img/plots/analysis/maxent_stats_best.png}
-	\end{minipage}
-	\hspace{0.05\linewidth}
-	\begin{minipage}{.45\linewidth}
-		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_stats_best.png}
-	\end{minipage}
-	\caption[Best performance plots for SVM and MaxEnt]{Best performance plots for SVM and MaxEnt. MaxEnt has better Precision and Accuracy, but SVM scores higher on F1-score and Recall.}
-	\label{fig:best_result}
-\end{figure}
-
-\begin{figure}[!htb]
-	\centering
-	\begin{minipage}{.45\linewidth}
-		\includegraphics[width=\linewidth]{../img/plots/analysis/maxent_confusion_matrix_best.png}
-	\end{minipage}
-	\hspace{0.05\linewidth}
-	\begin{minipage}{.45\linewidth}
-		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best.png}
-	\end{minipage}
-	\caption[Confusion Matrix for SVM and MaxEnt]{Confusion Matrix for SVM and MaxEnt. MaxEnt favours neutral classification, and performs worse than SVM on both positive and negative classifications.}
-	\label{fig:best_result_confusion}
-\end{figure}
-
-\begin{figure}[!htb]
-	\centering
-	\begin{minipage}{.45\linewidth}
-		\includegraphics[width=\linewidth]{../img/plots/analysis/maxent_stats_best_diff_test.png}
-	\end{minipage}
-	\hspace{0.05\linewidth}
-	\begin{minipage}{.45\linewidth}
-		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_stats_best_diff_test.png}
-	\end{minipage}
-	\caption[Best performance plots for SVM and MaxEnt for dev set 2]{Best performance plots for SVM and MaxEnt using dev set 2. SVM outperforms MaxEnt with \textbf{0.728} in accuracy versus \textbf{0.581}. SVM performs better on all values.}
-	\label{fig:best_result_testset2}
-\end{figure}
-
-\begin{figure}[!htb]
-	\centering
-	\begin{minipage}{.45\linewidth}
-		\includegraphics[width=\linewidth]{../img/plots/analysis/maxent_confusion_matrix_best_diff_test.png}
-	\end{minipage}
-	\hspace{0.05\linewidth}
-	\begin{minipage}{.45\linewidth}
-		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best_diff_test.png}
-	\end{minipage}
-	\caption[Confusion Matrix for MaxEnt and SVM using dev set 2]{Confusion Matrix for MaxEnt and  using dev set 2. The performance difference between SVM and MaxEnt is visible in the confusion matrices as well. SVM shows a solid diagonal colour.}
-	\label{fig:best_result_confusion_testset2}
-\end{figure}
-
-\begin{figure}[!htb]
-	\centering
-	\begin{minipage}{.45\linewidth}
-		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_stats_best_reduced_1000.png}
-	\end{minipage}
-	\hspace{0.05\linewidth}
-	\begin{minipage}{.45\linewidth}
-		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best_reduced_1000.png}
-	\end{minipage}
-	\caption[Performance of SVM when reduced dataset to max 1000 per class]{Performance of SVM when reduced dataset to maximum 1000 per class. Showing better performance on negative tweets, but worse on neutral and positive. Performance generally poorer than without reduction.}
-	\label{fig:svm_reduced_1000}
-\end{figure}
-
-\begin{figure}[!htb]
+\begin{figure}[t!]
 	\centering
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_stats_best_reduced_2000.png}
@@ -490,16 +404,87 @@ We see that for the most part the features seem to make sense, but we see some a
 	\begin{minipage}{.45\linewidth}
 		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best_reduced_2000.png}
 	\end{minipage}
-	\caption[Performance of SVM when reduced dataset to max 2000 per class]{Performance of SVM when reduced dataset to maximum 2000 per class. Showing better recall and F1-Score than without reduction, but poorer accuracy and precision. Some better performance on negative tweets, but poorer on neutral and positive.}
+	\caption[Performance of SVM when reducing the dataset to max 2000 per class]{Performance of SVM when reducing the dataset to maximum 2000 per class. Showing better recall and F1-Score than without reduction, but poorer accuracy and precision. Somewhat better performance on negative tweets, but poorer on neutral and positive.}
 	\label{fig:svm_reduced_2000}
 \end{figure}
 
+\begin{figure}[t!]
+	\centering
+	\begin{minipage}{.45\linewidth}
+		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_stats_best_reduced_1000.png}
+	\end{minipage}
+	\hspace{0.05\linewidth}
+	\begin{minipage}{.45\linewidth}
+		\includegraphics[width=\linewidth]{../img/plots/analysis/svm_confusion_matrix_best_reduced_1000.png}
+	\end{minipage}
+	\caption[Performance of SVM when reducing the dataset to max 1000 per class]{Performance of SVM when reducing the dataset to maximum 1000 per class. Showing better performance on negative tweets, but worse on neutral and positive. Performance is generally poorer than without reduction.}
+	\label{fig:svm_reduced_1000}
+\end{figure}
+
+\begin{table}[t!]
+\small
+	\begin{minipage}{.45\linewidth}
+		\begin{tabular}{|c|c|c|}
+		
+		\multicolumn{3}{c}{SVM} \\ \hline
+
+		Negative & Neutral & Positive \\ \hline\hline
+
+		no  		& wear & wait \\ \hline
+		didn't  	& tallahassee & nice \\ \hline
+		cancelled  	& 15th & interesting \\ \hline
+		don't  		& 26 & awesome \\ \hline
+		worse  		& at & cool \\ \hline
+		why  		& trip & amazing \\ \hline
+		bad  		& joe & fun \\ \hline
+		worst  		& theres & ! \\ \hline
+		hate  		& arrows & :) \\ \hline
+		shit  		& murphy, & excited \\ \hline
+		sad  		& question & happy \\ \hline
+		sorry  		& plan & love \\ \hline
+		not  		& set & best \\ \hline
+		fuck  		& 8th & great \\ \hline
+		:(  		& paterno & good \\ \hline
+		\end{tabular}
+	\end{minipage}
+	\hspace{0.05\linewidth}
+	\begin{minipage}{.45\linewidth}
+		\begin{tabular}{|c|c|c|}		
+		\multicolumn{3}{c}{MaxEnt} \\ \hline
+
+		Negative & Neutral & Positive \\ \hline\hline
+
+		no 	& center & glad \\ \hline
+		don't 	& royal & nice \\ \hline
+		why 	& plan & thanks \\ \hline
+		bad 	& joe & cool \\ \hline
+		shit 	& nov & awesome \\ \hline
+		injury 	& george & interesting \\ \hline
+		cancelled 	& theres & amazing \\ \hline
+		hate 	& arrows & :) \\ \hline
+		worst 	& trip & fun \\ \hline
+		worse 	& set & best \\ \hline
+		fuck 	& question & excited \\ \hline
+		sorry 	& at & love \\ \hline
+		not 	& url & happy \\ \hline
+		sad 	& 8th & good \\ \hline
+		:( 	& paterno & great \\ \hline
+		\end{tabular}
+	\end{minipage}
+	\caption[Most informative features]{Top 15 of the most informative features for SVM and MaxEnt}
+	\label{tab:informative_features}
+\end{table}
+
+The features in table~\ref{tab:informative_features} are the most informative features from each of the classifiers in the second grid search. Some features are represented among the top 15 for both SVM and MaxEnt, and most of these features make sense. As we did not normalize the features, we can see that some words appear in different forms and degrees (e.g., "worse", "worst" and "don't", "didn't"). For both MaxEnt and SVM, emoticons are listed among the most informative features. In the case of SVM, the exclamation mark is an informative feature for positive classification.
+
+We see that for the most part the features seem to make sense, but we see some anomalies. Both SVM and MaxEnt show 'why' as a negative feature, which is normally incorrect. In addition, the most informative positive feature for SVM is 'wait', which is not a particularly positively charged word.
+
 \clearpage
-\subsection{SemEval'13 Results}
+\section{SemEval'13 Results}~\label{sec:semeval_result}
 
 Based on the information from the grid search, two systems were built for SemEval'13. Since one-step SVM-based classification showed the best performance on the training data, it was chosen for the system participating in the constrained subtask, NTNUC. The pre-processing was also the one with the best performance on the provided data, P2 which involves lower-casing all letters; reducing letter duplicates; using hash-tags as words (removing \#); and removing all URLs, user names and RT -tags.
 
-\begin{table}
+\begin{table}[t!]
 
 \centering
 \begin{tabular}{l|cc|cc} 
@@ -524,25 +509,25 @@ As further described by~\citet{WilsonEA:13}, the SemEval'13 shared task involved
 
 Table \ref{tab:semeval_results}~shows the results obtained by the NTNU systems on the SemEval'13 evaluation data, in terms of average precision, recall and F-score for all three classes, as well as average F-score for positive and negative tweets only (F1 + / \textendash; i.e., the measure used to rank the systems participating in the shared task).
 
+THe NTNU system ranked at 24th of 36 on constrained and 10th of 15 on unconstrained. For the SMS task, the NTNU system ranked 5th of 28 constrained systems and 6th of 15 unconstrained.
 
-\subsection{Visualisation Results}
+
+\section{Visualisation Results}~\label{sec:esc_result}
 
 During the experiment a screen shot of the SentiStack system was taken to document the results (see~figure~\ref{fig:sentistack_esc}).
 
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=\linewidth]{../img/sentistack_esc.png}
-	\caption[SentiStack running before the Eurovision Song Contest Final]{The SentiStack application running before the Eurovision Song Contest Final. The order of the bar stacks is equal to the running order: France, Lithuania, Moldova, Finland, Spain, Belgium, Estonia, Belarus, Malta, Russia, Germany, Armenia, The Netherlands, Romania, United Kingdom, Sweden, Hungary, Denmark, Iceland, Azerbaijan, Greece, Ukraine, Italy, Norway, Georgia and Ireland. We see that }
+	\caption[SentiStack running before the Eurovision Song Contest Final]{The SentiStack application running before the Eurovision Song Contest Final. The order of the bar stacks is equal to the running order: France, Lithuania, Moldova, Finland, Spain, Belgium, Estonia, Belarus, Malta, Russia, Germany, Armenia, The Netherlands, Romania, United Kingdom, Sweden, Hungary, Denmark, Iceland, Azerbaijan, Greece, Ukraine, Italy, Norway, Georgia and Ireland.}
 	\label{fig:sentistack_esc}
 \end{figure}
 
-The application was run before the final, but after the semi-finals. The goal were to predict as much of the top 10 list as possible. By sheer guesswork, one could expect to get $\dfrac{10}{26} = 0.3846 \approx 38.5\%$\footnote{10 out of 26 participants.} of the top 10 finalists. 
+The application was run before the final, but after the semi-finals. The goal was to predict as much of the top-10 list as possible. By sheer guesswork, one could expect to get $\dfrac{10}{26} = 0.3846 \approx 38.5\%$\footnote{10 out of 26 participants.} of the top-10 finalists. 
 
-In figure~\ref{fig:sentistack_esc}, the prediction results is shown. By the graph, it is clearly visible that Ireland was predicted to be the obvious winner, followed by Germany, Malta, Finland and Denmark.
+In figure~\ref{fig:sentistack_esc}, the prediction results is shown. By the graph, it is clearly visible that Ireland was predicted to be the winner, followed by Germany, Malta, Finland and Denmark.
 
-
-
-Table~\ref{tab:esc_results} shows an overview of the predictions and the actual results of the ESC 2013. It's clear to se that only 5 of the predicted top 10, actually resulted amongst the top 10, and thus having an accuracy of 50\%. 
+Table~\ref{tab:esc_results} shows an overview of the predictions and the actual results of the ESC 2013. Only 5 of the predicted top-10 actually resulted amongst the top-10; thus the system had an accuracy of 50\%. 
 
 \begin{table}
 
@@ -564,7 +549,7 @@ Table~\ref{tab:esc_results} shows an overview of the predictions and the actual 
 
 \end{tabular}
 
-\caption[Eurovision Song Contest experiment result]{The results of the Eurovision Song Contest versus the predictions from using the SentiStack visualisation application. From the table, it is visible that 50\% of the countries predicted in the top 10, resulted in a position among the top 10. The countries shared between the lists is marked in bold.}
+\caption[Eurovision Song Contest experiment result]{The results of the Eurovision Song Contest versus the predictions from using the SentiStack visualisation application. From the table, it is visible that 50\% of the countries predicted in the top-10, resulted in a position among the top-10. The countries shared between the lists are marked in bold.}
 \label{tab:esc_results}
 \end{table}
 
