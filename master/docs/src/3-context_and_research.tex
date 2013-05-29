@@ -242,7 +242,7 @@ Every application function is its own independent module, and as such is pluggab
 \item Views
 \end{enumerate}
 
-Models holds values and operations to interact with these values. For the SentiMap application, there are three different models; $State$, $TimelineStats$, and $TweetCount$. 
+Models holds values and operations to interact with these values. For the SentiMap application, there are three different models; $State$, $Timeline\hyp{}Stats$, and $TweetCount$. 
 
 The $TimelineStats$ model holds a two-dimensional array with time stamps and sentiment difference as value, and an operation to append attributes to this value. When a set of time stamp and sentiment difference is added to the array, the model broadcasts this change to any listeners, using \textit{events}. 
 
@@ -403,7 +403,7 @@ When the "Compare" button is pressed, the system extracts each query from the in
 
 The presentation method uses the accumulated data hash map as a source and generates a graph based on that information. For each key in the hash map, a bar stack is generated with the value as distribution for the parts of the stack. The search queries (hash map keys) are used as labels for the graph.
 
-If compare is triggered again, the system will reset (clearing the data hash map and query list) and start the entire process again.
+If the compare event is triggered again, the system will reset (clearing the data hash map and query list) and start the entire process again.
 
 \subsubsection{Working Product}
 

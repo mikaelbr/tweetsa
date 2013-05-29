@@ -19,14 +19,14 @@ The SentiStack visualisation application can be used to compare sentiments on di
 
 In this project we have defined the state-of-the-art for Twitter Sentiment Analysis systems, and implemented a generic system with an architecture capable of classifying many tweets per second in a live stream. We found that, by extending the Twitter API and just attaching a value for sentiments, the data can easily be used to implement visualisation applications, or extending existing Twitter-based systems. 
 
-We have tested different machine learning algorithms, reported to work well with TSA, and found that SVM and MaxEnt performs well on domain semi-independent short messages.
+We have tested different machine learning algorithms, reported to work well with Twitter Sentiment Analysis, and found that SVM and MaxEnt performs well on domain semi-independent short messages.
 
 The development of the visualisation applications shows how Twitter sentiment can be used to get opinions on different topics, keywords or from certain locations. It also shows how the combination of the Twitter API and a generic architecture can be used to easily develop different applications that utilize the data produced by the classification system.
 
 \section{Future Work}
 
 An obvious way to extend this work would be to add other classification algorithms to the grid search, e.g., Conditional Random Fields or more elaborate ensembles. There are also several
-features and feature selection methods that could be investigated, such as POS-tagging, like~\cite{article:pak}, and a less na\"{i}ve way of handling negation. Rather than the simple treatment of negation used here, an approach to automatic induction of scope through a negation detector~\citep{CouncillEA:10} could be used.
+features and feature selection methods that could be investigated, such as POS-tagging, like~\cite{article:pak}, and a less na\"{i}ve way of handling negation. Rather than the simple treatment of negation used here, an approach to automatic induction of scope through a negation detector~\citep{CouncillEA:10} could be used. Relational features could also be added, as shown by Karlgren EA and Johansson EA.
 
 To improve the classification on tweets, one can make the system less domain independent by adding more Twitter-specific features, e.g., by utilizing automatic phrase-polarity lexicon extraction \citep{VelikovichEA:10}, or by adding lexica like the AFINN word list by~\cite{article:afinn} that is developed specifically for social media or the Twitter-oriented word lists created by NRC-Canada.
 
