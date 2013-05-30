@@ -123,7 +123,7 @@ As described above, an extensive grid search was conducted. This search cycled t
 
 Two-step models with SVM-based subjectivity classification exhibit the same basic behaviour. The one-step MaxEnt model classifies more tweets as neutral than the other classifiers. Using MaxEnt for subjectivity classification and either MaxEnt or SVM for polarity classification performs well, but is too heavy on the positive class. Boosting does not improve and behaves in a fashion similar to two-step MaxEnt models. All combinations involving NB tend to heavily favour positive predictions; only the two-step models involving another algorithm for polarity classification gave some improvement for negative tweets.
 
-We can also see that all the classifiers with SVM tend to give a better confusion matrix than the others. This is shown in Figures~\ref{fig:confmat_svm} - \ref{fig:confmat_boosting}. The figures show what classifications that were correct. The columns are [$negative$, $neutral$, $positive$]. This means that the top left box is how many tweets that were classified as negative, and actually were negative, the box to the left is how many tweets were classified as neutral, but was negative. The blue colour indicate low number of tweets, and the red colour indicate a high number. What we would like to see is a red colour on the diagonal. The confusion matrices that include SVM indicate that it has a more precise classification of negative instances than the others. In tests where NB is used, the system leans much more to the positive class than the other models.
+We can also see that all the classifiers with SVM tend to give a better confusion matrix than the others. This is shown in Figures~\ref{fig:confmat_svm} - \ref{fig:confmat_boosting}. The figures show what classifications that were correct. The columns are [$negative$, $neutral$, $positive$]. This means that, in the figures, the top left box is how many tweets that were classified as negative, and actually were negative, the box to the right is how many tweets were classified as neutral, but was negative, etc. The blue colour indicate low number of tweets, and the red colour indicate a high number. What we would like to see is a red colour on the diagonal. The confusion matrices that include SVM indicate that it has a more precise classification of negative instances than the others. In tests where NB is used, the system leans much more to the positive class than the other models.
 
 As a part of the grid search, the system applied all the different preprocessing methods for each classifier. Figure~\ref{fig:preprocess_usage} shows that $P2$ (removing user names, URLs, hash- tags prefixes, retweet tokens, and redundant letters) is the preprocessing method which performs best (gives the best accuracy) and thus used most often (10 times). Figure~\ref{fig:preprocess_usage} also indicates that URLs are noisy and do not contain much sentiment, while hashtags and emoticons tend to be more valuable features ($P2$ and $P7$ \textemdash~removing URLs \textemdash~perform best, while $P4$ and $P5$ \textemdash~removing hashtags and emoticons in addition to URLs \textemdash~perform badly).
 
@@ -339,7 +339,7 @@ The results for both the SVM and MaxEnt classifiers with Dev 1 are shown in figu
 	\centering
 	\begin{tabular}{l|cc|cc} 
 	\noalign{\smallskip}\hline\noalign{\smallskip}
-	Data set & \multicolumn{2}{c|}{Dev set 1} & \multicolumn{2}{c}{Dev set 2} \\
+	Data set & \multicolumn{2}{c|}{Dev 1} & \multicolumn{2}{c}{Dev 2} \\
 	Learner  & SVM    & MaxEnt & SVM    & MaxEnt \\
 	\noalign{\smallskip}\hline\noalign{\smallskip}
 	Precision  & 0.627  & {\bf 0.647}   & {\bf 0.700}  & 0.561 \\
@@ -510,7 +510,7 @@ As further described by~\citet{WilsonEA:13}, the SemEval'13 shared task involved
 
 Table \ref{tab:semeval_results}~shows the results obtained by the NTNU systems on the SemEval'13 evaluation data, in terms of average precision, recall and F-score for all three classes, as well as average F-score for positive and negative tweets only (F1 + / \textendash; i.e., the measure used to rank the systems participating in the shared task).
 
-THe NTNU system ranked at 24th of 36 on constrained and 10th of 15 on unconstrained. For the SMS task, the NTNU system ranked 5th of 28 constrained systems and 6th of 15 unconstrained.
+The NTNU system ranked at 24th of 36 on constrained and 10th of 15 on unconstrained. For the SMS task, the NTNU system ranked 5th of 28 constrained systems and 6th of 15 unconstrained.
 
 
 \section{Visualisation Results}~\label{sec:esc_result}
@@ -520,7 +520,7 @@ During the experiment a screen shot of the SentiStack system was taken to docume
 \begin{figure}[htb!]
 	\centering
 	\includegraphics[width=\linewidth]{../img/sentistack_esc.png}
-	\caption[SentiStack running before the Eurovision Song Contest Final]{The SentiStack application running before the Eurovision Song Contest Final. The order of the bar stacks is equal to the running order: France, Lithuania, Moldova, Finland, Spain, Belgium, Estonia, Belarus, Malta, Russia, Germany, Armenia, The Netherlands, Romania, United Kingdom, Sweden, Hungary, Denmark, Iceland, Azerbaijan, Greece, Ukraine, Italy, Norway, Georgia and Ireland.}
+	\caption[SentiStack running before the Eurovision Song Contest Final]{Screen shot of the SentiStack application running before the Eurovision Song Contest Final. The order of the bar stacks is equal to the running order: France, Lithuania, Moldova, Finland, Spain, Belgium, Estonia, Belarus, Malta, Russia, Germany, Armenia, The Netherlands, Romania, United Kingdom, Sweden, Hungary, Denmark, Iceland, Azerbaijan, Greece, Ukraine, Italy, Norway, Georgia and Ireland.}
 	\label{fig:sentistack_esc}
 \end{figure}
 
