@@ -1,10 +1,7 @@
-\chapter{Experimental Setups}
-\label{sec:experiment}
-
+\chapter{Experimental Setups}\label{sec:experiment}
 To experiment with different solutions for sentiment analysis, a system testing platform and code base was developed. This testing system generates and trains different models based on input arguments as default values for algorithms and type of algorithm. The architecture and flow of this system is described as a part of section~\ref{sec:classifier_arch}.
 
 The testing system can take in a set of parameters to use for an algorithm, like pre-processor methods, whether or not to use inverse document frequency (\nom{IDF}{Inverse Document Frequency}) or stop words, and so on, or a grid search flag can be set. If the grid search option is activated, a model is generated with the best possible parameters set for the given algorithm. The grid search is conducted using k-fold cross validation, and the set of parameters to search across. The parameter search space is reflected in table~\ref{tab:gridsearch_params}. The following parameters were included in the search. Three binary ($Yes$/$No$) parameters: $Use IDF$, $Use Smooth IDF$, and $Use Sublinear IDF$, together with $ngram$ ($unigram$/$bigram$/$trigram$). SVM and MaxEnt models in addition included $C$ and NB models $alpha$ parameters, all with the value ranges [$0.1/0.3/0.5/0.7/0.8/1.0$]. MaxEnt models also had \textit{penalty} ($L1$/$L2$).
-
 
 \begin{table}[t!]
 \centering
@@ -28,7 +25,6 @@ Use Sublinear IDF &  \multicolumn{3}{ c| }{ Yes or No } \\ \hline
 
 
 \section{Pre-processing and Feature Selection}
-
 This section describes the different pre-processing implementations used; what placeholders, negation attachment and reducing letter duplications is.
 
 To find the best features to use and what kind of pre-processing was the best, a set of 8 different combinations of pre-processing methods was designed. The different methods include no pre-processing, where all characters are included as features; full remove where all special Twitter features like user names, URLs, hash tags and emoticons are stripped; and one where the Twitter features are replaced with placeholder texts to reduce vocabulary. A full overview of the pre-processing methods is given in~table~\ref{tab:preproc_desc}.
@@ -46,19 +42,6 @@ To find the best features to use and what kind of pre-processing was the best, a
 
 		\cline{2-9}
 	 \multicolumn{1}{c| }{ } & \textbf{None} & \textbf{P1} & \textbf{P2} & \textbf{P3} & \textbf{P4} & \textbf{P5} & \textbf{P6} & \textbf{P7}  \\ \hline
-%	 Remove Usernames                     & & x & x &   & x & x & & x \\ \hline
-%	 		$||U||$ instead of $@username$       & &   &   & x &   &   & & \\ \hline
-%	 		Remove URLs                          & &   & x &   & x & x & & x \\ \hline
-%	 		$||URL||$ instead of real URL        & &   &   & x &   &   & & \\ \hline
-%	 		Remove Hash-tags                     & &   &   &   & x & x & & \\ \hline
-%	 		Hash-tags as words                   & &   & x &   &   &   & & \\ \hline
-%	 		$||H||$ instead of hash-tag          & &   &   & x &   &   & & \\ \hline
-%	 		Remove $RT$-tag                      & &   & x &   & x & x & & \\ \hline
-%	 		Remove emoticons                     & &   &   &   & x & x & & \\ \hline
-%	 		Reduce letter duplicates             & &   & x &   & x &   & x & x \\ \hline
-%	 		Attach negation to surrounding words & &   &   &   & x &   & x & x \\ \hline
-	 
-	 
 		Remove Usernames                     & & x & x &   & x & x & & x \\ \hline
 		Username placeholder       & &   &   & x &   &   & & \\ \hline
 		Remove URLs                          & &   & x &   & x & x & & x \\ \hline
@@ -75,18 +58,18 @@ To find the best features to use and what kind of pre-processing was the best, a
 	\label{tab:preproc_desc}
 \end{table}
 
-\subsection{Removing features}
+\subsection{Removing Features}
 To reduce the vocabulary and to get more precise classification, some features were omitted. User names are most likely to be considered noisy, but in some cases they may be relevant for a text's sentiment. The same goes for URLs, \nom{RT}{Re-Tweet}-tags and emoticons. Some methods, like P1, P2, P4, P5 and P7 consider the user names noisy and remove them from the text. Removing features will remove all notion of the feature, unlike when replacing it with a placeholder.
 
-\subsection{Replacing with placeholders}
+\subsection{Replacing with Placeholders}
 There might be a chance that URLs or user names are relevant for the sentiment. Not necessarily the value of the name or URL itself, but the fact that there are references to URLs and user names. To make these features more informative for the machine learning algorithms, a pre-processing method (P3) was implemented for replacing them with placeholder texts. This means that a user name like $@$$someuser$ is replaced by the text $||U||$. $||U||$ was chosen as it is very unlikely that it would be a part of the original tweet. Hash-tags ($\#hash$) are replaced by $||H||$ and URLs by $||URL||$. 
 
-\subsection{Reducing letter duplication}
+\subsection{Reducing Letter Duplication}
 By reducing and normalizing excessive letter duplications like "I'm sooo-ooo happyyyyyyyy!!!!!!", the vocabulary is reduced and the classification can perform better. However, there might be that the word "sooooo" is more sentimentally charged than the proper form of the word "so". The sentence "I'm sooooooo happyyyyyyyy!!!!!!" is more positive polar than the statement "I'm so happy!".
 
 To reduce the vocabulary but not lose information, all duplicates of more than three consecutive characters are reduced to exactly three duplications. So "I'm sooooooo happyyyyyyyy!!!!!!" would be changed to "I'm sooo happyyy!!!", and the same goes for "I'm sooooooooooooooo happyyyyyyyy!!!!!!". This way the additional sentiment is preserved.
 
-\subsection{Attaching negation}
+\subsection{Attaching Negation}
 
 The negation word "not" can change the polarity of an entire sentence. The sentence "I am happy" is obviously positive, and "I am not happy" negative. If using unigrams, the features of the second sentence would have been $('I', 'am', 'not', 'happy')$ and for the first one $('I', 'am', 'happy')$. Both having the word "happy" in them, and if that were to be a significant feature for positive classification, the negative sentence could be classified as positive.
 
@@ -111,7 +94,7 @@ To predict the outfall of ESC, the SentiStack application was used. This allows 
 %After the Oklahoma Tornado disaster\footnote{2013 Moore tornado: \url{http://en.wikipedia.org/wiki/2013_Moore_tornado}}, the experiment executed was to observe the SentiMap application, and see how the natural disaster affected the sentiment across the nation. 
 
 
-\chapter{Results}
+\chapter{Experimental Results}
 \label{sec:results}
 
 

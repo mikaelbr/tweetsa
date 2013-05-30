@@ -66,9 +66,8 @@ In this section we will describe our process step by step according to the syste
 		We limited the search to only give papers released after 2008. This is due to Twitter being as new as it is.
 		
 		The search resulted in 1060 papers, but after the first 8 pages of results (with 10 papers per page), we found that the papers were mostly irrelevant and we had limited resources and time for handling all 1060 papers. This resulted in a set of 80 papers, ready to go through the selection process.
-		
-		
 
+	 \vspace*{3mm}
 	\item[2. Selection of primary studies] \hfill \\
 		First, we defined a set of primary inclusion criteria. These criteria were applied to the title and abstract of the study. If a paper did not pass the criteria, it was dropped from the set. In addition we defined secondary inclusion criteria. These criteria were checked against the full text of the study. These inclusion criteria are documented in the protocol in~\autoref{apx:slrp}. 
 		
@@ -128,27 +127,22 @@ In \autoref{tab:quality} all the individual points for the quality criteria are 
 \label{sec:stateofart}
 \input{2-state_of_the_art/tsa}
 
-\section{State-of-the-Art Post SemEval'13}~\label{sec:stateofart_post}
-
+\section{State-of-the-Art Post SemEval'13}\label{sec:stateofart_post}
 The SLR was performed before the SemEval'13 tasks~\citep{WilsonEA:13}. This means that a lot of work has been done on TSA after the state-of-the-art was defined. Many of the points are still relevant, but some additional information can be extracted. 
 
 In relation to SemEval'13,~\cite{MohammadEA:13} defined and implemented a state-of-the-art system. The system implemented by~\cite{MohammadEA:13}, is described as the strongest system by~\cite{WilsonEA:13}, showing the highest F-measure on both tweets and SMS. Hence we will describe it in further detail below.
 
-\subsection{Sentiment Lexicon}
-
+\subsection{Sentiment Lexicon}\label{sec:nrc-lexicon}
 The system developed by~\cite{MohammadEA:13}, used lexica to help classify sentiment. In addition to using existing general lexica like the NRC Emotion Lexicon~\citep{mohammad2010emotions, mohammad2011tracking}, the MPQA Lexicon~\citep{wilson2005recognizing}, and the Bing Liu Lexicon~\citep{hu2004mining}, \cite{MohammadEA:13} also used Twitter specific lexica. One Twitter specific lexicon was developed for the system by streaming from the Twitter API from April to December 2012, using 78 different seed words as hash tags~\citep{MohammadEA:13}. In addition to their own Twitter specific lexicon, the Sentiment140 lexicon created by~\cite{article:go} was used.
 
 \subsection{Classifier and Features}
-
-As with many previous systems (e.g. \cite{article:bermingham}, \cite{chamlertwat2012discovering}, \cite{zhang2011combining}, \cite{asiaee2012if}), supervised learning with SVM was used on the training data provided by SemEval'13. The classification was done in one step, classifying three ways (neutral, positive and negative)~\citep{MohammadEA:13}.
+As with many previous systems (e.g., \cite{article:bermingham}, \cite{chamlertwat2012discovering}, \cite{zhang2011combining}, \cite{asiaee2012if}), used~\cite{MohammadEA:13} supervised learning with SVM. The classification was done in one step, classifying three ways (neutral, positive and negative).
 
 URLs and user names were normalised to placeholder text (\textit{http://someurl} and  $@$$someuser$) and the tweets were tokenized and part-of-speech tagged using a tool for doing natural language processing on Twitter by~\cite{gimpel2010part}. 
 
-The features used were word ngrams, character ngrams, number of words in all caps, POS tags, hashtags, lexica, punctuations, emoticons, the number of elongated words (e.g., $goooood$), clusters, and the number of negated contexts. \cite{MohammadEA:13} found that using all these features gave the best performance for F-measure.
+The features used were word ngrams, character ngrams, number of words in all caps, POS tags, hashtags, lexica, punctuations, emoticons, the number of elongated words (e.g., $goooood$), clusters, and the number of negated contexts. \cite{MohammadEA:13} found that using all these features gave the best performance.
 
-
-\section{Visualisation: State-of-the-Art}~\label{sec:visualisation_state}
-
+\section{Visualisation: State-of-the-Art}\label{sec:visualisation_state}
 The distribution and visualisation of sentiment data has not been given as much focus as the actual classification of the data. Sentiment140,\footnote{\url{http://www.sentiment140.com/}} the system developed by~\cite{article:go}, uses searching with bar charts and pie charts to visualise positive and negative sentiment. In addition it shows all tweets the sentiment is calculated from, even the neutral tweets.
 
 TweetFeel\footnote{\url{http://www.tweetfeel.com/}} is also a popular site for visualisation of Twitter sentiment. It was used by~\cite{barbosa2010robust} to generate a data set for their experiments. TweetFeel shows a textual stream of tweets matching a given search query. The matched query or keyword in the tweet text are highlighted as either green or red, depending on the sentiment.
