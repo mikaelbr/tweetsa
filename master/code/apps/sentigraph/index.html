@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>SentiGraph</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <style>
+      html { background-image: url('img/America-seen-from-orbit1284.jpg'); }
+    </style>
+  </head>
+
+  <body>
+    <div class='wrapper'>
+    	<form id='search-form' method="post" class="search-form">
+	        <fieldset>
+	          <legend>Search</legend>
+	          <input type="text" id="tweet-search" placeholder="Search for tweets" />
+	          <input type="number" id="tweet-count" min="10" max="100" value="100" />
+	          <input type="submit" name="Search" class="hide">
+	        </fieldset>
+	      </form>
+	    <div class="container">
+	      <section class="chart-container">
+	        <header>
+	          <h1 id="site-title">Showing all tweets containing the keyword: <i id="keyword"></i></h1>
+	          <p>Total Tweets: <i id="total-tweet-count">0</i></p>
+	        </header>
+	        <div id="chart" class="chart" style="width: 100%; height: 360px;"></div>
+
+	        <aside>
+	          <div id="stats"></div>
+	        </aside>
+
+	        <footer>
+	        </footer>
+	      </section>
+	    </div>
+
+	    <div class="timeline-container">
+	    	<section>
+	        <header>
+	          <h1>Twitter timeline: </h1>
+	        </header>
+	        <div id="timeline" class="timeline" style="width: 100%; height: 360px;">
+	        	<div class="bar" style="display:none;">
+    					<i class="sphere"></i>
+				</div>
+	        	<div id="status-container">
+	        	</div>
+			</div>
+	        <aside>
+	          <div></div>
+	        </aside>
+
+	        <footer>
+	        </footer>
+	      </section>
+	    </div>
+    </div>
+
+    <!-- <section id="overall-stats" class="bottom-stats-block" style="height: 100px"></section> -->
+    <script src="js/libs/jquery.js"></script>
+	<script src="js/libs/highcharts.js"></script>
+	<script src="js/chart.js"></script>
+  </body>
+</html>

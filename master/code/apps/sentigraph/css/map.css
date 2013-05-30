@@ -1,0 +1,113 @@
+.chart-container {
+  padding: 10px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 999;
+  box-shadow: 0 0 7px;
+  border-radius: 5px;
+}
+
+.chart-container header {
+  position: relative;
+}
+
+.chart-container header h1 {
+  margin: 0;
+  font-weight: 100;
+  border-bottom: 2px solid;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+.chart-container header p {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  margin: 0;
+}
+
+.chart-container ul {
+  text-align: center;
+}
+
+.chart-container ul li {
+  list-style-type: none;
+  display: inline-block;
+
+  border: 1px solid #000;
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-size: 0.8em;
+}
+
+.timeline-container {
+  padding: 10px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 999;
+  box-shadow: 0 0 7px;
+  border-radius: 5px;
+}
+
+.timeline-container header h1 {
+  margin: 0;
+  font-weight: 100;
+  border-bottom: 2px solid;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+#status-container {
+  position:absolute;
+  top:40px;
+  left:0px;
+  margin: 10px;
+  max-height: 360px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.status-date {
+  font-style:italic;
+  font-size: 10px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 5px;
+}
+
+.graph-label-red,
+.graph-label-green {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+}
+
+.chart {
+  float: left;
+}
+
+.chart-container aside {
+  float: right;
+}
+
+footer {
+  clear: both;
+  width: 100%;
+}
+
+
+.error-notice {
+  padding: 10px;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+
+.chart-container .notice {
+  margin: 0;
+  font-size: 0.8em;
+  font-style: italic;
+}

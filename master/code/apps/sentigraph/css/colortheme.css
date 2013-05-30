@@ -1,0 +1,60 @@
+
+/* Site Style */
+/*
+body {
+  background: #88bfe8; 
+  background: -moz-radial-gradient(center, ellipse cover,  #88bfe8 0%, #70b0e0 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#88bfe8), color-stop(100%,#70b0e0)); 
+  background: -webkit-radial-gradient(center, ellipse cover,  #88bfe8 0%,#70b0e0 100%);
+  background: -o-radial-gradient(center, ellipse cover,  #88bfe8 0%,#70b0e0 100%); 
+  background: -ms-radial-gradient(center, ellipse cover,  #88bfe8 0%,#70b0e0 100%); 
+  background: radial-gradient(ellipse at center,  #88bfe8 0%,#70b0e0 100%); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#88bfe8', endColorstr='#70b0e0',GradientType=1 ); 
+  background-attachment: fixed;
+}*/
+
+html {
+  background: url('../img/461-1223013714msB6.jpg') no-repeat center center fixed; 
+  /*background: url('../img/1-1275673689tHg9.jpg') no-repeat center center fixed; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+a:link, a:visited {
+  color: #fff;
+}
+
+/* Map colors */
+.chart-container, .timeline-container {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.graph-label-red,
+.graph-label-green {
+  background: rgb(255, 200, 200);
+}
+
+.graph-label-green {
+  background: rgb(200, 255, 200);
+}
+
+.chart-container ul li {
+  border-color: #ddd;
+}
+
+.status-container {
+  border-color: #000;
+}
+
+.error-notice {
+  border-color: #eed3d7;
+  color: #b94a48;
+  background: #f2dede;
+}
+
+.header-info .info {
+  color: #ddd;
+}
+
